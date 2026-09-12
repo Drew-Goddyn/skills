@@ -1,0 +1,17 @@
+interface:
+  display_name: Build Loop
+  short_description: Think together, delegate builds, judge the next step
+  default_prompt: Use $build-loop as my ongoing thinking and review partner for this
+    chosen work. Keep our intent aligned, inspect the available evidence, and recommend
+    the next useful move, including reflection or stopping. When agent work is useful,
+    identify the receiving session and give me one complete message to send. Preserve
+    the builder's technical judgment and our existing scope and authorization.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true
