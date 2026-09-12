@@ -1,6 +1,6 @@
 # Drew’s Skills
 
-Personal agent skills, installable with the [skills CLI](https://github.com/vercel-labs/skills) and compatible with the [Agent Skills format](https://agentskills.io).
+Personal agent skills for ChatGPT and supported coding agents, using the [Agent Skills format](https://agentskills.io).
 
 ## Skills
 
@@ -17,6 +17,14 @@ The four specialist skills complement Build Loop: they supply design, domain-mod
 Publishing the source here does not install it in a ChatGPT account or publish it in ChatGPT's plugin directory.
 
 ## Install
+
+### ChatGPT web
+
+Use the [ChatGPT installation guide](skills/chatgpt%20web/README.md) in a fresh chat to choose skills and install them one at a time. It is ordinary Markdown, not another skill to install.
+
+### Coding agents
+
+These CLI commands target supported coding agents, not a ChatGPT account.
 
 For supported coding agents, run from the project where you want to use the skills:
 
