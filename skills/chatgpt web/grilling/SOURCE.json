@@ -1,0 +1,65 @@
+{
+  "repository": "https://github.com/mattpocock/skills",
+  "revision": "3cca18b368ae95cdbdebbff572ccafa662551015",
+  "commit_date_utc": "2026-09-04T08:43:27Z",
+  "folder": "skills/productivity/grilling/",
+  "source_basis": "Full pinned GitHub folder inventory and file contents read earlier in this conversation. Reused those contents and verified exact Git blob hashes. Direct raw download in this turn was unavailable (container DNS); no newer revision was substituted.",
+  "upstream_folder_inventory": [
+    "SKILL.md",
+    "agents/openai.yaml"
+  ],
+  "files": [
+    {
+      "upstream_path": "skills/productivity/grilling/SKILL.md",
+      "packaged_path": "SKILL.md",
+      "upstream_bytes": 1987,
+      "upstream_git_blob_sha1": "8ca78c6d8f901aab0c5a1f896034b70e666ff2a3",
+      "upstream_sha256": "10ff989e7498b23b5acb49d5048f11dcd906757d2f79c5cdf8a00001381296f2",
+      "adapted_sha256": "e5de5bb75626aad13baa38b4eacb2f650e629613576eb2b760466d52a74b6a40",
+      "adapted_bytes": 4063,
+      "modified": true
+    },
+    {
+      "upstream_path": "skills/productivity/grilling/agents/openai.yaml",
+      "packaged_path": "agents/openai.yaml",
+      "upstream_bytes": 113,
+      "upstream_git_blob_sha1": "ddbdb96139c0c1dfe6bca698f39d0465674b8a39",
+      "upstream_sha256": "1411d7df7d99b7e621a1ff8283c8133cc2464be63d064e52d8ce169c6800ee9b",
+      "adapted_sha256": "0a6833f7321f723d9ecd9533b70c35f42900a57880f99403733f1ff216cc4e6e",
+      "adapted_bytes": 263,
+      "modified": true
+    },
+    {
+      "upstream_path": "LICENSE",
+      "packaged_path": "LICENSE",
+      "upstream_bytes": 1068,
+      "upstream_git_blob_sha1": "f1dd2c09108dde1a5f56097cee8461b3ea834499",
+      "upstream_sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+      "adapted_sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+      "adapted_bytes": 1068,
+      "modified": false
+    }
+  ],
+  "packaging_additions": [
+    "LICENSE",
+    "PROVENANCE.md",
+    "SOURCE.json",
+    "UPSTREAM-CHANGES.patch",
+    "VALIDATION.md",
+    "assets/icon.svg"
+  ],
+  "packaging_files": [
+    {
+      "path": "assets/icon.svg",
+      "sha256": "d80a4c3e0fd2efa7af88433a53b25a92c78a644175c6669dd78fee50fb53acf6",
+      "bytes": 2094,
+      "origin": "User-provided ChatGPT export"
+    }
+  ],
+  "repository_import": {
+    "repository": "https://github.com/Drew-Goddyn/skills",
+    "path": "skills/chatgpt web/grilling",
+    "source_archive": "grilling.zip",
+    "notes": "Skill instructions, interface metadata, icon, license, and historical validation record are unchanged from the supplied archive. Source records and the upstream patch account for the exported UI metadata and icon."
+  }
+}
