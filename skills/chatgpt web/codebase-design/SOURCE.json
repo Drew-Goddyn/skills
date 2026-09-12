@@ -1,0 +1,72 @@
+{
+  "author": "Matt Pocock",
+  "repository": "https://github.com/mattpocock/skills",
+  "revision": "3cca18b368ae95cdbdebbff572ccafa662551015",
+  "commit_date_utc": "2026-09-04T08:43:27Z",
+  "retrieved_date_local": "2026-09-11",
+  "retrieved_timezone": "America/Vancouver",
+  "upstream_folder": "skills/engineering/codebase-design",
+  "source_files": [
+    {
+      "path": "DEEPENING.md",
+      "upstream_path": "skills/engineering/codebase-design/DEEPENING.md",
+      "git_blob_sha1": "cd94075cfd754d147555c5d747a16431ed4c7dd8",
+      "sha256": "f3dd099ce99289bd213914d8ee3e2429b78309c3957ca4583f7659551b1d53c1",
+      "bytes": 2553,
+      "adapted_sha256": "f3dd099ce99289bd213914d8ee3e2429b78309c3957ca4583f7659551b1d53c1",
+      "changed": false
+    },
+    {
+      "path": "DESIGN-IT-TWICE.md",
+      "upstream_path": "skills/engineering/codebase-design/DESIGN-IT-TWICE.md",
+      "git_blob_sha1": "7edc861a31b1b219b933af18079f66b564c5de67",
+      "sha256": "8e740bf98446dbd4dfdc132ac4346d9a7eedaf93de6a495889171cf7f99f16bd",
+      "bytes": 2664,
+      "adapted_sha256": "9196e39ebce2d8f691cc2b967f188dede56fe2f7d5f3a8ce008af6f8486739a1",
+      "changed": true
+    },
+    {
+      "path": "SKILL.md",
+      "upstream_path": "skills/engineering/codebase-design/SKILL.md",
+      "git_blob_sha1": "3f63c8146dd2604b419c929e9876b90c30d410e9",
+      "sha256": "2c20617f87ec8af6a434859f381b2f061a69b530444e74eb39e78bb016a6d1e2",
+      "bytes": 6446,
+      "adapted_sha256": "2c8ea215cd9d454a40bc6a55df61a1963afc8adc7412600914a8d4b25d135189",
+      "changed": true
+    },
+    {
+      "path": "agents/openai.yaml",
+      "upstream_path": "skills/engineering/codebase-design/agents/openai.yaml",
+      "git_blob_sha1": "3180715edb37f6e96bec42f92f00169faa8886ef",
+      "sha256": "edebc9e4fcfe102114012575eaa9600b9b5fd08c311664f389c36e7bc717740f",
+      "bytes": 102,
+      "adapted_sha256": "d1f10e183b27b5336321b216087fe3154799cf718837872a1a9789a64dcc3415",
+      "changed": true
+    }
+  ],
+  "license": {
+    "path": "LICENSE",
+    "git_blob_sha1": "f1dd2c09108dde1a5f56097cee8461b3ea834499",
+    "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+    "bytes": 1068
+  },
+  "runtime": "ChatGPT thinking-and-review partner alongside separately installed Build Loop",
+  "required_external_skill_for_build_loop_work": "build-loop (already installed; not bundled or modified)",
+  "subagent_tool_available_during_preparation": false,
+  "repository_writes_during_preparation": false,
+  "installed": false,
+  "packaging_files": [
+    {
+      "path": "assets/icon.svg",
+      "sha256": "8936b24f674a1250d999e2c2b5901374fb4240426f32bd1ae340c352a90d617d",
+      "bytes": 1738,
+      "origin": "User-provided ChatGPT export"
+    }
+  ],
+  "repository_import": {
+    "repository": "https://github.com/Drew-Goddyn/skills",
+    "path": "skills/chatgpt web/codebase-design",
+    "source_archive": "codebase-design.zip",
+    "notes": "Skill instructions and references are unchanged from the supplied archive. Updated the exported UI metadata hash, added the icon inventory, and extended the upstream patch to account for the supplied agents/openai.yaml."
+  }
+}

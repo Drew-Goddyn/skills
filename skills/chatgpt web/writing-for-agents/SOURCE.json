@@ -1,0 +1,63 @@
+{
+  "author": "Matt Pocock",
+  "repository": "https://github.com/mattpocock/skills",
+  "revision": "3cca18b368ae95cdbdebbff572ccafa662551015",
+  "commit_date_utc": "2026-09-04T08:43:27Z",
+  "retrieved_date_local": "2026-09-11",
+  "retrieved_timezone": "America/Vancouver",
+  "upstream_folder": "skills/productivity/writing-for-agents",
+  "source_files": [
+    {
+      "path": "SKILL-MECHANICS.md",
+      "upstream_path": "skills/productivity/writing-for-agents/SKILL-MECHANICS.md",
+      "git_blob_sha1": "9cdbdb22aadc438755392216e75ad9a14cc9832e",
+      "sha256": "c768e6307c7c10728c401c213f2c4ba71c542127eeb7ad2956aabd15a0fa0059",
+      "bytes": 2629,
+      "adapted_sha256": "0af0fa26696b736199086bf0a31cf312cc424ab0a9a6d056d22ac5f7fdc8b367",
+      "changed": true
+    },
+    {
+      "path": "SKILL.md",
+      "upstream_path": "skills/productivity/writing-for-agents/SKILL.md",
+      "git_blob_sha1": "a37608daf6e835e767deecfb498facecaaba82ba",
+      "sha256": "551adca942227b44192edba88acd4e8db911f0121ce58ad16944ccf6a896a74a",
+      "bytes": 10886,
+      "adapted_sha256": "cc2cd0cb1a16f10d5dac0d8d7a87a5e9b510ef899a6383a6422d3e7436cd4312",
+      "changed": true
+    },
+    {
+      "path": "agents/openai.yaml",
+      "upstream_path": "skills/productivity/writing-for-agents/agents/openai.yaml",
+      "git_blob_sha1": "079c933b75743dec18b5d0c01006def20b6aad26",
+      "sha256": "eacb24b2a618cfb81dacb0416f4fdd75ddf3a8060f8ddb99aae1b1e301907e4b",
+      "bytes": 102,
+      "adapted_sha256": "421075a8a052662fd995858882b0630a445621fe99a0dedc7b3fc5e71ac1b632",
+      "changed": true
+    }
+  ],
+  "license": {
+    "path": "LICENSE",
+    "git_blob_sha1": "f1dd2c09108dde1a5f56097cee8461b3ea834499",
+    "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+    "bytes": 1068
+  },
+  "runtime": "ChatGPT thinking-and-review partner alongside separately installed Build Loop",
+  "required_external_skill_for_build_loop_work": "build-loop (already installed; not bundled or modified)",
+  "subagent_tool_available_during_preparation": false,
+  "repository_writes_during_preparation": false,
+  "installed": false,
+  "packaging_files": [
+    {
+      "path": "assets/icon.svg",
+      "sha256": "49315dda7125ec5fc77ef5f2b96126d8b2121c6e72944b4702972e90f321d3ee",
+      "bytes": 1210,
+      "origin": "User-provided ChatGPT export"
+    }
+  ],
+  "repository_import": {
+    "repository": "https://github.com/Drew-Goddyn/skills",
+    "path": "skills/chatgpt web/writing-for-agents",
+    "source_archive": "writing-for-agents.zip",
+    "notes": "Skill instructions and references are unchanged from the supplied archive. Updated the exported UI metadata hash, added the icon inventory, and extended the upstream patch to account for the supplied agents/openai.yaml."
+  }
+}

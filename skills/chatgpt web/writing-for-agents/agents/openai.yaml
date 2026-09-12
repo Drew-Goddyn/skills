@@ -1,0 +1,12 @@
+interface:
+  display_name: Writing for Agents
+  short_description: Write documents agents consume
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

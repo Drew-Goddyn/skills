@@ -1,0 +1,95 @@
+--- a/ADR-FORMAT.md
++++ b/ADR-FORMAT.md
+@@ -2,7 +2,7 @@
+ 
+ ADRs live in `docs/adr/` and use sequential numbering: `0001-slug.md`, `0002-slug.md`, etc.
+ 
+-Create the `docs/adr/` directory lazily: only when the first ADR is needed.
++Have the builder create the `docs/adr/` directory lazily: only when the first ADR is needed.
+ 
+ ## Template
+ 
+@@ -24,7 +24,7 @@
+ 
+ ## Numbering
+ 
+-Scan `docs/adr/` for the highest existing number and increment by one.
++Read the applicable `docs/adr/` listing at the identified revision and increment the highest existing number by one. Have the builder confirm the final number against its local checkout before writing; if that listing or local-only ADRs are unavailable here, leave the number pending rather than inventing it.
+ 
+ ## When to offer an ADR
+ 
+--- a/CONTEXT-FORMAT.md
++++ b/CONTEXT-FORMAT.md
+@@ -51,10 +51,10 @@
+ - **Ordering ↔ Billing**: Shared types for `CustomerId` and `Money`
+ ```
+ 
+-The skill infers which structure applies:
++Infer which structure applies from inspected repository evidence or an attributed builder report, not from an inaccessible checkout:
+ 
+ - If `CONTEXT-MAP.md` exists, read it to find contexts
+ - If only a root `CONTEXT.md` exists, single context
+-- If neither exists, create a root `CONTEXT.md` lazily when the first term is resolved
++- If neither exists, draft a root `CONTEXT.md` lazily when the first term is resolved and give the builder the intended file; keep repository application explicitly pending
+ 
+ When multiple contexts exist, infer which one the current topic relates to. If unclear, ask.
+--- a/SKILL.md
++++ b/SKILL.md
+@@ -4,6 +4,16 @@
+ ---
+ 
+ # Domain Modeling
++
++## ChatGPT compatibility
++
++Use this specialist guidance alongside the installed **Build Loop**, not as a replacement. For Build Loop work, load its catalog entry if not already loaded (currently `skills://build-loop/skill.md`). Let Build Loop govern coordination, authorization, handoffs, and stopping; use this skill for its subject matter. The human decides; Codex owns the local implementation.
++
++Read bundled Markdown with `api_tool.read_resource`, resolving relative links against this skill's installed resource root as reported by the catalog; follow returned continuations. Discover connector actions with `api_tool.list_resources` and use their actual schemas. Identify the repository and revision for repository reads. ChatGPT's sandbox and a remote branch are not Codex's local checkout or unpushed changes: use accessible artifacts and ask the builder for missing local evidence, clearly distinguishing inspected, reported, and unknown state.
++
++Normally return intended repository changes for the builder to apply. A draft here is not a repository edit. Perform a direct repository write only when explicitly requested, after reading the current artifact and checking for a competing writer. Repository paths mentioned below are project inputs or output targets, not bundled resources. Keep the substantive guidance below intact when applying these environment rules.
++
++Adapted from Matt Pocock. See [PROVENANCE.md](PROVENANCE.md) for revision and changes, and [LICENSE](LICENSE) for the original MIT notice.
+ 
+ Actively build and sharpen the project's domain model as you design. This is the *active* discipline: challenging terms, inventing edge-case scenarios, and writing the glossary and decisions down the moment they crystallise. (Merely *reading* `CONTEXT.md` for vocabulary is not this skill: that's a one-line habit any skill can do. This skill is for when you're changing the model, not just consuming it.)
+ 
+@@ -37,7 +47,7 @@
+ │       └── docs/adr/
+ ```
+ 
+-Create files lazily: only when you have something to write. If no `CONTEXT.md` exists, create one when the first term is resolved. If no `docs/adr/` exists, create it when the first ADR is needed.
++Prepare new files lazily: only when you have something to write. If repository evidence establishes that no `CONTEXT.md` exists, draft one when the first term is resolved and give the builder the intended path and contents. If no `docs/adr/` exists, have the builder create it only when the first ADR is needed. Unknown repository state is not evidence that a file is absent.
+ 
+ ## During the session
+ 
+@@ -55,11 +65,11 @@
+ 
+ ### Cross-reference with code
+ 
+-When the user states how something works, check whether the code agrees. If you find a contradiction, surface it: "Your code cancels entire Orders, but you just said partial cancellation is possible. Which is right?"
++When the user states how something works, check whether the accessible code at the identified revision agrees; request builder evidence for local-only changes. State what you could not inspect. If you find a contradiction, surface it: "Your code cancels entire Orders, but you just said partial cancellation is possible. Which is right?"
+ 
+-### Update CONTEXT.md inline
++### Capture CONTEXT.md updates inline
+ 
+-When a term is resolved, update `CONTEXT.md` right there. Don't batch these up: capture them as they happen. Use the format in [CONTEXT-FORMAT.md](./CONTEXT-FORMAT.md).
++When a term is resolved, draft the exact intended `CONTEXT.md` update right there, with its target path. Don't batch these up: capture them as they happen. Label it pending repository application and include it in the next useful builder handoff; do not claim the file was updated without a write result or attributed builder evidence. Use the format in [CONTEXT-FORMAT.md](./CONTEXT-FORMAT.md).
+ 
+ `CONTEXT.md` should be totally devoid of implementation details. Do not treat `CONTEXT.md` as a spec, a scratch pad, or a repository for implementation decisions. It is a glossary and nothing else.
+ 
+--- a/agents/openai.yaml
++++ b/agents/openai.yaml
+@@ -1,3 +1,12 @@
+ interface:
+-  display_name: "Domain Modeling"
+-  short_description: "Build and sharpen a domain model"
++  display_name: Domain Modeling
++  short_description: Build and sharpen a domain model
++  icon_small: assets/icon.svg
++  icon_large: assets/icon.svg
++policy:
++  products:
++  - chatgpt
++  - codex
++  - api
++  - atlas
++  allow_implicit_invocation: true

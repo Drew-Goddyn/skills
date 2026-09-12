@@ -7,8 +7,11 @@ Personal agent skills, installable with the [skills CLI](https://github.com/verc
 | Category | Skill | Purpose |
 | --- | --- | --- |
 | ChatGPT web | [Build Loop](skills/chatgpt%20web/build-loop/SKILL.md) | An ongoing thinking and review partner for human-directed work with a separate coding agent. |
+| ChatGPT web | [Codebase Design](skills/chatgpt%20web/codebase-design/SKILL.md) | Design deep modules, interfaces, and testable seams. |
+| ChatGPT web | [Domain Modeling](skills/chatgpt%20web/domain-modeling/SKILL.md) | Refine project terminology, glossaries, and architectural decisions. |
+| ChatGPT web | [Writing for Agents](skills/chatgpt%20web/writing-for-agents/SKILL.md) | Write skills and other documents consumed by agents. |
 
-Build Loop includes its interface metadata, icon, and review examples. The category identifies its intended use; the uploaded skill's existing product metadata is preserved.
+The three specialist skills complement Build Loop: they supply design, domain-modeling, and writing guidance while Build Loop handles coordination with the human and separate coding agent. Install Build Loop separately when using that workflow.
 
 Publishing the source here does not install it in a ChatGPT account or publish it in ChatGPT's plugin directory.
 
@@ -74,6 +77,12 @@ npx skills add . --list
 Confirm the expected name and description appear, check supporting paths, and try the skill on a representative task. Discovery alone does not validate the skill’s behavior.
 
 Commit and push the finished skill. No package manifest, build, deployment, or npm publication is needed for this repository layout.
+
+## Credits
+
+**Codebase Design**, **Domain Modeling**, and **Writing for Agents** are unofficial adaptations of [Matt Pocock’s skills](https://github.com/mattpocock/skills), based on upstream revision [`3cca18b`](https://github.com/mattpocock/skills/commit/3cca18b368ae95cdbdebbff572ccafa662551015). These versions are adapted for ChatGPT web’s environment and use alongside Build Loop, including resource access, repository-evidence boundaries, and handoffs to a separate coding agent.
+
+Original copyright: **Copyright (c) 2026 Matt Pocock**. Each adapted skill retains the original MIT `LICENSE`, source inventory, and upstream comparison patch. The adaptation notes are available for [Codebase Design](skills/chatgpt%20web/codebase-design/PROVENANCE.md), [Domain Modeling](skills/chatgpt%20web/domain-modeling/PROVENANCE.md), and [Writing for Agents](skills/chatgpt%20web/writing-for-agents/PROVENANCE.md). These adaptations are not an upstream release or an endorsement by Matt Pocock.
 
 ## skills.sh
 

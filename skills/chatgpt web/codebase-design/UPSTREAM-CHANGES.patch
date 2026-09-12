@@ -1,0 +1,88 @@
+--- a/DESIGN-IT-TWICE.md
++++ b/DESIGN-IT-TWICE.md
+@@ -1,6 +1,6 @@
+ # Design It Twice
+ 
+-When the user wants to explore alternative interfaces for a chosen deepening candidate, use this parallel sub-agent pattern. Based on "Design It Twice" (Ousterhout): your first idea is unlikely to be the best.
++When the user wants to explore alternative interfaces for a chosen deepening candidate, use this competing-design pattern with the execution mode below. Based on "Design It Twice" (Ousterhout): your first idea is unlikely to be the best.
+ 
+ Uses the vocabulary in [SKILL.md](SKILL.md): **module**, **interface**, **seam**, **adapter**, **leverage**.
+ 
+@@ -8,28 +8,28 @@
+ 
+ ### 1. Frame the problem space
+ 
+-Before spawning sub-agents, write a user-facing explanation of the problem space for the chosen candidate:
++Before generating alternative designs, write a user-facing explanation of the problem space for the chosen candidate:
+ 
+ - The constraints any new interface would need to satisfy
+ - The dependencies it would rely on, and which category they fall into (see [DEEPENING.md](DEEPENING.md))
+ - A rough illustrative code sketch to ground the constraints, not a proposal, just a way to make the constraints concrete
+ 
+-Show this to the user, then immediately proceed to Step 2. The user reads and thinks while the sub-agents work in parallel.
++Show this to the user, then immediately proceed to Step 2 in the current turn using the execution mode actually available.
+ 
+-### 2. Spawn sub-agents
++### 2. Generate 3+ alternatives
+ 
+-Spawn 3+ sub-agents in parallel. Each must produce a **radically different** interface for the deepened module.
++When a real sub-agent tool is available and authorized, spawn 3+ sub-agents in parallel and collect their returned work before comparing. Otherwise, produce 3+ separate design passes yourself in this conversation, using the distinct briefs below. Label these **same-agent alternatives, not independent review**. Each must produce a **radically different** interface for the deepened module. Do not claim that agents were launched, that independent review occurred, or that work continues in the background. If independent exploration is necessary, give the builder the briefs through Build Loop and leave that comparison pending actual returned evidence.
+ 
+-Prompt each sub-agent with a separate technical brief (file paths, coupling details, dependency category from [DEEPENING.md](DEEPENING.md), what sits behind the seam). The brief is independent of the user-facing problem-space explanation in Step 1. Give each agent a different design constraint:
++Give each sub-agent or single-agent design pass a separate technical brief (file paths, coupling details, dependency category from [DEEPENING.md](DEEPENING.md), what sits behind the seam). The brief is independent of the user-facing problem-space explanation in Step 1. Give each design a different constraint (the Agent labels below name roles, not claimed workers in the single-agent fallback):
+ 
+ - Agent 1: "Minimize the interface: aim for 1–3 entry points max. Maximise leverage per entry point."
+ - Agent 2: "Maximise flexibility: support many use cases and extension."
+ - Agent 3: "Optimise for the most common caller: make the default case trivial."
+ - Agent 4 (if applicable): "Design around ports & adapters for cross-seam dependencies."
+ 
+-Include both [SKILL.md](SKILL.md) vocabulary and CONTEXT.md vocabulary in the brief so each sub-agent names things consistently with the architecture language and the project's domain language.
++Include both [SKILL.md](SKILL.md) vocabulary and the available project `CONTEXT.md` vocabulary in the brief so each design names things consistently with the architecture language and the project's domain language. Retrieve that project file from the identified repository revision or supplied artifacts; ask the builder for local-only vocabulary when it matters. State a missing glossary rather than inventing one.
+ 
+-Each sub-agent outputs:
++Each design outputs:
+ 
+ 1. Interface (types, methods, params, plus invariants, ordering, error modes)
+ 2. Usage example showing how callers use it
+--- a/SKILL.md
++++ b/SKILL.md
+@@ -4,6 +4,16 @@
+ ---
+ 
+ # Codebase Design
++
++## ChatGPT compatibility
++
++Use this specialist guidance alongside the installed **Build Loop**, not as a replacement. For Build Loop work, load its catalog entry if not already loaded (currently `skills://build-loop/skill.md`). Let Build Loop govern coordination, authorization, handoffs, and stopping; use this skill for its subject matter. The human decides; Codex owns the local implementation.
++
++Read bundled Markdown with `api_tool.read_resource`, resolving relative links against this skill's installed resource root as reported by the catalog; follow returned continuations. Discover connector actions with `api_tool.list_resources` and use their actual schemas. Identify the repository and revision for repository reads. ChatGPT's sandbox and a remote branch are not Codex's local checkout or unpushed changes: use accessible artifacts and ask the builder for missing local evidence, clearly distinguishing inspected, reported, and unknown state.
++
++Normally return intended repository changes for the builder to apply. A draft here is not a repository edit. Perform a direct repository write only when explicitly requested, after reading the current artifact and checking for a competing writer. Repository paths mentioned below are project inputs or output targets, not bundled resources. Keep the substantive guidance below intact when applying these environment rules.
++
++Adapted from Matt Pocock. See [PROVENANCE.md](PROVENANCE.md) for revision and changes, and [LICENSE](LICENSE) for the original MIT notice.
+ 
+ Design **deep modules**: a lot of behaviour behind a small interface, placed at a clean seam, testable through that interface. Use this language and these principles wherever code is being designed or restructured. The aim is leverage for callers, locality for maintainers, and testability for everyone.
+ 
+@@ -111,4 +121,4 @@
+ ## Going deeper
+ 
+ - **Deepening a cluster given its dependencies**, see [DEEPENING.md](DEEPENING.md): dependency categories, seam discipline, and replace-don't-layer testing.
+-- **Exploring alternative interfaces**, see [DESIGN-IT-TWICE.md](DESIGN-IT-TWICE.md): spin up parallel sub-agents to design the interface several radically different ways, then compare on depth, locality, and seam placement.
++- **Exploring alternative interfaces**, see [DESIGN-IT-TWICE.md](DESIGN-IT-TWICE.md): design the interface several radically different ways using available sub-agents or the explicitly labeled single-agent fallback, then compare on depth, locality, and seam placement.
+--- a/agents/openai.yaml
++++ b/agents/openai.yaml
+@@ -1,3 +1,12 @@
+ interface:
+-  display_name: "Codebase Design"
+-  short_description: "Vocabulary for deep-module design"
++  display_name: Codebase Design
++  short_description: Vocabulary for deep-module design
++  icon_small: assets/icon.svg
++  icon_large: assets/icon.svg
++policy:
++  products:
++  - chatgpt
++  - codex
++  - api
++  - atlas
++  allow_implicit_invocation: true

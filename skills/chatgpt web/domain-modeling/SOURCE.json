@@ -1,0 +1,72 @@
+{
+  "author": "Matt Pocock",
+  "repository": "https://github.com/mattpocock/skills",
+  "revision": "3cca18b368ae95cdbdebbff572ccafa662551015",
+  "commit_date_utc": "2026-09-04T08:43:27Z",
+  "retrieved_date_local": "2026-09-11",
+  "retrieved_timezone": "America/Vancouver",
+  "upstream_folder": "skills/engineering/domain-modeling",
+  "source_files": [
+    {
+      "path": "ADR-FORMAT.md",
+      "upstream_path": "skills/engineering/domain-modeling/ADR-FORMAT.md",
+      "git_blob_sha1": "d7e61f30a9fd8ca70d9ee68f019c2a9ebf2d13f7",
+      "sha256": "944c92aa790e8fbdc9199640b170979abb8a34ba8d0fe18c2a01a63bce140ca0",
+      "bytes": 2733,
+      "adapted_sha256": "f937fec14fc0423cf2029cfda2f332e558474be8346949c339379e2456edd298",
+      "changed": true
+    },
+    {
+      "path": "CONTEXT-FORMAT.md",
+      "upstream_path": "skills/engineering/domain-modeling/CONTEXT-FORMAT.md",
+      "git_blob_sha1": "79bbb32f6fda55758b377c980f72a6cb2b8c670e",
+      "sha256": "17ab16ce783e4d2801ee52fd9acdf550cbf44de65ae76797a93943bbedf22a13",
+      "bytes": 2290,
+      "adapted_sha256": "c3b8f53f3a588ee7f528163b2a2d0cde80c41922b7720eea7a3ba8b6412db3d7",
+      "changed": true
+    },
+    {
+      "path": "SKILL.md",
+      "upstream_path": "skills/engineering/domain-modeling/SKILL.md",
+      "git_blob_sha1": "9b97707e19ef1f590aada356f2b3f6bb881f91be",
+      "sha256": "327a2b50620e2fd70abc6893cd6965e76b20f8d0adb0dc2c8d5eb3845efb643e",
+      "bytes": 3331,
+      "adapted_sha256": "f84262236a2f011f3f434602a0ce0c83715e8878b41450f6c59e0d276b186d27",
+      "changed": true
+    },
+    {
+      "path": "agents/openai.yaml",
+      "upstream_path": "skills/engineering/domain-modeling/agents/openai.yaml",
+      "git_blob_sha1": "7f1522d2f11506ee205275ab7c282aa52366ecf6",
+      "sha256": "f6bf2aa996c6e6f53fdd0708e18a0d16a56aed8322cca59fedbe3c0d2c75f06b",
+      "bytes": 101,
+      "adapted_sha256": "2a88ab1f0a1db9acef2250bb074cdeea5b18453671accaf6e2179c753e80de8f",
+      "changed": true
+    }
+  ],
+  "license": {
+    "path": "LICENSE",
+    "git_blob_sha1": "f1dd2c09108dde1a5f56097cee8461b3ea834499",
+    "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+    "bytes": 1068
+  },
+  "runtime": "ChatGPT thinking-and-review partner alongside separately installed Build Loop",
+  "required_external_skill_for_build_loop_work": "build-loop (already installed; not bundled or modified)",
+  "subagent_tool_available_during_preparation": false,
+  "repository_writes_during_preparation": false,
+  "installed": false,
+  "packaging_files": [
+    {
+      "path": "assets/icon.svg",
+      "sha256": "51a6923974188748638a424aa59b42b6afad2d910f910a1d43bb13ee10f3ce26",
+      "bytes": 2182,
+      "origin": "User-provided ChatGPT export"
+    }
+  ],
+  "repository_import": {
+    "repository": "https://github.com/Drew-Goddyn/skills",
+    "path": "skills/chatgpt web/domain-modeling",
+    "source_archive": "domain-modeling.zip",
+    "notes": "Skill instructions and references are unchanged from the supplied archive. Updated the exported UI metadata hash, added the icon inventory, and extended the upstream patch to account for the supplied agents/openai.yaml."
+  }
+}
