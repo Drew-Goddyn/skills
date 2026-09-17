@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "techniques": [
+    {
+      "id": "browser-capture",
+      "use_when": "A short browser flow is ready to rehearse and record.",
+      "entrypoint": "scripts/demo.py:Demo",
+      "usage": "Import Demo into the task driver. Demo(session, scratch). Use run(*args) for native agent-browser commands, ready(expression) for UI state, and with record('take.webm') for capture. DEMO_BROWSER selects an executable. The context writes take.take.json even when the flow fails. Event times use the driver clock after the start response; the recorder starts asynchronously, so align visual actions before treating these as video timecodes.",
+      "limits": "Requires agent-browser with record --fps and ffmpeg on PATH. Fixed 30 fps request. Use a fresh session; record starts on the current page in tested version 0.37.1. No fixture reset or application-specific behavior.",
+      "check": "python3 scripts/preflight.py /absolute/new-scratch-directory",
+      "tested_with": "agent-browser 0.37.1; 0.27.3 produced 10 fps and is unsuitable for the default take"
+    },
+    {
+      "id": "human-pacing",
+      "use_when": "Typing, scrolling, or holds need a deliberate rhythm.",
+      "entrypoint": "scripts/demo.py:Demo.type, Demo.scroll_to, Demo.hold",
+      "usage": "type(selector, text, decisive=True) uses real key events and asserts the value. scroll_to(selector) waits for visible, settled motion. hold(seconds, target) records why the viewer is waiting. Fill unrelated fields before capture through run('fill', selector, text).",
+      "limits": "Typing covers text inputs and textareas. CLI overhead bounds typing speed. Scroll targets must fit in the viewport. Use native driver commands for custom editors, drag gestures, or nested scrolling that needs special handling.",
+      "check": "python3 scripts/test_helpers.py"
+    },
+    {
+      "id": "focus-ring",
+      "use_when": "The changed field or result is easy to miss.",
+      "entrypoint": "scripts/emphasis.js",
+      "usage": "Demo.focus(selector, color=None), then Demo.clear(). The standalone script also exposes window.__productDemo.focus and remove. It follows one live target and works inside modal dialogs. focus waits for finite ancestor entrance animations and confirms the ring has faded in before the reading hold begins.",
+      "limits": "Requires native Popover API. Color uses the product's --c-accent or an explicit CSS color. No captions, dimming, content replacement, or source edits. A hidden or detached target removes the ring.",
+      "check": "python3 scripts/test_helpers.py"
+    },
+    {
+      "id": "moving-preflight",
+      "use_when": "Before a take with a recorder or capture setting not yet verified for this task.",
+      "entrypoint": "scripts/preflight.py; scripts/test_preflight.py",
+      "usage": "python3 scripts/preflight.py /absolute/new-scratch-directory --format mp4. Match the planned take format: mp4 or webm (default). The fixture moves for two seconds, holds fully still for six seconds, then moves in green for two seconds. Retain preflight.media.json, preflight.motion.json, and preflight.fixture.json. Watch the entire preflight video at normal speed; reject it if the green dot does not move after the pause.",
+      "limits": "Uses the capture helper at 1440 by 900. Decoded dot colors and positions catch missing motion after a hold and missing hold time; this check is specific to the fixture and does not certify source cadence or replace playback review. A nonzero exit rejects the selected capture setting. Confirm the task-specific action separately in rehearsal; the dot fixture does not verify typing, saving, or game-scene capture completeness.",
+      "check": "python3 scripts/preflight.py /absolute/new-scratch-directory --format mp4, then python3 scripts/test_preflight.py /absolute/new-scratch-directory/preflight.mp4 /absolute/new-negative-control-directory. The test proves a frozen tail still passes media checks but fails the motion check.",
+      "tested_with": "agent-browser 0.37.1; MP4/H.264 with real six-second idle hold; WebM/VP8 also selectable"
+    },
+    {
+      "id": "media-check",
+      "use_when": "A take or final encode is ready for review.",
+      "entrypoint": "scripts/check_video.py",
+      "usage": "python3 scripts/check_video.py demo.webm --expected-size 1440x900 --expected-fps 30 --max-duration 30 --max-bytes 10000000 Set limits from the brief. Add --allow-audio when the requested reel includes sound.",
+      "limits": "Checks duration, decoded video frames, dimensions, rate, audio-stream presence, size, and video decode errors. Validate audio decoding separately when sound is present. Does not judge pacing, legibility, privacy, source cadence, audio synchronization, or listening quality.",
+      "check": "Run on the final reel and on a deliberately wrong expected size; the latter must exit nonzero."
+    }
+  ]
+}

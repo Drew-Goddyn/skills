@@ -6,6 +6,7 @@ Personal agent skills for ChatGPT and supported coding agents, using the [Agent 
 
 | Category | Skill | Purpose |
 | --- | --- | --- |
+| Codex | [Record Demos and Trailers](skills/codex/record-product-demo/SKILL.md) | Record and edit real application demos and game trailers, with reproducible capture and verification. |
 | ChatGPT web | [Build Loop](skills/chatgpt%20web/build-loop/SKILL.md) | An ongoing thinking and review partner for human-directed work with a separate coding agent. |
 | ChatGPT web | [Codebase Design](skills/chatgpt%20web/codebase-design/SKILL.md) | Design deep modules, interfaces, and testable seams. |
 | ChatGPT web | [Domain Modeling](skills/chatgpt%20web/domain-modeling/SKILL.md) | Refine project terminology, glossaries, and architectural decisions. |
@@ -21,6 +22,14 @@ Publishing the source here does not install it in a ChatGPT account or publish i
 ### ChatGPT web
 
 Use the [ChatGPT installation guide](skills/chatgpt%20web/README.md) in a fresh chat to choose skills and install them one at a time. It is ordinary Markdown, not another skill to install.
+
+### Codex
+
+Install Record Demos and Trailers globally for Codex:
+
+```sh
+npx skills add Drew-Goddyn/skills --skill record-product-demo --agent codex --global
+```
 
 ### Coding agents
 
