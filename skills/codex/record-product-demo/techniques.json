@@ -6,8 +6,8 @@
       "use_when": "A short browser flow is ready to rehearse and record.",
       "entrypoint": "scripts/demo.py:Demo",
       "usage": "Import Demo into the task driver. Demo(session, scratch). Use run(*args) for native agent-browser commands, ready(expression) for UI state, and with record('take.webm') for capture. DEMO_BROWSER selects an executable. The context writes take.take.json when recorder startup or the flow fails and still raises the error. A startup failure has status failed and failure_stage recorder_start; video and capture_request describe the requested output and fps, not successful capture. Timing is null and events/recorder facts are empty until startup succeeds. If the diagnostic cannot be written, the startup error remains primary with the file error chained as its cause. Event times use the driver clock after the start response; the recorder starts asynchronously, so align visual actions before treating these as video timecodes.",
-      "limits": "Requires agent-browser with record --fps and ffmpeg on PATH. Fixed 30 fps request. Use a fresh session; record starts on the current page in tested version 0.37.1. No fixture reset or application-specific behavior.",
-      "check": "python3 scripts/test_helpers.py --record-only runs browser-free startup/success/error-propagation checks; python3 scripts/preflight.py /absolute/new-scratch-directory checks actual capture.",
+      "limits": "Requires agent-browser with record --fps and FFmpeg. Browser selection is DEMO_BROWSER first, then PATH discovery. DEMO_BROWSER accepts a runnable path or command name. Media tools use PATH. The retained successful Codex pilot resolved its Homebrew tools through PATH, so no fallback-only compatibility need was demonstrated; configure PATH explicitly on other hosts. No implicit installation-directory search. Fixed 30 fps request. Use a fresh session; record starts on the current page in tested version 0.37.1. No fixture reset or application-specific behavior.",
+      "check": "python3 scripts/test_tool_selection.py -v checks tool selection with simulated paths; python3 scripts/test_helpers.py --record-only checks startup/success/error propagation without a browser; python3 scripts/preflight.py /absolute/new-scratch-directory checks actual capture.",
       "tested_with": "agent-browser 0.37.1; 0.27.3 produced 10 fps and is unsuitable for the default take"
     },
     {
@@ -23,8 +23,8 @@
       "use_when": "The changed field or result is easy to miss.",
       "entrypoint": "scripts/emphasis.js",
       "usage": "Demo.focus(selector, color=None), then Demo.clear(). The standalone script also exposes window.__productDemo.focus and remove. It follows one live target and works inside modal dialogs. focus waits for finite ancestor entrance animations and confirms the ring has faded in before the reading hold begins.",
-      "limits": "Requires native Popover API. Color uses the product's --c-accent or an explicit CSS color. No captions, dimming, content replacement, or source edits. A hidden or detached target removes the ring.",
-      "check": "python3 scripts/test_helpers.py"
+      "limits": "Requires native Popover API. Default color is #448fff, independent of application theme variables; an explicit CSS color overrides it. No captions, dimming, content replacement, or source edits. A hidden or detached target removes the ring.",
+      "check": "python3 scripts/test_helpers.py checks default and explicit colors on an invented page with an app accent, saves rendered screenshots, and checks geometry, tracking, visibility, pointer noninterference, and cleanup."
     },
     {
       "id": "moving-preflight",
@@ -40,7 +40,7 @@
       "use_when": "A take or final encode is ready for review.",
       "entrypoint": "scripts/check_video.py",
       "usage": "python3 scripts/check_video.py demo.webm --expected-size 1440x900 --expected-fps 30 --min-duration 15 --max-duration 30 --max-bytes 10000000 Set limits from the brief. Use --audio-policy require for required sound; forbid is the silent default. --allow-audio remains an alias for --audio-policy allow. --h264-range-policy report (default) warns on full-range H.264; select reject-full-range when the delivery target's compatibility requirements exclude it.",
-      "limits": "Checks minimum picture presentation span (equality passes; omitted means no minimum), maximum container duration, decoded picture frame count against picture timing, dimensions, rate, size, and full video/audio decode. Reports raw pixel format and color range with known/unknown/missing statuses. Flags full-range H.264 under a documented delivery compatibility policy, without claiming a visible color defect. Reports separate picture and audio presentation intervals and rejects start, end, or duration mismatches beyond one video frame, accounting for codec padding. Does not judge meaningful audible content, listening quality, perceptual synchronization, pacing, legibility, privacy, or source cadence.",
+      "limits": "Requires ffmpeg and ffprobe on PATH; missing commands report how to supply them. Checks minimum picture presentation span (equality passes; omitted means no minimum), maximum container duration, decoded picture frame count against picture timing, dimensions, rate, size, and full video/audio decode. Reports raw pixel format and color range with known/unknown/missing statuses. Flags full-range H.264 under a documented delivery compatibility policy, without claiming a visible color defect. Reports separate picture and audio presentation intervals and rejects start, end, or duration mismatches beyond one video frame, accounting for codec padding. Does not judge meaningful audible content, listening quality, perceptual synchronization, pacing, legibility, privacy, or source cadence.",
       "check": "python3 scripts/test_check_video.py runs browser-free synthetic audio-policy, timing, minimum-duration, and color-reporting regressions. Also run the checker on the final reel and on a deliberately wrong expected size; the latter must exit nonzero."
     }
   ]

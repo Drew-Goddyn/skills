@@ -12,7 +12,7 @@ Use synthetic values in the real local or test flow. Track the record the applic
 
 Read [the technique manifest](../techniques.json) before writing a driver. Import the existing browser helpers into a task-local script and use native commands for unsupported interactions. The manifest owns entrypoints, prerequisites, limitations, and executable checks.
 
-Use `agent-browser` for browser interaction and viewport recording. Follow the installed executable's help. `DEMO_BROWSER` selects another executable. Use a short task-specific `AGENT_BROWSER_SOCKET_DIR` if the default is unwritable or the socket path is too long. A blocked launch calls for the supported scoped escalation, preserving the failure.
+Use `agent-browser` for browser interaction and viewport recording. Follow the installed executable's help. Put it on `PATH`, or set `DEMO_BROWSER` to an executable path or command name; the override takes precedence. Put FFmpeg's `ffmpeg` and `ffprobe` on `PATH` too. Tools are not searched in platform-specific installation directories. Use a short task-specific `AGENT_BROWSER_SOCKET_DIR` if the default is unwritable or the socket path is too long. A blocked launch calls for the supported scoped escalation, preserving the failure.
 
 Run the moving preflight when the recorder or settings are not yet verified for this task. Match the take's format and inspect actual output dimensions, including device scale. The fixture tests motion, an idle hold, and resumed motion; it does not establish the completeness of a different flow or the capture rate of a busy game.
 

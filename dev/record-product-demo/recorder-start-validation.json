@@ -3,13 +3,16 @@
   "updated_at": "2026-09-18T19:05:14.699997+00:00",
   "base_commit": "845ba9ad869ff025626046419f0f2b7d0e7831da",
   "scope": "T5.2 only: preserve a diagnostic take record when recorder startup raises, with compatible success records and original error propagation.",
-  "status": "independently_reviewed_ready_for_publication",
+  "status": "published",
   "delivery_state": {
     "implemented": true,
     "independently_reviewed": true,
-    "published": false,
+    "published": true,
     "merged": false,
-    "installed": false
+    "installed": false,
+    "commit": "7a9a607b10ad1772de891db74de03d19ad54fd2d",
+    "remote_verified_commit": "7a9a607b10ad1772de891db74de03d19ad54fd2d",
+    "pr": "https://github.com/Drew-Goddyn/skills/pull/2"
   },
   "standing_authorization": "dev/record-product-demo/plan.json decision D1",
   "published_duration_color_commit": "845ba9ad869ff025626046419f0f2b7d0e7831da",
@@ -71,10 +74,11 @@
   "preservation": "Prior evidence, installed skill, both invoice reels, and unrelated pilot work remain unchanged. No T5.3, freeze detector, privacy work, beat-frame tool, or full scenario harness.",
   "new_child_invocations": 0,
   "pilot_invocations": 4,
-  "handoff": "Independently accepted and authorized for ordinary publication under D1. Next assigned packet is T5.3 helper portability, left uncommitted pending review. No merge or installation.",
+  "handoff": "Published after independent acceptance with a normal push and verified PR head. The next helper-portability slice is uncommitted pending independent review. No merge or installation.",
   "publication_verification": {
     "accepted_demo_sha256": "0047c58383ceab208fe8aba69a9d5a812cb3dc4fffc461c26170520c457e3fc6",
     "accepted_implementation_tests_guidance": "Byte-for-byte match before publication; status metadata updated for relayed acceptance.",
-    "evidence_run": "dev/record-product-demo/runs/20260918-helper-portability-f383"
+    "evidence_run": "dev/record-product-demo/runs/20260918-helper-portability-f383",
+    "committed_implementation_tests_guidance": "Verified byte-for-byte against accepted package before and after commit."
   }
 }

@@ -14,9 +14,9 @@ from pathlib import Path
 
 
 def tool(name: str) -> str:
-    found = shutil.which(name) or str(Path("/opt/homebrew/bin") / name)
-    if not Path(found).is_file():
-        raise RuntimeError(f"Required command not found: {name}")
+    found = shutil.which(name)
+    if not found:
+        raise RuntimeError(f"Required command {name!r} not found on PATH. Install FFmpeg or add its executable directory to PATH.")
     return found
 
 

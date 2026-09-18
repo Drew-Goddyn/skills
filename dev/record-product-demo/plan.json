@@ -107,6 +107,7 @@
     "mechanical_suite": [
       "python3 dev/record-product-demo/plan.py validate",
       "python3 skills/codex/record-product-demo/scripts/test_check_video.py -v",
+      "python3 skills/codex/record-product-demo/scripts/test_tool_selection.py -v",
       "python3 skills/codex/record-product-demo/scripts/test_helpers.py --record-only",
       "python3 skills/codex/record-product-demo/scripts/test_helpers.py",
       "python3 skills/codex/record-product-demo/scripts/preflight.py <new scratch folder> --format mp4",
@@ -735,7 +736,7 @@
         "A helper test with a stubbed recorder whose start raises fails before the change and passes after it, and the take record marks the start failure."
       ],
       "evidence": [],
-      "note": "Scoped recorder-start correction independently accepted for publication; see dev/record-product-demo/recorder-start-validation.json. Seven helper checks and patch/schema/error-propagation proof were independently confirmed. The reviewer did not complete the unchanged media suite or report a live-browser pass; those remain builder results. T0.7 and broader scenario/harness prerequisites remain outstanding; original status and criteria are unchanged."
+      "note": "Scoped recorder-start correction independently accepted and published at 7a9a607b10ad1772de891db74de03d19ad54fd2d; see dev/record-product-demo/recorder-start-validation.json. Independent review passed seven helper checks and record/patch/hash proof, but did not complete its unchanged media suite or report live-browser checks. Those results remain builder evidence. T0.7 and broader scenario/harness prerequisites remain outstanding; original status and criteria are unchanged."
     },
     {
       "id": "T5.3",
@@ -752,7 +753,7 @@
         "The bundled helper tests pass."
       ],
       "evidence": [],
-      "note": ""
+      "note": "Scoped helper-portability slice implemented and awaiting ChatGPT review; see dev/record-product-demo/helper-portability-validation.json. Default ring color is independent of the app accent, with explicit override retained. Working pilot evidence resolved all tools through PATH, so implicit Homebrew lookups were removed while overrides and PATH/Homebrew discovery remain supported. Missing-tool diagnostics and focused simulated lookup/rendered tests pass locally. T0.2/T0.7, original status, and acceptance criteria remain unchanged; no complete scenario/harness claim."
     },
     {
       "id": "T5.V",
@@ -921,6 +922,14 @@
     {
       "at": "2026-09-18T20:17:32.115151+00:00",
       "entry": "Recorder-start correction independently accepted for publication from Drew's relayed review: seven deterministic helper checks, before/after record behavior, exception identity, successful compatibility, six-file patch, hashes, and plan validation. Independent combined media run reached an execution limit; no fresh media-suite or live-browser pass is claimed for that review. Publish the accepted bytes, then implement only the assigned T5.3 portability slice for review. Standing D1 authority applies; original task prerequisites/statuses/acceptance remain unchanged."
+    },
+    {
+      "at": "2026-09-18T20:26:06.555717+00:00",
+      "entry": "Recorder-start packet published at 7a9a607b10ad1772de891db74de03d19ad54fd2d, reviewed bytes and remote/PR head verified. Assigned T5.3 portability slice implemented locally: one focus-color expression changed; browser/media tool discovery now uses overrides/PATH with actionable missing-tool errors. Retained successful pilot evidence found Homebrew tools through PATH, with no demonstrated fallback-only need. Before/after rendered screenshots and mock lookup evidence preserved. Local checks: 11 lookup tests, seven accepted recorder checks, 23 full helper checks, 17 media tests, preserved-preflight healthy/frozen control, discovery, and plan validation. Portability stays uncommitted for independent review; all original task prerequisites, statuses, and criteria remain unchanged."
+    },
+    {
+      "at": "2026-09-18T20:48:58.093199+00:00",
+      "entry": "ChatGPT independently accepts helper portability: all three screenshot pairs, 11 executable-selection tests, seven recorder checks, all 17 media tests in one FFmpeg/ffprobe 7.1.5 execution, preserved healthy/frozen control, plan validation, 126 payload hashes, and ten-file patch. Live 23-check browser result remains builder/macOS evidence. Publish accepted bytes with explicit PATH prerequisite; next assigned packet is only T1.1 evidence template, validator, guidance, and faithful copied examples. Original task statuses, dependencies, scenario/harness prerequisites, and acceptance criteria remain unchanged."
     }
   ]
 }

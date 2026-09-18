@@ -13,14 +13,20 @@ class Demo:
         self.scratch = Path(scratch).resolve()
         self.scratch.mkdir(parents=True, exist_ok=True)
         self.env = dict(os.environ, AGENT_BROWSER_SOCKET_DIR=os.environ.get('AGENT_BROWSER_SOCKET_DIR', str(self.scratch / 'browser')))
-        executable = os.environ.get('DEMO_BROWSER') or shutil.which('agent-browser') or '/opt/homebrew/bin/agent-browser'
+        executable = os.environ.get('DEMO_BROWSER') or shutil.which('agent-browser') or 'agent-browser'
         self.command = [executable, '--session', session, '--json']
         self.events = []
         self.started = None
 
     def run(self, *args):
-        result = subprocess.run(self.command + list(map(str, args)), env=self.env,
-                                text=True, capture_output=True, timeout=45)
+        try:
+            result = subprocess.run(self.command + list(map(str, args)), env=self.env,
+                                    text=True, capture_output=True, timeout=45)
+        except (FileNotFoundError, PermissionError) as error:
+            raise RuntimeError(
+                f'Cannot execute browser command {self.command[0]!r}. Check its installation and permissions. '
+                'Put agent-browser on PATH or set DEMO_BROWSER to a runnable executable path or command name.'
+            ) from error
         if result.returncode:
             raise RuntimeError(result.stderr.strip() or result.stdout.strip())
         payload = json.loads(result.stdout)

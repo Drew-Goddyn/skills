@@ -15,7 +15,7 @@
     ring.dataset.productDemo = 'focus';
     ring.setAttribute('aria-hidden', 'true');
     ring.setAttribute('popover', 'manual');
-    const accent = color || getComputedStyle(document.documentElement).getPropertyValue('--c-accent').trim() || '#448fff';
+    const accent = color || '#448fff';
     ring.style.cssText = `position:fixed;inset:auto;margin:0;padding:0;box-sizing:border-box;pointer-events:none;background:transparent;border:2px solid ${accent};border-radius:8px;opacity:0;transition:opacity 180ms ease;`;
     (target.closest('dialog[open], :popover-open') || document.body).append(ring);
     ring.showPopover();

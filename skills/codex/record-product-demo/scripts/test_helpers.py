@@ -105,6 +105,59 @@ def check_record_failures(scratch):
     return results
 
 
+def check_focus_colors(b, scratch):
+    """Render the same invented page with and without an app accent and override."""
+    b.run('set', 'viewport', 900, 520)
+    b.open('data:text/html,' + quote('''<!doctype html><meta charset="utf-8">
+<title>Focus ring portability fixture</title>
+<style>body{margin:48px;background:#f4f6fa;color:#172333;font:22px system-ui}
+h1{font-size:30px}p{font-size:18px}label{display:block;margin-top:36px}
+input{display:block;margin-top:12px;padding:14px;width:480px;box-sizing:border-box;
+font:24px system-ui;color:#172333;background:white;border:1px solid #708090;border-radius:4px}</style>
+<h1>Focus ring portability</h1><p>Invented data. The field and its geometry stay the same.</p>
+<p id="context"></p><label>Invoice amount<input id="amount" value="$125.00"></label>'''))
+    cases = [
+        ('default-no-accent', None, None, 'rgb(68, 143, 255)'),
+        ('default-with-accent', '#e11d74', None, 'rgb(68, 143, 255)'),
+        ('explicit-with-accent', '#e11d74', '#21a179', 'rgb(33, 161, 121)'),
+    ]
+    facts = []
+    for name, accent, color, expected in cases:
+        b.js('document.documentElement.style.removeProperty("--c-accent")' if accent is None else
+             f'document.documentElement.style.setProperty("--c-accent", {json.dumps(accent)})')
+        context = f'Application accent: {accent or "unset"}. Ring override: {color or "none"}.'
+        b.js(f'document.querySelector("#context").textContent={json.dumps(context)}')
+        b.focus('#amount', color=color)
+        measured = b.js('''(() => {
+            const ring = document.querySelector('[data-product-demo]');
+            const style = getComputedStyle(ring);
+            return {color: style.borderTopColor, border_width: style.borderTopWidth,
+                    radius: style.borderTopLeftRadius, opacity: style.opacity,
+                    pointer_events: style.pointerEvents,
+                    ring: ring.getBoundingClientRect().toJSON(),
+                    target: document.querySelector('#amount').getBoundingClientRect().toJSON()};
+        })()''')
+        b.run('screenshot', scratch / f'{name}.png')
+        ring, target = measured['ring'], measured['target']
+        geometry = all(abs(actual - expected_value) < 1 for actual, expected_value in (
+            (ring['left'], target['left'] - 5), (ring['top'], target['top'] - 5),
+            (ring['width'], target['width'] + 10), (ring['height'], target['height'] + 10)))
+        passed = (measured['color'] == expected and geometry and measured['border_width'] == '2px'
+                  and measured['radius'] == '8px' and measured['opacity'] == '1'
+                  and measured['pointer_events'] == 'none')
+        facts.append({'case': name, 'app_accent': accent, 'explicit_color': color,
+                      'expected_color': expected, 'measured': measured, 'pass': passed,
+                      'screenshot': f'{name}.png'})
+    (scratch / 'focus-colors.json').write_text(json.dumps(facts, indent=2) + '\n')
+    failures = [fact['case'] for fact in facts if not fact['pass']]
+    if failures:
+        raise AssertionError('Focus color/geometry check failed: ' + ', '.join(failures))
+    b.clear()
+    b.run('set', 'viewport', 1440, 900)
+    return [f'{fact["case"]} preserves requested color, geometry, visibility, and pointer noninterference'
+            for fact in facts]
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--record-only', action='store_true',
@@ -125,6 +178,7 @@ def main():
     try:
         b.run('open', 'about:blank')
         b.run('set', 'viewport', 1440, 900)
+        checks.extend(check_focus_colors(b, scratch))
         b.open('data:text/html,' + quote('<body><input id="plain"><button id="behind">Open</button><dialog><input id="decisive"><button id="save" onclick="window.saved=true">Save</button></dialog><div style="height:1400px"></div><button id="last">Last</button></body>'))
         b.type('#plain', 'routine')
         b.type('#plain', 'replacement')
