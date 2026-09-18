@@ -1,0 +1,175 @@
+{
+  "kind": "scoped_encoded_video_frame_extraction",
+  "updated_at": "2026-09-18T22:50:26.107372+00:00",
+  "base_commit": "56054c3e92184120782c8c4f1b1286153cc7ee86",
+  "scope": "T2.1 extraction/index/contact sheets from supplied encoded-video beat times, plus two-second interval sampling. No driver alignment or five-take calibration.",
+  "status": "independently_reviewed_ready_for_publication",
+  "delivery_state": {
+    "implemented": true,
+    "independently_reviewed": true,
+    "published": false,
+    "merged": false,
+    "installed": false
+  },
+  "behavior": {
+    "selection": "Midpoint of provided range, selecting its containing decoded presentation interval [PTS,next PTS). End exclusive; no clamping or tolerance.",
+    "clocks": "Seconds relative to first decoded picture timestamp, with origin and raw PTS/time base retained. Final output times only for edits; driver references, precision and unknown alignment preserved.",
+    "failure": "Unknown time unresolved; outside target missing. Decode/timestamp/output mismatch is error. Output folder must be new; input evidence is not rewritten.",
+    "coverage": "All interval request times and sampled/unsampled frame counts. No automatic review, privacy claim or visibility verdict."
+  },
+  "local_validation": {
+    "environment": "macOS; Python 3.14.2; FFmpeg/ffprobe 8.0; Pillow 12.1.1; PATH discovery; browser-free workspace sandbox.",
+    "beat_frame_tests": 15,
+    "evidence_tests": 22,
+    "recorder_checks": 7,
+    "tool_selection_tests": 11,
+    "synthetic_content": "Lossless numbered/color-coded frames; exact RGB hashes verify selection, not just file existence. Includes range/point boundaries, missing frames, unknown timing, edited output, nonzero start and variable frame spacing.",
+    "examples": {
+      "baseline": {
+        "beat_frames": 7,
+        "interval_frames": 9,
+        "unique_native_frames": 16,
+        "decoded_frames": 484,
+        "contact_sheets": 4
+      },
+      "clarity": {
+        "beat_frames": 7,
+        "interval_frames": 6,
+        "unique_native_frames": 13,
+        "decoded_frames": 305,
+        "contact_sheets": 3
+      }
+    },
+    "visual_inspection": "Builder inspected all seven generated real-example sheets for label/timestamp readability and populated thumbnails. This is artifact inspection, not a new full-reel watch, human review, privacy review or independent acceptance.",
+    "plan": "Original task statuses, dependencies and acceptance retained; test command added to mechanical_suite.",
+    "discovery": "Cached skills CLI add . --list finds six skills including record-product-demo; listing only.",
+    "not_rerun": [
+      "accepted media-checker regression suite",
+      "browser helper suite",
+      "preflight",
+      "continuous audiovisual/privacy review"
+    ],
+    "packaged_reproduction": "Passed from packaged source: 15 frame tests, 22 evidence tests, 7 recorder checks, 11 tool tests, plan, four persistent synthetic beat cases (16 assertions), default interval pixel assertions, both copied real deliveries and their input-hash preservation.",
+    "preservation": "All 2205 prior protected files unchanged, including original reels/evidence/ZIPs and installed skill. Twelve accepted runtime/template/test files match published bytes. All 32 task statuses, dependencies, acceptance and evidence arrays unchanged."
+  },
+  "limitations": [
+    "T1.1 two independent S1 runs remain unverified.",
+    "T2.1 automatic driver/video offset and five-take marker calibration remain unverified; original task remains pending.",
+    "Midpoints and sparse intervals can miss brief decisive content. The index provides selected facts, not a quality judgment.",
+    "Requires strictly increasing decoded PTS and a known final decoded frame duration; ambiguous timing fails explicitly."
+  ],
+  "evidence_run": "dev/record-product-demo/runs/20260918-beat-frame-fixture-correction-f383",
+  "review_zip": "dev/record-product-demo/runs/20260918-beat-frame-fixture-correction-f383/beat-frame-fixture-correction-review.zip",
+  "source_sha256": {
+    "skills/codex/record-product-demo/scripts/beat_frames.py": "d5c3ca961c1e2d195501f5502f44f97c1aece4240fc30b5d8ce8a053a8176e66",
+    "skills/codex/record-product-demo/scripts/test_beat_frames.py": "3d9016844bad3d745058134d77ba7954dc91449ca342f3630863dc435e2570f2",
+    "skills/codex/record-product-demo/references/beat-frames.md": "e3193bf70b2e11a6d67f6a24b5c0a587a8c598d51e82758a918f4afe9ca1c957",
+    "skills/codex/record-product-demo/references/evidence.md": "5ee0b642cb4149de90c14022657d2d0036bfafc6485153cc5b3125a46d03f2bb",
+    "skills/codex/record-product-demo/SKILL.md": "1010c8c0736f3c871ab4ca77f8e50102b22505e705114972bad9d33c970e0c46",
+    "skills/codex/record-product-demo/techniques.json": "405e04f45dfd576399c92b7cbe3032ff618eb8ef2b513c4f5d8666b95f822c5a"
+  },
+  "preservation": "Original reels, copied evidence, take records, edit maps and author-versus-relay attribution unchanged. Accepted runtimes remain byte-identical to published head. Unrelated pilot changes excluded from patch.",
+  "new_child_invocations": 0,
+  "pilot_invocations": 4,
+  "handoff": "Accepted encoded-frame slice ready for publication. Automatic alignment, five-take calibration and original scenario prerequisites remain open. No merge or installed-skill replacement.",
+  "independent_review": {
+    "author": "ChatGPT review partner",
+    "relayed_by": "Drew",
+    "source": "Self-contained findings in this conversation; no independent archive attached, sought or inspected.",
+    "environment": {
+      "ffmpeg": "7.1.5",
+      "ffprobe": "7.1.5",
+      "pillow": "12.3.0"
+    },
+    "reviewed_patch_sha256": "341682bbe62a1b81f68f3f38e7c2773850fcc15900dff9ae1a1522cfafcc08a5",
+    "passed": {
+      "baseline": {
+        "beats": 7,
+        "intervals": 9
+      },
+      "clarity": {
+        "beats": 7,
+        "intervals": 6
+      },
+      "native_frames": 29,
+      "dimensions": [
+        1440,
+        900
+      ],
+      "supplied_synthetic_scenarios": 5,
+      "evidence_tests": 22,
+      "recorder_checks": 7,
+      "tool_selection_tests": 11,
+      "plan_validation": true,
+      "payload_hashes": 301,
+      "patch_files": 9,
+      "contact_sheets_and_missing_placeholders_inspected": true
+    },
+    "finding": {
+      "full_regeneration_suite": {
+        "passed": 13,
+        "errored": 2
+      },
+      "affected_generated_files": [
+        "offset.mkv",
+        "edit.mkv"
+      ],
+      "detail": "Locally generated 7.1.5 clips lacked final decoded duration and pkt_duration. The unchanged runtime correctly rejected an unbounded picture end. Two tests accessed result fields after that rejection. Supplied 8.0 fixtures passed on the reviewer toolchain with duration 250 at time base 1/1000.",
+      "status": "correction_pending_independent_review"
+    },
+    "not_claimed": [
+      "Successful full regeneration under 7.1.5",
+      "Independent acceptance of the new correction"
+    ]
+  },
+  "prior_evidence_run": "dev/record-product-demo/runs/20260918-beat-frames-f383",
+  "prior_review_zip": "dev/record-product-demo/runs/20260918-beat-frames-f383/beat-frames-review.zip",
+  "fixture_correction": {
+    "scope": "Generator/tests only, plus this scoped status and plan log. Extractor and delivery guidance unchanged.",
+    "change": "Append fps=4 only to the offset and edit timestamp-filter recipes so their known four-fps cadence has explicit decoded durations. Leave variable-spacing and passthrough output unchanged.",
+    "sanity": "Immediately decode/probe each positive fixture and require exact expected raw PTS sequence, count and explicit 1/4-second final duration. Save timing probes/check.json and name the fixture in failures.",
+    "proof": "Two new tests cover the early missing-duration diagnostic and exact RGB content of every frame in all four encodes. Existing negative controls remain unchanged. Offset/edit extraction results are checked before reading their fields.",
+    "local_environment": "FFmpeg/ffprobe 8.0; Pillow 12.1.1; Python 3.14.2 on macOS.",
+    "local_extraction_tests": 17,
+    "portability_limit": "Correction generation under FFmpeg/ffprobe 7.1.5 awaits independent reproduction; not installed locally.",
+    "new_child_invocations": 0,
+    "local_packaged_reproduction": {
+      "status": "pass",
+      "extraction_tests": 17,
+      "evidence_tests": 22,
+      "recorder_checks": 7,
+      "tool_selection_tests": 11,
+      "synthetic_scenarios": 5,
+      "copied_real_deliveries": 2,
+      "plan_validation": true
+    },
+    "preservation": "All 13 other existing extraction test methods unchanged. The two affected positive tests only add status assertions before indexing. Runtime, delivery guidance and accepted suites unchanged.",
+    "controlled_fault": "On FFmpeg 8.0, explicit strip_fps=1 removes decoded duration and is rejected with the new fixture diagnostic; adding fps=4 restores measured 0.25-second durations. This is a controlled metadata-loss probe, not 7.1.5 reproduction."
+  },
+  "independent_acceptance": {
+    "author": "ChatGPT review partner",
+    "relayed_by": "Drew",
+    "source": "Self-contained findings in this conversation; no independent archive sought or inspected.",
+    "finding": "Fixture-portability correction accepted; finding closed.",
+    "accepted_full_patch_sha256": "6f54c22c413d60e9b0d8e3859e6475da5945e470a1cefe067d06370ed7663b7f",
+    "environment": {
+      "ffmpeg": "7.1.5",
+      "ffprobe": "7.1.5",
+      "python": "3.13.5",
+      "pillow": "12.3.0"
+    },
+    "complete_reproduction_one_execution": {
+      "extraction_tests": 17,
+      "evidence_tests": 22,
+      "recorder_checks": 7,
+      "tool_selection_tests": 11,
+      "plan": true,
+      "synthetic_scenarios": 5,
+      "copied_invoice_deliveries": 2
+    },
+    "corrected_fixtures": "Regenerate with explicit 0.25-second final duration and expected timestamps/RGB content. Actual earlier durationless fixtures still rejected by unchanged runtime.",
+    "payload_hashes": 327,
+    "both_patches_apply": true,
+    "prior_comparison": "Only test/generator and two progress records changed."
+  }
+}

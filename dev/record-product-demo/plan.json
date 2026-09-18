@@ -112,7 +112,8 @@
       "python3 skills/codex/record-product-demo/scripts/test_helpers.py",
       "python3 skills/codex/record-product-demo/scripts/preflight.py <new scratch folder> --format mp4",
       "python3 skills/codex/record-product-demo/scripts/test_preflight.py <scratch folder>/preflight.mp4 <new negative-control folder>",
-      "python3 skills/codex/record-product-demo/scripts/test_check_evidence.py -v"
+      "python3 skills/codex/record-product-demo/scripts/test_check_evidence.py -v",
+      "python3 skills/codex/record-product-demo/scripts/test_beat_frames.py -v"
     ],
     "mechanical_suite_rule": "Each task that adds a test appends its command to mechanical_suite."
   },
@@ -482,7 +483,7 @@
         "S1 in two runs: evidence_valid passes, though the brief does not mention the format."
       ],
       "evidence": [],
-      "note": "Scoped evidence template/validator/guidance and attribution correction independently accepted for publication. Two independent S1 agent-run criterion and T0.7 prerequisite remain unverified; task remains pending. See dev/record-product-demo/evidence-file-validation.json."
+      "note": "Scoped evidence template/validator/guidance and attribution correction independently accepted and published at 56054c3e92184120782c8c4f1b1286153cc7ee86. Two independent S1 agent-run criterion and T0.7 prerequisite remain unverified; task remains pending. See dev/record-product-demo/evidence-file-validation.json."
     },
     {
       "id": "T1.V",
@@ -515,7 +516,7 @@
         "Its tests run without Codex, and their command is added to harness.mechanical_suite."
       ],
       "evidence": [],
-      "note": ""
+      "note": "Encoded extraction/index/contact sheets and fixture-portability correction independently accepted for publication. Automatic driver/video alignment, five-take marker calibration and original T1.1 scenario prerequisite remain unverified. Task remains pending; see dev/record-product-demo/beat-frames-validation.json."
     },
     {
       "id": "T2.2",
@@ -943,6 +944,18 @@
     {
       "at": "2026-09-18T21:46:28.227647+00:00",
       "entry": "ChatGPT independently accepts the evidence-file slice and closes its attribution finding: all 22 evidence tests in one packaged run, both corrected examples and attribution assertions, six invalid rejections, legacy rejection, false-human-viewing negative control, 231 hashes, full 11-file patch and 24-file correction patch. Prior-package comparison confirms validator, accepted runtime, raw evidence and reels unchanged. Publish accepted bytes. Original T1.1 two independent S1 runs and other prerequisites remain open. Next assigned packet is only T2.1 encoded-video extraction/index/contact sheets with interval sampling; alignment estimation and five-take calibration remain unverified."
+    },
+    {
+      "at": "2026-09-18T21:55:57.563480+00:00",
+      "entry": "Accepted evidence-file packet published at 56054c3e92184120782c8c4f1b1286153cc7ee86. Eight implementation/test/guidance/template/fixture hashes match the accepted package; remote branch and PR head verified. Assigned T2.1 slice extracts beat midpoint frames and two-second interval samples from encoded presentation timestamps with explicit missing/unresolved targets, native PNGs, sheets, source hashes and sampling coverage. Copied baseline/clarity evidence, original takes/edit maps/reels and reviewer attribution stay unchanged. New slice remains uncommitted for ChatGPT review. Original task statuses, acceptance and dependencies remain open; no alignment calibration, scenario harness, privacy detector, new capture/edit, merge or install."
+    },
+    {
+      "at": "2026-09-18T22:26:06.321872+00:00",
+      "entry": "ChatGPT independent review supports encoded-frame behavior and visual outputs under FFmpeg/ffprobe 7.1.5 and Pillow 12.3.0: both reels and all 29 selected frames, five supplied synthetic scenarios, 22 evidence tests, seven recorder checks, 11 tool-selection tests, plan, 301 hashes and nine-file patch passed. Full fixture regeneration had 13 passes and two errors because offset/edit clips lacked decoded final-frame duration. Generator now restores explicit four-fps duration after those two timestamp transforms; early fixture sanity and full RGB-content checks added. Runtime unknown-duration rejection and prior controls remain unchanged. Local FFmpeg 8.0 extraction suite passes 17 tests; correction awaits independent 7.1.5 regeneration. No task completion, publication, recording/edit, child call, merge or installation."
+    },
+    {
+      "at": "2026-09-18T22:50:26.107372+00:00",
+      "entry": "ChatGPT independently accepts encoded-frame slice and closes fixture-portability finding. Complete one-execution reproduction on FFmpeg/ffprobe 7.1.5, Python 3.13.5, Pillow 12.3.0 passes 17 extraction tests, 22 evidence tests, seven recorder checks, 11 tool-selection tests, plan, five synthetic scenarios and both copied deliveries. Corrected fixtures have explicit 0.25-second final duration and expected timestamps/RGB; earlier durationless fixtures remain rejected. All 327 hashes and both patches pass; actual prior comparison confirms only generator/tests and two records changed. Publish accepted slice. Next assigned T2.2 packet is frame findings and watch-list delivery integration only; original alignment/calibration and repeated S1/S4 criteria remain open."
     }
   ]
 }

@@ -3,11 +3,11 @@
   "updated_at": "2026-09-18T21:46:28.227647+00:00",
   "base_commit": "37f515932c070fa6e450c937dc930d72918a690c",
   "scope": "T1.1 template, browser-free validator, delivery guidance, and faithful copied baseline/clarity examples only. No new capture/edit or full harness.",
-  "status": "independently_reviewed_ready_for_publication",
+  "status": "reviewed_and_published",
   "delivery_state": {
     "implemented": true,
     "independently_reviewed": true,
-    "published": false,
+    "published": true,
     "merged": false,
     "installed": false
   },
@@ -80,7 +80,7 @@
   ],
   "new_child_invocations": 0,
   "pilot_invocations": 4,
-  "handoff": "Accepted evidence-file slice authorized for publication. Original T1.1 two independent S1 runs and other prerequisites remain unverified. Next packet is encoded-video beat frames and contact sheets only, uncommitted pending review.",
+  "handoff": "Evidence-file packet published. The separately assigned beat-frame extraction/index/contact-sheet slice remains uncommitted for review. Original prerequisites remain open; no merge or installed-skill replacement.",
   "attribution_correction": {
     "human_viewing_result": "Uncollected in available evidence, not a claim Drew never watched.",
     "independent_visual_review": "ChatGPT review partner is the author; Drew is the relay. Recording-agent inspection remains separately referenced.",
@@ -118,5 +118,6 @@
     "full_source_files_reproduced": 11,
     "correction_files_reproduced": 24,
     "prior_comparison": "Validator, accepted runtime, raw historical evidence, and reels unchanged."
-  }
+  },
+  "published_commit": "56054c3e92184120782c8c4f1b1286153cc7ee86"
 }

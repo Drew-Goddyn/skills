@@ -50,6 +50,14 @@
       "usage": "Keep one evidence.json beside each reel in its own delivery folder. Fill version 1 with brief, provenance, capture/edit settings, referenced takes, clock-labelled beats, actual check reports, review/privacy coverage, limitations, reproduction and toolkit friction. Run python3 scripts/check_evidence.py <delivery>/evidence.json.",
       "limits": "Python standard library only; no browser or media tools needed. Checks local structure, file identity and stated consistency, not decoding, clarity, privacy or publication fitness. Raw checks remain authoritative, including failures and warnings. Unknown clocks and edit maps stay unknown; no take-schema rewrite.",
       "check": "python3 scripts/test_check_evidence.py -v; validate the actual final delivery folder too."
+    },
+    {
+      "id": "encoded-beat-frames",
+      "use_when": "A delivered encode needs inspectable beat frames and whole-reel interval samples.",
+      "entrypoint": "scripts/beat_frames.py; references/beat-frames.md",
+      "usage": "python3 scripts/beat_frames.py <delivery>/evidence.json <delivery>/frames-review writes a new index, timestamped sheets and full-resolution PNGs. Default mode both includes beat midpoints and two-second interval sampling. Use --mode beats or intervals, and --interval <seconds> when needed.",
+      "limits": "Requires Pillow >= 10.1 and ffmpeg/ffprobe on PATH. Uses final-output encoded times and decoded presentation intervals, retaining raw PTS and supplied precision/alignment. Never infers driver offsets, rewrites takes/maps/evidence, clamps out-of-range targets, or upgrades sampled material to viewing/privacy clearance. Unknown times remain unresolved. Exit 0 means extracted, 1 partial, 2 error; none certifies visual quality. Existing output directories are refused.",
+      "check": "python3 scripts/test_beat_frames.py -v runs browser-free lossless numbered/color-coded frame tests, including exact/range boundaries, nonzero starts, variable frame spacing, missing output, edited clocks and inspectable sheet pixels."
     }
   ]
 }

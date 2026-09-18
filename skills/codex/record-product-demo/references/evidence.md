@@ -61,6 +61,11 @@ the driver and video clocks. `approximate` and `verified` require both clocks an
 a basis in `timing_note`. Frame observations can be known while alignment is
 unknown. Asynchronous recorder startup is not an established zero offset.
 
+Generate beat frames and interval contact sheets with the [encoded-frame
+tool](beat-frames.md). It consumes these final-output video times, preserves
+unknown alignment, and writes a separate index without changing the evidence.
+Keep the extracted frames and sheet coverage distinct from review findings.
+
 For edits, `production.edit` has `settings` (original edit/render record), `inputs`
 (media entries with `id`, path, SHA-256, duration and size), and `timeline`:
 
