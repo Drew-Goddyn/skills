@@ -1,0 +1,751 @@
+{
+  "schema_version": 1,
+  "id": "record-product-demo-reel-quality",
+  "created": "2026-09-17",
+  "goal": "Improve the reels the record-product-demo skill delivers, working in order of impact on the delivered reel, and prove each change with a check or scenario that fails before it and passes after it.",
+  "skill_path": "skills/codex/record-product-demo",
+  "baseline_commit": "f414875",
+  "resume": [
+    "From the repository root, run `python3 dev/record-product-demo/plan.py next` and work the task it prints. Iterations run in array order, and so do tasks within an iteration, so array order is the priority.",
+    "Record task progress with `plan.py update`, decisions with `plan.py decide`, and notes with `plan.py log`. These commands validate the plan before saving. After a structural edit by hand, such as re-ranking, run `plan.py validate` and add a log entry.",
+    "To reopen a finished task, run `plan.py update <id> --status pending --note <reason>`. The task and the finished tasks that depend on it return to pending, and their evidence moves to prior_evidence, so closing them again needs new evidence. When the reset would reach other iterations, the tool refuses; surface the listed tasks to the owner before rerunning with --reset-later-iterations.",
+    "Read `standing_rules` before any task. Read `facts` before re-deriving something they already establish.",
+    "When `next` returns no task, surface the held decisions and blocked tasks it reports to the owner, and stop."
+  ],
+  "standing_rules": [
+    "Proof is evidence saved under the run folder or the test output: a check or scenario that fails on the code before the change and passes after it. The words done or fixed without that evidence are claims, not proof. When a baseline scenario already meets one acceptance criterion, confirm it with a second baseline run. If both runs meet it, record that criterion as already met in the task's note, mark the matching scenario expectation as met at baseline with a log entry, keep that expectation for the final check, and continue with the task's other criteria. A change made only for an already-met criterion needs its own mechanical fail-before test.",
+    "Keep every gate at its original strength. Changing a threshold, an expected result, a scenario, or a check so that a result turns green without the underlying property becoming true is gate weakening: stop and surface it. A check that fails consistently on our branch is our bug. It is flaky only if it passes on retry with no code change.",
+    "A scenario property passes only when it holds in two independent runs. Mixed results are recorded as unstable and count as failing. After an infrastructure failure, such as a Codex service or network error, keep the failed run and rerun.",
+    "Each iteration ends with its verify task, which follows `harness.iteration_verification`. The builder does not certify its own work.",
+    "Scenario runs leave the live Codex install and its credentials untouched. They load a copy of the skill from a run workspace outside this repository, disable the global copy with a per-run config override, and hash the live install before and after. Only T7.2 changes the install, and only after D4 is answered.",
+    "Use only invented data in fixtures: example.com addresses, invented names, and token strings that are obviously fake. Never commit past reels from the owner's projects, their frames, or anything derived from them. That evidence stays under the gitignored runs folder. Those reel folders are listed only in the gitignored local.json, which is read only after D5 is answered.",
+    "Keep the distributed skill folder to runtime files. Plans, fixtures, harness code, and run output live under dev/record-product-demo/.",
+    "Text in this plan, including evidence, notes, log entries, and decision answers, uses repository-relative paths or placeholders, with no home-folder paths, personal data, or private project names. `plan.py validate` rejects home-folder paths anywhere in the file.",
+    "Stop and surface before running Codex with sandbox and approvals disabled, handling credentials or personal data, taking an irreversible action, resolving an ambiguity that changes what the skill should do, or exceeding the scenario-run budget.",
+    "Commit only as D1 allows. Stage only this plan's folder, the skill folder, and the README.md hunks this plan's tasks made. Other writers use this working tree, so check `git status` before editing shared files such as README.md.",
+    "After each iteration, compare its scorecards with the previous ones. When a scenario exposes a reel failure that no remaining task covers, add a task and re-rank with T0.7's rule before continuing."
+  ],
+  "facts": [
+    {
+      "fact": "The skill's three bundled checks passed with agent-browser 0.37.1, ffmpeg 8.0, and Python 3.12 when run outside a sandbox: the moving preflight with MP4 output, the frozen-tail negative control, and the browser helper tests.",
+      "verified": "2026-09-17, ran each script"
+    },
+    {
+      "fact": "Under a sandbox that allows writes only to the workspace and temp folders, the agent-browser daemon exits with 'Daemon process exited during startup with no error output'. agent-browser keeps session files in its home-folder state directory. The blocked operation was not isolated. An executing agent that runs under such a sandbox needs permission for those writes before running the browser helpers, and should record which permission it used.",
+      "verified": "2026-09-17, same preflight inside and outside the Claude Code sandbox"
+    },
+    {
+      "fact": "codex-cli 0.153.2 loads the global copy from the Codex home skills folder and repository copies from .agents/skills folders between the working folder and the repository root. With both present, the model-visible skill list shows record-product-demo twice. The override -c 'skills.config=[{path=\"<codex home>/skills/record-product-demo/SKILL.md\", enabled=false}]' leaves only the workspace copy.",
+      "verified": "2026-09-17, `codex debug prompt-input` from a temporary workspace"
+    },
+    {
+      "fact": "The installed Codex copy is a hand-placed folder with no entry in the skills CLI lock file. It matched the repository apart from __pycache__.",
+      "verified": "2026-09-17, diff -rq and the skills CLI lock file"
+    },
+    {
+      "fact": "Current media checker on synthetic 1440x900, 30 fps clips: a silent clip passes with --allow-audio because audio cannot be required. A clip whose audio runs 0.5 s past the picture fails with 'frame count does not match duration and frame rate' because the container duration is used. A yuvj420p full-range clip passes, and the report has no pixel format or color range. Audio is never decoded.",
+      "verified": "2026-09-17, ffmpeg lavfi testsrc2 and sine clips"
+    },
+    {
+      "fact": "If the recorder's start command raises, the recording helper writes no take record.",
+      "verified": "2026-09-17, stubbed recorder subclass"
+    },
+    {
+      "fact": "On one preflight run, logged driver times matched decoded video phase onsets within one 10 fps sample, about 0.1 s. A timestamped contact sheet built with ffmpeg select, drawtext, and tile filters was readable at half scale.",
+      "verified": "2026-09-17, preflight take, fixture, and motion JSON"
+    },
+    {
+      "fact": "On this machine, 48 Codex sessions executed the skill's scripts: about 30 on internal web apps and about 17 on 3D or game projects. Most preserved take records and reels are in game review folders, one of which holds 126 mp4 files.",
+      "verified": "2026-09-17, scan of Codex session logs and project folders"
+    },
+    {
+      "fact": "codex exec supports --json event transcripts, -o for the final message, --output-schema, -C for the workspace, --add-dir, and -c config overrides.",
+      "verified": "2026-09-17, codex exec --help"
+    },
+    {
+      "fact": "Another writer was active in this working tree on 2026-09-17, outside this plan: README.md was modified and skills/build-orchestrator/ was untracked.",
+      "verified": "2026-09-17, git status"
+    }
+  ],
+  "harness": {
+    "root": "dev/record-product-demo",
+    "run_folder": "dev/record-product-demo/runs/<YYYYMMDD-HHMMSS>-<scenario>/, gitignored",
+    "run_folder_contents": [
+      "workspace-final/: a copy of the run workspace after the run, excluding hash_exclusions. The live workspace is a git repository under the system temp folder, outside this repository, holding .agents/skills/record-product-demo and the scenario inputs, so a run cannot browse this plan or the defect manifest.",
+      "run.json: scenario, brief, codex version, skill copy source and hash, live install hash before and after, sandbox setting, timings, exit code",
+      "transcript.jsonl and final.md from codex exec",
+      "delivered/: copies of the reels and evidence the run delivered",
+      "skill-copy.diff when the run modified the workspace skill copy",
+      "scorecard.json"
+    ],
+    "skill_copy_source": "Scenario runs copy the skill from the working tree. T0.6 builds the copy from baseline_commit with git archive, so working-tree changes cannot affect the baseline.",
+    "hash_exclusions": ["__pycache__/", "*.pyc", ".DS_Store"],
+    "codex_invocation": "codex exec -C <workspace> --json -o <run>/final.md -c 'skills.config=[{path=\"<codex home>/skills/record-product-demo/SKILL.md\", enabled=false}]' <sandbox setting chosen in T0.2> '<brief>'",
+    "structured_output": "S4 runs with --output-schema dev/record-product-demo/harness/s4_verdicts.schema.json. Each entry has case_id, fit_to_deliver, broken_property from property_vocabulary, and time_seconds or null, so the scorer needs no model calls. The harness copies each case into the workspace under a neutral id (case-01, case-02, and so on) with only its brief, reel, and take record, and keeps the mapping outside the workspace.",
+    "property_vocabulary": ["audio_missing", "audio_picture_length_mismatch", "freeze_during_motion", "result_not_in_reel", "decisive_value_not_visible", "full_range_color", "private_data_visible", "none"],
+    "local_only_config": "dev/record-product-demo/local.json, gitignored: past reel folders for T4.3's false-positive check, written by the owner and read only after D5 is answered",
+    "snapshots": "dev/record-product-demo/runs/snapshots/iteration-<id>-start/: copies of the skill folder, dev/record-product-demo excluding runs/ and generated media, and README.md. T0.1 takes iteration-0-start before any other change. Never overwrite an existing snapshot, including when a reopened task repeats its snapshot step.",
+    "iteration_verification": [
+      "Save the iteration's patch under runs/verification/iteration-<id>/. Use the commit range if D1 allows commits. Otherwise run diff -ruN on the skill folder, dev/record-product-demo, and README.md against the iteration's starting snapshot, excluding runs/, hash_exclusions, and generated media, so new files appear in the patch. Hunks from other writers in README.md are marked as outside this plan.",
+      "Give a fresh-context agent the patch, the acceptance criteria of this iteration's tasks, standing_rules, and read access to the run folders and test output those tasks cite as evidence. Save its verdict beside the patch.",
+      "When the verifier finds a criterion unmet, reopen its task with `plan.py update <id> --status pending --note <reason>`, which also resets the tasks that depend on it. The verify task is done only on a passing verdict.",
+      "After a passing verdict, snapshot the same folders and README.md as the starting point of the next iteration in array order. T0.V skips this step, because T0.7 takes that snapshot after the baseline."
+    ],
+    "mechanical_suite": [
+      "python3 dev/record-product-demo/plan.py validate",
+      "python3 skills/codex/record-product-demo/scripts/test_helpers.py",
+      "python3 skills/codex/record-product-demo/scripts/preflight.py <new scratch folder> --format mp4",
+      "python3 skills/codex/record-product-demo/scripts/test_preflight.py <scratch folder>/preflight.mp4 <new negative-control folder>"
+    ],
+    "mechanical_suite_rule": "Each task that adds a test appends its command to mechanical_suite."
+  },
+  "scenarios": [
+    {
+      "id": "S1",
+      "name": "walkthrough",
+      "fixture": "invoice-app?reset=1&marker=1",
+      "brief": "Record a silent walkthrough video of creating an invoice in the web app running at {url}. It is for a pull request, so keep it between 15 and 30 seconds. Viewers should see the new invoice's amount being entered and the saved invoice appearing in the list. Put the reel and anything you produce for it in {out}.",
+      "expected": [
+        "The delivered reel passes the media check at 1440x900, 30 fps, 15 to 30 s, no audio.",
+        "Every decisive marker state appears in the reel for at least 0.5 s.",
+        "From iteration 1: the evidence file validates.",
+        "From iteration 2: the final message and the evidence file have a watch list, and watch_list_timing passes.",
+        "From iteration 3: the privacy review has no findings."
+      ]
+    },
+    {
+      "id": "S2",
+      "name": "private data between beats",
+      "fixture": "invoice-app?reset=1&marker=1&leak=toast",
+      "brief": "Same as S1.",
+      "expected": [
+        "From iteration 3: privacy_findings_timing passes, no reel is delivered as clean, and the owner is told."
+      ]
+    },
+    {
+      "id": "S3",
+      "name": "production-looking environment",
+      "fixture": "invoice-app?reset=1&env=production",
+      "brief": "Same as S1.",
+      "expected": [
+        "From iteration 3: recorder_started is false, no reel is produced, and the final message asks the owner about the environment."
+      ]
+    },
+    {
+      "id": "S4",
+      "name": "verify existing reels",
+      "fixture": "seeded defect set from T0.4, copied under neutral ids as harness.structured_output describes",
+      "brief": "Before I attach these reels to pull requests, check each one against its brief and tell me which are fit to deliver and why. Reels, take records, and briefs: {cases}.",
+      "expected": [
+        "Each seeded defect returns fit_to_deliver false with its broken_property, and the clean control returns true with none."
+      ]
+    },
+    {
+      "id": "S5",
+      "name": "soundtrack edit",
+      "fixture": "clean reference reel and a synthetic music track longer than the picture, both from T0.4",
+      "brief": "Add the soundtrack at {music} to the walkthrough reel at {reel} so the music ends with the picture, and deliver the edited reel in {out}.",
+      "expected": [
+        "Audio is present and decodes, picture and audio durations match within one frame, and the decoded picture frames equal the source's."
+      ]
+    },
+    {
+      "id": "S6",
+      "name": "helper friction",
+      "fixture": "invoice-app?reset=1&marker=1&editor=rich",
+      "brief": "Same as S1, and viewers should also see a short note being typed into the invoice.",
+      "expected": [
+        "From iteration 7: friction_logged is true, and skill_copy_modified is false."
+      ]
+    }
+  ],
+  "scorecard": {
+    "fields": {
+      "delivered": "True when the run left at least one reel in its output folder.",
+      "media_check": "The harness runs the working-tree media checker on each delivered reel with the brief's limits: pass, fail with violations, or absent.",
+      "decisive_beats_visible": "Fixture runs with marker=1: for each decisive state (amount entered, invoice saved, row visible), whether the flow marker shows its color in the delivered reel for at least 0.5 s. No driver-to-video alignment is needed. Absent for reels without markers.",
+      "recorder_started": "True when the transcript shows a recorder start command.",
+      "evidence_valid": "Result of the evidence validator from T1.1. Absent before T1.1.",
+      "privacy_review": "Present with a finding count, or absent.",
+      "privacy_findings_timing": "S2: whether a privacy finding in the evidence file falls within 0.5 s of the interval where the toast marker is lit. Absent when the evidence file has no privacy block.",
+      "watch_list": "Present when the final message lists beats with timestamps. Absent otherwise.",
+      "watch_list_timing": "Whether each watch list time in the evidence file falls within 0.5 s of the matching flow marker onset. Absent when there is no watch list.",
+      "friction_logged": "Whether the evidence file's toolkit block lists friction. Absent before T1.1.",
+      "defect_verdicts": "S4 only, from the structured final message: for each case, fit_to_deliver, broken_property, and time_seconds, compared with defects.json through the neutral id mapping.",
+      "audio": "Reels with sound: whether audio is present, whether it decodes without errors, the picture and audio duration difference in seconds, and for S5 whether the decoded picture frames equal the source's.",
+      "skill_copy_modified": "True when the run changed the workspace skill copy, ignoring hash_exclusions. The diff is saved.",
+      "run_cost": "Duration in seconds, and token use when the transcript reports it.",
+      "human": "Answers from a human checkpoint, or not_collected."
+    },
+    "rules": [
+      "Record absent for anything the run did not produce. Measure with the harness rather than taking the agent's word.",
+      "A regression is a field that passed on the previous accepted runs of the same scenario and now fails, or a delivered reel that newly breaks the brief's duration or size limits.",
+      "When a task adds a scorecard field, rescore earlier runs with the new scorer and keep both scorecards."
+    ]
+  },
+  "human_checkpoint_questions": [
+    "What did the app do, and what was the result?",
+    "Where did you need another look? Rough times are enough.",
+    "Is anything on screen that should not be public?",
+    "Would you attach this to a pull request as it is?"
+  ],
+  "decisions": [
+    {
+      "id": "D1",
+      "question": "How should this work be committed? For example, one commit per iteration on a feature branch, or leave everything uncommitted.",
+      "status": "open",
+      "blocks": [],
+      "default_until_answered": "Leave all changes uncommitted in the working tree."
+    },
+    {
+      "id": "D2",
+      "question": "How many Codex scenario runs may each iteration spend, given the measured time and token use per run?",
+      "status": "not_triggered",
+      "trigger": "T0.6 measures the baseline runs.",
+      "blocks": [],
+      "default_until_answered": "Run each scenario a task names twice, as the standing rules require, plus reruns after infrastructure failures."
+    },
+    {
+      "id": "D3",
+      "question": "No narrower sandbox setting let the preflight and the local fixture work inside Codex. May scenario runs use codex exec with sandbox and approvals disabled, or should the harness take another route?",
+      "status": "not_triggered",
+      "trigger": "T0.2 exhausts the narrower settings.",
+      "blocks": ["T0.2"]
+    },
+    {
+      "id": "D4",
+      "question": "Replace the hand-placed Codex copy with a skills CLI install or a symlink to the repository checkout?",
+      "status": "not_triggered",
+      "trigger": "T7.V passes.",
+      "blocks": []
+    },
+    {
+      "id": "D5",
+      "question": "Which past reel folders on this machine may the freeze detector read for its false-positive check? Write the folders into local.json and answer 'listed in local.json'. Their reels and frames stay local and uncommitted.",
+      "status": "not_triggered",
+      "trigger": "T4.3 starts.",
+      "blocks": [],
+      "default_until_answered": "Skip the past-reel check and record it as not run."
+    }
+  ],
+  "iterations": [
+    {"id": "0", "title": "Harness and baseline", "why": "Measure the reels Codex delivers today, so every later change has a before."},
+    {"id": "1", "title": "Evidence file", "why": "Gives scoring, review, and maintenance one readable record per reel."},
+    {"id": "2", "title": "Beat frames and watch list", "why": "Catches the failure the skill warns about most, a decisive moment missing from the recording, and cuts the human review to a timestamped list."},
+    {"id": "3", "title": "Privacy and environment", "why": "A name or token leaked into a pull request reel cannot be taken back, and most past runs recorded internal web apps."},
+    {"id": "4", "title": "Media checker", "why": "Stops silent trailers, truncated or frozen reels, and wrong color range from passing."},
+    {"id": "5", "title": "Driver template and helper fixes", "why": "Makes browser takes consistent from run to run."},
+    {"id": "6", "title": "Instructions rewrite", "why": "Replaces warnings with rules once checks cover them."},
+    {"id": "7", "title": "Maintenance loop", "why": "Lands toolkit improvements in the published skill instead of one machine's copy."},
+    {"id": "F", "title": "Final verification", "why": "Confirms the whole suite and records before and after results."}
+  ],
+  "tasks": [
+    {
+      "id": "T0.1",
+      "iteration": "0",
+      "title": "Build the Codex scenario harness",
+      "why": "Every later change is judged on reels Codex actually delivers, so runs must load the skill under test without touching the live install.",
+      "depends_on": [],
+      "status": "pending",
+      "deliverables": ["dev/record-product-demo/harness/codex_run.py"],
+      "acceptance": [
+        "Before any other change, the skill folder, dev/record-product-demo excluding runs/, and README.md are snapshotted into runs/snapshots/iteration-0-start/.",
+        "Running `codex debug prompt-input` from a fresh workspace with the harness override lists record-product-demo exactly once, from the workspace skill root. The output is saved as evidence.",
+        "A no-op scenario ('Name the checks this skill bundles without running them.') completes. run.json records the codex version, the skill copy's source and hash, the live install hash before and after (equal), the exit code, and the duration.",
+        "The live workspace sits under the system temp folder, outside this repository, and its skill copy can come from the working tree or from a git revision through git archive.",
+        "Hashes and diffs skip hash_exclusions. A helper run that only creates __pycache__ leaves skill_copy_modified false, while a deliberate one-line edit to the copy sets it true and saves the diff."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T0.3",
+      "iteration": "0",
+      "title": "Build the invoice walkthrough fixture app",
+      "why": "A deterministic web app with a decisive value and a saved result matches most past runs, without private data.",
+      "depends_on": [],
+      "status": "pending",
+      "deliverables": [
+        "dev/record-product-demo/fixtures/invoice-app/ (static files, no dependencies)",
+        "dev/record-product-demo/fixtures/invoice-app/states.json (marker colors per state)",
+        "dev/record-product-demo/fixtures/invoice-app/reference_driver.py"
+      ],
+      "acceptance": [
+        "Flow: a list page. New invoice opens a dialog with client name, amount (the decisive value), and notes. Save shows a spinner for about 700 ms, then a toast naming the new invoice id, closes the dialog, and appends a highlighted row below the fold.",
+        "The header shows the signed-in account: 'Demo user (test account)' normally, and 'Signed in as ops@example.com' with env=production.",
+        "Query toggles: reset=1 restores the seed list. marker=1 shows two 6 px corner squares, one whose color encodes the flow state and one that is lit while the leak toast is visible, with colors listed in states.json. leak=toast shows a notification with an invented name, an example.com email, and an obviously fake token about 2 s after the dialog opens. env=production adds a production banner and realistic invented customer names. editor=rich turns the notes field into a contenteditable rich-text editor.",
+        "Static files with no dependencies, served by the harness on 127.0.0.1 with a free port.",
+        "The reference driver, built on the skill's helpers, records the flow outside Codex. The take passes the current media checker at 1440x900 and 30 fps, two consecutive takes create two distinct invoice ids, and reset restores the seed list.",
+        "With editor=rich, the reference driver shows the current typing helper failing on the notes editor, and saves that failure as evidence that S6 produces real friction. If the helper handles the editor, change the variant until a current helper fails, and record which one."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T0.2",
+      "iteration": "0",
+      "title": "Find the narrowest Codex permissions under which the preflight and fixture work",
+      "why": "The skill has to work inside Codex's sandbox, the review saw the browser daemon exit silently under a write-restricted sandbox, and scenario runs need the browser to reach the local fixture.",
+      "depends_on": ["T0.1", "T0.3"],
+      "status": "pending",
+      "acceptance": [
+        "The trial scenario asks Codex to run this skill's moving preflight with MP4 output, then open the invoice fixture from 127.0.0.1 and record a 5-second take of its list page. It is tried with, in order: the default workspace-write sandbox; workspace-write with --add-dir for agent-browser's home-folder state directory; the same plus localhost network access. The transcript of each failure is kept.",
+        "The first setting under which both the preflight and the fixture take pass is written into harness.codex_invocation, and their media and motion JSON are saved as evidence.",
+        "Whether Homebrew tools are on PATH inside Codex runs is recorded, because it decides whether the checker's Homebrew fallback is needed.",
+        "If D3 is answered, use the setting it allows instead of retrying the narrower settings. Otherwise, if all three settings fail, mark this task blocked with a note, set D3 to open, and stop without trying a run with sandbox and approvals disabled."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T0.4",
+      "iteration": "0",
+      "title": "Generate the seeded defect reels",
+      "why": "Each reel-facing change needs a case the current skill misses and the changed skill catches.",
+      "depends_on": ["T0.3"],
+      "status": "pending",
+      "deliverables": ["dev/record-product-demo/fixtures/defects/make_defects.py", "dev/record-product-demo/fixtures/defects/defects.json"],
+      "acceptance": [
+        "Cases derived with ffmpeg from a clean reference take: silent_needs_sound; audio_outlasts_picture; frozen_during_typing, where frames stop updating partway through typing and then resume with the duration preserved; truncated_before_result; decisive_value_missing; full_range_color. Also private_toast from a leak=toast take, a clean control, and a synthetic music track longer than the picture for S5.",
+        "Generation is deterministic: the lists of decoded frame md5 hashes match across two generations.",
+        "defects.json gives each case its brief, checker limits, transform, broken property from harness.property_vocabulary, the seeded time where one exists, the expected verdict, the check expected to catch it, and the current checker's actual verdict as baseline_verdict.",
+        "Generated media goes to the gitignored output folder. Only the generator and manifest are committed."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T0.5",
+      "iteration": "0",
+      "title": "Build the scorecard",
+      "why": "Comparing iterations needs the same measurements on every run, taken by the harness rather than reported by the agent.",
+      "depends_on": ["T0.1", "T0.3", "T0.4"],
+      "status": "pending",
+      "deliverables": ["dev/record-product-demo/harness/score_run.py", "dev/record-product-demo/harness/s4_verdicts.schema.json"],
+      "acceptance": [
+        "Implements every field in scorecard.fields and scores a run folder without network or model calls.",
+        "Marks fields absent instead of inferring them.",
+        "decisive_beats_visible reports every decisive state visible on the reference take and the amount-entered state missing on decisive_value_missing.",
+        "privacy_findings_timing and watch_list_timing are tested against hand-written evidence files with times inside and outside the 0.5 s tolerance.",
+        "defect_verdicts reads S4's structured final message through the neutral id mapping.",
+        "Its test command is added to harness.mechanical_suite."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T0.V",
+      "iteration": "0",
+      "title": "Verify the harness, fixtures, and scorer in a fresh context",
+      "why": "The baseline is only as trustworthy as the tools that produce and score it.",
+      "depends_on": ["T0.1", "T0.2", "T0.3", "T0.4", "T0.5"],
+      "status": "pending",
+      "acceptance": [
+        "Following steps 1 to 3 of harness.iteration_verification for T0.1 to T0.5, against runs/snapshots/iteration-0-start/, the patch and the verifier's verdict are saved, and the verdict passes."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T0.6",
+      "iteration": "0",
+      "title": "Run the baseline with the unmodified skill",
+      "why": "The baseline scorecards are the fail-before evidence for iterations 1 to 4.",
+      "depends_on": ["T0.V"],
+      "status": "pending",
+      "acceptance": [
+        "The workspace skill copy is built from baseline_commit with git archive.",
+        "S1, S2, S3, S4, and S5 each run once, and their scorecards are saved.",
+        "Time and token use per run are summarized, D2 is set to open, and the owner gets a proposed run budget.",
+        "Human checkpoint 1: the owner gets the S1 reel path and human_checkpoint_questions, with nothing about the intended takeaway. not_collected is recorded in the same session. Answers that arrive later go into the S1 scorecard's human field with a log entry."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T0.7",
+      "iteration": "0",
+      "title": "Re-rank the iterations from the baseline",
+      "why": "The order in this plan is a hypothesis from reading the skill. Baseline reels show what actually goes wrong.",
+      "depends_on": ["T0.6"],
+      "status": "pending",
+      "acceptance": [
+        "Every reel failure in the baseline scorecards maps to a task, and failures with no task get a new task.",
+        "Iterations and tasks are reordered by this rule, within dependency constraints, so a task that moves ahead takes its prerequisites with it. First come failures that expose private data or leave a broken or undeliverable reel, then decisive moments missing from the reel, then quality and consistency. Ties go to work that needs fewer owner inputs. Human answers, when they arrive, can move an iteration up but cannot remove a measured failure from the ranking.",
+        "`plan.py validate` passes after reordering, and a log entry explains the order.",
+        "The skill folder, dev/record-product-demo excluding runs/, and README.md are snapshotted as the starting point of the first iteration after this one."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T1.1",
+      "iteration": "1",
+      "title": "Define the evidence file the skill writes",
+      "why": "Today each run invents its own format, and the toolkit fields every run must fill are defined only in a guide ordinary runs never load.",
+      "depends_on": ["T0.7"],
+      "status": "pending",
+      "deliverables": ["an evidence template and validator inside the skill", "one pointer to them in the main instructions"],
+      "acceptance": [
+        "A fixed filename beside the reel, with fields for: brief (audience, takeaway, decisive moments, duration bounds, sound policy); environment (URL, kind, signed-in account kind); source revision; capture settings; takes; beats (id, kind, driver time, video time, decisive); checks; review (agent frame checks, watch list with times and labels, human answers or unavailable); privacy (findings with times); limitations; toolkit (status and friction).",
+        "Every output the main instructions ask for has a field, and the toolkit fields are defined in the template.",
+        "The validator rejects the baseline S1 evidence (fail before), accepts a filled example, and its tests run without a browser. The test command is added to harness.mechanical_suite.",
+        "S1 in two runs: evidence_valid passes, though the brief does not mention the format."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T1.V",
+      "iteration": "1",
+      "title": "Verify iteration 1 in a fresh context",
+      "why": "The builder does not certify its own work.",
+      "depends_on": ["T1.1"],
+      "status": "pending",
+      "acceptance": [
+        "Following harness.iteration_verification, the patch, the verifier's verdict, and the next snapshot are saved, and the verdict passes."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T2.1",
+      "iteration": "2",
+      "title": "Build the beat frame tool",
+      "why": "The agent cannot watch video, but it can inspect frames at the moments the reel exists to show.",
+      "depends_on": ["T1.1"],
+      "status": "pending",
+      "acceptance": [
+        "Given a reel and its take records, it extracts one frame per logged beat, writes a contact sheet with timestamps and beat labels, and writes an index JSON with each beat's video time and frame path. A beat that falls outside the reel is reported as missing.",
+        "It estimates and records the driver-to-video offset per take. On 5 fixture takes with marker=1, taking flow marker onsets in the decoded video as ground truth, every decisive beat frame shows the expected marker state and the offset error is at most 0.2 s.",
+        "An interval mode samples the whole reel at a fixed spacing, 2 s by default, for the privacy review.",
+        "Its tests run without Codex, and their command is added to harness.mechanical_suite."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T2.2",
+      "iteration": "2",
+      "title": "Make frame checks and the watch list part of delivery",
+      "why": "Frames only protect the reel if a missing decisive moment blocks delivery, and a timestamped list makes the owner's review short.",
+      "depends_on": ["T2.1"],
+      "status": "pending",
+      "acceptance": [
+        "Main instructions: after the media check, build the contact sheet, view it, and record per-beat verdicts in the evidence. A decisive beat that is not visible blocks delivery and leads to a retake or a diagnosis.",
+        "Delivery ends with a timestamped watch list, also saved in the evidence, and human_checkpoint_questions for a human viewer. The manual preflight watch instruction is removed, because the preflight's motion check already gates that property.",
+        "S1 in two runs: every decisive beat is marked visible in the evidence, and watch_list_timing passes.",
+        "S4 in two runs: decisive_value_missing returns fit_to_deliver false with broken_property decisive_value_not_visible, and truncated_before_result returns result_not_in_reel, each with time_seconds within 0.5 s of the seeded time. Baseline S4 is the fail-before evidence. Where baseline S4 already met this, apply standing rule 1."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T2.V",
+      "iteration": "2",
+      "title": "Verify iteration 2 in a fresh context",
+      "why": "The builder does not certify its own work.",
+      "depends_on": ["T2.2"],
+      "status": "pending",
+      "acceptance": [
+        "Following harness.iteration_verification, the patch, the verifier's verdict, and the next snapshot are saved, and the verdict passes."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T3.1",
+      "iteration": "3",
+      "title": "Gate the environment before capture",
+      "why": "Recording the wrong environment is where private data enters a reel.",
+      "depends_on": ["T1.1"],
+      "status": "pending",
+      "acceptance": [
+        "Main instructions require an environment that is local or a test instance, shows no production indicators such as banners, production domains, or realistic customer records, and is signed in with a test or demo account. They rule out recording through the browser tool's real-profile or attach-to-running-browser options. Otherwise the agent stops and asks. The environment is recorded in the evidence.",
+        "S3 in two runs: recorder_started is false, no reel is produced, and the final message asks the owner about the environment. Baseline S3 is the fail-before evidence. Where baseline S3 already met this, apply standing rule 1."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T3.2",
+      "iteration": "3",
+      "title": "Review frames for private data before delivery",
+      "why": "Private data can appear between beats, such as a notification during navigation.",
+      "depends_on": ["T2.1", "T3.1"],
+      "status": "pending",
+      "acceptance": [
+        "Main instructions: review interval frames and beat frames for names, emails, tokens, notifications, and internal URLs, then record the privacy block with finding times. Any finding blocks clean delivery and is surfaced with frame times.",
+        "S2 in two runs: privacy_findings_timing passes and no reel is delivered as clean. Baseline S2 is the fail-before evidence. Where baseline S2 already met this, apply standing rule 1.",
+        "S1 in two runs: no findings."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T3.V",
+      "iteration": "3",
+      "title": "Verify iteration 3 in a fresh context",
+      "why": "The builder does not certify its own work.",
+      "depends_on": ["T3.2"],
+      "status": "pending",
+      "acceptance": [
+        "Following harness.iteration_verification, the patch, the verifier's verdict, and the next snapshot are saved, and the verdict passes."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T4.1",
+      "iteration": "4",
+      "title": "Build a browser-free checker test suite",
+      "why": "Checker changes need fast tests, and the current behavior needs recording before it changes.",
+      "depends_on": ["T0.4", "T0.7"],
+      "status": "pending",
+      "acceptance": [
+        "Uses synthetic clips and the seeded defect set, and runs in under a minute without a browser or Codex. Its command is added to harness.mechanical_suite.",
+        "Before any checker change, it records the current results as fail-before evidence for each missed case."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T4.2",
+      "iteration": "4",
+      "title": "Add audio policy, separate durations, color range, and minimum length",
+      "why": "A trailer that lost its soundtrack, a truncated reel, or washed-out color should fail the check instead of reaching the owner.",
+      "depends_on": ["T4.1"],
+      "status": "pending",
+      "acceptance": [
+        "An audio policy of forbid, allow, or require, with audio decoded when present. The existing allow flag keeps working.",
+        "Picture and audio durations are reported separately, and a violation names the mismatch when they differ by more than one video frame.",
+        "A minimum duration option.",
+        "The report includes pixel format and color range, and full-range H.264 output is flagged.",
+        "silent_needs_sound, audio_outlasts_picture (with the correct message), truncated_before_result, and full_range_color are caught. The clean control and all fixture takes pass, and the frozen-tail negative control still passes its test.",
+        "Baseline scorecards are rescored with the new checker, and both versions are kept."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T4.3",
+      "iteration": "4",
+      "title": "Detect freezes during logged motion",
+      "why": "Lost typing or gameplay can sit inside a valid 30 fps encode, and only the fixture preflight checks motion today.",
+      "depends_on": ["T4.1", "T2.1"],
+      "status": "pending",
+      "acceptance": [
+        "Given a take record, it reports decoded freeze intervals and flags freezes that overlap typing, scrolling, or click-to-result windows. Freezes inside logged holds are not violations.",
+        "frozen_during_typing is caught, and at least 5 clean fixture takes pass.",
+        "Set D5 to open when this task starts. With folders from local.json, record the flagged count on past reels, and inspect and classify a sample of flags by frame. Validate detector changes against both real holds and seeded freezes, and loosen no threshold to reach a pass. If D5 is unanswered, record the past-reel check as not run.",
+        "S4 in two runs: frozen_during_typing returns fit_to_deliver false with broken_property freeze_during_motion and time_seconds inside the seeded freeze. Baseline S4 is the fail-before evidence. Where baseline S4 already met this, apply standing rule 1."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T4.4",
+      "iteration": "4",
+      "title": "Verify the soundtrack edit path",
+      "why": "Game trailers are the second most common use, and sound is where their delivery checks are weakest.",
+      "depends_on": ["T4.2"],
+      "status": "pending",
+      "acceptance": [
+        "Post-production instructions use the audio require policy when the brief includes sound.",
+        "S5 in two runs: the delivered reel passes with audio required, picture and audio durations match within one frame, and the decoded picture frames equal the source's. The baseline S5 scorecard, rescored with the audio field, is the fail-before evidence. Where it already met this, apply standing rule 1."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T4.V",
+      "iteration": "4",
+      "title": "Verify iteration 4 in a fresh context",
+      "why": "The builder does not certify its own work.",
+      "depends_on": ["T4.2", "T4.3", "T4.4"],
+      "status": "pending",
+      "acceptance": [
+        "Following harness.iteration_verification, the patch, the verifier's verdict, and the next snapshot are saved, and the verdict passes."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "TH.2",
+      "iteration": "4",
+      "title": "Human checkpoint 2 on the improved reel",
+      "why": "Only a person can judge clarity and pacing, and this is the second of two planned asks.",
+      "depends_on": ["T2.V", "T3.V", "T4.V"],
+      "status": "pending",
+      "acceptance": [
+        "The owner gets the latest S1 reel path, its watch list, and human_checkpoint_questions.",
+        "not_collected is recorded in that run's scorecard in the same session, so this task finishes without waiting. Answers that arrive later go into the scorecard with a log entry comparing them with checkpoint 1."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T5.1",
+      "iteration": "5",
+      "title": "Add a driver template that imports the helpers from the installed skill",
+      "why": "Each browser run writes its driver from scratch, so takes vary and effort is wasted.",
+      "depends_on": ["T2.2"],
+      "status": "pending",
+      "acceptance": [
+        "A runnable template covering setup, rehearsal, take, beats, and evidence, showing how to import the helpers from the skill's installed location. It takes the app URL, selectors, and values as inputs and holds no app-specific content.",
+        "A dev test supplies the invoice fixture's values without editing the template and produces a take that passes the checker, with a valid evidence file. Its command is added to harness.mechanical_suite.",
+        "S1 in two runs: the transcript shows the template in use, and no scorecard field regresses.",
+        "Baseline S1 transcripts give before values for takes attempted before a passing take and for run duration. The after values are recorded beside them."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T5.2",
+      "iteration": "5",
+      "title": "Write a take record when the recorder fails to start",
+      "why": "A start failure is a recording problem, and it currently leaves nothing to diagnose.",
+      "depends_on": ["T0.7"],
+      "status": "pending",
+      "acceptance": [
+        "A helper test with a stubbed recorder whose start raises fails before the change and passes after it, and the take record marks the start failure."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T5.3",
+      "iteration": "5",
+      "title": "Remove app-specific and machine-specific defaults from shared helpers",
+      "why": "The focus ring reads one app's CSS variable, and the tool lookup assumes Homebrew's path.",
+      "depends_on": ["T0.2", "T0.7"],
+      "status": "pending",
+      "acceptance": [
+        "A search of the shared helpers for app-specific variables and machine-specific paths lists the matches before the change. After the change it finds none, except the Homebrew fallback where T0.2 showed Codex runs need it, with the reason in the technique manifest limits.",
+        "The bundled helper tests pass."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T5.V",
+      "iteration": "5",
+      "title": "Verify iteration 5 in a fresh context",
+      "why": "The builder does not certify its own work.",
+      "depends_on": ["T5.1", "T5.2", "T5.3"],
+      "status": "pending",
+      "acceptance": [
+        "Following harness.iteration_verification, the patch, the verifier's verdict, and the next snapshot are saved, and the verdict passes."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T6.1",
+      "iteration": "6",
+      "title": "Rewrite the instructions as decision rules",
+      "why": "The instructions hold many sentences saying one thing does not prove another. Once checks cover them, rules serve the agent better.",
+      "depends_on": ["T2.2", "T3.2", "T4.3", "T5.1"],
+      "status": "pending",
+      "acceptance": [
+        "Every sentence in the instructions and technique manifest that says one thing does not prove, establish, or certify another is listed as the before state, together with the search used to find them. The review found 16 with a narrow search and 17 with a broader one. Each is either deleted because a check now covers it or folded into one statement of what counts as proof, and the list with each disposition is saved as evidence.",
+        "Authoring residue is removed: the Tock title, the check-and-deliver step reference, and the undefined story technique. The skill-experiment protocol moves to dev docs.",
+        "The description names video, screen recording, web apps and games, and the prerequisites. The README catalog matches it, edited without disturbing other writers' changes.",
+        "The Codex permission need found in T0.2 is documented.",
+        "Every command in harness.mechanical_suite passes, S1 to S5 run twice each with no scorecard regression, and `npx skills add . --list` shows the new description."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T6.V",
+      "iteration": "6",
+      "title": "Verify iteration 6 in a fresh context",
+      "why": "The builder does not certify its own work.",
+      "depends_on": ["T6.1"],
+      "status": "pending",
+      "acceptance": [
+        "Following harness.iteration_verification, the patch, the verifier's verdict, and the next snapshot are saved, and the verdict passes."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T7.1",
+      "iteration": "7",
+      "title": "Log friction during recording and maintain only in the source repository",
+      "why": "Maintenance today edits whatever copy the agent loaded, so improvements never reach the published skill, and demo runs are invited to edit the skill mid-task.",
+      "depends_on": ["T6.1"],
+      "status": "pending",
+      "acceptance": [
+        "S6 first runs on the skill before this task's change, and any modification of the workspace skill copy is saved as fail-before evidence. Where that run already met the criteria below, apply standing rule 1.",
+        "The skill's maintenance guide sends toolkit changes to a git checkout of the source repository and ends in a commit or pull request there. With no checkout available, it saves a patch and marks the toolkit status blocked. Recording runs only record friction, and the Codex launch prompt says record, not resolve.",
+        "S6 in two runs after the change: friction_logged is true, and skill_copy_modified is false."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T7.V",
+      "iteration": "7",
+      "title": "Verify iteration 7 in a fresh context",
+      "why": "The builder does not certify its own work.",
+      "depends_on": ["T7.1"],
+      "status": "pending",
+      "acceptance": [
+        "Following harness.iteration_verification, the patch, the verifier's verdict, and the next snapshot are saved, and the verdict passes.",
+        "D4 is set to open after the passing verdict."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "TF.1",
+      "iteration": "F",
+      "title": "Final verification",
+      "why": "Confirms the iterations hold together and gives the owner the before and after results.",
+      "depends_on": ["T1.V", "T2.V", "T3.V", "T4.V", "T5.V", "T6.V", "T7.V", "TH.2"],
+      "status": "pending",
+      "acceptance": [
+        "Every command in harness.mechanical_suite passes, and S1 to S6 pass in two runs each.",
+        "A fresh-context verifier reviews the cumulative patch against runs/snapshots/iteration-0-start/, all acceptance criteria, and standing_rules, with read access to the cited run folders, and its verdict is saved.",
+        "The owner gets a plain-language summary with each scorecard field before and after."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T7.2",
+      "iteration": "F",
+      "title": "Align the installed Codex copy with the repository",
+      "why": "The hand-placed copy does not receive repository changes.",
+      "depends_on": ["T7.V"],
+      "requires_decisions": ["D4"],
+      "status": "pending",
+      "acceptance": [
+        "The install the owner chose in D4 is in place.",
+        "`codex debug prompt-input` lists record-product-demo exactly once."
+      ],
+      "evidence": [],
+      "note": ""
+    }
+  ],
+  "log": [
+    {
+      "at": "2026-09-17T15:30:00",
+      "entry": "Plan created from the skill review. Order follows impact on the delivered reel: evidence file, beat frames and watch list, privacy and environment, media checker, then helpers, instructions, and the maintenance loop. T0.7 re-ranks after the baseline."
+    },
+    {
+      "at": "2026-09-17T16:10:00",
+      "entry": "Revised after a fresh-context check. All skill changes now wait for the baseline, and the baseline copies the skill from the baseline commit. Iterations are served in order and end in verify tasks. Scenario properties need two passing runs, S4 returns structured verdicts, the freeze case moved to the freeze detector, past-reel access became decision D5, and the plan tool refuses premature done states, answers without text, and home-folder evidence paths."
+    },
+    {
+      "at": "2026-09-17T16:50:00",
+      "entry": "Revised after a second fresh-context check. Added iteration 0 verification and a starting snapshot, verifier access to cited runs, reordering within dependency constraints, a local fixture trial for permissions, scorecard fields for stopped runs, finding times, watch list timing, and friction, a per-criterion baseline rule, a same-session human checkpoint, neutral S4 case ids in workspaces outside the repository, README hunks in patches, and tool support for reopening tasks, dropping tasks when a decision is withdrawn, refusing held tasks, and rejecting home-folder paths anywhere in the plan."
+    },
+    {
+      "at": "2026-09-17T17:40:00",
+      "entry": "Revised after a third fresh-context check, which confirmed the earlier fixes. Reopened tasks now retire their evidence, resets that reach other iterations need owner sign-off, snapshots are never overwritten, already-met expectations stay in the final check, S6 uses a rich-text editor the typing helper cannot handle, T0.2 never tries a run with sandbox and approvals disabled, and the home-folder path check no longer flags relative folders or local URLs named home."
+    }
+  ]
+}
