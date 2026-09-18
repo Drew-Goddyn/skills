@@ -3,11 +3,11 @@
   "updated_at": "2026-09-18T20:48:58.093199+00:00",
   "base_commit": "7a9a607b10ad1772de891db74de03d19ad54fd2d",
   "scope": "T5.3 only: remove the implicit application accent dependency and unsupported Homebrew-only fallback search; preserve explicit colors, PATH/override routes, and accepted recorder behavior.",
-  "status": "independently_reviewed_ready_for_publication",
+  "status": "reviewed_and_published",
   "delivery_state": {
     "implemented": true,
     "independently_reviewed": true,
-    "published": false,
+    "published": true,
     "merged": false,
     "installed": false
   },
@@ -75,5 +75,6 @@
   ],
   "new_child_invocations": 0,
   "pilot_invocations": 4,
-  "handoff": "Independently accepted portability packet is authorized for publication. Next assigned packet is T1.1 evidence format only, uncommitted pending review. No merge or installation."
+  "handoff": "Published accepted portability; T1.1 evidence-file packet remains a separate uncommitted review handoff. No merge or installation.",
+  "published_commit": "37f515932c070fa6e450c937dc930d72918a690c"
 }

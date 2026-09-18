@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "reel": {
+    "path": "reel.mp4",
+    "sha256": "",
+    "duration_seconds": null,
+    "size_bytes": null
+  },
+  "brief": {
+    "record": "facts/brief.txt",
+    "audience": "",
+    "takeaway": "",
+    "decisive_moments": [],
+    "duration_seconds": {
+      "min": null,
+      "max": null
+    },
+    "sound_policy": "forbid"
+  },
+  "environment": {
+    "kind": "",
+    "url": null,
+    "signed_in_account_kind": "",
+    "conditions": ""
+  },
+  "source": {
+    "revision": null,
+    "revision_note": "",
+    "record": "facts/source.json"
+  },
+  "production": {
+    "mode": "capture",
+    "capture": {
+      "settings": "facts/capture.json",
+      "context": ""
+    },
+    "edit": null
+  },
+  "takes": [
+    {
+      "id": "take-1",
+      "role": "new_capture",
+      "record": "facts/take.json"
+    }
+  ],
+  "beats": [
+    {
+      "id": "action",
+      "kind": "action",
+      "label": "",
+      "decisive": true,
+      "driver_time": null,
+      "video_time": null,
+      "alignment": "unknown",
+      "timing_note": ""
+    }
+  ],
+  "checks": [
+    {
+      "id": "media",
+      "kind": "media",
+      "status": "not_run",
+      "report": null,
+      "context": ""
+    }
+  ],
+  "review": {
+    "agent_frames": {
+      "status": "not_performed",
+      "coverage": "",
+      "evidence": []
+    },
+    "continuous_watch": {
+      "status": "not_performed",
+      "coverage": "",
+      "evidence": []
+    },
+    "listening": {
+      "status": "not_performed",
+      "coverage": "",
+      "evidence": []
+    },
+    "human": {
+      "status": "not_performed",
+      "coverage": "",
+      "evidence": []
+    },
+    "watch_list": [
+      {
+        "label": "",
+        "video_seconds": null,
+        "note": ""
+      }
+    ]
+  },
+  "privacy": {
+    "status": "not_performed",
+    "coverage": "",
+    "evidence": [],
+    "findings": []
+  },
+  "limitations": [],
+  "toolkit": {
+    "status": "no_change",
+    "friction": [],
+    "owner": "current_task",
+    "scope": "",
+    "result": {
+      "reason": "",
+      "changed_files": [],
+      "checks": [],
+      "tool_version": null,
+      "discovery": null,
+      "next_action": null
+    }
+  },
+  "reproduction": {
+    "setup": "",
+    "created_records": [],
+    "cleanup": {
+      "status": "not_performed",
+      "coverage": "",
+      "evidence": []
+    }
+  }
+}

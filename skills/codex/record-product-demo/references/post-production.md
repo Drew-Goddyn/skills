@@ -35,3 +35,5 @@ Technical success does not establish meaningful audible content, listening quali
 For reproducibility checks, compare decoded picture and audio separately from container hashes. Container metadata can differ while media stays identical. Preserve differing renders and locate the changed stage before claiming a repeatable result. Use [media repair](media.md) for a demonstrated conversion or playback problem.
 
 Review clarity and rhythm against the brief. A trailer's review should cover anticipation, readable action, appeal, and the finish; a product walkthrough should make the action and its result easy to follow. Keep remaining review gaps in the delivery evidence.
+
+For an edit-only delivery, use `production.mode: edit_only` and `capture: null` in [evidence.json](evidence.md). Reference source take records as `source_capture`; keep the original driver clock separate from encoded source/output timelines. Save the edit settings and any known cut map without claiming a new take or inventing unknown alignment.

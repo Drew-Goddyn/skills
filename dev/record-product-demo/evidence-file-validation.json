@@ -1,0 +1,122 @@
+{
+  "kind": "scoped_delivery_evidence_implementation",
+  "updated_at": "2026-09-18T21:46:28.227647+00:00",
+  "base_commit": "37f515932c070fa6e450c937dc930d72918a690c",
+  "scope": "T1.1 template, browser-free validator, delivery guidance, and faithful copied baseline/clarity examples only. No new capture/edit or full harness.",
+  "status": "independently_reviewed_ready_for_publication",
+  "delivery_state": {
+    "implemented": true,
+    "independently_reviewed": true,
+    "published": false,
+    "merged": false,
+    "installed": false
+  },
+  "standing_authorization": "dev/record-product-demo/plan.json decision D1",
+  "format": {
+    "schema_version": 1,
+    "filename": "evidence.json beside each reel in its own delivery folder",
+    "takes": "References to preserved raw take records; driver event indices resolve existing timestamps without rewriting them.",
+    "clocks": "Driver time and encoded output time are separate; edit maps relate encoded input/output only. Unknown alignment stays unknown.",
+    "checks": "Raw reports including failures, errors and compatibility warnings remain authoritative. Structural validation does not decode media or certify visual, listening, privacy or publication quality.",
+    "review": "Explicit coverage/status and evidence, including unavailable review and timed watch/privacy findings. Empty findings alone never imply reviewed.",
+    "edit_only": "No new capture settings or take; source takes and input footage referenced with saved edit settings."
+  },
+  "local_validation": {
+    "environment": "3.14.2 on macOS; no browser or media executables used for evidence validation",
+    "evidence_tests": 21,
+    "recorder_checks": 7,
+    "tool_selection_tests": 11,
+    "faithful_examples": [
+      "baseline: pass, 15\u201330 second silent brief, full-range warning retained",
+      "clarity: pass, 10\u201311 second silent brief, edit-only timeline and review gaps retained"
+    ],
+    "invalid_examples": 6,
+    "legacy_format": "Preserved original baseline record fails missing versioned fields. This demonstrates format incompatibility, not a bad video.",
+    "source_integrity": "Recorder, emphasis, media checker, preflight, and their accepted tests match published bytes. Existing take/check copies match their copy manifest; only two checker video-path fields sanitized.",
+    "discovery": "Cached skills CLI add . --list finds record-product-demo among six; no install.",
+    "plan": "Original task statuses, dependencies, and acceptance criteria unchanged; new test command added to mechanical_suite.",
+    "not_rerun": [
+      "media decoding/regression suite",
+      "browser helper suite",
+      "preflight",
+      "continuous audiovisual/privacy review"
+    ]
+  },
+  "independent_validation": {
+    "author": "ChatGPT review partner",
+    "relayed_by": "Drew",
+    "source": "Self-contained review findings in this conversation; no independent archive sought or inspected.",
+    "reviewed_candidate_patch_sha256": "bd5645bb5384085effc9d8b2a4b6520a0271e6a4597e1f263485f1c31d64cd92",
+    "reproduced": {
+      "evidence_tests": 21,
+      "recorder_checks": 7,
+      "executable_selection_tests": 11,
+      "structural_examples": 2,
+      "invalid_example_rejections": 6,
+      "legacy_rejection": true,
+      "plan_validation": true,
+      "payload_hashes": 164,
+      "candidate_files_from_patch": 10
+    },
+    "finding": "Converted examples misattributed ChatGPT-authored assessments relayed by Drew as direct human viewing. Correction remains uncommitted for review.",
+    "acceptance": "Pending review of this attribution correction; original mechanical findings remain attributed to the earlier candidate."
+  },
+  "source_sha256": {
+    "skills/codex/record-product-demo/SKILL.md": "04301ad24f1eecad664b9790398b23e45a5a3b1482f4563106a8394d807f1576",
+    "skills/codex/record-product-demo/references/post-production.md": "50d5f94f8cd469aafc0b3690275a5da21509930b482f59b669377639e2313b96",
+    "skills/codex/record-product-demo/references/evidence.md": "4f378c934cd39c7e3a20b3c26eb79d1064013f03027bba5c21972d24f25c6c71",
+    "skills/codex/record-product-demo/templates/evidence.json": "af6b33b0500dca2e5c9b0dcba20a0eeedf60d0f510934b29cecad81cd823c11d",
+    "skills/codex/record-product-demo/scripts/check_evidence.py": "94ec9e35dec444b469b413d04471997aa7ddda2079bb3be7dc96840461ff86ab",
+    "skills/codex/record-product-demo/scripts/test_check_evidence.py": "e3e2ec5a5232d4856ca80e5dd170e3fd52ea3c5415e12aeb0ca6466fb8d4af49",
+    "skills/codex/record-product-demo/techniques.json": "66aa1aa5afa8c2e9014bfd699a32136e154ed995c8c4b5454b39ceedc100528f",
+    "skills/codex/record-product-demo/scripts/fixtures/relayed-agent-review.json": "37265ab397c0f4556af90dfa0d4f8c4c2ef4080719c265dd3b6e1f2455a4fc05"
+  },
+  "evidence_run": "dev/record-product-demo/runs/20260918-evidence-attribution-f383",
+  "review_zip": "dev/record-product-demo/runs/20260918-evidence-attribution-f383/evidence-file-attribution-review.zip",
+  "limitations": [
+    "Two independent S1 agent runs remain unverified; original T1.1 remains pending with T0.7 dependency.",
+    "Copied historical review coverage is not a fresh continuous-watch or privacy review.",
+    "The validator checks recorded assertions and local consistency, not their external truth. Complex or unavailable edit mappings remain explicitly unknown."
+  ],
+  "new_child_invocations": 0,
+  "pilot_invocations": 4,
+  "handoff": "Accepted evidence-file slice authorized for publication. Original T1.1 two independent S1 runs and other prerequisites remain unverified. Next packet is encoded-video beat frames and contact sheets only, uncommitted pending review.",
+  "attribution_correction": {
+    "human_viewing_result": "Uncollected in available evidence, not a claim Drew never watched.",
+    "independent_visual_review": "ChatGPT review partner is the author; Drew is the relay. Recording-agent inspection remains separately referenced.",
+    "sample_selection": "Separate decision record; not evidence of personal viewing.",
+    "raw_records": "Preserved, including inherited user review prose; explicit correction in new converted records. Earlier ZIPs and example copies unchanged.",
+    "runtime": "Validator and accepted runtime source unchanged; no classifier or general provenance framework.",
+    "local_validation": {
+      "evidence_tests": 22,
+      "corrected_examples": 2,
+      "attribution_assertions": "Both pass",
+      "former_misattribution_negative_control": "Focused fixture assertion fails as expected when human status is changed to performed.",
+      "other_checks": "Reference validation and final package integrity recorded in correction run.",
+      "not_rerun": [
+        "recorder helper suite",
+        "executable-selection suite",
+        "media suite",
+        "browser",
+        "preflight",
+        "visual/human review"
+      ]
+    }
+  },
+  "prior_evidence_run": "dev/record-product-demo/runs/20260918-evidence-file-f383",
+  "prior_review_zip": "dev/record-product-demo/runs/20260918-evidence-file-f383/evidence-file-review.zip",
+  "independent_acceptance": {
+    "author": "ChatGPT review partner",
+    "relayed_by": "Drew",
+    "provenance": "Self-contained acceptance in this conversation; no independent archive sought or inspected.",
+    "finding": "Author-versus-relay correction accepted and closed.",
+    "accepted_patch_sha256": "cddfeb4aafd7ed63b6d80b6929db5c4f5f9c0d537522f39fcafd032cd3e6adce",
+    "evidence_tests": 22,
+    "packaged_reproduction": "All 22 evidence tests in one run, both corrected examples and attribution assertions, six invalid rejections, legacy rejection.",
+    "negative_control": "Reinstating false human-viewing claim with valid report reference fails focused assertion.",
+    "payload_hashes": 231,
+    "full_source_files_reproduced": 11,
+    "correction_files_reproduced": 24,
+    "prior_comparison": "Validator, accepted runtime, raw historical evidence, and reels unchanged."
+  }
+}

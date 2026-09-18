@@ -42,6 +42,14 @@
       "usage": "python3 scripts/check_video.py demo.webm --expected-size 1440x900 --expected-fps 30 --min-duration 15 --max-duration 30 --max-bytes 10000000 Set limits from the brief. Use --audio-policy require for required sound; forbid is the silent default. --allow-audio remains an alias for --audio-policy allow. --h264-range-policy report (default) warns on full-range H.264; select reject-full-range when the delivery target's compatibility requirements exclude it.",
       "limits": "Requires ffmpeg and ffprobe on PATH; missing commands report how to supply them. Checks minimum picture presentation span (equality passes; omitted means no minimum), maximum container duration, decoded picture frame count against picture timing, dimensions, rate, size, and full video/audio decode. Reports raw pixel format and color range with known/unknown/missing statuses. Flags full-range H.264 under a documented delivery compatibility policy, without claiming a visible color defect. Reports separate picture and audio presentation intervals and rejects start, end, or duration mismatches beyond one video frame, accounting for codec padding. Does not judge meaningful audible content, listening quality, perceptual synchronization, pacing, legibility, privacy, or source cadence.",
       "check": "python3 scripts/test_check_video.py runs browser-free synthetic audio-policy, timing, minimum-duration, and color-reporting regressions. Also run the checker on the final reel and on a deliberately wrong expected size; the latter must exit nonzero."
+    },
+    {
+      "id": "delivery-evidence",
+      "use_when": "Any reel is ready to deliver, including an edit of existing footage.",
+      "entrypoint": "templates/evidence.json; references/evidence.md; scripts/check_evidence.py",
+      "usage": "Keep one evidence.json beside each reel in its own delivery folder. Fill version 1 with brief, provenance, capture/edit settings, referenced takes, clock-labelled beats, actual check reports, review/privacy coverage, limitations, reproduction and toolkit friction. Run python3 scripts/check_evidence.py <delivery>/evidence.json.",
+      "limits": "Python standard library only; no browser or media tools needed. Checks local structure, file identity and stated consistency, not decoding, clarity, privacy or publication fitness. Raw checks remain authoritative, including failures and warnings. Unknown clocks and edit maps stay unknown; no take-schema rewrite.",
+      "check": "python3 scripts/test_check_evidence.py -v; validate the actual final delivery folder too."
     }
   ]
 }
