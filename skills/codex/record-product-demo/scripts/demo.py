@@ -91,7 +91,22 @@ class Demo:
         output = self.scratch / name
         if output.exists():
             raise FileExistsError(output)
-        self.run('record', 'start', output, '--fps', 30)
+        try:
+            self.run('record', 'start', output, '--fps', 30)
+        except BaseException as error:
+            try:
+                output.with_suffix('.take.json').write_text(json.dumps({
+                    'status': 'failed', 'video': str(output),
+                    'failure_stage': 'recorder_start', 'capture_request': {'fps': 30},
+                    'wall_seconds': None, 'flow_seconds': None,
+                    'recorder': {}, 'events': [],
+                    'errors': [{'type': type(error).__name__, 'message': str(error)}],
+                    'playback_review': 'pending',
+                }, indent=2) + '\n')
+            except OSError as record_error:
+                # Keep the startup failure primary if its diagnostic cannot be saved.
+                raise error from record_error
+            raise
         self.started = time.monotonic()
         self.events = []
         errors = []

@@ -107,6 +107,7 @@
     "mechanical_suite": [
       "python3 dev/record-product-demo/plan.py validate",
       "python3 skills/codex/record-product-demo/scripts/test_check_video.py -v",
+      "python3 skills/codex/record-product-demo/scripts/test_helpers.py --record-only",
       "python3 skills/codex/record-product-demo/scripts/test_helpers.py",
       "python3 skills/codex/record-product-demo/scripts/preflight.py <new scratch folder> --format mp4",
       "python3 skills/codex/record-product-demo/scripts/test_preflight.py <scratch folder>/preflight.mp4 <new negative-control folder>"
@@ -631,7 +632,7 @@
         "Baseline scorecards are rescored with the new checker, and both versions are kept."
       ],
       "evidence": [],
-      "note": "The audio-policy/timing slice is published at d29e8104acf35a0e4b5d6f453437f7a0463083e6. The minimum-duration/color-reporting slice is independently accepted for publication; see dev/record-product-demo/duration-color-validation.json. Full fixture checks and baseline scorecard rescoring remain outstanding; original acceptance criteria and task status remain unchanged."
+      "note": "The audio-policy/timing slice is published at d29e8104acf35a0e4b5d6f453437f7a0463083e6. The independently accepted minimum-duration/color-reporting slice is published at 845ba9ad869ff025626046419f0f2b7d0e7831da; see dev/record-product-demo/duration-color-validation.json. Full fixture checks and baseline scorecard rescoring remain outstanding; original acceptance criteria and task status remain unchanged."
     },
     {
       "id": "T4.3",
@@ -734,7 +735,7 @@
         "A helper test with a stubbed recorder whose start raises fails before the change and passes after it, and the take record marks the start failure."
       ],
       "evidence": [],
-      "note": ""
+      "note": "Scoped recorder-start correction independently accepted for publication; see dev/record-product-demo/recorder-start-validation.json. Seven helper checks and patch/schema/error-propagation proof were independently confirmed. The reviewer did not complete the unchanged media suite or report a live-browser pass; those remain builder results. T0.7 and broader scenario/harness prerequisites remain outstanding; original status and criteria are unchanged."
     },
     {
       "id": "T5.3",
@@ -912,6 +913,14 @@
     {
       "at": "2026-09-18T18:59:02.802314+00:00",
       "entry": "ChatGPT independently accepts minimum-duration/color reporting for publication: 14 packaged cases and 17 tests under FFmpeg/ffprobe 7.1.5, plus healthy/frozen preflight and both invoice reel properties. Builder FFmpeg 8.0 evidence remains separate. Implementation/test/guidance bytes match the accepted package. T4.1/T4.2 stay pending with their full original harness, seeded-defect, fixture, and scorecard requirements. The next assigned packet is only T5.2 recorder-start failure evidence; it remains uncommitted until independent acceptance."
+    },
+    {
+      "at": "2026-09-18T19:05:14.699997+00:00",
+      "entry": "Accepted minimum-duration/color slice published at 845ba9ad869ff025626046419f0f2b7d0e7831da; remote and PR #2 head verified. The assigned T5.2 correction now records recorder-start failure with requested output/fps, unknown timing, empty events/recorder facts, and the original exception. Saved fail-before/pass-after stub results, seven browser-free helper checks, the complete 17-test media suite, 20 helper checks with isolated Chrome, and fresh successful preflight plus healthy/frozen controls. This new correction stays uncommitted pending ChatGPT review. No original task status, dependency, or acceptance criterion changed; no child Codex calls, merge, installation, or next packet."
+    },
+    {
+      "at": "2026-09-18T20:17:32.115151+00:00",
+      "entry": "Recorder-start correction independently accepted for publication from Drew's relayed review: seven deterministic helper checks, before/after record behavior, exception identity, successful compatibility, six-file patch, hashes, and plan validation. Independent combined media run reached an execution limit; no fresh media-suite or live-browser pass is claimed for that review. Publish the accepted bytes, then implement only the assigned T5.3 portability slice for review. Standing D1 authority applies; original task prerequisites/statuses/acceptance remain unchanged."
     }
   ]
 }

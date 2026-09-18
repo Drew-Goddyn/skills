@@ -1,4 +1,5 @@
 """Exercise input and emphasis against a real browser without application data."""
+import argparse
 import json
 import tempfile
 from pathlib import Path
@@ -10,34 +11,113 @@ def check_record_failures(scratch):
     results = []
     class FailingRecorder(Demo):
         def run(self, *args):
+            if args[:2] == ('record', 'start') and self.failure == 'start':
+                raise self.error
             if args[:2] == ('record', 'stop'):
                 self.stopped = True
                 if self.failure == 'stop':
-                    raise RuntimeError('simulated stop failure')
+                    raise self.error
+                return {'stub': True, 'stopped': True}
             return {}
         def clear(self):
+            self.cleared = True
             if self.failure == 'clear':
-                raise RuntimeError('simulated cleanup failure')
-    for failure in ('body', 'clear', 'stop'):
+                raise self.error
+    for failure in ('start', 'body', 'clear', 'stop'):
         recorder = FailingRecorder('unused', scratch)
-        recorder.failure, recorder.stopped = failure, False
+        recorder.failure = failure
+        recorder.error = RuntimeError(f'simulated {failure} failure')
+        recorder.stopped = recorder.cleared = False
+        entered = False
         try:
             with recorder.record(f'{failure}.webm'):
+                entered = True
                 if failure == 'body':
-                    raise RuntimeError('simulated flow failure')
-        except RuntimeError:
-            pass
+                    raise recorder.error
+        except RuntimeError as error:
+            if error is not recorder.error:
+                raise AssertionError(f'{failure} failure replaced the original exception') from error
+        else:
+            raise AssertionError(f'{failure} failure was swallowed')
         report = json.loads((scratch / f'{failure}.take.json').read_text())
-        if report['status'] != 'failed' or not report['errors'] or not recorder.stopped:
+        if report['status'] != 'failed' or report['errors'] != [
+                {'type': 'RuntimeError', 'message': str(recorder.error)}]:
             raise AssertionError(f'{failure} failure did not leave recovery evidence')
-        results.append(f'{failure} failure attempts stop and preserves failed evidence')
+        if failure == 'start':
+            if (entered or recorder.stopped or recorder.cleared or recorder.started is not None
+                    or report.get('failure_stage') != 'recorder_start'
+                    or report.get('capture_request') != {'fps': 30}
+                    or report['video'] != str(scratch.resolve() / 'start.webm')
+                    or report['wall_seconds'] is not None or report['flow_seconds'] is not None
+                    or report['recorder'] != {} or report['events'] != []
+                    or (scratch / 'start.webm').exists()):
+                raise AssertionError('start failure invented capture state or lost request context')
+            results.append('start failure records the request and error without inventing a take or swallowing the error')
+        else:
+            if not entered or not recorder.stopped or not recorder.cleared:
+                raise AssertionError(f'{failure} failure did not attempt cleanup and stop')
+            results.append(f'{failure} failure attempts stop and preserves failed evidence and original error')
+
+    recorder = FailingRecorder('unused', scratch)
+    recorder.failure = None
+    recorder.stopped = recorder.cleared = False
+    with recorder.record('success.webm') as active:
+        if active is not recorder:
+            raise AssertionError('record yielded a different helper')
+        recorder.event('stub-action', target='invented fixture')
+    report = json.loads((scratch / 'success.take.json').read_text())
+    if (set(report) != {'status', 'video', 'wall_seconds', 'flow_seconds', 'recorder',
+                       'events', 'errors', 'playback_review'}
+            or report['status'] != 'recorded' or report['errors'] != []
+            or report['recorder'] != {'stub': True, 'stopped': True}
+            or [event['action'] for event in report['events']] != ['stub-action']
+            or not 0 <= report['flow_seconds'] <= report['wall_seconds']
+            or report['playback_review'] != 'pending'
+            or not recorder.stopped or not recorder.cleared or recorder.started is not None):
+        raise AssertionError('successful take changed its record or cleanup behavior')
+    results.append('successful take preserves the existing schema, recorder facts, events, and cleanup')
+
+    recorder.failure = 'start'
+    recorder.error = RuntimeError('simulated start failure after a successful take')
+    recorder.stopped = recorder.cleared = False
+    try:
+        with recorder.record('next.webm'):
+            raise AssertionError('flow entered after start failure')
+    except RuntimeError as error:
+        if error is not recorder.error:
+            raise AssertionError('reused helper replaced the startup error') from error
+    else:
+        raise AssertionError('reused helper swallowed the startup error')
+    report = json.loads((scratch / 'next.take.json').read_text())
+    if report['events'] != [] or report['recorder'] != {} or recorder.stopped or recorder.cleared:
+        raise AssertionError('start failure reused stale events or claimed cleanup of a started recorder')
+    results.append('start failure after success does not inherit previous events or recorder facts')
+
+    try:
+        with recorder.record('missing-parent/unsavable.webm'):
+            raise AssertionError('flow entered after start failure')
+    except RuntimeError as error:
+        if error is not recorder.error or not isinstance(error.__cause__, OSError):
+            raise AssertionError('diagnostic write failure obscured the startup error') from error
+    else:
+        raise AssertionError('unsavable diagnostic converted startup failure into success')
+    results.append('unsavable diagnostic preserves the startup error with the file error as its cause')
     return results
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--record-only', action='store_true',
+                        help='Run deterministic take-record checks without a browser.')
+    args = parser.parse_args()
     scratch = Path(tempfile.mkdtemp(prefix='demo-check-', dir='/tmp'))
-    b = Demo('helpers', scratch)
     checks = check_record_failures(scratch)
+    if args.record_only:
+        result = {'status': 'pass', 'checks': checks, 'scratch': str(scratch)}
+        (scratch / 'checks.json').write_text(json.dumps(result, indent=2) + '\n')
+        print(json.dumps(result, indent=2))
+        return
+    b = Demo('helpers', scratch)
     def check(name, expression):
         if b.js(expression) is not True:
             raise AssertionError(name)

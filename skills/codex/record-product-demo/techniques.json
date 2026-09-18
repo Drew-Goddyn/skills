@@ -5,9 +5,9 @@
       "id": "browser-capture",
       "use_when": "A short browser flow is ready to rehearse and record.",
       "entrypoint": "scripts/demo.py:Demo",
-      "usage": "Import Demo into the task driver. Demo(session, scratch). Use run(*args) for native agent-browser commands, ready(expression) for UI state, and with record('take.webm') for capture. DEMO_BROWSER selects an executable. The context writes take.take.json even when the flow fails. Event times use the driver clock after the start response; the recorder starts asynchronously, so align visual actions before treating these as video timecodes.",
+      "usage": "Import Demo into the task driver. Demo(session, scratch). Use run(*args) for native agent-browser commands, ready(expression) for UI state, and with record('take.webm') for capture. DEMO_BROWSER selects an executable. The context writes take.take.json when recorder startup or the flow fails and still raises the error. A startup failure has status failed and failure_stage recorder_start; video and capture_request describe the requested output and fps, not successful capture. Timing is null and events/recorder facts are empty until startup succeeds. If the diagnostic cannot be written, the startup error remains primary with the file error chained as its cause. Event times use the driver clock after the start response; the recorder starts asynchronously, so align visual actions before treating these as video timecodes.",
       "limits": "Requires agent-browser with record --fps and ffmpeg on PATH. Fixed 30 fps request. Use a fresh session; record starts on the current page in tested version 0.37.1. No fixture reset or application-specific behavior.",
-      "check": "python3 scripts/preflight.py /absolute/new-scratch-directory",
+      "check": "python3 scripts/test_helpers.py --record-only runs browser-free startup/success/error-propagation checks; python3 scripts/preflight.py /absolute/new-scratch-directory checks actual capture.",
       "tested_with": "agent-browser 0.37.1; 0.27.3 produced 10 fps and is unsuitable for the default take"
     },
     {
