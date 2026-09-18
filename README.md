@@ -6,6 +6,7 @@ Personal agent skills for ChatGPT and supported coding agents, using the [Agent 
 
 | Category | Skill | Purpose |
 | --- | --- | --- |
+| Any agent | [Build Orchestrator](skills/build-orchestrator/SKILL.md) | Plan with the human, delegate building to a persistent or one-shot builder agent, and judge the results, from any agent environment. |
 | Codex | [Record Demos and Trailers](skills/codex/record-product-demo/SKILL.md) | Record and edit real application demos and game trailers, with reproducible capture and verification. |
 | ChatGPT web | [Build Loop](skills/chatgpt%20web/build-loop/SKILL.md) | An ongoing thinking and review partner for human-directed work with a separate coding agent. |
 | ChatGPT web | [Codebase Design](skills/chatgpt%20web/codebase-design/SKILL.md) | Design deep modules, interfaces, and testable seams. |
@@ -14,6 +15,8 @@ Personal agent skills for ChatGPT and supported coding agents, using the [Agent 
 | ChatGPT web | [Grilling](skills/chatgpt%20web/grilling/SKILL.md) | Stress-test a plan, decision, or idea through rounds of questions. |
 
 The four specialist skills complement Build Loop: they supply design, domain-modeling, writing, and interview guidance while Build Loop handles coordination with the human and separate coding agent. Install Build Loop separately when using that workflow.
+
+Build Orchestrator applies Build Loop's collaboration approach in any agent environment. Where the environment allows it, the orchestrator starts and messages the builder itself instead of relaying through the human. Install only one of the two in a given environment: Build Loop keeps every message relayed through the human, while Build Orchestrator can run rounds on its own, so their guidance conflicts when both are present.
 
 Publishing the source here does not install it in a ChatGPT account or publish it in ChatGPT's plugin directory.
 
@@ -41,10 +44,24 @@ For supported coding agents, run from the project where you want to use the skil
 npx skills add Drew-Goddyn/skills
 ```
 
+Without `--skill`, this can install every skill, including both Build Loop and Build Orchestrator. Pick only one of those two for a given environment.
+
 List available skills without installing:
 
 ```sh
 npx skills add Drew-Goddyn/skills --list
+```
+
+Install Build Orchestrator:
+
+```sh
+npx skills add Drew-Goddyn/skills --skill build-orchestrator
+```
+
+To install it globally for Claude Code:
+
+```sh
+npx skills add Drew-Goddyn/skills --skill build-orchestrator --agent claude-code --global
 ```
 
 Install Build Loop:
