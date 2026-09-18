@@ -6,7 +6,7 @@
   "skill_path": "skills/codex/record-product-demo",
   "baseline_commit": "f414875",
   "resume": [
-    "From the repository root, run `python3 dev/record-product-demo/plan.py next` and work the task it prints. Iterations run in array order, and so do tasks within an iteration, so array order is the priority.",
+    "Work the scoped packet assigned by ChatGPT or the owner. ChatGPT selects subsequent packets from evidence and independently reviews each handoff. `python3 dev/record-product-demo/plan.py next` displays the remaining backlog; it does not authorize automatic packet selection. D1 records standing publication authority.",
     "Record task progress with `plan.py update`, decisions with `plan.py decide`, and notes with `plan.py log`. These commands validate the plan before saving. After a structural edit by hand, such as re-ranking, run `plan.py validate` and add a log entry.",
     "To reopen a finished task, run `plan.py update <id> --status pending --note <reason>`. The task and the finished tasks that depend on it return to pending, and their evidence moves to prior_evidence, so closing them again needs new evidence. When the reset would reach other iterations, the tool refuses; surface the listed tasks to the owner before rerunning with --reset-later-iterations.",
     "Read `standing_rules` before any task. Read `facts` before re-deriving something they already establish.",
@@ -43,7 +43,7 @@
       "verified": "2026-09-17, diff -rq and the skills CLI lock file"
     },
     {
-      "fact": "Current media checker on synthetic 1440x900, 30 fps clips: a silent clip passes with --allow-audio because audio cannot be required. A clip whose audio runs 0.5 s past the picture fails with 'frame count does not match duration and frame rate' because the container duration is used. A yuvj420p full-range clip passes, and the report has no pixel format or color range. Audio is never decoded.",
+      "fact": "Baseline media checker at f414875 on synthetic 1440x900, 30 fps clips: a silent clip passes with --allow-audio because audio cannot be required. A clip whose audio runs 0.5 s past the picture fails with 'frame count does not match duration and frame rate' because the container duration is used. A yuvj420p full-range clip passes, and the report has no pixel format or color range. Audio is never decoded.",
       "verified": "2026-09-17, ffmpeg lavfi testsrc2 and sine clips"
     },
     {
@@ -87,12 +87,13 @@
     "snapshots": "dev/record-product-demo/runs/snapshots/iteration-<id>-start/: copies of the skill folder, dev/record-product-demo excluding runs/ and generated media, and README.md. T0.1 takes iteration-0-start before any other change. Never overwrite an existing snapshot, including when a reopened task repeats its snapshot step.",
     "iteration_verification": [
       "Save the iteration's patch under runs/verification/iteration-<id>/. Use the commit range if D1 allows commits. Otherwise run diff -ruN on the skill folder, dev/record-product-demo, and README.md against the iteration's starting snapshot, excluding runs/, hash_exclusions, and generated media, so new files appear in the patch. Hunks from other writers in README.md are marked as outside this plan.",
-      "Give a fresh-context agent the patch, the acceptance criteria of this iteration's tasks, standing_rules, and read access to the run folders and test output those tasks cite as evidence. Save its verdict beside the patch.",
+      "Give ChatGPT, the independent reviewer, the scoped patch, original acceptance criteria, standing_rules, and the cited evidence in a small review ZIP. Save the review verdict and corrections with the packet; keep untested larger tasks open.",
       "When the verifier finds a criterion unmet, reopen its task with `plan.py update <id> --status pending --note <reason>`, which also resets the tasks that depend on it. The verify task is done only on a passing verdict.",
       "After a passing verdict, snapshot the same folders and README.md as the starting point of the next iteration in array order. T0.V skips this step, because T0.7 takes that snapshot after the baseline."
     ],
     "mechanical_suite": [
       "python3 dev/record-product-demo/plan.py validate",
+      "python3 skills/codex/record-product-demo/scripts/test_check_video.py -v",
       "python3 skills/codex/record-product-demo/scripts/test_helpers.py",
       "python3 skills/codex/record-product-demo/scripts/preflight.py <new scratch folder> --format mp4",
       "python3 skills/codex/record-product-demo/scripts/test_preflight.py <scratch folder>/preflight.mp4 <new negative-control folder>"
@@ -193,9 +194,11 @@
     {
       "id": "D1",
       "question": "How should this work be committed? For example, one commit per iteration on a feature branch, or leave everything uncommitted.",
-      "status": "open",
+      "status": "answered",
       "blocks": [],
-      "default_until_answered": "Leave all changes uncommitted in the working tree."
+      "default_until_answered": "Leave all changes uncommitted in the working tree.",
+      "answer": "Drew authorizes implementation, independent review, corrections, and commit/push work through this plan without repeated owner approval. ChatGPT remains the independent reviewer and selects subsequent scoped packets from the evidence. Publish accepted packets to codex/plan-demo-recording-improvements with ordinary pushes; leave a new packet uncommitted at its review handoff until independent acceptance. Preserve review checkpoints and separately record implemented, independently reviewed, published, merged, and installed states. Merging, replacing the installed skill, additional private data access, and force-push are outside this authorization.",
+      "answered_at": "2026-09-18T18:25:25.316183+00:00"
     },
     {
       "id": "D2",
@@ -507,7 +510,7 @@
         "Before any checker change, it records the current results as fail-before evidence for each missed case."
       ],
       "evidence": [],
-      "note": ""
+      "note": "Scoped audio tests and local synthetic proof are implemented and independently accepted; see dev/record-product-demo/audio-validation.json. This does not complete the original seeded-defect or harness requirements."
     },
     {
       "id": "T4.2",
@@ -525,7 +528,7 @@
         "Baseline scorecards are rescored with the new checker, and both versions are kept."
       ],
       "evidence": [],
-      "note": ""
+      "note": "The audio-policy and timing slice is implemented and independently accepted; see dev/record-product-demo/audio-validation.json. Minimum-duration and color reporting are the next assigned packet. Full fixture checks and baseline scorecard rescoring remain outstanding; original acceptance criteria and task status remain unchanged."
     },
     {
       "id": "T4.3",
@@ -555,7 +558,7 @@
         "S5 in two runs: the delivered reel passes with audio required, picture and audio durations match within one frame, and the decoded picture frames equal the source's. The baseline S5 scorecard, rescored with the audio field, is the fail-before evidence. Where it already met this, apply standing rule 1."
       ],
       "evidence": [],
-      "note": ""
+      "note": "Required-audio delivery guidance is implemented and independently accepted with the audio packet. The original two S5 runs and decoded-picture comparison remain outstanding; this task stays pending."
     },
     {
       "id": "T4.V",
@@ -746,6 +749,10 @@
     {
       "at": "2026-09-17T17:40:00",
       "entry": "Revised after a third fresh-context check, which confirmed the earlier fixes. Reopened tasks now retire their evidence, resets that reach other iterations need owner sign-off, snapshots are never overwritten, already-met expectations stay in the final check, S6 uses a rich-text editor the typing helper cannot handle, T0.2 never tries a run with sandbox and approvals disabled, and the home-folder path check no longer flags relative folders or local URLs named home."
+    },
+    {
+      "at": "2026-09-18T18:25:25.316183+00:00",
+      "entry": "Standing authorization and packet sequence updated by the owner; D1 is answered. The scoped audio implementation and padding-test correction are independently accepted and authorized for publication. ChatGPT remains the independent reviewer and chooses subsequent packets. Preserve implemented/reviewed/published/merged/installed distinctions. No larger T4 task or acceptance criterion is closed or weakened."
     }
   ]
 }

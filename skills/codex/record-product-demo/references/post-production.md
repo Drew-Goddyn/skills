@@ -20,7 +20,11 @@ If the music is longer than the picture, select passages around musical structur
 
 ## Render and review the changed work
 
-Use a clean audio timeline for the final mix. Decode both video and audio when sound is present; the bundled video checker alone does not certify audio decoding, synchronization, or listening quality. Check loudness and peaks, then watch and listen to the delivered encode at normal playback speed using the review coverage established in the main workflow.
+Use a clean audio timeline for the final mix. Run `python3 scripts/check_video.py reel.mp4 --audio-policy require` when the brief requires sound, adding its media limits. The default `forbid` policy rejects audio tracks; `--audio-policy allow` (also `--allow-audio`) permits a silent reel. Every present audio track is decoded under all policies.
+
+The JSON report separates `picture` and per-track `audio` presentation intervals. Start, end, and duration differences exceeding one video frame fail with an audio/picture timing diagnostic. Decoded timestamps retain stream offsets and codec skip/discard handling; a shorter signalled final audio-frame duration trims codec padding. The legacy top-level `duration_seconds` and `--max-duration` still use container duration. Missing timing or decode errors fail rather than establish alignment.
+
+Technical success does not establish meaningful audible content, listening quality, or perceptual synchronization. A decodable track of digital silence can pass `require`. Check loudness and peaks, then watch and listen to the delivered encode at normal playback speed using the review coverage established in the main workflow.
 
 For reproducibility checks, compare decoded picture and audio separately from container hashes. Container metadata can differ while media stays identical. Preserve differing renders and locate the changed stage before claiming a repeatable result. Use [media repair](media.md) for a demonstrated conversion or playback problem.
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Print a quick JSON health check for a demo video."""
+"""Check demo media decoding, picture timing, and the requested audio policy."""
 
 from __future__ import annotations
 
@@ -42,6 +42,89 @@ def size(value: str) -> tuple[int, int]:
     return width, height
 
 
+def decode_stream(video: Path, stream: dict) -> tuple[list[dict], dict]:
+    """Require decoded frames as well as a clean full decode of this stream."""
+    index = stream["index"]
+    probe = run([
+        tool("ffprobe"), "-v", "error", "-err_detect", "explode",
+        "-select_streams", str(index), "-show_frames", "-show_entries",
+        "frame=pts,best_effort_timestamp,duration,pkt_duration,nb_samples",
+        "-of", "json", str(video),
+    ])
+    frames = json.loads(probe.stdout or "{}").get("frames", [])
+    decode = run([
+        tool("ffmpeg"), "-v", "error", "-xerror", "-err_detect", "explode",
+        "-i", str(video), "-map", f"0:{index}", "-f", "null", "-",
+    ])
+    errors = []
+    for label, result in (("frame probe", probe), ("decode", decode)):
+        if result.returncode or result.stderr.strip():
+            errors.append(f"{label}: {result.stderr.strip() or result.returncode}")
+    if not frames:
+        errors.append("no decoded frames")
+    if stream["codec_type"] == "audio" and not sum(int(f.get("nb_samples", 0)) for f in frames):
+        errors.append("no decoded audio samples")
+    return frames, {"status": "fail" if errors else "pass", "errors": errors}
+
+
+def presentation_timing(stream: dict, frames: list[dict]) -> tuple[Fraction, Fraction, dict]:
+    """Use decoded presentation timestamps, with signalled audio tail trimming.
+
+    FFmpeg applies codec skip/discard samples while decoding. AAC can still
+    produce a full final block whose frame duration signals a shorter playable
+    tail. Use that duration, not a codec-sized grace period or container length.
+    """
+    if not frames:
+        raise ValueError("no decoded frames for timing")
+    time_base = Fraction(stream["time_base"])
+    audio = stream["codec_type"] == "audio"
+    sample_rate = int(stream.get("sample_rate", 0))
+    stamped = []
+    for frame in frames:
+        pts = frame.get("pts", frame.get("best_effort_timestamp"))
+        if pts is None:
+            raise ValueError("decoded frame has no presentation timestamp")
+        duration = int(frame.get("duration", frame.get("pkt_duration", 0))) * time_base
+        if audio:
+            samples = int(frame.get("nb_samples", 0))
+            if samples <= 0 or sample_rate <= 0:
+                raise ValueError("decoded audio frame has no positive sample count/rate")
+            span = Fraction(samples, sample_rate)
+        else:
+            span = duration
+            if span <= 0:
+                fps = Fraction(stream.get("avg_frame_rate", "0"))
+                if fps <= 0:
+                    raise ValueError("decoded picture frame has no duration or positive frame rate")
+                span = 1 / fps
+        stamped.append((int(pts) * time_base, span, duration))
+    start = min(pts for pts, _, _ in stamped)
+    decoded_end = max(pts + span for pts, span, _ in stamped)
+    last_index = max(range(len(stamped)), key=lambda i: stamped[i][0])
+    pts, span, duration = stamped[last_index]
+    tail_trim = Fraction(0)
+    if audio and 0 < duration < span:
+        tail_trim = span - duration
+        stamped[last_index] = (pts, duration, duration)
+    end = max(pts + span for pts, span, _ in stamped)
+    if end <= start:
+        raise ValueError("decoded presentation interval is empty")
+    report = {
+        "start_seconds": float(start),
+        "end_seconds": float(end),
+        "duration_seconds": float(end - start),
+        "decoded_frame_count": len(frames),
+    }
+    if audio:
+        report.update(
+            sample_rate=sample_rate,
+            decoded_sample_count=sum(int(f["nb_samples"]) for f in frames),
+            decoded_end_seconds=float(decoded_end),
+            signalled_tail_trim_seconds=float(tail_trim),
+        )
+    return start, end, report
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Check a demo video and print JSON facts.")
     parser.add_argument("video", type=Path)
@@ -49,7 +132,12 @@ def main() -> int:
     parser.add_argument("--expected-size", type=size, metavar="WIDTHxHEIGHT")
     parser.add_argument("--max-duration", type=float)
     parser.add_argument("--max-bytes", type=int)
-    parser.add_argument("--allow-audio", action="store_true")
+    audio_policy = parser.add_mutually_exclusive_group()
+    audio_policy.add_argument("--audio-policy", choices=("forbid", "allow", "require"),
+                              help="Forbid (default), allow, or require decodable audio")
+    audio_policy.add_argument("--allow-audio", dest="audio_policy", action="store_const", const="allow",
+                              help="Compatibility alias for --audio-policy allow")
+    parser.set_defaults(audio_policy="forbid")
     args = parser.parse_args()
 
     video = args.video.expanduser().resolve()
@@ -57,7 +145,7 @@ def main() -> int:
         parser.error(f"Video is not a file: {video}")
 
     probe = run([
-        tool("ffprobe"), "-v", "error", "-count_frames", "-show_streams",
+        tool("ffprobe"), "-v", "error", "-show_streams",
         "-show_format", "-of", "json", str(video),
     ])
     if probe.returncode:
@@ -71,15 +159,40 @@ def main() -> int:
     file_bytes = video.stat().st_size
     fps = rate(primary.get("avg_frame_rate"))
     duration = float(payload.get("format", {}).get("duration", 0) or 0)
-    frame_count = int(primary.get("nb_read_frames", 0) or 0)
+    frame_count = 0
     width = int(primary.get("width", 0) or 0)
     height = int(primary.get("height", 0) or 0)
 
     violations: list[str] = []
     if len(videos) != 1:
         violations.append(f"expected one video stream, found {len(videos)}")
-    if audios and not args.allow_audio:
+    if audios and args.audio_policy == "forbid":
         violations.append(f"unexpected audio streams: {len(audios)}")
+    if not audios and args.audio_policy == "require":
+        violations.append("required audio is missing")
+
+    picture = None
+    audio_reports = []
+    windows = {}
+    for stream in ([primary] if videos else []) + audios:
+        frames, decoded = decode_stream(video, stream)
+        label = "picture" if stream["codec_type"] == "video" else "audio"
+        if label == "picture":
+            frame_count = len(frames)
+        entry = {"stream_index": stream["index"], "codec": stream.get("codec_name"), "decode": decoded}
+        if decoded["status"] != "pass":
+            violations.append(f"{label} stream {stream['index']} decode failed: {'; '.join(decoded['errors'])}")
+        try:
+            start, end, timing = presentation_timing(stream, frames)
+            entry.update(timing)
+            windows[stream["index"]] = (start, end)
+        except (KeyError, ValueError, ZeroDivisionError) as error:
+            violations.append(f"{label} stream {stream['index']} timing unavailable: {error}")
+        if label == "picture":
+            picture = entry
+        else:
+            audio_reports.append(entry)
+
     if duration <= 0 or frame_count <= 0:
         violations.append("duration or frame count is missing")
     if args.expected_fps is not None and (fps is None or abs(fps - args.expected_fps) > 0.01):
@@ -90,15 +203,27 @@ def main() -> int:
         violations.append(f"duration {duration:g}s exceeds {args.max_duration:g}s")
     if args.max_bytes is not None and file_bytes > args.max_bytes:
         violations.append(f"file size {file_bytes} exceeds {args.max_bytes}")
-    if fps and duration and abs(frame_count - fps * duration) > 2:
-        violations.append("frame count does not match duration and frame rate")
-
-    decode = run([
-        tool("ffmpeg"), "-v", "error", "-i", str(video),
-        "-map", "0:v:0", "-f", "null", "-",
-    ])
-    if decode.returncode or decode.stderr.strip():
-        violations.append(f"decode failed: {decode.stderr.strip() or decode.returncode}")
+    picture_window = windows.get(primary.get("index"))
+    if fps and picture_window and abs(frame_count - fps * (picture_window[1] - picture_window[0])) > 2:
+        violations.append("frame count does not match picture duration and frame rate")
+    tolerance = 1 / Fraction(primary["avg_frame_rate"]) if fps and fps > 0 else None
+    for entry in audio_reports:
+        audio_window = windows.get(entry["stream_index"])
+        if entry["decode"]["status"] != "pass" or not audio_window or not picture_window:
+            continue
+        if tolerance is None:
+            violations.append("audio/picture timing needs a positive video frame rate for the one-frame tolerance")
+            continue
+        a_start, a_end = audio_window
+        v_start, v_end = picture_window
+        offsets = (a_start - v_start, a_end - v_end, (a_end - a_start) - (v_end - v_start))
+        entry["picture_offsets_seconds"] = dict(zip(("start", "end", "duration"), map(float, offsets)))
+        if any(abs(offset) > tolerance for offset in offsets):
+            violations.append(
+                f"audio/picture timing mismatch for audio stream {entry['stream_index']}: "
+                f"start {float(offsets[0]):+.9g}s, end {float(offsets[1]):+.9g}s, "
+                f"duration {float(offsets[2]):+.9g}s; tolerance {float(tolerance):.9g}s (one video frame)"
+            )
 
     report = {
         "status": "pass" if not violations else "fail",
@@ -111,6 +236,12 @@ def main() -> int:
         "fps": fps,
         "file_size_bytes": file_bytes,
         "audio_streams": len(audios),
+        "audio_policy": args.audio_policy,
+        "audio_decode_status": ("not_present" if not audios else
+                                "pass" if all(a["decode"]["status"] == "pass" for a in audio_reports) else "fail"),
+        "picture": picture,
+        "audio": audio_reports,
+        "audio_picture_tolerance_seconds": float(tolerance) if tolerance is not None else None,
         "violations": violations,
     }
     print(json.dumps(report, indent=2, sort_keys=True))

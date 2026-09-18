@@ -33,7 +33,7 @@ For each new take, verify the decisive action and result both in the application
 
 ## Verify and deliver
 
-Run [the media checker](scripts/check_video.py) with the requested dimensions, rate, duration, size, and audio policy; use its `--help` for options. Watch the complete delivered encode at normal playback speed, including after edits, and listen when it contains meaningful sound. Judge clarity, continuity, and pacing against the brief. Record unavailable review explicitly.
+Run [the media checker](scripts/check_video.py) with the requested dimensions, rate, duration, size, and audio policy. Use `--audio-policy require` when the brief requires sound; silence is the default policy. See `--help` for options and [post-production](references/post-production.md#render-and-review-the-changed-work) for audio timing and review limits. Watch the complete delivered encode at normal playback speed, including after edits, and listen when it contains meaningful sound. Judge clarity, continuity, and pacing against the brief. Record unavailable review explicitly.
 
 When independent review is requested or warranted, give a fresh viewer only the reel, audience context, and viewing constraints first. Ask what they understood, what happened, and where another look was needed; for a trailer, also ask what looked appealing and whether the build and finish worked. Preserve that response before sharing the intended takeaway and criteria. Revise implicated beats; a new first impression requires a fresh viewer.
 
