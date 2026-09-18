@@ -1,0 +1,67 @@
+{
+  "kind": "scoped_duration_color_checker_implementation",
+  "date": "2026-09-18T18:34:01.620253+00:00",
+  "base_commit": "d29e8104acf35a0e4b5d6f453437f7a0463083e6",
+  "scope": "Remaining minimum-duration and color-reporting portion of T4.2, with necessary tests and delivery guidance. No full defect harness, scorecard, freeze detector, privacy work, or reel edits.",
+  "standing_authorization": "dev/record-product-demo/plan.json decision D1",
+  "status": "independently_reviewed_ready_for_publication",
+  "delivery_state": {
+    "implemented": true,
+    "independently_reviewed": true,
+    "published": false,
+    "merged": false,
+    "installed": false
+  },
+  "minimum_duration": {
+    "option": "--min-duration",
+    "basis": "Decoded picture presentation end minus start; exact rational comparison; equality passes.",
+    "default": "No minimum",
+    "maximum_duration": "Existing container-duration check unchanged."
+  },
+  "color_reporting": {
+    "values": "Raw pixel_format and color_range with known/unknown/missing status; missing values remain null.",
+    "default_policy": "--h264-range-policy report: full-range H.264 produces a visible compatibility warning without changing pass/fail.",
+    "strict_policy": "--h264-range-policy reject-full-range: signalled full-range H.264 is a violation. Unknown metadata is not proof of limited range.",
+    "review_limit": "No perceptual color-error diagnosis or playback-target certification."
+  },
+  "local_validation": {
+    "ffmpeg": "8.0",
+    "tests_passed": 17,
+    "audio_padding_and_strict_boundary_controls": "unchanged, passed",
+    "healthy_frozen_preflight": "passed",
+    "baseline_invoice": "passed 15-30 second brief; full-range compatibility warning retained",
+    "clarity_invoice": "passed 10-11 second brief; limited-range metadata"
+  },
+  "independent_validation": {
+    "reviewer": "ChatGPT",
+    "ffmpeg": "7.1.5",
+    "ffprobe": "7.1.5",
+    "acceptance_source": "Drew relayed explicit independent acceptance in this task on 2026-09-18.",
+    "reported_archive": "duration-color-independent-review.zip",
+    "archive_access": "Not found in task attachments, Downloads, or indexed exact-filename search; no claim of archive inspection. Local path requested while proceeding from explicit acceptance.",
+    "packaged_cases_passed": 14,
+    "regression_tests_passed": 17,
+    "regression_run_note": "Passed across bounded independent runs.",
+    "healthy_frozen_preflight": "passed",
+    "confirmed": [
+      "Minimum uses decoded picture span; neither audio duration nor shared nonzero start inflates it.",
+      "Raw pixel format/range and known/unknown/missing statuses behave as intended.",
+      "Full-range H.264 retains a visible warning by default and fails with explicit reject-full-range.",
+      "Accepted baseline remains valid with its warning; clarity reel remains limited-range."
+    ],
+    "distinction": "Independent FFmpeg 7.1.5 results are reported by the reviewer; builder results remain FFmpeg 8.0."
+  },
+  "evidence_run": "dev/record-product-demo/runs/20260918-duration-color-f383",
+  "review_zip": "dev/record-product-demo/runs/20260918-duration-color-f383/duration-color-review.zip",
+  "prior_evidence": "Preserved, including initial default-rejection policy and the failures it caused on accepted baseline/preflight media.",
+  "backlog_status": "Original T4 task statuses, dependencies, and acceptance criteria remain unchanged. Scenario-suite and scorecard requirements remain outstanding.",
+  "new_child_invocations": 0,
+  "pilot_invocations": 4,
+  "handoff": "Independently accepted and authorized for ordinary commit/push under D1. Recorder-start correction is the next assigned scoped packet and stays uncommitted pending review. No merge or installation.",
+  "publication_verification": {
+    "accepted_package": "duration-color-review.zip",
+    "accepted_package_sha256": "f0672534dd41515bf61c82b0adf2987ccc0b1d9138b2efd54a78d628cc9835df",
+    "source_match": "All implementation, tests, and guidance bytes match the accepted package; review/status metadata updated for this acceptance.",
+    "evidence_run": "dev/record-product-demo/runs/20260918-recorder-start-f383"
+  }
+}

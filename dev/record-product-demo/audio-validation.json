@@ -10,7 +10,7 @@
   "review_zip": "dev/record-product-demo/runs/20260918-audio-padding-correction-f383/audio-padding-correction-review.zip",
   "new_child_invocations": 0,
   "prior_child_invocations": 4,
-  "status": "reviewed_and_ready",
+  "status": "published",
   "known_gap": "Generated Opus/WebM control emits a parser diagnostic on the local FFmpeg 8.0 toolchain and fails both original and modified checks; it is preserved. Optional skill frontmatter validator cannot import PyYAML in existing Python runtimes.",
   "implementation_review_zip": "dev/record-product-demo/runs/20260918-audio-validation-f383/audio-validation-review.zip",
   "correction_run": "dev/record-product-demo/runs/20260918-audio-padding-correction-f383",
@@ -67,9 +67,13 @@
   "delivery_state": {
     "implemented": true,
     "independently_reviewed": true,
-    "publication": "authorized_pending_push",
+    "publication": "published",
     "merged": false,
     "installed": false,
-    "branch": "codex/plan-demo-recording-improvements"
-  }
+    "branch": "codex/plan-demo-recording-improvements",
+    "commit": "d29e8104acf35a0e4b5d6f453437f7a0463083e6",
+    "remote_verified_at": "2026-09-18T18:26:28.886222+00:00",
+    "pr": "https://github.com/Drew-Goddyn/skills/pull/2"
+  },
+  "publication_evidence": "dev/record-product-demo/runs/20260918-duration-color-f383/publication/verified.json"
 }

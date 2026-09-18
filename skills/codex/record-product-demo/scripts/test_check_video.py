@@ -1,4 +1,4 @@
-"""Browser-free audio-policy and timing regressions; requires FFmpeg/ffprobe."""
+"""Browser-free media-policy and timing regressions; requires FFmpeg/ffprobe."""
 
 import json
 from pathlib import Path
@@ -7,7 +7,7 @@ import sys
 import tempfile
 import unittest
 
-from check_video import presentation_timing, tool
+from check_video import color_metadata, presentation_timing, tool
 
 
 CHECKER = Path(__file__).with_name("check_video.py")
@@ -49,6 +49,13 @@ def make_media(directory: Path) -> None:
     (directory / "broken-audio.mp4").write_bytes(data)
     create("broken-second-track.mp4", ["-i", str(directory / "aligned.mp4"), "-i", str(directory / "broken-audio.mp4"),
                                       "-map", "0:v", "-map", "0:a", "-map", "1:a", "-c", "copy"])
+    create("truncated.mp4", video + encode + ["-frames:v", "59"])
+    create("limited-range-tagged.mp4", video + encode
+           + ["-color_range", "tv", "-colorspace", "bt709", "-color_primaries", "bt709", "-color_trc", "bt709"])
+    create("full-range.mp4", video + encode
+           + ["-vf", "scale=in_range=tv:out_range=pc", "-color_range", "pc"])
+    create("full-range-ffv1.mkv", video
+           + ["-vf", "scale=in_range=tv:out_range=pc", "-c:v", "ffv1", "-pix_fmt", "yuv420p", "-color_range", "pc"])
 
 
 class MediaChecks(unittest.TestCase):
@@ -160,6 +167,91 @@ class MediaChecks(unittest.TestCase):
         for frames in [[], [{"nb_samples": 1024}], [{"pts": 0, "nb_samples": 0}]]:
             with self.subTest(frames=frames), self.assertRaises(ValueError):
                 presentation_timing(stream, frames)
+
+
+    def test_minimum_duration_boundary_and_omission(self):
+        self.assertEqual(self.check("truncated.mp4")["status"], "pass")
+        short = self.check("truncated.mp4", "--min-duration", "2")
+        self.assertEqual(short["status"], "fail")
+        self.assertEqual(len(short["violations"]), 1, short)
+        self.assertIn("picture duration", short["violations"][0])
+        self.assertIn("below minimum 2s", short["violations"][0])
+        for name, boundary in [("silent.mp4", "2"), ("silent.mp4", "0"), ("truncated.mp4", "59/30")]:
+            with self.subTest(name=name, boundary=boundary):
+                self.assertEqual(self.check(name, "--min-duration", boundary)["status"], "pass")
+        self.assertEqual(self.check("silent.mp4", "--min-duration", "2.000001")["status"], "fail")
+
+    def test_minimum_uses_picture_span_not_container_or_start_offset(self):
+        for name in ["one-frame-long.mov", "shared-start.mkv"]:
+            with self.subTest(name=name):
+                result = self.check(name, "--audio-policy", "require", "--min-duration", "2.01")
+                self.assertGreater(result["duration_seconds"], 2.01)
+                self.assertEqual(result["picture"]["duration_seconds"], 2)
+                self.assertEqual(result["min_duration_basis"], "picture_presentation_span")
+                self.assertEqual(result["violations"], ["picture duration 2s is below minimum 2.01s"])
+
+    def test_invalid_minimum_duration_is_a_cli_error(self):
+        for value in ["-1", "nan", "inf", "1/0", "1e309", "nonsense"]:
+            with self.subTest(value=value):
+                result = subprocess.run([sys.executable, str(CHECKER), str(self.media / "silent.mp4"),
+                                         "--min-duration", value], text=True, capture_output=True)
+                self.assertEqual(result.returncode, 2)
+                self.assertIn("Minimum duration must be finite, nonnegative seconds", result.stderr)
+
+    def test_color_metadata_round_trips_probe_values(self):
+        limited = self.check("limited-range-tagged.mp4")
+        self.assertEqual(limited["status"], "pass", limited)
+        self.assertEqual(limited["pixel_format"], "yuv420p")
+        self.assertEqual(limited["pixel_format_status"], "known")
+        self.assertEqual(limited["color_range"], "tv")
+        self.assertEqual(limited["color_range_status"], "known")
+        untagged = self.check("silent.mp4")
+        probe = json.loads(subprocess.check_output([
+            tool("ffprobe"), "-v", "error", "-select_streams", "v:0", "-show_streams", "-of", "json",
+            str(self.media / "silent.mp4"),
+        ]))["streams"][0]
+        # Preserve what this toolchain reports; do not infer range from yuv420p.
+        self.assertEqual(untagged["pixel_format"], probe.get("pix_fmt"))
+        self.assertEqual(untagged["color_range"], probe.get("color_range"))
+        self.assertEqual(untagged["compatibility_findings"], [])
+
+    def test_unknown_metadata_is_not_reported_as_known(self):
+        for fields, expected in [({}, "missing"), ({"pix_fmt": None, "color_range": None}, "missing"),
+                                 ({"pix_fmt": "unknown", "color_range": "unknown"}, "unknown"),
+                                 ({"pix_fmt": "none", "color_range": "unrecognized"}, "unknown")]:
+            with self.subTest(fields=fields):
+                result = color_metadata(fields)
+                self.assertEqual(result["pixel_format"], fields.get("pix_fmt"))
+                self.assertEqual(result["color_range"], fields.get("color_range"))
+                self.assertEqual(result["pixel_format_status"], expected)
+                self.assertEqual(result["color_range_status"], expected)
+
+    def test_full_range_h264_is_reported_and_strict_policy_rejects(self):
+        reported = self.check("full-range.mp4")
+        self.assertEqual(reported["status"], "pass", reported)
+        self.assertEqual(reported["full_range_h264_policy"], "report")
+        self.assertEqual(reported["compatibility_findings"][0]["severity"], "warning")
+        rejected = self.check("full-range.mp4", "--h264-range-policy", "reject-full-range")
+        self.assertEqual(rejected["status"], "fail")
+        self.assertEqual(rejected["picture"]["decode"]["status"], "pass")
+        self.assertEqual(rejected["color_range"], "pc")
+        self.assertEqual(rejected["color_range_status"], "known")
+        self.assertEqual(len(rejected["violations"]), 1, rejected)
+        self.assertIn("compatibility policy", rejected["violations"][0])
+        self.assertIn("not an observed color defect", rejected["violations"][0])
+        finding = rejected["compatibility_findings"][0]
+        self.assertEqual(finding["code"], "full_range_h264")
+        self.assertIn("color_range=pc", finding["basis"])
+        self.assertEqual(finding["severity"], "error")
+        still_short = self.check("full-range.mp4", "--h264-range-policy", "report", "--min-duration", "3")
+        self.assertEqual(still_short["violations"], ["picture duration 2s is below minimum 3s"])
+
+    def test_full_range_policy_is_specific_to_h264(self):
+        result = self.check("full-range-ffv1.mkv", "--h264-range-policy", "reject-full-range")
+        self.assertEqual(result["status"], "pass", result)
+        self.assertEqual(result["color_range"], "pc")
+        self.assertEqual(result["codec"], "ffv1")
+        self.assertEqual(result["compatibility_findings"], [])
 
 
 if __name__ == "__main__":

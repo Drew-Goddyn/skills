@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Check demo media decoding, picture timing, and the requested audio policy."""
+"""Check demo media decoding, timing, audio policy, and delivery compatibility."""
 
 from __future__ import annotations
 
 import argparse
 import json
+import math
 import shutil
 import subprocess
 import sys
@@ -40,6 +41,30 @@ def size(value: str) -> tuple[int, int]:
     if width <= 0 or height <= 0:
         raise argparse.ArgumentTypeError("Dimensions must be positive")
     return width, height
+
+
+def minimum_duration(value: str) -> Fraction:
+    try:
+        duration = Fraction(value)
+        if duration < 0 or not math.isfinite(float(duration)):
+            raise ValueError
+        return duration
+    except (ValueError, ZeroDivisionError, OverflowError) as error:
+        raise argparse.ArgumentTypeError("Minimum duration must be finite, nonnegative seconds") from error
+
+
+def color_metadata(stream: dict) -> dict:
+    """Keep raw probe values; an absent range does not establish limited range."""
+    pixel_format = stream.get("pix_fmt")
+    color_range = stream.get("color_range")
+    return {
+        "pixel_format": pixel_format,
+        "pixel_format_status": ("missing" if pixel_format is None else
+                                "unknown" if pixel_format in {"", "unknown", "unspecified", "none", "N/A"} else "known"),
+        "color_range": color_range,
+        "color_range_status": ("missing" if color_range is None else
+                               "known" if color_range in {"tv", "pc"} else "unknown"),
+    }
 
 
 def decode_stream(video: Path, stream: dict) -> tuple[list[dict], dict]:
@@ -130,8 +155,12 @@ def main() -> int:
     parser.add_argument("video", type=Path)
     parser.add_argument("--expected-fps", type=float)
     parser.add_argument("--expected-size", type=size, metavar="WIDTHxHEIGHT")
+    parser.add_argument("--min-duration", type=minimum_duration, metavar="SECONDS",
+                        help="Minimum decoded picture presentation span; equality passes (default: no minimum)")
     parser.add_argument("--max-duration", type=float)
     parser.add_argument("--max-bytes", type=int)
+    parser.add_argument("--h264-range-policy", choices=("report", "reject-full-range"), default="report",
+                        help="Report (default) or reject signalled full-range H.264 for delivery compatibility, not visual diagnosis")
     audio_policy = parser.add_mutually_exclusive_group()
     audio_policy.add_argument("--audio-policy", choices=("forbid", "allow", "require"),
                               help="Forbid (default), allow, or require decodable audio")
@@ -162,8 +191,22 @@ def main() -> int:
     frame_count = 0
     width = int(primary.get("width", 0) or 0)
     height = int(primary.get("height", 0) or 0)
+    color = color_metadata(primary)
 
     violations: list[str] = []
+    compatibility_findings = []
+    full_range_basis = []
+    if color["color_range"] == "pc":
+        full_range_basis.append("color_range=pc")
+    if (color["pixel_format"] or "").startswith("yuvj"):
+        full_range_basis.append(f"pixel_format={color['pixel_format']}")
+    if primary.get("codec_name") == "h264" and full_range_basis:
+        message = "full-range H.264 flagged by delivery compatibility policy; not an observed color defect"
+        compatibility_findings.append({"code": "full_range_h264", "basis": full_range_basis,
+                                       "severity": "error" if args.h264_range_policy == "reject-full-range" else "warning",
+                                       "message": message})
+        if args.h264_range_policy == "reject-full-range":
+            violations.append(message + "; selected policy: reject-full-range")
     if len(videos) != 1:
         violations.append(f"expected one video stream, found {len(videos)}")
     if audios and args.audio_policy == "forbid":
@@ -204,6 +247,14 @@ def main() -> int:
     if args.max_bytes is not None and file_bytes > args.max_bytes:
         violations.append(f"file size {file_bytes} exceeds {args.max_bytes}")
     picture_window = windows.get(primary.get("index"))
+    if args.min_duration is not None:
+        if picture_window is None:
+            violations.append("minimum duration needs decoded picture presentation timing")
+        elif picture_window[1] - picture_window[0] < args.min_duration:
+            violations.append(
+                f"picture duration {float(picture_window[1] - picture_window[0]):.9g}s "
+                f"is below minimum {float(args.min_duration):.9g}s"
+            )
     if fps and picture_window and abs(frame_count - fps * (picture_window[1] - picture_window[0])) > 2:
         violations.append("frame count does not match picture duration and frame rate")
     tolerance = 1 / Fraction(primary["avg_frame_rate"]) if fps and fps > 0 else None
@@ -233,6 +284,11 @@ def main() -> int:
         "width": width,
         "height": height,
         "codec": primary.get("codec_name"),
+        **color,
+        "full_range_h264_policy": args.h264_range_policy,
+        "compatibility_findings": compatibility_findings,
+        "min_duration_seconds": float(args.min_duration) if args.min_duration is not None else None,
+        "min_duration_basis": "picture_presentation_span",
         "fps": fps,
         "file_size_bytes": file_bytes,
         "audio_streams": len(audios),
