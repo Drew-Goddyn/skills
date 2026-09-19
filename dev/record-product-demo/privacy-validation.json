@@ -1,11 +1,11 @@
 {
   "kind": "scoped_sampled_privacy_review_and_handoff",
   "base_commit": "af6fc7221a2ac291403aa91a0ca87ebb64f955d6",
-  "status": "independently_accepted_ready_to_publish",
+  "status": "published",
   "delivery_state": {
     "implemented": true,
     "independently_reviewed": true,
-    "published": false,
+    "published": true,
     "merged": false,
     "installed": false
   },
@@ -72,5 +72,13 @@
     "remaining": 0
   },
   "evidence_run": "dev/record-product-demo/runs/20260919-privacy-review-f383",
-  "next_action": "Publish accepted sampled-privacy slice, then only assigned T7.1 recording/maintenance boundary; leave new slice uncommitted for independent review. No new child/model invocation, merge or installation."
+  "next_action": "Published; no further privacy work assigned. Current packet is the bounded T7.1 recording/maintenance boundary, uncommitted for independent review. Original scenario prerequisites remain open.",
+  "published_commit": "a3d272d8e995f268b7fa19fc47977bd79d1cbe65",
+  "publication": {
+    "reviewed_bytes": "All eight non-record candidate files matched accepted package; only scoped acceptance/progress records additionally updated.",
+    "remote_branch": "codex/plan-demo-recording-improvements",
+    "remote_head_verified": "a3d272d8e995f268b7fa19fc47977bd79d1cbe65",
+    "pr_head_verified": "a3d272d8e995f268b7fa19fc47977bd79d1cbe65",
+    "pr_state": "OPEN"
+  }
 }

@@ -23,7 +23,7 @@ These branches can combine. Read only those needed by the requested work:
 | Record gameplay, camera movement, or an engine-rendered sequence | [Gameplay capture](references/gameplay-capture.md); browser games also use browser capture |
 | Assemble shots, add titles or sound, retime footage, or revise an existing edit | [Post-production](references/post-production.md) |
 | Diagnose capture, conversion, or playback failures | [Media repair](references/media.md) |
-| Resolve demonstrated reusable tooling friction or a requested skill experiment | [Toolkit maintenance](references/toolkit-maintenance.md) |
+| An explicitly authorized assignment to maintain the recording toolkit or run a bounded skill experiment | [Toolkit maintenance](references/toolkit-maintenance.md) |
 
 ## Capture when needed
 
@@ -49,4 +49,6 @@ Save a short, beat-linked `review.watch_list` with final-output ranges and their
 
 Include a small review ZIP with the response: reel, brief, evidence, raw checks, indexes, timestamped sheets, native frames and watch list. A known privacy finding requires a diagnostic handoff with the concern and final-output location, using a description that avoids copying sensitive values. Preserve real flagged material locally; include it in a shared package only when that sharing is authorized. Otherwise send a metadata-only diagnostic and explain the omitted media and references. Keep assessment separate so the reviewer can inspect visuals first. Preserve original takes, edit maps, checker warnings, limitations and reviewer attribution; never replace earlier evidence to make a delivery appear complete. Include only the relevant invented or authorized data.
 
-Record reusable friction under `toolkit` as it occurs. If it warrants maintenance, follow the linked guide within the authorized scope and report that outcome separately from the reel. Otherwise record `toolkit.status: no_change` with the reason.
+During ordinary recording, record reusable friction under `toolkit` with its evidence and next action, then continue with existing supported capabilities where possible. App-specific drivers, selectors and authorized task-local adaptations remain recording work. Keep installed and copied skill files unchanged; friction does not authorize toolkit edits, maintenance agents or a larger improvement task. Use `pending` for friction awaiting a separate assignment, or `no_change` with a reason when there is no shared maintenance outcome to pursue.
+
+An explicitly authorized maintenance assignment follows the [source-maintenance guide](references/toolkit-maintenance.md), including an ongoing repository-improvement session already operating under review/publication authority. Report that work separately from the reel. Optional maintenance does not delay a usable reel; actual capture, media, decisive-frame and privacy blockers still prevent an unqualified successful-delivery claim.

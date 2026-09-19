@@ -67,6 +67,7 @@ def assess(path):
             'check_results': structural['check_results'],
             'review_coverage': {k: data['review'][k] for k in ('agent_frames', 'continuous_watch', 'listening', 'human')},
             'privacy': data['privacy'], 'privacy_samples': privacy_samples, 'limitations': data['limitations'],
+            'toolkit': data['toolkit'],
             'boundary': 'Summarizes attributed findings, not an independent inspection. Ready for review is not successful delivery or publication approval. Frame inspection does not establish continuous viewing, listening, pacing, or privacy.'}
 
 
@@ -172,6 +173,21 @@ def handoff(result):
     for key, coverage in dict(result['review_coverage'], privacy=result['privacy']).items():
         lines.append(f"- {key}: {coverage['status']}. {coverage['coverage']}")
     lines += ['- ' + limit for limit in result['limitations']]
+    toolkit = result['toolkit']
+    maintenance = toolkit['result']
+    lines += ['', 'Toolkit follow-up (reported separately from reel readiness):', '',
+              f"- Status: {toolkit['status']}; owner: {toolkit['owner']}.",
+              '- Scope: ' + toolkit['scope']]
+    for friction in toolkit['friction']:
+        lines.append(f"- Friction: {friction['issue']} (evidence: {friction['evidence']})")
+    lines += ['- Result: ' + maintenance['reason'],
+              '- Changed source files: ' + ('; '.join(maintenance['changed_files']) or 'none recorded'),
+              '- Source checks: ' + ('; '.join(maintenance['checks']) or 'none recorded'),
+              '- Recorded tool version: ' + (maintenance['tool_version'] or 'uncollected'),
+              '- Discovery: ' + (maintenance['discovery'] or 'uncollected'),
+              '- Next action: ' + (maintenance['next_action'] or 'none recorded'), '',
+              'Optional maintenance does not delay a usable reel or erase its capture, media, decisive-frame or privacy blockers. '
+              'This summary does not authorize maintenance or establish source review, publication or installation.']
     return '\n'.join(lines) + '\n'
 
 

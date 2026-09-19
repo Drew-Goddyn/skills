@@ -17,6 +17,15 @@ Use the task-local `.agents/skills/record-product-demo` copy. It and `fixture/`
 are read-only inputs. Own task-local drivers and `output/` only; other writers
 own everything outside this workspace.
 
+The launch assignment is **record the requested reel and record reusable
+friction**, not resolve shared-toolkit issues. Use existing supported capabilities
+and authorized task-local drivers, selectors and adaptations. Put unresolved
+reusable friction, evidence and its next action in `toolkit` as pending; keep the
+loaded/copied skill unchanged and start no maintenance task or agent. Optional
+maintenance can follow delivery under a separate assignment. Capture, media,
+decisive-frame and privacy blockers remain blockers; a pending toolkit item
+cannot waive them.
+
 Use only the supplied invented-data localhost application and the trusted
 synthetic fixture embedded in this pinned skill's `scripts/preflight.py`. The
 preflight's data URL is allowed for its capture check; it is not another product
@@ -54,3 +63,12 @@ Historical setup files and child handoffs remain unchanged. Newly generated
 handoff examples demonstrate the correction; they cannot repair omissions in
 the accepted experiment. The preflight permission and retained-defaults policy
 are documented here, not proven by another browser or child run.
+
+This is a recording-child contract, not a restriction on the separately
+authorized repository-maintenance session. That assignment follows the
+[source-maintenance guide](../../skills/codex/record-product-demo/references/toolkit-maintenance.md)
+and its existing independent-review/publication checkpoints. No additional
+owner approval is needed for work already covered by that authority; merging
+and replacing installed skills remain separate decisions. These instruction
+changes and record examples do not establish fresh-agent compliance or satisfy
+the original S6 before/after child-run criteria.

@@ -38,7 +38,7 @@ the validator follows. Explain any unbundled historical attachments.
 | `privacy` | Explicit coverage/status/evidence plus findings: safe description, encoded-video range or `null`, timing note and supporting samples. Sampled review adds author/relay, inspected samples and sheets; see below. Empty findings alone never means reviewed or safe. |
 | `limitations` | Remaining gaps as text, including missing watch/listen coverage or unknown timing. |
 | `reproduction` | Setup/scene/action context, created-record IDs if any, and cleanup using the coverage/status/evidence contract. Edit-only work may state cleanup is not applicable because it started no sessions. |
-| `toolkit` | Status (`pending`, `running`, `improved`, `no_change`, `blocked`), friction entries with issue/evidence, actual owner or `current_task`, scope, and result. Result records reason, changed source-file identifiers, check-output paths, verified tool version, normal discovery route, and next action. `improved` requires changes/checks/version/discovery; unfinished work requires next action. `no_change` requires a reason. Empty friction is not an assertion that a tooling review occurred. See [maintenance guidance](toolkit-maintenance.md) only when relevant and authorized. |
+| `toolkit` | Status (`pending`, `running`, `improved`, `no_change`, `blocked`), friction entries with issue/evidence, actual owner or `current_task`, scope, and result. Result records reason, changed source-file identifiers, check-output paths, verified tool version, normal discovery route, and next action. `improved` requires changes/checks/version/discovery; unfinished work requires next action. `no_change` requires a reason. Empty friction is not an assertion that a tooling review occurred. Ordinary recording logs friction as pending and keeps skill copies unchanged; only an explicitly authorized maintenance assignment follows the [source-maintenance guide](toolkit-maintenance.md). Proposed, locally tested, reviewed/published and installed states stay distinct in result context; a patch alone is not improved. |
 
 Credit a review to its author and identify any relay separately. An agent-authored
 assessment relayed by a human remains agent review; keep it distinct from the
@@ -219,3 +219,14 @@ after checking its descriptions for sensitive values. Explain omitted files in
 the package index; keep the complete reference-valid evidence local rather than
 presenting the limited package as a full portable delivery. For authorized
 invented fixtures, the complete visual evidence can accompany the diagnostic.
+
+## Toolkit follow-up in the handoff
+
+The delivery helper includes the existing `toolkit` block unchanged in
+`review-readiness.json` and summarizes its status, owner, scope, friction, source
+changes/checks, version/discovery and next action in `HANDOFF.md`. This reports
+the supplied state; it does not verify maintenance claims, grant authority, or
+infer review, publication or installation. The [maintenance guide](toolkit-maintenance.md#use-the-existing-toolkit-record)
+defines the statuses. A pending or blocked optional improvement can accompany
+a ready review package. Existing capture/media, decisive-frame and privacy
+blockers remain effective; toolkit status cannot turn them into a success.
