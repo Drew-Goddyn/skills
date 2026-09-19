@@ -1,0 +1,28 @@
+{
+  "human": {
+    "status": "unavailable",
+    "coverage": "No direct human viewing result was collected. This does not establish whether Drew watched.",
+    "evidence": []
+  },
+  "agent_frames": {
+    "status": "performed",
+    "coverage": "Recording-agent inspection and independent ChatGPT inspection are separately authored. Drew relayed the latter.",
+    "evidence": ["facts/recording-agent.json", "facts/independent-agent.json"]
+  },
+  "recording_agent_report": {
+    "author": {"kind": "agent", "name": "Recording agent"},
+    "role": "recording_agent",
+    "coverage": "Invented fixture's own frame-inspection record; no review is performed by this test."
+  },
+  "independent_agent_report": {
+    "author": {"kind": "agent", "name": "ChatGPT review partner"},
+    "relay": {"kind": "human", "name": "Drew"},
+    "role": "independent_reviewer",
+    "coverage": "Invented fixture demonstrating relayed authorship; no review is performed by this test."
+  },
+  "sample_selection": {
+    "decision_maker": "Drew",
+    "decision": "Use the preferred sample.",
+    "boundary": "A selection instruction does not establish who personally examined the reel."
+  }
+}

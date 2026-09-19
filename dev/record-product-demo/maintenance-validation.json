@@ -1,0 +1,116 @@
+{
+  "kind": "scoped_recording_versus_toolkit_maintenance",
+  "base_commit": "a3d272d8e995f268b7fa19fc47977bd79d1cbe65",
+  "status": "published",
+  "delivery_state": {
+    "implemented": true,
+    "independently_reviewed": true,
+    "published": true,
+    "merged": false,
+    "installed": false
+  },
+  "scope": "T7.1 guidance, existing toolkit record reporting and supplied examples. No new evidence schema, scheduler, permission framework, installer or scenario run.",
+  "behavior": [
+    "Ordinary recording logs reusable friction and next action; supported capabilities and authorized task-local drivers/selectors remain available. Installed/copied skill files stay unchanged; no automatic maintenance delegation.",
+    "Authorized bounded maintenance verifies source checkout identity and other writers' changes. Without checkout, retain a portable proposal only with sufficient known source basis; otherwise preserve finding and required next action.",
+    "Existing toolkit status and result fields distinguish pending, blocked, locally tested source, reviewed/published and installed stages. Generated handoffs echo them separately without promoting them or changing reel readiness.",
+    "Standing authority for this repository-improvement session remains effective; independent review and publication checkpoints remain distinct from merge and installation."
+  ],
+  "local_results": {
+    "environment": {
+      "python": "3.14.2",
+      "ffmpeg": "8.0",
+      "ffprobe": "8.0",
+      "pillow": "12.1.1"
+    },
+    "checks": {
+      "toolkit_handoff": 8,
+      "evidence": 22,
+      "delivery": 20,
+      "privacy": 14,
+      "capture_environment": 11,
+      "recorder": 7
+    },
+    "total": 82,
+    "before": "All eight focused tests executed against the published helper and produced 18 assertion failures due to omitted toolkit JSON/text. No setup errors.",
+    "after": "Eight focused tests pass. Four copied synthetic deliveries validate; readiness JSON is identical after removing the added toolkit field, and each old handoff is an unchanged prefix before the added toolkit section.",
+    "examples": [
+      {
+        "example": "recording-friction",
+        "status": "ready_for_review",
+        "toolkit_status": "pending",
+        "record_valid": true,
+        "readiness_other_than_toolkit_unchanged": true,
+        "handoff_original_text_unchanged": true,
+        "inherited_evidence_unchanged": true
+      },
+      {
+        "example": "source-unavailable",
+        "status": "diagnostic_only",
+        "toolkit_status": "blocked",
+        "record_valid": true,
+        "readiness_other_than_toolkit_unchanged": true,
+        "handoff_original_text_unchanged": true,
+        "inherited_evidence_unchanged": true
+      },
+      {
+        "example": "portable-patch",
+        "status": "ready_for_review",
+        "toolkit_status": "blocked",
+        "record_valid": true,
+        "readiness_other_than_toolkit_unchanged": true,
+        "handoff_original_text_unchanged": true,
+        "inherited_evidence_unchanged": true
+      },
+      {
+        "example": "authorized-source",
+        "status": "ready_for_review",
+        "toolkit_status": "running",
+        "record_valid": true,
+        "readiness_other_than_toolkit_unchanged": true,
+        "handoff_original_text_unchanged": true,
+        "inherited_evidence_unchanged": true
+      }
+    ],
+    "instruction_inspection": "Relevant original router, maintenance delegation/status, setup and current evidence field matches preserved. These are instruction/record tests, not fresh-agent compliance.",
+    "skill_discovery": "Cached npx skills add . --list passed; no skill installation.",
+    "remaining_checks": "Package reproduction and integrity results accompany the review ZIP."
+  },
+  "limitations": [
+    "Original S6 fail-before and two after-change child runs remain unverified; T7.1 and all original prerequisites/statuses remain open.",
+    "Examples reuse prior synthetic media and inherited sampled review without new visual inspection. Source-unavailable situations and recording friction are supplied examples, not newly observed agent behavior.",
+    "No complete media-suite rerun, browser investigation, recording, new invoice edit, continuous viewing or privacy clearance. Capture/media/extractor/validator implementations remain unchanged.",
+    "Builder source checks do not establish independent acceptance, publication or installation of this new slice."
+  ],
+  "usage": {
+    "additional_child_or_model_invocations": 0,
+    "cumulative": 6,
+    "remaining": 0
+  },
+  "evidence_run": "dev/record-product-demo/runs/20260919-maintenance-boundary-f383",
+  "next_action": "Published. Only assigned T5.1 starter and direct fixture proof in progress; no new child/model run, merge or installation.",
+  "independent_review": {
+    "status": "accepted",
+    "author": "ChatGPT review partner",
+    "relayed_by": "Drew",
+    "source": "Self-contained user message; no archive sought or claimed inspected.",
+    "environment": {
+      "python": "3.13.5",
+      "ffmpeg": "7.1.5",
+      "ffprobe": "7.1.5",
+      "pillow": "12.3.0"
+    },
+    "execution": "Complete packaged reproduction passed in one execution: all 82 checks, four example validations/comparisons, plan validate/status/next.",
+    "findings": "Toolkit state preserved without changing readiness; optional pending/blocked maintenance does not delay ready examples or remove the existing privacy blocker. Proposals/local candidates do not become installed improvements. Prior text, warnings, optional questions and attribution preserved.",
+    "integrity": "310 payload hashes, ten-file patch and original published skill Git tree confirmed.",
+    "limitations": "No fresh S6 agent compliance or new viewing claimed.",
+    "accepted_candidate_patch_sha256": "44b58f9edc2f2bcb27abd6bde64909a074ef307ce63f0f52419f6977fd522548"
+  },
+  "published_commit": "fb162ebe44da5d021f7cdc7ad13a6d033b941ab1",
+  "publication": {
+    "remote_head_verified": "fb162ebe44da5d021f7cdc7ad13a6d033b941ab1",
+    "pr_head_verified": "fb162ebe44da5d021f7cdc7ad13a6d033b941ab1",
+    "pr_state": "OPEN",
+    "reviewed_bytes": "Implementation/test/guidance match accepted package; only relayed acceptance/progress records additionally updated."
+  }
+}

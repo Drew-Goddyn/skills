@@ -1,0 +1,128 @@
+{
+  "kind": "scoped_frame_review_and_watch_list_delivery",
+  "base_commit": "93d4c51a1631df3c37b57fffc665f977b64e63a2",
+  "status": "published_independently_reviewed",
+  "delivery_state": {
+    "implemented": true,
+    "independently_reviewed": true,
+    "published": true,
+    "merged": false,
+    "installed": false
+  },
+  "scope": "T2.2 delivery integration: optional per-decisive-beat findings in evidence v1, indexed frame references, authored coverage and linked watch targets, structural consistency checks, and a small review/diagnostic handoff command. This scoped slice is independently accepted; original repeated-run prerequisites remain open.",
+  "behavior": {
+    "structure": "Truthful incomplete/failed findings remain structurally valid; legacy evidence without findings still validates. References bind to reel/index sample hashes and sheet membership.",
+    "readiness": "Missing/unreviewed/unresolved/not-visible decisive findings, missing linked watch targets and missing/failing media checks yield diagnostic_only. Ready_for_review summarizes recorded support; it never approves delivery or publication.",
+    "clocks": "Watch targets retain exact supplied final-output ranges and precision; unknown timing remains null. Supporting frames reference decoded timestamps through their indexes. Driver clocks and original edit maps are unchanged.",
+    "attribution": "Actual inspecting author and optional relay recorded separately. New builder findings do not extend prior independent ChatGPT review or imply human viewing.",
+    "warnings": "Raw checker results/context, warnings and review/privacy limitations preserved in generated handoff evidence."
+  },
+  "local_validation": {
+    "status": "pass",
+    "environment": "macOS; Python 3.14.2; FFmpeg/ffprobe 8.0; Pillow 12.1.1. Browser-free, PATH tools, workspace sandbox.",
+    "visual_inspection": {
+      "author": "Codex builder in this packet",
+      "native_frames": 12,
+      "contact_sheets": 9,
+      "decisive_findings": 6,
+      "detail": "Amount typing midpoints supplemented by four inspected native neighbors per reel; save toast and final row each inspected natively. Whole-reel two-second sheets inspected as thumbnail context.",
+      "boundary": "Sampled frames only; no continuous watch, listening or privacy review. Historical ChatGPT agent-authored findings, Drew relay and separate preferred-sample decision retained."
+    },
+    "not_rerun": [
+      "accepted media regression suite",
+      "live browser helper suite",
+      "preflight capture/healthy-frozen experiment",
+      "full continuous viewing/listening/privacy review"
+    ],
+    "packaged_reproduction": {
+      "status": "pass",
+      "delivery_tests": 18,
+      "evidence_tests": 22,
+      "extraction_tests": 17,
+      "recorder_checks": 7,
+      "tool_selection_tests": 11,
+      "synthetic_scenarios": {
+        "supported": "ready_for_review",
+        "unreviewed": "diagnostic_only",
+        "unresolved": "diagnostic_only",
+        "missing_result": "diagnostic_only",
+        "missing_frame": "diagnostic_only"
+      },
+      "real_examples": {
+        "baseline": {
+          "status": "ready_for_review",
+          "structure": "pass",
+          "decisive_findings": 3,
+          "reel_sha256": "9b34284c7bcbf47d7d3e0bc0aeee76397f1344fd85e94c4844a334e552b28571",
+          "input_files_unchanged": 54
+        },
+        "clarity": {
+          "status": "ready_for_review",
+          "structure": "pass",
+          "decisive_findings": 3,
+          "reel_sha256": "3b85904a6324bbd44d033597a41963e8e5cca5daf7be3c11d682e37944a447a6",
+          "input_files_unchanged": 59
+        }
+      },
+      "boundary": "Reproduces structure, pixels and handoff behavior; does not repeat the builder's visual judgments."
+    },
+    "skill_discovery": "Cached skills CLI add . --list found all six skills including record-product-demo; list only, no install.",
+    "plan_validation": "Pass; all 32 original statuses, dependencies, acceptance criteria and evidence arrays unchanged.",
+    "preservation": {
+      "original_files_unchanged": 3438,
+      "accepted_runtime_and_test_files_unchanged": 12,
+      "metadata_only_exception": "Local runs/.DS_Store changed; excluded, not inspected or reverted."
+    }
+  },
+  "evidence_run": "dev/record-product-demo/runs/20260918-frame-review-f383",
+  "review_zip": "dev/record-product-demo/runs/20260918-frame-review-f383/frame-review-delivery-review.zip",
+  "open_criteria": [
+    "T1.1 original two independent S1 runs",
+    "T2.1 automatic clock alignment and five-take calibration",
+    "T2.2 original repeated S1/S4 runs and seeded-defect assertions",
+    "Original scenario/harness prerequisites and broader plan acceptance"
+  ],
+  "new_child_invocations": 0,
+  "pilot_invocations": 4,
+  "permissions": "Accepted frame-review packet authorized for commit/push; no merge or installation. Two fresh S1 runs are separately authorized with at most two additional child Codex invocations; original pilot remains four.",
+  "preservation": "Both reels and original evidence retained. New findings live only in copied example records; original take schemas, edit maps, raw checks and earlier author/relay records remain unchanged.",
+  "independent_review": {
+    "author": "ChatGPT review partner",
+    "relayed_by": "Drew",
+    "source": "Self-contained pasted request in this conversation; no independent archive sought or claimed inspected.",
+    "decision": "accepted without correction",
+    "accepted_candidate_patch_sha256": "2c11447e4da66824910bd4319504d33ed1be07a891d81d74d3fa6bd0ccd9d112",
+    "environment": {
+      "ffmpeg": "7.1.5",
+      "ffprobe": "7.1.5",
+      "python": "3.13.5",
+      "pillow": "12.3.0"
+    },
+    "complete_packaged_reproduction_one_execution": {
+      "delivery_tests": 18,
+      "evidence_tests": 22,
+      "extraction_tests": 17,
+      "recorder_checks": 7,
+      "tool_selection_tests": 11,
+      "plan": true,
+      "synthetic_scenarios": 5,
+      "copied_invoice_handoffs": 2
+    },
+    "visual_review": "Both typing-detail sheets and native confirmation/result frames support the six sampled findings; not continuous viewing or privacy clearance.",
+    "additional_real_clarity_controls": [
+      "unreviewed saved row produces diagnostic_only",
+      "missing linked watch target produces diagnostic_only",
+      "unperformed media check produces diagnostic_only",
+      "upgrading sampled watch precision to exact fails structure"
+    ],
+    "payload_hashes": 299,
+    "patch_files": 10,
+    "prior_implementations": "Earlier extractor/media/recording implementations unchanged."
+  },
+  "published_commit": "399e610d59e444fe0f6730ee7ef18dd0eaaeca39",
+  "publication_verification": {
+    "accepted_candidate_implementation_tests_guidance": "All seven skill file hashes matched accepted candidate before commit and committed blobs after publication. Scoped plan/status files additionally record the relayed acceptance.",
+    "remote_and_pr_head": "399e610d59e444fe0f6730ee7ef18dd0eaaeca39",
+    "evidence_run": "dev/record-product-demo/runs/20260919-0006-two-s1-f383/publication"
+  }
+}
