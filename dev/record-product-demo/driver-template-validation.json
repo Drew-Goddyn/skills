@@ -1,11 +1,11 @@
 {
   "kind": "scoped_reusable_recording_driver_template",
   "base_commit": "fb162ebe44da5d021f7cdc7ad13a6d033b941ab1",
-  "status": "independently_accepted_ready_for_publication",
+  "status": "published",
   "delivery_state": {
     "implemented": true,
     "independently_reviewed": true,
-    "published": false,
+    "published": true,
     "merged": false,
     "installed": false
   },
@@ -146,7 +146,7 @@
     "remaining": 0
   },
   "evidence_run": "dev/record-product-demo/runs/20260919-driver-template-f383",
-  "next_action": "Publish accepted starter under standing authority. Next assigned T2.1 correspondence/calibration packet only; no merge or installation.",
+  "next_action": "Only assigned per-take driver/video correspondence and five direct calibration takes. No child/model invocations, merge or installation.",
   "independent_review": {
     "status": "accepted",
     "author": "ChatGPT review partner",
@@ -162,5 +162,12 @@
     "execution": "Combined reproduction reached the review execution limit during final extraction; extraction and remaining assertions completed separately. Not a successful single-command reproduction or fresh independent browser capture.",
     "visual_inspection": "Action/result sheets and independently extracted native frames support direct fixture demonstration; no continuous watch, privacy clearance, fresh-agent adoption or reduced-effort claim.",
     "accepted_candidate_patch_sha256": "29d1048fe956e2565025cc2afe544b75879244dba39306331703c72d21c2722f"
+  },
+  "published_commit": "0aff4af635f25dc1a1129448c2742d3cf1f0b1ab",
+  "publication": {
+    "remote_head_verified": "0aff4af635f25dc1a1129448c2742d3cf1f0b1ab",
+    "pr_head_verified": "0aff4af635f25dc1a1129448c2742d3cf1f0b1ab",
+    "pr_state": "OPEN",
+    "reviewed_bytes": "All eleven accepted candidate files matched before relayed review/progress updates. Implementation, tests, fixture and guidance committed unchanged."
   }
 }

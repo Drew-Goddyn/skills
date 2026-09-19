@@ -1,0 +1,237 @@
+{
+  "kind": "scoped_driver_video_correspondence",
+  "base_commit": "0aff4af635f25dc1a1129448c2742d3cf1f0b1ab",
+  "status": "negative_experiment_independently_accepted_feature_not_accepted",
+  "delivery_state": {
+    "implemented": true,
+    "independently_reviewed": true,
+    "published": false,
+    "merged": false,
+    "installed": false,
+    "review_scope": "Negative five-take finding only. Shared timing implementation is not accepted for publication."
+  },
+  "scope": "Per-take supplied-observation constant-offset bounds, evidence-format proposals and five direct invented-fixture calibration takes. No generic CV, driver rewrite, freeze/privacy detector or scenario harness.",
+  "method": {
+    "anchors": [
+      "anchor_a",
+      "anchor_b"
+    ],
+    "held_out": [
+      "amount",
+      "saved",
+      "row"
+    ],
+    "target_error_seconds": 0.2,
+    "semantics": "Existing type/click events remain command issuance. New marker request/ack events bracket a confirmed state snapshot, not the first application-state onset. Decoded first marker-frame PTS is this calibration ground truth.",
+    "uncertainty": "Intersections cover supplied driver brackets and 1ms rounding. They do not cover unmeasured rendering/capture phase or drift; held-out observations test this assumption.",
+    "edits": "Only unique existing source/output segment containing the full uncertainty range; otherwise unresolved."
+  },
+  "local_experiment": {
+    "target": "Five of five takes: every decisive marker frame expected; onset offset error <= 0.2 seconds",
+    "status": "fail",
+    "passed_takes": 0,
+    "attempts": [
+      {
+        "take": 1,
+        "media": {
+          "path": "reel.mp4",
+          "sha256": "8b2bc9dcc9a6d09e760bdcf43e4539bb9da8d8104f156e523cddcb097542bec6",
+          "duration_seconds": 7.1,
+          "size_bytes": 631909
+        },
+        "capture_status": "completed",
+        "wall_seconds": 11.238,
+        "mapping_status": "bounded",
+        "offset_seconds": [
+          0.0055,
+          0.0138333333333333
+        ],
+        "offset_estimate_seconds": 0.00966666666666665,
+        "reason": null,
+        "calibration_status": "fail",
+        "expected_frame_matches": 2,
+        "held_out_count": 3,
+        "max_point_error_seconds": 0.011666666666665826,
+        "max_bracket_error_seconds": 0.022666666666666835,
+        "derived_evidence_status": "pass",
+        "handoff_status": "diagnostic_only"
+      },
+      {
+        "take": 2,
+        "media": {
+          "path": "reel.mp4",
+          "sha256": "82cd4f01f7b771724a86d7b0f9662e0b4d53fc1106e78e23f0c37dd57d745137",
+          "duration_seconds": 7.066666666666666,
+          "size_bytes": 632154
+        },
+        "capture_status": "completed",
+        "wall_seconds": 10.706,
+        "mapping_status": "unresolved",
+        "offset_seconds": null,
+        "offset_estimate_seconds": null,
+        "reason": "observations_disagree_with_constant_offset",
+        "calibration_status": "fail",
+        "expected_frame_matches": 0,
+        "held_out_count": 3,
+        "max_point_error_seconds": null,
+        "max_bracket_error_seconds": null,
+        "derived_evidence_status": "pass",
+        "handoff_status": "diagnostic_only"
+      },
+      {
+        "take": 3,
+        "media": {
+          "path": "reel.mp4",
+          "sha256": "e98b4af6625ea14091e494f741714e3920dece38c6de209e7c6b478fe609f341",
+          "duration_seconds": 7.066666666666666,
+          "size_bytes": 581829
+        },
+        "capture_status": "completed",
+        "wall_seconds": 10.361,
+        "mapping_status": "bounded",
+        "offset_seconds": [
+          0.0038333333333333,
+          0.005166666666666
+        ],
+        "offset_estimate_seconds": 0.00449999999999965,
+        "reason": null,
+        "calibration_status": "fail",
+        "expected_frame_matches": 1,
+        "held_out_count": 3,
+        "max_point_error_seconds": 0.02066666666666528,
+        "max_bracket_error_seconds": 0.02933333333333188,
+        "derived_evidence_status": "pass",
+        "handoff_status": "diagnostic_only"
+      },
+      {
+        "take": 4,
+        "media": {
+          "path": "reel.mp4",
+          "sha256": "9a21dead192252c43e31ec45ec0c61263508ec516e63e4a3fe9e306cf3223b6a",
+          "duration_seconds": 7.066666666666666,
+          "size_bytes": 581481
+        },
+        "capture_status": "completed",
+        "wall_seconds": 10.425,
+        "mapping_status": "bounded",
+        "offset_seconds": [
+          -0.0021666666666667,
+          0.008166666666666
+        ],
+        "offset_estimate_seconds": 0.00299999999999965,
+        "reason": null,
+        "calibration_status": "fail",
+        "expected_frame_matches": 1,
+        "held_out_count": 3,
+        "max_point_error_seconds": 0.01983333333333359,
+        "max_bracket_error_seconds": 0.032333333333333325,
+        "derived_evidence_status": "pass",
+        "handoff_status": "diagnostic_only"
+      },
+      {
+        "take": 5,
+        "media": {
+          "path": "reel.mp4",
+          "sha256": "a571a7bf5ab49c05b69909ff90fa2f0a9358edd5bde183ed81666ac29d4aa058",
+          "duration_seconds": 7.066666666666666,
+          "size_bytes": 581799
+        },
+        "capture_status": "completed",
+        "wall_seconds": 10.424,
+        "mapping_status": "bounded",
+        "offset_seconds": [
+          0.0048333333333333,
+          0.005166666666666
+        ],
+        "offset_estimate_seconds": 0.00499999999999965,
+        "reason": null,
+        "calibration_status": "fail",
+        "expected_frame_matches": 2,
+        "held_out_count": 3,
+        "max_point_error_seconds": 0.022166666666667112,
+        "max_bracket_error_seconds": 0.03133333333333255,
+        "derived_evidence_status": "pass",
+        "handoff_status": "diagnostic_only"
+      }
+    ],
+    "method_frozen": true,
+    "postprocessing_note": "After capture only linked watch-target metadata corrected; estimates, selected frames and calibration outcomes unchanged."
+  },
+  "postprocessing_correction": {
+    "reason": "Proposed copied beat timings also need their linked watch-list range/precision; no review promotion. Initial failure outputs preserved.",
+    "after_five_frozen_captures": true,
+    "changed_files": [
+      "skills/codex/record-product-demo/scripts/test_correspondence.py",
+      "skills/codex/record-product-demo/scripts/correspondence.py"
+    ],
+    "offset_derive_edit_arithmetic_unchanged": true,
+    "capture_driver_fixture_starter_helpers_unchanged": true,
+    "new_recordings": 0
+  },
+  "frozen_capture": "All five attempts used the same 42-file frozen candidate. After capture only with_timings watch-target bookkeeping and its test changed; fit arithmetic, fixture, driver, helper and all captures remained unchanged. Browser-free reprocessing reproduces identical offsets, frame selections and failed outcomes.",
+  "checks": {
+    "correspondence": 15,
+    "extraction": 17,
+    "starter": 13,
+    "evidence": 22,
+    "delivery": 20,
+    "environment": 11,
+    "recorder": 7,
+    "total": 105,
+    "environment_versions": {
+      "python": "3.14.2",
+      "ffmpeg": "8.0",
+      "ffprobe": "8.0",
+      "pillow": "12.1.1",
+      "agent_browser": "0.37.1"
+    },
+    "direct_media": "All five silent 1440x900/30fps media checks pass; full-range H.264 compatibility warning retained. Calibration brief has no minimum duration; original starter 8s proof is unchanged.",
+    "records": "Five original records valid and unchanged; five final diagnostic proposal records valid; handoffs diagnostic_only. No review promotion.",
+    "preflight": "Retained matching previous-task capture preflight had media/motion pass; no new preflight or live-browser suite was claimed. Each fresh profile/sandbox configuration checked separately."
+  },
+  "conclusion": "Original five-take target is not met: zero of five passes. Four fits have small numeric error but six of twelve selected decisive marker states are early; take 2 has disjoint anchor bounds and stays unresolved. A reliable automatic per-take mapping is not established.",
+  "limitations": [
+    "Original task statuses, criteria and prerequisite dependencies stay open. T2.1 calibration was executed and failed; independent acceptance covers the negative finding, not the new timing feature.",
+    "No retrospective alignment for earlier footage, drift model, altered threshold, clamped targets or replacement take.",
+    "Marker decoder is a development-fixture color sampler; it does not classify ordinary UI or establish action visibility. Sampled builder inspection is separate from automatic results.",
+    "No continuous viewing, listening, privacy clearance, direct human result, fresh-agent adoption or reduced-effort claim.",
+    "Postprocessing-only watch-list consistency correction occurred after frozen capture; both pre-correction evidence and corrected diagnostic copies retained."
+  ],
+  "usage": {
+    "new_direct_calibration_takes": 5,
+    "calibration_cap": 5,
+    "additional_child_or_model_invocations": 0,
+    "cumulative_child_model_invocations": 6,
+    "capture_command_wall_seconds": 53.153999999999996,
+    "effort_limits": "Measured command wall includes per-take profile check/capture/media/validation. Excludes authoring, analysis, packaging and review; no comparative efficiency claim."
+  },
+  "evidence_run": "dev/record-product-demo/runs/20260919-timing-f383",
+  "next_action": "One bounded offline measurement/selection investigation on preserved recordings and focused synthetic tests. No new captures or child/model invocations. New timing source remains uncommitted; no supported-technique publication.",
+  "independent_review": {
+    "author": "ChatGPT review partner",
+    "relay": "Drew",
+    "source": "User-relayed acceptance in current task; no independent archive inspected.",
+    "finding": "Zero of five original takes meets the original full calibration target. Negative experiment finding accepted; timing feature not accepted for publication.",
+    "environment": {
+      "python": "not specified in this relayed finding",
+      "ffmpeg_ffprobe": "7.1.5"
+    },
+    "checks": {
+      "browser_free": 105,
+      "saved_media": 5,
+      "evidence_records": 10,
+      "diagnostic_handoffs": 5,
+      "payload_hashes": 658,
+      "patch_files": 12
+    },
+    "execution": "Completed across bounded executions, not a fresh single-command or capture run.",
+    "source_identity": "Original skill tree matches published 0aff4af6.",
+    "observations": [
+      "Six of twelve fitted held-out selections are exactly the preceding frame.",
+      "Nine of twelve observed held-out marker onsets lie outside predicted_range_seconds.",
+      "Take 1 saved request 4.026666667 selects 4.000; marker first appears at 4.033333333, while the earlier frame already shows the toast.",
+      "Take 2 anchor bands [4.833,17.833] ms and [-21.167,-9.167] ms disagree; this alone does not establish clock drift."
+    ],
+    "boundary": "Original five attempts and 0/5 result stay unchanged. No reliable automatic alignment, fresh calibration confirmation, continuous viewing or privacy clearance."
+  }
+}

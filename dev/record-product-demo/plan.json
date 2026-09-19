@@ -522,7 +522,7 @@
         "Its tests run without Codex, and their command is added to harness.mechanical_suite."
       ],
       "evidence": [],
-      "note": "Encoded-frame extraction/index/contact-sheet slice independently accepted and published as 93d4c51a1631df3c37b57fffc665f977b64e63a2; fixture-portability finding closed. See beat-frames-validation.json. T2.1 remains pending: automatic clock alignment, five-take calibration and original T1.1/scenario prerequisites are unverified; acceptance unchanged."
+      "note": "Encoded-frame extraction is independently accepted and published as 93d4c51a1631df3c37b57fffc665f977b64e63a2. ChatGPT independently reproduced and accepted the negative timing experiment: zero of five original direct takes meets the full calibration target. See correspondence-validation.json. This does not accept the shared timing feature for publication. One bounded offline measurement/selection reanalysis is authorized; original attempts, threshold, anchors/held-out separation and 0/5 result remain unchanged. Automatic alignment, passing calibration and original prerequisite criteria remain open; task status and acceptance unchanged."
     },
     {
       "id": "T2.2",
@@ -729,7 +729,7 @@
         "Baseline S1 transcripts give before values for takes attempted before a passing take and for run duration. The after values are recorded beside them."
       ],
       "evidence": [],
-      "note": ""
+      "note": "Reusable starter independently accepted and published as 0aff4af635f25dc1a1129448c2742d3cf1f0b1ab. Direct fixture proof and qualified independent reproduction recorded in driver-template-validation.json; original fresh-agent template-adoption and comparative-effort criteria remain open. No reduced-time claim."
     },
     {
       "id": "T5.2",
@@ -1026,6 +1026,14 @@
     {
       "at": "2026-09-19T10:05:09",
       "entry": "ChatGPT independently accepts the reusable recording starter: 95 browser-free checks, all three expected media outcomes, valid evidence and identical diagnostic handoffs, exact driver/helper identities, final extraction of 18 frames with four unresolved beats, all 304 hashes and eleven-file patch. Independent Python 3.13.5/FFmpeg-ffprobe 7.1.5/Pillow 12.3.0 combined reproduction reached an execution limit; final extraction and remaining assertions completed separately. Sampled review supports direct fixture proof, not continuous viewing, privacy clearance, fresh-agent adoption or reduced effort. Publish accepted bytes. Next assigned T2.1 packet is per-take driver/video correspondence and at most five direct calibration takes on one frozen candidate; preserve failures. Original adoption/comparative effort and other task criteria remain open. No new child/model calls; cumulative six."
+    },
+    {
+      "at": "2026-09-19T10:24:09",
+      "entry": "Published independently accepted starter as 0aff4af635f25dc1a1129448c2742d3cf1f0b1ab; reviewed bytes, remote branch and PR head verified. Assigned per-take correspondence packet used exactly five direct local takes on one frozen capture candidate, no child/model calls (cumulative six). Original calibration target failed on all five: four fitted offsets have <=0.2s held-out errors but early decisive marker frames; one take has incompatible anchor bounds and stays unresolved. Preserve all originals, proposals, failure measurements and separately attributed sample inspection. After capture corrected only copied watch-target bookkeeping plus a focused test; mapping arithmetic, capture source, recordings, selections and failed results unchanged. 105 focused/affected browser-free checks and final diagnostic records pass; no claim of reliable automatic alignment, continuous viewing, privacy clearance or fresh-agent adoption. T2.1 and original prerequisites remain pending. New timing slice uncommitted; stop at review ZIP, no merge or install."
+    },
+    {
+      "at": "2026-09-19T11:10:38",
+      "entry": "ChatGPT independently reproduced the negative five-take timing experiment and accepts its 0/5 finding, not the shared timing feature. Review passed 105 browser-free tests, five saved-media checks, ten evidence records, five diagnostic handoffs, 658 hashes and the twelve-file patch across bounded executions. Original observations, mappings, frame indices and errors reproduced. Publish scoped records only; no shared correspondence source or supported-technique claim. Investigate DOM-event versus encoded-frame uncertainty offline on the same recordings with focused synthetic controls; no additional captures or child/model invocations. Original criteria and six cumulative child uses remain unchanged."
     }
   ]
 }
