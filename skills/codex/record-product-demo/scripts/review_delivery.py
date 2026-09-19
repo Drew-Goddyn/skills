@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Summarize recorded decisive-frame findings and a watch list; never perform review."""
+"""Summarize recorded decisive-frame/privacy findings and watch targets; never inspect."""
 import argparse
 import json
 from pathlib import Path
@@ -54,6 +54,10 @@ def assess(path):
     for check in structural['check_results']:
         if check['kind'] == 'media' and check['result']['status'] != 'pass':
             blockers.append(f"Media check {check['id']}: {check['result']['status']}; see preserved raw result.")
+    if data['privacy']['findings']:
+        blockers.append('Known privacy findings prevent clean delivery; see the concerns and final-output locations below. Keep real flagged material local until sharing is authorized.')
+    privacy_samples = [{'reference': ref, 'sample': evidence.frame_sample(ref, 'privacy sample', data['reel'])}
+                       for ref in data['privacy'].get('samples', [])]
     return {'schema_version': 1, 'scope': SCOPE,
             'status': 'diagnostic_only' if blockers else 'ready_for_review',
             'acceptance': 'not_established_by_this_tool', 'blockers': blockers,
@@ -62,13 +66,57 @@ def assess(path):
             'checks': data['checks'],
             'check_results': structural['check_results'],
             'review_coverage': {k: data['review'][k] for k in ('agent_frames', 'continuous_watch', 'listening', 'human')},
-            'privacy': data['privacy'], 'limitations': data['limitations'],
+            'privacy': data['privacy'], 'privacy_samples': privacy_samples, 'limitations': data['limitations'],
             'boundary': 'Summarizes attributed findings, not an independent inspection. Ready for review is not successful delivery or publication approval. Frame inspection does not establish continuous viewing, listening, pacing, or privacy.'}
 
 
 def timestamp(value):
     minutes, milliseconds = divmod(round(value * 1000), 60000)
     return f'{minutes:02d}:{milliseconds / 1000:06.3f}'
+
+
+def attribution(author, relay):
+    if author is None:
+        return 'inspecting author uncollected'
+    value = f"{author['kind']} author: {author['name']}"
+    if relay:
+        value += f"; relayed by {relay['kind']} {relay['name']}"
+    return value
+
+
+def privacy_handoff(result):
+    privacy = result['privacy']
+    inspected = (privacy['status'] == 'performed' and privacy.get('author')
+                 and privacy.get('samples') and privacy.get('sheets'))
+    lines = []
+    if privacy['findings']:
+        lines += ['**PRIVACY FINDINGS: diagnostic package; no clean-delivery claim.**']
+    if not inspected:
+        lines += [f"**PRIVACY UNREVIEWED: attributed sampled inspection is uncollected (recorded status: {privacy['status']}).**"]
+    elif not privacy['findings']:
+        lines += ['Sampled privacy review: **no findings in inspected samples**.']
+    lines += ['Content between inspected samples can be missed. This is not privacy clearance or publication approval.',
+              'Coverage: ' + privacy['coverage']]
+    if inspected:
+        lines += [attribution(privacy['author'], privacy['relay']) + '.',
+                  'Inspected sheets: ' + '; '.join(privacy['sheets'])]
+        lines += ['Inspected native samples (final-output clock):']
+        for entry in result['privacy_samples']:
+            ref, sample = entry['reference'], entry['sample']
+            frame = sample['frame']
+            frame_path = (Path(ref['index']).parent / frame['path']).as_posix()
+            lines += [f"- {timestamp(frame['video_seconds'])} — {ref['index']}#{ref['sample_id']}; {frame_path}"]
+    for finding in privacy['findings']:
+        span = finding['video_seconds']
+        time = 'time unresolved' if span is None else '–'.join(timestamp(s) for s in span)
+        lines += [f"- Concern at {time}: {finding['description']} {finding['timing_note']}"]
+        refs = finding.get('samples', [])
+        lines += ['  Support: ' + ('; '.join(f"{r['index']}#{r['sample_id']}" for r in refs)
+                                   or 'frame references uncollected; concern remains unresolved.')]
+    if privacy['findings']:
+        lines += ['Sharing: preserve local originals; do not automatically attach real flagged reels, frames or sheets. '
+                  'Share only authorized material or a metadata-only diagnostic with omissions explained. This command copies no media.']
+    return lines
 
 
 def handoff(result):
@@ -78,6 +126,7 @@ def handoff(result):
     if result['blockers']:
         lines += ['', 'What prevents a supported handoff:']
         lines += ['- ' + b for b in result['blockers']]
+    lines += [''] + privacy_handoff(result)
     lines += ['', 'Watch list — final-output video clock. Display rounded to milliseconds; exact supplied values remain in evidence.json. These are review targets, not a claim of watching:', '']
     for watch in result['watch_list']:
         span = watch['video_seconds']

@@ -216,18 +216,64 @@ class Evidence:
             self.beat_findings(review['beat_findings'], d)
         privacy = obj(d['privacy'], 'privacy', 'status coverage evidence findings')
         self.coverage(privacy, 'privacy')
+        # Optional v1 extension. Historical coverage records remain valid without
+        # inventing an inspecting author or claiming their samples were reviewed.
+        sampled = any(k in privacy for k in ('author', 'relay', 'samples', 'sheets'))
+        if sampled:
+            self.privacy_inspection(privacy, d['reel'])
         for i, finding in enumerate(items(privacy['findings'], 'privacy.findings')):
             w = f'privacy.findings[{i}]'
             obj(finding, w, 'description video_seconds timing_note')
             text(finding['description'], w + '.description'); text(finding['timing_note'], w + '.timing_note')
             if finding['video_seconds'] is not None:
                 self.time_range(finding['video_seconds'], w + '.video_seconds', duration)
+            for j, ref in enumerate(items(finding.get('samples', []), w + '.samples')):
+                sample = self.frame_sample(ref, f'{w}.samples[{j}]', d['reel'])
+                require(sample['status'] == 'extracted', w, 'finding support needs actual extracted frames')
+                require(sampled and ref in privacy['samples'], w + '.samples',
+                        'finding references must be among the inspected privacy samples')
+                span = finding['video_seconds']
+                require(span is None or span[0] <= sample['frame']['video_seconds'] <= span[1],
+                        w + '.video_seconds', 'range does not include the supporting frame time')
         strings(d['limitations'], 'limitations')
         self.toolkit(d['toolkit'])
         reproduction = obj(d['reproduction'], 'reproduction', 'setup created_records cleanup')
         text(reproduction['setup'], 'reproduction.setup')
         strings(reproduction['created_records'], 'reproduction.created_records')
         self.coverage(reproduction['cleanup'], 'reproduction.cleanup')
+
+    def privacy_inspection(self, privacy, reel):
+        obj(privacy, 'privacy', 'author relay samples sheets')
+        for key in ('author', 'relay'):
+            actor = privacy[key]
+            if actor is not None:
+                obj(actor, 'privacy.' + key, 'kind name')
+                choice(actor['kind'], 'privacy.' + key + '.kind', 'agent human')
+                text(actor['name'], 'privacy.' + key + '.name')
+        samples = items(privacy['samples'], 'privacy.samples')
+        sheets = items(privacy['sheets'], 'privacy.sheets')
+        if privacy['status'] != 'performed':
+            require(privacy['author'] is None and privacy['relay'] is None and not samples and not sheets,
+                    'privacy', 'unperformed privacy review cannot claim an inspecting author or inspected material')
+            return
+        require(privacy['author'] is not None, 'privacy.author', 'performed sampled review needs its inspecting author')
+        require(bool(samples) and bool(sheets), 'privacy', 'performed sampled review needs inspected samples and sheets')
+        seen = set()
+        for j, ref in enumerate(samples):
+            w = f'privacy.samples[{j}]'
+            sample = self.frame_sample(ref, w, reel)
+            require(sample['status'] == 'extracted', w, 'inspection needs actual extracted frames, not placeholders')
+            key = (ref['index'], ref['sample_id'])
+            require(key not in seen, w, 'duplicate inspected sample'); seen.add(key)
+            index = self.file(ref['index'], w + '.index', True)
+            matching = [(Path(ref['index']).parent / s['path']).as_posix()
+                        for s in items(index.get('contact_sheets'), w + '.index.contact_sheets')
+                        if isinstance(s, dict) and isinstance(s.get('path'), str)
+                        and any(isinstance(c, dict) and c.get('sample_id') == ref['sample_id']
+                                for c in items(s.get('cells'), w + '.index.sheet.cells'))]
+            require(any(s in sheets for s in matching), 'privacy.sheets', 'an inspected sheet must include each supporting sample')
+        for j, sheet in enumerate(sheets):
+            self.file(sheet, f'privacy.sheets[{j}]')
 
     def beat_findings(self, findings, data):
         """Optional v1 extension: truthful incomplete findings remain structurally valid."""

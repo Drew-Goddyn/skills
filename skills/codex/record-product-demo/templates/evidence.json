@@ -102,7 +102,11 @@
     "status": "not_performed",
     "coverage": "",
     "evidence": [],
-    "findings": []
+    "findings": [],
+    "author": null,
+    "relay": null,
+    "samples": [],
+    "sheets": []
   },
   "limitations": [],
   "toolkit": {

@@ -35,7 +35,7 @@ the validator follows. Explain any unbundled historical attachments.
 | `beats` | Unique id, kind, label, decisive boolean, separate driver/video times, alignment, and timing note. See clock rules below. |
 | `checks` | Unique id, kind, `performed`, `not_run`, or `unavailable`, raw JSON report or `null`, and context naming command/options/tool revision and limitations. Include kind `media` even when unavailable. No copied pass/fail summary: the raw result and warnings remain authoritative and are echoed in validator output. A performed media check's available measurements and audio policy must agree with the reel/brief. Save checker startup/parse failures too (`status: error`, `error` message, emitted on stderr); these establish no measurements. State the independent measurement source in context if the checker errored. |
 | `review` | Separate `agent_frames`, `continuous_watch`, `listening`, and `human` records. Each uses `status`, descriptive `coverage`, and evidence paths; `performed` requires evidence. Other states are `not_performed`, `unavailable`, `not_applicable`, with an explanation. Human evidence contains actual answers and provenance, or states they were not collected. `watch_list` names review targets with encoded-video ranges (or `null` and explanation) and labels; it is not proof of watching. |
-| `privacy` | Same explicit coverage/status/evidence contract plus findings: description, encoded-video range or `null`, and timing note. Empty findings alone never means reviewed or safe. |
+| `privacy` | Explicit coverage/status/evidence plus findings: safe description, encoded-video range or `null`, timing note and supporting samples. Sampled review adds author/relay, inspected samples and sheets; see below. Empty findings alone never means reviewed or safe. |
 | `limitations` | Remaining gaps as text, including missing watch/listen coverage or unknown timing. |
 | `reproduction` | Setup/scene/action context, created-record IDs if any, and cleanup using the coverage/status/evidence contract. Edit-only work may state cleanup is not applicable because it started no sessions. |
 | `toolkit` | Status (`pending`, `running`, `improved`, `no_change`, `blocked`), friction entries with issue/evidence, actual owner or `current_task`, scope, and result. Result records reason, changed source-file identifiers, check-output paths, verified tool version, normal discovery route, and next action. `improved` requires changes/checks/version/discovery; unfinished work requires next action. `no_change` requires a reason. Empty friction is not an assertion that a tooling review occurred. See [maintenance guidance](toolkit-maintenance.md) only when relevant and authorized. |
@@ -137,10 +137,12 @@ The second command writes `HANDOFF.md` and `review-readiness.json` to a **new**
 directory without changing inputs. Include the short timestamped watch list in
 the response and both files in the review ZIP. Exit 0 / `ready_for_review` means
 all designated decisive beats have supported findings, linked targets and a
-passing recorded media check. It does not mean successful delivery, completed
+passing recorded media check, with no known privacy finding. An unperformed
+privacy review can still accompany a useful review package, prominently marked
+unreviewed. Ready does not mean successful delivery, completed
 viewing or acceptance. Exit 1 / `diagnostic_only` names unreviewed, not-visible,
 missing or unresolved moments, missing targets, and unsuccessful/unperformed
-media checks. Deliver that diagnostic record with its blockers; do not describe
+media checks, as well as any known privacy finding. Deliver that diagnostic record with its blockers; do not describe
 the reel as an unqualified success. Exit 2 is a structural/reference error or an
 unwritable/existing output path.
 
@@ -162,3 +164,58 @@ failed/incomplete
 finding can pass structural validation. The handoff preserves raw check results,
 warnings and coverage limitations; it never promotes frame inspection to a
 continuous watch, listening result, human viewing result or privacy clearance.
+
+## Sampled privacy review
+
+Inspect the final encode's beat and whole-reel interval sheets and their native
+frames for unintended names/contact details, credentials or tokens, notifications
+and internal URLs. Use the brief and known data provenance: an intended invented
+client name is not automatically a privacy defect. Apply this to edit-only work
+as well. A passing capture-environment check says nothing about the final frames.
+
+Use the existing `privacy` block. Version 1 optionally adds these fields; older
+records remain structurally valid without inventing new inspection evidence:
+
+- `author` and `relay`: the same actor shape as beat findings. Credit the actual
+  inspector; an agent finding relayed by a person stays agent review. Use null
+  for both when inspection is unperformed or unavailable.
+- `samples`: the existing `{index, sample_id}` references for **native frames
+  actually inspected**, including relevant beat and interval samples.
+- `sheets`: paths of inspected sheets containing those samples. `performed`
+  sampled review needs its author, samples, sheets and an evidence report.
+  Other statuses use empty samples/sheets. Extracted or missing placeholders
+  cannot count as inspected images.
+- `coverage`: describe the sampling interval, actual inspected times/count,
+  uninspected or unresolved material and any limits on reading small text. The
+  referenced index retains requested/decoded times and extraction coverage;
+  extraction coverage is not inspection coverage. Missing samples stay gaps.
+- `findings`: keep `description`, `video_seconds` and `timing_note`; add `samples`
+  referencing supporting inspected frames. Use a concise concern and location,
+  such as "unintended token in upper-right notification; value omitted", without
+  transcribing sensitive values. Known ranges use the **delivered-output** clock
+  and include supporting frame timestamps. A sampled point does not establish
+  onset or duration. Use null with an explanation when timing is unresolved.
+  A relayed concern with no available inspection can retain an empty samples
+  list and unavailable review status; the concern still prevents clean delivery.
+
+The validator checks references, frame identity, sheet membership, attribution
+fields and supplied timing consistency. It cannot check an author's claim to
+have inspected a frame or detect private content. A truthful incomplete or
+failing privacy record remains structurally valid. An empty findings array is
+only "no findings in inspected samples" when an attributed sample review is
+recorded; historical performed records without that detail are not upgraded.
+
+`review_delivery.py` preserves the privacy block and resolves sample timestamps
+in its JSON and handoff. Known findings produce `diagnostic_only`, including
+concerns with unknown times. Missing review is prominently unreviewed. Sampled
+review with no findings can remain `ready_for_review`, always with the warning
+that content between inspected samples can be missed. Neither outcome is privacy
+clearance, publication approval or a requirement for human viewing before review.
+
+The helper writes metadata only; it does not copy or sanitize media. Preserve
+real flagged reels/frames locally, then share only specifically authorized
+material. If that authorization is absent, send the generated metadata diagnostic
+after checking its descriptions for sensitive values. Explain omitted files in
+the package index; keep the complete reference-valid evidence local rather than
+presenting the limited package as a full portable delivery. For authorized
+invented fixtures, the complete visual evidence can accompany the diagnostic.
