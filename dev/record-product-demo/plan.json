@@ -522,7 +522,7 @@
         "Its tests run without Codex, and their command is added to harness.mechanical_suite."
       ],
       "evidence": [],
-      "note": "Encoded-frame extraction is independently accepted and published as 93d4c51a1631df3c37b57fffc665f977b64e63a2. ChatGPT independently reproduced and accepted the negative timing experiment: zero of five original direct takes meets the full calibration target. See correspondence-validation.json. This does not accept the shared timing feature for publication. One bounded offline measurement/selection reanalysis is authorized; original attempts, threshold, anchors/held-out separation and 0/5 result remain unchanged. Automatic alignment, passing calibration and original prerequisite criteria remain open; task status and acceptance unchanged."
+      "note": "Encoded-frame extraction is independently accepted and published as 93d4c51a1631df3c37b57fffc665f977b64e63a2. Original five-take timing experiment remains 0/5 at the unchanged 0.2-second target. ChatGPT independently accepted the offline negative finding: 118 checks and five original hash-matched replays reproduced 3/12 onset-band coverage, 6/12 marker matches, six immediately preceding selections and five unresolved revised mappings. Combined review timed out after suites and two replays; remaining three completed separately against unchanged bytes. Timing investigation closed for this iteration; automatic alignment unresolved/deferred. Experimental source/patches/hashes/reproduction are archived under runs/20260919-timing-reanalysis-f383 and separated from the supported skill. Original task status, acceptance and prerequisites remain open; see correspondence-validation.json."
     },
     {
       "id": "T2.2",
@@ -660,7 +660,7 @@
         "S4 in two runs: frozen_during_typing returns fit_to_deliver false with broken_property freeze_during_motion and time_seconds inside the seeded freeze. Baseline S4 is the fail-before evidence. Where baseline S4 already met this, apply standing rule 1."
       ],
       "evidence": [],
-      "note": ""
+      "note": "Unresolved/deferred: driver-clock freeze correlation depends on automatic driver/video alignment, which the retained five-take experiment did not establish. Timing investigation closed for this iteration with the accepted negative finding; no freeze detector, recorder fork, instrumentation campaign or larger tolerance is authorized. Task acceptance and prerequisites are unchanged and unperformed."
     },
     {
       "id": "T4.4",
@@ -1034,6 +1034,14 @@
     {
       "at": "2026-09-19T11:10:38",
       "entry": "ChatGPT independently reproduced the negative five-take timing experiment and accepts its 0/5 finding, not the shared timing feature. Review passed 105 browser-free tests, five saved-media checks, ten evidence records, five diagnostic handoffs, 658 hashes and the twelve-file patch across bounded executions. Original observations, mappings, frame indices and errors reproduced. Publish scoped records only; no shared correspondence source or supported-technique claim. Investigate DOM-event versus encoded-frame uncertainty offline on the same recordings with focused synthetic controls; no additional captures or child/model invocations. Original criteria and six cumulative child uses remain unchanged."
+    },
+    {
+      "at": "2026-09-19T11:31:04",
+      "entry": "Published accepted negative timing experiment records only as 608d2321b9cdb5e87b8bad96a056febe097bec5b; remote/PR head verified, published skill tree unchanged. One frozen offline method replayed all five retained recordings without capture or model calls. The old evaluator conflated DOM mutation with first encoded showing frame: coverage 3/12, selected marker matches 6/12, six selections exactly preceding. Version-matched recorder source ignores source-image metadata timestamps and may queue/repeat/backfill output slots; no defensible DOM-to-video bound is retained. Revised reports keep all five mappings and fifteen held-out event timings/selections unresolved, with encoded observations retained separately. Synthetic known-clock/phase/short-state controls and 118 browser-free tests pass; five original records validate with diagnostic handoffs. Original 0/5 target, criteria and all failed outputs unchanged. New correction uncommitted for independent review; no supported technique, drift model, capture campaign, merge or install."
+    },
+    {
+      "at": "2026-09-19T12:13:47",
+      "entry": "ChatGPT independently accepts the offline negative timing finding and closes this investigation for the current iteration. Python 3.13.5, FFmpeg/ffprobe 7.1.5 and Pillow 12.3.0 passed 118 checks, five original hash-matched replays, evidence/handoffs, all 442 payload hashes and both patch reconstructions. Combined execution timed out after suites/two replays; remaining three completed separately on unchanged bytes. Original 0/5 outcome, five attempts, 0.2-second target and earlier measurements are unchanged. Experimental sources/patches/hashes/reproduction preserved in the existing run archive and unpublished additions separated from the supported working skill. Automatic alignment and dependent driver-clock freeze correlation remain unresolved/deferred. Publish records only; next assigned T6.1 packet consolidates supported guidance, with original repeated-scenario/full-plan prerequisites open. No new capture/model call, merge or install."
     }
   ]
 }

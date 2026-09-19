@@ -1,7 +1,7 @@
 {
   "kind": "scoped_driver_video_correspondence",
   "base_commit": "0aff4af635f25dc1a1129448c2742d3cf1f0b1ab",
-  "status": "negative_experiment_independently_accepted_feature_not_accepted",
+  "status": "closed_current_iteration_independent_negative_finding_accepted_alignment_deferred",
   "delivery_state": {
     "implemented": true,
     "independently_reviewed": true,
@@ -206,7 +206,7 @@
     "effort_limits": "Measured command wall includes per-take profile check/capture/media/validation. Excludes authoring, analysis, packaging and review; no comparative efficiency claim."
   },
   "evidence_run": "dev/record-product-demo/runs/20260919-timing-f383",
-  "next_action": "One bounded offline measurement/selection investigation on preserved recordings and focused synthetic tests. No new captures or child/model invocations. New timing source remains uncommitted; no supported-technique publication.",
+  "next_action": "Timing investigation closed for the current iteration. Preserve archived experimental sources and findings; do not promote alignment, fork the recorder, start captures, change the model/threshold or claim dependent freeze correlation complete.",
   "independent_review": {
     "author": "ChatGPT review partner",
     "relay": "Drew",
@@ -233,5 +233,105 @@
       "Take 2 anchor bands [4.833,17.833] ms and [-21.167,-9.167] ms disagree; this alone does not establish clock drift."
     ],
     "boundary": "Original five attempts and 0/5 result stay unchanged. No reliable automatic alignment, fresh calibration confirmation, continuous viewing or privacy clearance."
+  },
+  "record_publication": {
+    "commit": "608d2321b9cdb5e87b8bad96a056febe097bec5b",
+    "remote_and_pr_head_verified": true,
+    "scope": "Experiment/progress records only. Published skill tree unchanged from 0aff4af6."
+  },
+  "offline_reanalysis": {
+    "status": "independent_negative_finding_accepted_closed_current_iteration",
+    "run": "dev/record-product-demo/runs/20260919-timing-reanalysis-f383",
+    "method": "offline_measurement_v1 frozen before replay of all five saved takes",
+    "capture_driver_fixture_unchanged": true,
+    "same_event_offset_arithmetic_unchanged": true,
+    "findings": {
+      "scope": "Post-hoc offline reanalysis of same five saved takes; no new calibration result",
+      "original_result": "0/5 unchanged",
+      "original_fitted_held_out": 12,
+      "original_onset_band_coverage": 3,
+      "original_selected_marker_matches": 6,
+      "original_exact_preceding_frame_selections": 6,
+      "original_max_point_residual_seconds": 0.022166666666667112,
+      "original_max_endpoint_residual_seconds": 0.032333333333333665,
+      "revised_supported_mappings": 0,
+      "revised_unresolved_takes": 5,
+      "revised_held_out_unknown": 15,
+      "revised_uncertainty_coverage": null,
+      "revised_true_event_timing_error_seconds": null,
+      "revised_selected_state_correctness": null,
+      "reason": "Retained observations do not bound source sampling time, recorder slot assignment or DOM-to-render latency. Missing inputs are not a failed visibility judgment."
+    },
+    "local_checks": {
+      "browser_free_tests": 118,
+      "new_supplied_clock_tests": 13,
+      "native_synthetic_rgb_assertions": 8,
+      "replays": 5,
+      "evidence_validations": 5,
+      "diagnostic_handoffs": 5,
+      "python": "3.14.2",
+      "ffmpeg_ffprobe": "8.0",
+      "pillow": "12.1.1"
+    },
+    "limits": [
+      "Synthetic sample-clock/render-delay bounds are supplied facts, not recovered from real recordings.",
+      "Original small residuals compare different events and cannot establish true clock-offset error.",
+      "No repeat capture, new child/model invocation, drift fit, threshold change, held-out fitting or retrospective confirmation.",
+      "Only a docstring changes the shared experimental mapper; the observation correction and conditional selection controls are development-only. Published technique pointers restored; no supported timing claim.",
+      "Source inspection is of the version-matched upstream tag; no binary rebuild or retained per-frame recorder schedule exists."
+    ],
+    "independent_review": {
+      "author": "ChatGPT review partner",
+      "relay": "Drew",
+      "source": "Self-contained user-relayed acceptance; no new independent archive received or inspected.",
+      "environment": {
+        "python": "3.13.5",
+        "ffmpeg_ffprobe": "7.1.5",
+        "pillow": "12.3.0"
+      },
+      "browser_free_checks": 118,
+      "original_hash_matched_mp4_replays": 5,
+      "onset_band_coverage": "3/12",
+      "correct_marker_selections": "6/12",
+      "immediately_preceding_selections": 6,
+      "revised_unresolved_mappings": 5,
+      "evidence_and_diagnostic_handoffs": "passed",
+      "payload_hashes": 442,
+      "patch_reconstructions": 2,
+      "execution": "Combined reproduction timed out after the test suites and two replays; remaining three completed separately against unchanged candidate bytes.",
+      "inspected": "Measurement code, version-matched recorder source and regenerated Take 1 transition sheet.",
+      "limits": "No binary rebuild, fresh capture, continuous watch or new model invocation."
+    }
+  },
+  "closure": {
+    "iteration_status": "closed",
+    "accepted_outcome": "Negative finding only; no supported automatic alignment feature.",
+    "automatic_alignment": "unresolved_deferred",
+    "dependent_driver_clock_freeze_correlation": "unresolved_deferred",
+    "original_five_take_result": "0/5 unchanged",
+    "target_error_seconds": 0.2,
+    "archive": {
+      "separated_unpublished_files": [
+        "dev/record-product-demo/calibrate_timing.py",
+        "dev/record-product-demo/evaluate_timing.py",
+        "dev/record-product-demo/timing_measurement.py",
+        "dev/record-product-demo/test_timing_measurement.py",
+        "skills/codex/record-product-demo/scripts/correspondence.py",
+        "skills/codex/record-product-demo/scripts/test_correspondence.py",
+        "skills/codex/record-product-demo/references/correspondence.md"
+      ],
+      "fixture_restored_to_published_bytes": "dev/record-product-demo/fixtures/template-invoice.html",
+      "archive": "dev/record-product-demo/runs/20260919-timing-reanalysis-f383",
+      "complete_candidate": "review-package/candidate",
+      "patches": [
+        "review-package/candidate.patch",
+        "review-package/correction.patch"
+      ],
+      "reproduce": "python3 review-package/reproduce.py --output <new directory> --recordings <preserved original timing run or prior review ZIP root>",
+      "media_preserved": true,
+      "only_experiment_overlay_removed": true
+    },
+    "original_method_note": "The earlier method and all measurements above are retained as historical evidence. Point residuals to first encoded marker frames do not establish true driver-clock error.",
+    "next_action": "No further timing work in this iteration. Subsequent assigned packet is T6.1 supported-workflow guidance only."
   }
 }
