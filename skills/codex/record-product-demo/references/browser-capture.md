@@ -15,7 +15,7 @@ Use synthetic values in the real local or test flow. Track the record the applic
 
 ## Select and check capture
 
-Read [the technique manifest](../techniques.json) before writing a driver. Import the existing browser helpers into a task-local script and use native commands for unsupported interactions. The manifest owns entrypoints, prerequisites, limitations, and executable checks.
+Read [the technique manifest](../techniques.json) before writing a driver. Start from the [runnable driver template](recording-driver.md) for a form-to-result flow, or import the existing browser helpers into a task-local script and use native commands for unsupported interactions. The manifest owns entrypoints, prerequisites, limitations, and executable checks.
 
 Use `agent-browser` for browser interaction and viewport recording. Follow the installed executable's help. Put it on `PATH`, or set `DEMO_BROWSER` to an executable path or command name; the override takes precedence. Put FFmpeg's `ffmpeg` and `ffprobe` on `PATH` too. Tools are not searched in platform-specific installation directories. Use a short task-specific `AGENT_BROWSER_SOCKET_DIR` if the default is unwritable or the socket path is too long. A blocked launch calls for the supported scoped escalation, preserving the failure.
 

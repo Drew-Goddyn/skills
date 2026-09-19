@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Northstar Studio · Invoices</title>
+<style>
+  :root { color-scheme: light; --c-accent: #185bce; font: 18px/1.5 system-ui, sans-serif; color: #18283b; background: #f4f6fa; }
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  header { padding: 20px 56px; background: white; border-bottom: 1px solid #dce3ec; display: flex; justify-content: space-between; }
+  header strong { font-size: 21px; } header span, .muted { color: #526276; }
+  main { max-width: 1200px; margin: 40px auto 80px; }
+  .heading { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+  h1 { font-size: 36px; line-height: 1.2; margin: 0 0 8px; } p { margin: 0; }
+  button { min-height: 48px; border: 0; border-radius: 7px; padding: 12px 22px; background: var(--c-accent); color: white; font: 600 18px system-ui; cursor: pointer; }
+  button.secondary { background: #edf1f7; color: #24384d; }
+  button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px solid #185bce; outline-offset: 3px; }
+  button:disabled { cursor: wait; opacity: .7; }
+  table { border-collapse: collapse; width: 100%; background: white; border: 1px solid #dce3ec; }
+  th, td { text-align: left; padding: 23px 24px; border-bottom: 1px solid #e3e8ef; }
+  th { background: #edf1f7; color: #526276; font-size: 16px; }
+  .money { text-align: right; font-variant-numeric: tabular-nums; font-weight: 650; }
+  .status { font-size: 15px; background: #eef1f6; padding: 5px 11px; border-radius: 20px; }
+  tr.new { background: #eaf5ed; } tr.new td:first-child { border-left: 4px solid #248043; }
+  dialog { width: 620px; border: 1px solid #d6deea; border-radius: 12px; padding: 32px; box-shadow: 0 20px 90px #13213838; }
+  dialog::backdrop { background: #17243b66; }
+  h2 { margin: 0 0 6px; font-size: 28px; }
+  label { display: block; margin: 20px 0 6px; font-weight: 600; }
+  input, textarea { display: block; width: 100%; min-height: 50px; border: 1px solid #8291a5; border-radius: 6px; padding: 10px 13px; font: 19px/1.4 system-ui; color: inherit; background: white; }
+  textarea { height: 78px; resize: vertical; }
+  .actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 26px; }
+  #notice { position: fixed; top: 92px; right: 42px; padding: 16px 22px; border: 1px solid #8ab99b; border-radius: 8px; background: #eaf5ed; box-shadow: 0 6px 25px #19283b18; z-index: 2; }
+  #notice[hidden] { display: none; }
+  .spinner { display: inline-block; width: 17px; height: 17px; border: 2px solid #ffffff66; border-top-color: white; border-radius: 50%; vertical-align: -2px; animation: spin .6s linear infinite; margin-right: 8px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  footer { margin-top: 20px; font-size: 15px; color: #526276; }
+</style>
+<header><strong>Northstar Studio</strong><span>Demo user · Test account</span></header>
+<main>
+  <div class="heading"><div><h1>Invoices</h1><p class="muted">Manage invoices for your studio.</p></div><button id="new-invoice" type="button">New invoice</button></div>
+  <table><thead><tr><th>Invoice</th><th>Client</th><th>Description</th><th>Status</th><th class="money">Amount (USD)</th></tr></thead><tbody id="invoices"></tbody></table>
+  <footer>Local demo · Invented data · No invoices are sent</footer>
+</main>
+<div id="notice" role="status" hidden></div>
+<dialog id="invoice-dialog" aria-labelledby="dialog-title">
+  <form id="invoice-form" method="post" action="/" autocomplete="off">
+    <h2 id="dialog-title">New invoice</h2><p class="muted">Save an invoice to your list.</p>
+    <label for="client">Client</label><input id="client" name="client" required maxlength="80">
+    <label for="amount">Amount (USD)</label><input id="amount" name="amount" type="text" inputmode="decimal" pattern="[0-9]+(\.[0-9]{1,2})?" required aria-describedby="amount-help">
+    <small id="amount-help" class="muted">Enter the total invoice amount.</small>
+    <label for="notes">Description</label><textarea id="notes" name="notes" maxlength="120"></textarea>
+    <div class="actions"><button id="cancel" class="secondary" type="button">Cancel</button><button id="save-invoice" type="submit">Save invoice</button></div>
+  </form>
+</dialog>
+<script>
+  const storageKey = 'northstar-invoice-pilot-v1';
+  const seed = Array.from({length: 10}, (_, i) => ({id: `INV-${String(101 + i).padStart(4, '0')}`, client: ['Cedar Workshop', 'Mosslight Books', 'Bluebird Design', 'Juniper Studio', 'Willow Ceramics'][i % 5], notes: ['Brand design', 'Editorial design'][i % 2], cents: 30000 + i * 7500}));
+  const url = new URL(location.href);
+  if (url.searchParams.get('reset') === '1') {
+    localStorage.removeItem(storageKey);
+    url.searchParams.delete('reset');
+    history.replaceState(null, '', url);
+  }
+  let invoices = JSON.parse(localStorage.getItem(storageKey) || 'null') || seed;
+  let lastId = null;
+  const rows = document.querySelector('#invoices');
+  const dialog = document.querySelector('#invoice-dialog');
+  const form = document.querySelector('#invoice-form');
+  const save = document.querySelector('#save-invoice');
+  const notice = document.querySelector('#notice');
+  const money = cents => new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(cents / 100);
+  function render() {
+    rows.replaceChildren(...invoices.map(invoice => {
+      const row = document.createElement('tr');
+      row.dataset.invoiceId = invoice.id;
+      if (invoice.id === lastId) row.className = 'new';
+      [invoice.id, invoice.client, invoice.notes, 'Draft', money(invoice.cents)].forEach((value, i) => {
+        const cell = document.createElement('td');
+        cell.textContent = value;
+        if (i === 4) cell.className = 'money';
+        if (i === 3) { const badge = document.createElement('span'); badge.className = 'status'; badge.textContent = value; cell.replaceChildren(badge); }
+        row.append(cell);
+      });
+      return row;
+    }));
+  }
+  document.querySelector('#new-invoice').addEventListener('click', () => { form.reset(); notice.hidden = true; dialog.showModal(); });
+  document.querySelector('#cancel').addEventListener('click', () => dialog.close());
+  form.addEventListener('submit', async event => {
+    event.preventDefault();
+    if (save.disabled) return;
+    const values = new FormData(form);
+    const raw = String(values.get('amount'));
+    const cents = Math.round(Number(raw) * 100);
+    if (!Number.isSafeInteger(cents) || cents <= 0) { document.querySelector('#amount').setCustomValidity('Enter an amount greater than zero.'); form.reportValidity(); return; }
+    save.disabled = true;
+    const spinner = document.createElement('span'); spinner.className = 'spinner'; spinner.setAttribute('aria-hidden', 'true');
+    save.replaceChildren(spinner, document.createTextNode('Saving…'));
+    await new Promise(resolve => setTimeout(resolve, 700));
+    lastId = `INV-${String(Math.max(...invoices.map(i => Number(i.id.slice(4)))) + 1).padStart(4, '0')}`;
+    const invoice = {id: lastId, client: String(values.get('client')).trim(), notes: String(values.get('notes')).trim(), cents};
+    invoices.push(invoice);
+    localStorage.setItem(storageKey, JSON.stringify(invoices));
+    render(); dialog.close();
+    notice.textContent = `Invoice ${invoice.id} saved · ${money(invoice.cents)}`; notice.hidden = false;
+    save.disabled = false; save.textContent = 'Save invoice';
+  });
+  document.querySelector('#amount').addEventListener('input', event => event.target.setCustomValidity(''));
+  render();
+</script>
+</html>

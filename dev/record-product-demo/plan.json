@@ -115,7 +115,9 @@
       "python3 skills/codex/record-product-demo/scripts/test_check_evidence.py -v",
       "python3 skills/codex/record-product-demo/scripts/test_beat_frames.py -v",
       "python3 skills/codex/record-product-demo/scripts/test_review_delivery.py -v",
-      "python3 skills/codex/record-product-demo/scripts/test_capture_environment.py -v"
+      "python3 skills/codex/record-product-demo/scripts/test_capture_environment.py -v",
+      "python3 skills/codex/record-product-demo/scripts/test_record_walkthrough.py -v",
+      "python3 skills/codex/record-product-demo/templates/record_walkthrough.py --skill <selected recording skill> --inputs <verified task-local invoice inputs.json> --phase take --output <new delivery folder>"
     ],
     "mechanical_suite_rule": "Each task that adds a test appends its command to mechanical_suite.",
     "local_experiment_setup": "dev/record-product-demo/experiment-setup.md: current task-local contract permits the supplied invented app and trusted bundled synthetic preflight. Historical setups and runs remain unchanged; six child invocations used, zero remaining.",
@@ -1016,6 +1018,14 @@
     {
       "at": "2026-09-19T08:50:35",
       "entry": "ChatGPT independently accepts the scoped recording/maintenance boundary: one Python 3.13.5 / FFmpeg-ffprobe 7.1.5 / Pillow 12.3.0 reproduction passed 82 checks, four example comparisons and plan validate/status/next. All 310 hashes, ten-file patch and original source tree match. Readiness/blockers, attribution and optional questions preserved; no fresh S6 compliance or viewing claimed. Reviewed candidate bytes verified for publication. Next assigned work is only T5.1 reusable recording driver starter and direct invented invoice proof; no additional child/model invocations, cumulative six. Original task criteria/status remain open."
+    },
+    {
+      "at": "2026-09-19T09:05:53",
+      "entry": "Published accepted maintenance boundary as fb162ebe44da5d021f7cdc7ad13a6d033b941ab1; remote and PR head verified, reviewed bytes matched. Implemented only T5.1 recording starter with explicit selected-skill imports, task JSON inputs, environment checks for rehearsal/take, existing failure records, owned-session cleanup and truthful initial evidence. 95 browser-free checks pass locally. Direct invented fixture proof: first rehearsal 6.9s correctly failed unchanged 8s minimum; task-input holds adjusted, second rehearsal 8.933333333333334s and take 8.9s pass media and structural evidence checks. Original records/reels retained; sampled builder inspection separate, no automatic clock alignment. App-specific content stays in dev fixtures. Test/direct-proof commands appended to mechanical_suite only. Original child-run adoption/S6/comparative effort and all task statuses remain open. No new child/model calls; cumulative six. New slice uncommitted for independent review."
+    },
+    {
+      "at": "2026-09-19T10:05:09",
+      "entry": "ChatGPT independently accepts the reusable recording starter: 95 browser-free checks, all three expected media outcomes, valid evidence and identical diagnostic handoffs, exact driver/helper identities, final extraction of 18 frames with four unresolved beats, all 304 hashes and eleven-file patch. Independent Python 3.13.5/FFmpeg-ffprobe 7.1.5/Pillow 12.3.0 combined reproduction reached an execution limit; final extraction and remaining assertions completed separately. Sampled review supports direct fixture proof, not continuous viewing, privacy clearance, fresh-agent adoption or reduced effort. Publish accepted bytes. Next assigned T2.1 packet is per-take driver/video correspondence and at most five direct calibration takes on one frozen candidate; preserve failures. Original adoption/comparative effort and other task criteria remain open. No new child/model calls; cumulative six."
     }
   ]
 }

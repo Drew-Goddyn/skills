@@ -11,6 +11,14 @@
       "tested_with": "agent-browser 0.37.1; 0.27.3 produced 10 fps and is unsuitable for the default take"
     },
     {
+      "id": "recording-driver-starter",
+      "use_when": "A browser form-to-new-result flow needs a task-local rehearsal/capture driver.",
+      "entrypoint": "templates/record_walkthrough.py; templates/walkthrough-inputs.json; references/recording-driver.md",
+      "usage": "Copy the starter and fill task inputs. Pass --skill, --inputs, --phase rehearsal|take and a new --output directory. Uses the selected Demo helpers, existing environment decision, recorder lifecycle, media checker and evidence template. Task-local prepare/perform functions may be adapted; shared helpers stay unchanged.",
+      "limits": "Fixed starter flow, not an action language. Caller configures and verifies a task-only browser and authorizes setup/reset. Preflight is separate. Initial evidence preserves unknown encoded beat times and unperformed review; application assertions do not establish visibility, privacy or viewing. A successful run means recorded_pending_review only.",
+      "check": "python3 scripts/test_record_walkthrough.py -v. Direct invented-fixture proof is separate from two child-run template-adoption and comparative-effort criteria."
+    },
+    {
       "id": "human-pacing",
       "use_when": "Typing, scrolling, or holds need a deliberate rhythm.",
       "entrypoint": "scripts/demo.py:Demo.type, Demo.scroll_to, Demo.hold",
