@@ -3,11 +3,11 @@
   "updated_at": "2026-09-18T22:50:26.107372+00:00",
   "base_commit": "56054c3e92184120782c8c4f1b1286153cc7ee86",
   "scope": "T2.1 extraction/index/contact sheets from supplied encoded-video beat times, plus two-second interval sampling. No driver alignment or five-take calibration.",
-  "status": "independently_reviewed_ready_for_publication",
+  "status": "published_independently_accepted",
   "delivery_state": {
     "implemented": true,
     "independently_reviewed": true,
-    "published": false,
+    "published": true,
     "merged": false,
     "installed": false
   },
@@ -71,7 +71,7 @@
   "preservation": "Original reels, copied evidence, take records, edit maps and author-versus-relay attribution unchanged. Accepted runtimes remain byte-identical to published head. Unrelated pilot changes excluded from patch.",
   "new_child_invocations": 0,
   "pilot_invocations": 4,
-  "handoff": "Accepted encoded-frame slice ready for publication. Automatic alignment, five-take calibration and original scenario prerequisites remain open. No merge or installed-skill replacement.",
+  "handoff": "Published accepted encoded-frame slice. T2.1 automatic alignment, five-take calibration and original scenario prerequisites remain open. No merge or installed-skill replacement.",
   "independent_review": {
     "author": "ChatGPT review partner",
     "relayed_by": "Drew",
@@ -171,5 +171,8 @@
     "payload_hashes": 327,
     "both_patches_apply": true,
     "prior_comparison": "Only test/generator and two progress records changed."
-  }
+  },
+  "published_commit": "93d4c51a1631df3c37b57fffc665f977b64e63a2",
+  "publication_evidence": "dev/record-product-demo/runs/20260918-frame-review-f383/publication/published.json",
+  "historical_review_note": "Earlier review and local validation sections retain their original stage-specific findings; independent_acceptance closes the fixture finding and establishes the complete 7.1.5 reproduction. Publication is recorded separately."
 }

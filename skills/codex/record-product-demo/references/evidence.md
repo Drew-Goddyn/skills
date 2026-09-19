@@ -87,3 +87,68 @@ use `status: unknown`, an explanation, and an empty segments list. Never invent 
 linear mapping for a transition or changing speed. The validator checks ranges,
 references, order, and speed/span arithmetic (1e-9 numerical representation
 precision, not a codec tolerance). It does not inspect the edit or infer maps.
+
+## Decisive frame findings and the watch list
+
+After the media check and extraction, inspect the relevant sheets and native
+frames yourself. An extracted file or a populated thumbnail is not a visibility
+finding. Use neighboring frames when a midpoint cannot establish a change; if
+coverage is insufficient, record `unresolved`. Missing timing never proves an
+action absent. Record only what the selected frames support, including where a
+single result frame cannot establish motion, smoothness or first-watch pacing.
+
+Version 1 optionally adds `review.beat_findings`. Older records without it remain
+structurally valid, but do not establish decisive-frame review readiness. Each
+entry has one existing `beat_id` and these fields:
+
+| Field | Contract |
+| --- | --- |
+| `status` | `supported`, `not_visible`, `unresolved`, or `unreviewed`. The first two require known encoded timing plus inspected native samples and their sheets. `not_visible` is a review finding within the stated coverage, not an extractor inference. |
+| `author` | `{ "kind": "agent|human", "name": "actual inspecting author" }`; null only for `unreviewed`. A script's synthetic pixel assertion must identify itself as such, not as human review. |
+| `relay` | Same actor shape when someone relays the finding; otherwise null. A human relay never changes an agent author's identity. |
+| `observation` | What is visible, missing or unresolved, naming the decisive content rather than merely saying a file exists. |
+| `coverage` | Which frames/sheets were inspected and what they cannot establish. Keep native inspection separate from thumbnail-only context and earlier reviewers' claims. |
+| `samples` | References of the form `{ "index": "frames-review/frames.index.json", "sample_id": "beat-0002" }`. Neighboring beat or interval samples may support a sequence. Use the index's decoded timestamps and paths; do not copy competing timing facts. Missing/unresolved index entries can support an unresolved finding, never a visibility verdict. |
+| `sheets` | Inspected sheet paths relative to the delivery. A visibility finding needs a sheet containing each supporting sample. `unreviewed` has empty samples/sheets, even when extracted material exists. |
+
+For example, a sampled result finding can reference `beat-0002`, describe the
+saved value and identifier visible there, and limit coverage to that native
+frame. Typing usually needs several successive frames. Use the existing
+extractor with denser intervals or a separate extraction-input copy containing
+additional encoded-time targets. Keep that input, its index and frames; leave
+the primary beat timing, original take records and edit map unchanged. Reference
+the additional samples in the finding. The index binds to the reel hash and
+retains its input-evidence hash. Keep that input snapshot before adding findings
+to the delivery evidence; adding findings need not rewrite an extraction index.
+
+For each decisive beat, add a watch-list row with `beat_id`, `label`,
+`video_seconds`, `precision`, and `note`. Copy the beat's final-output range and
+precision exactly; use null for both when timing is unknown. A row may explain
+the need for another look or a coverage gap. An exact decoded sample timestamp
+does not make an approximate or sampled beat exact. Existing unlinked rows remain
+valid historical evidence but do not fulfill this handoff's linked targets.
+
+```sh
+python3 <skill>/scripts/check_evidence.py <delivery>/evidence.json
+python3 <skill>/scripts/review_delivery.py <delivery>/evidence.json <delivery>/handoff
+```
+
+The second command writes `HANDOFF.md` and `review-readiness.json` to a **new**
+directory without changing inputs. Include the short timestamped watch list in
+the response and both files in the review ZIP. Exit 0 / `ready_for_review` means
+all designated decisive beats have supported findings, linked targets and a
+passing recorded media check. It does not mean successful delivery, completed
+viewing or acceptance. Exit 1 / `diagnostic_only` names unreviewed, not-visible,
+missing or unresolved moments, missing targets, and unsuccessful/unperformed
+media checks. Deliver that diagnostic record with its blockers; do not describe
+the reel as an unqualified success. Exit 2 is a structural/reference error or an
+unwritable/existing output path.
+
+The evidence validator checks author fields, index/reel identity, referenced
+frame hashes, sheet membership, and linked watch timing. It cannot verify who
+actually inspected an image or judge its meaning. Visibility findings must also
+agree with the corresponding agent/human coverage status. A truthful
+failed/incomplete
+finding can pass structural validation. The handoff preserves raw check results,
+warnings and coverage limitations; it never promotes frame inspection to a
+continuous watch, listening result, human viewing result or privacy clearance.

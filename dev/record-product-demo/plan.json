@@ -113,7 +113,8 @@
       "python3 skills/codex/record-product-demo/scripts/preflight.py <new scratch folder> --format mp4",
       "python3 skills/codex/record-product-demo/scripts/test_preflight.py <scratch folder>/preflight.mp4 <new negative-control folder>",
       "python3 skills/codex/record-product-demo/scripts/test_check_evidence.py -v",
-      "python3 skills/codex/record-product-demo/scripts/test_beat_frames.py -v"
+      "python3 skills/codex/record-product-demo/scripts/test_beat_frames.py -v",
+      "python3 skills/codex/record-product-demo/scripts/test_review_delivery.py -v"
     ],
     "mechanical_suite_rule": "Each task that adds a test appends its command to mechanical_suite."
   },
@@ -516,7 +517,7 @@
         "Its tests run without Codex, and their command is added to harness.mechanical_suite."
       ],
       "evidence": [],
-      "note": "Encoded extraction/index/contact sheets and fixture-portability correction independently accepted for publication. Automatic driver/video alignment, five-take marker calibration and original T1.1 scenario prerequisite remain unverified. Task remains pending; see dev/record-product-demo/beat-frames-validation.json."
+      "note": "Encoded-frame extraction/index/contact-sheet slice independently accepted and published as 93d4c51a1631df3c37b57fffc665f977b64e63a2; fixture-portability finding closed. See beat-frames-validation.json. T2.1 remains pending: automatic clock alignment, five-take calibration and original T1.1/scenario prerequisites are unverified; acceptance unchanged."
     },
     {
       "id": "T2.2",
@@ -534,7 +535,7 @@
         "S4 in two runs: decisive_value_missing returns fit_to_deliver false with broken_property decisive_value_not_visible, and truncated_before_result returns result_not_in_reel, each with time_seconds within 0.5 s of the seeded time. Baseline S4 is the fail-before evidence. Where baseline S4 already met this, apply standing rule 1."
       ],
       "evidence": [],
-      "note": ""
+      "note": "Scoped frame-review/watch-list implementation independently accepted without correction and ready for publication; see frame-review-validation.json. Relayed independent 7.1.5 reproduction and real-example diagnostic controls passed. Original repeated S1/S4 runs, seeded-defect criteria, alignment/calibration and broader prerequisites remain unperformed; task stays pending and acceptance unchanged. Two fresh ordinary S1 runs are the next assigned experiment, not automatic plan progression."
     },
     {
       "id": "T2.V",
@@ -956,6 +957,14 @@
     {
       "at": "2026-09-18T22:50:26.107372+00:00",
       "entry": "ChatGPT independently accepts encoded-frame slice and closes fixture-portability finding. Complete one-execution reproduction on FFmpeg/ffprobe 7.1.5, Python 3.13.5, Pillow 12.3.0 passes 17 extraction tests, 22 evidence tests, seven recorder checks, 11 tool-selection tests, plan, five synthetic scenarios and both copied deliveries. Corrected fixtures have explicit 0.25-second final duration and expected timestamps/RGB; earlier durationless fixtures remain rejected. All 327 hashes and both patches pass; actual prior comparison confirms only generator/tests and two records changed. Publish accepted slice. Next assigned T2.2 packet is frame findings and watch-list delivery integration only; original alignment/calibration and repeated S1/S4 criteria remain open."
+    },
+    {
+      "at": "2026-09-18T16:01:39",
+      "entry": "Published independently accepted encoded-frame slice as 93d4c51a1631df3c37b57fffc665f977b64e63a2; implementation/test/guidance bytes match accepted full patch 6f54c22c413d60e9b0d8e3859e6475da5945e470a1cefe067d06370ed7663b7f, remote and PR heads verified. T2.2 assigned slice adds per-decisive-beat findings and watch-list handoff on copied preserved deliveries, with browser-free local proof. New slice remains uncommitted pending ChatGPT review. No original acceptance criteria or task status changed; no alignment, repeated agent runs, harness, merge or installation."
+    },
+    {
+      "at": "2026-09-18T17:07:43",
+      "entry": "ChatGPT independent acceptance, relayed by Drew: frame-review/watch-list candidate patch 2c11447e4da66824910bd4319504d33ed1be07a891d81d74d3fa6bd0ccd9d112 accepted without correction. Full reproduction passed under FFmpeg/ffprobe 7.1.5, Python 3.13.5, Pillow 12.3.0; six sampled findings supported without continuous/privacy clearance. Publish accepted ten-file packet; keep original task criteria open. Next assigned packet is two fresh ordinary S1 child runs using one frozen published skill revision. At most two new child Codex invocations, failed invocations count, cumulative cap six; no parent coaching, retrospective repairs, extra delegation or fixes. Stop at independent-review handoff."
     }
   ]
 }

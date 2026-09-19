@@ -204,6 +204,16 @@ class Evidence:
             text(watch['label'], w + '.label'); text(watch['note'], w + '.note')
             if watch['video_seconds'] is not None:
                 self.time_range(watch['video_seconds'], w + '.video_seconds', duration)
+            if 'beat_id' in watch or 'precision' in watch:
+                obj(watch, w, 'beat_id precision')
+                beat = next((b for b in d['beats'] if b['id'] == watch['beat_id']), None)
+                require(beat is not None, w + '.beat_id', 'unknown beat id')
+                timing = beat['video_time']
+                require(watch['video_seconds'] == (timing['seconds'] if timing else None)
+                        and watch['precision'] == (timing['precision'] if timing else None),
+                        w, 'watch target must preserve the beat final-output range and precision, including unknown timing')
+        if 'beat_findings' in review:
+            self.beat_findings(review['beat_findings'], d)
         privacy = obj(d['privacy'], 'privacy', 'status coverage evidence findings')
         self.coverage(privacy, 'privacy')
         for i, finding in enumerate(items(privacy['findings'], 'privacy.findings')):
@@ -218,6 +228,82 @@ class Evidence:
         text(reproduction['setup'], 'reproduction.setup')
         strings(reproduction['created_records'], 'reproduction.created_records')
         self.coverage(reproduction['cleanup'], 'reproduction.cleanup')
+
+    def beat_findings(self, findings, data):
+        """Optional v1 extension: truthful incomplete findings remain structurally valid."""
+        beats = {b['id']: b for b in data['beats']}
+        seen = set()
+        for i, finding in enumerate(items(findings, 'review.beat_findings')):
+            w = f'review.beat_findings[{i}]'
+            obj(finding, w, 'beat_id status author relay observation coverage samples sheets')
+            bid = text(finding['beat_id'], w + '.beat_id')
+            require(bid in beats and bid not in seen, w + '.beat_id', 'unknown or duplicate beat id')
+            seen.add(bid)
+            state = choice(finding['status'], w + '.status', 'supported not_visible unresolved unreviewed')
+            for key in ('observation', 'coverage'):
+                text(finding[key], w + '.' + key)
+            for key in ('author', 'relay'):
+                actor = finding[key]
+                if actor is not None:
+                    obj(actor, w + '.' + key, 'kind name')
+                    choice(actor['kind'], w + '.' + key + '.kind', 'agent human')
+                    text(actor['name'], w + '.' + key + '.name')
+            require((finding['author'] is None) == (state == 'unreviewed'), w + '.author',
+                    'reviewed findings need their author; unreviewed findings have no reviewing author')
+            require(state != 'unreviewed' or finding['relay'] is None, w + '.relay', 'unreviewed has no relayed finding')
+            samples = items(finding['samples'], w + '.samples')
+            sheets = items(finding['sheets'], w + '.sheets')
+            if state == 'unreviewed':
+                require(not samples and not sheets, w, 'unreviewed cannot claim inspected samples or sheets')
+            if state in ('supported', 'not_visible'):
+                require(beats[bid]['video_time'] is not None, w, 'unknown beat timing needs an unresolved finding, not a visibility verdict')
+                require(bool(samples) and bool(sheets), w, 'visibility findings need inspected samples and sheets')
+                coverage_key = 'agent_frames' if finding['author']['kind'] == 'agent' else 'human'
+                require(data['review'][coverage_key]['status'] == 'performed', w + '.author',
+                        f'visibility finding contradicts review.{coverage_key} coverage status')
+            for j, ref in enumerate(samples):
+                sample = self.frame_sample(ref, f'{w}.samples[{j}]', data['reel'])
+                if state in ('supported', 'not_visible'):
+                    require(sample['status'] == 'extracted', w, 'visibility findings need actual extracted frames, not placeholders')
+                    index = self.file(ref['index'], w + '.index', True)
+                    index_dir = Path(ref['index']).parent
+                    matching_sheets = [(index_dir / s['path']).as_posix()
+                                       for s in items(index.get('contact_sheets'), w + '.index.contact_sheets')
+                                       if isinstance(s, dict) and isinstance(s.get('path'), str)
+                                       and any(isinstance(c, dict) and c.get('sample_id') == ref['sample_id']
+                                               for c in items(s.get('cells'), w + '.index.sheet.cells'))]
+                    require(any(s in sheets for s in matching_sheets), w + '.sheets',
+                            'an inspected sheet must include each supporting sample')
+            for j, sheet in enumerate(sheets):
+                self.file(sheet, f'{w}.sheets[{j}]')
+
+    def frame_sample(self, ref, where, reel):
+        """Resolve an index reference without copying another version of its timestamps."""
+        obj(ref, where, 'index sample_id')
+        text(ref['sample_id'], where + '.sample_id')
+        index_path = self.file(ref['index'], where + '.index')
+        index = obj(self.file(ref['index'], where + '.index', True), where + '.index',
+                    'schema_version scope source samples status')
+        require(type(index['schema_version']) is int and index['schema_version'] == 1
+                and index['scope'] == 'encoded_frame_extraction_only', where, 'expected encoded-frame index version 1')
+        source = obj(index['source'], where + '.index.source', 'reel_sha256')
+        require(source['reel_sha256'] == reel['sha256'], where, 'frame index belongs to a different reel')
+        choice(index['status'], where + '.index.status', 'complete partial error')
+        matches = [s for s in items(index['samples'], where + '.index.samples')
+                   if isinstance(s, dict) and s.get('sample_id') == ref['sample_id']]
+        require(len(matches) == 1, where + '.sample_id', 'sample is missing or ambiguous in frame index')
+        sample = obj(matches[0], where, 'status frame')
+        state = choice(sample['status'], where + '.status', 'extracted missing unresolved')
+        require((sample['frame'] is None) == (state != 'extracted'), where, 'sample status contradicts frame presence')
+        if state == 'extracted':
+            frame = obj(sample['frame'], where + '.frame', 'path sha256 video_seconds')
+            relative = Path(text(frame['path'], where + '.frame.path'))
+            require(not relative.is_absolute() and '..' not in relative.parts, where + '.frame.path', 'use a relative path inside the index folder')
+            path = self.file((index_path.parent.relative_to(self.root) / relative).as_posix(), where + '.frame.path')
+            require(hashlib.sha256(path.read_bytes()).hexdigest() == frame['sha256'], where, 'frame hash does not match indexed bytes')
+            at = number(frame['video_seconds'], where + '.frame.video_seconds')
+            require(at < reel['duration_seconds'], where, 'frame timestamp is outside delivered picture')
+        return sample
 
     def edit(self, edit, duration):
         obj(edit, 'production.edit', 'settings inputs timeline')

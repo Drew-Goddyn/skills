@@ -91,7 +91,8 @@
         "video_seconds": null,
         "note": ""
       }
-    ]
+    ],
+    "beat_findings": []
   },
   "privacy": {
     "status": "not_performed",
