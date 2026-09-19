@@ -1,6 +1,6 @@
 {
   "kind": "bounded_two_fresh_s1_experiment",
-  "status": "independently_accepted_ready_for_publication",
+  "status": "published_independently_accepted",
   "tested_commit": "399e610d59e444fe0f6730ee7ef18dd0eaaeca39",
   "skill_tree_sha256": "d2f6fc3d4159131152f5d16607e5cc74e800b9571eff7b8ffaffafc15dec3919",
   "evidence_run": "dev/record-product-demo/runs/20260919-0006-two-s1-f383",
@@ -88,11 +88,11 @@
   "preservation": "Child responses, original ZIPs and delivered files preserved. All 26 skill files in each child copy unchanged. Earlier evidence, accepted reels and installed skill unchanged.",
   "publication_state": {
     "accepted_frame_review_slice": "published at 399e610d59e444fe0f6730ee7ef18dd0eaaeca39",
-    "experiment": "independently accepted; ready for authorized record-only publication",
+    "experiment": "Published independently accepted scoped experiment records; whole tasks remain pending where prerequisites or criteria are open.",
     "merged": false,
     "installed": false
   },
-  "next_action": "Publish scoped experiment/progress record. Then only the assigned optional viewer-checkpoint and local setup-contract correction; leave correction uncommitted for review. No additional child/model invocations (six cumulative, zero remaining).",
+  "next_action": "Assigned optional viewer-question and setup-contract correction only, left uncommitted for ChatGPT review. No further child/model invocations; six cumulative, zero remaining.",
   "independent_review": {
     "author": "ChatGPT review partner",
     "relayed_by": "Drew",
@@ -114,5 +114,13 @@
       "persistence replay",
       "privacy clearance"
     ]
+  },
+  "published_commit": "8b5564e7f7b82f64f6a95a7df59295a55b66bc81",
+  "publication_verification": {
+    "remote_head": "8b5564e7f7b82f64f6a95a7df59295a55b66bc81",
+    "pr_head": "8b5564e7f7b82f64f6a95a7df59295a55b66bc81",
+    "committed_files": 3,
+    "source_skill_changed": false,
+    "force_push": false
   }
 }

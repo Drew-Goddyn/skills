@@ -1,0 +1,88 @@
+{
+  "kind": "scoped_optional_viewer_checkpoint_and_setup_correction",
+  "base_commit": "8b5564e7f7b82f64f6a95a7df59295a55b66bc81",
+  "status": "independently_accepted_ready_for_publication",
+  "delivery_state": {
+    "implemented": true,
+    "independently_reviewed": true,
+    "published": false,
+    "merged": false,
+    "installed": false
+  },
+  "published_experiment": {
+    "commit": "8b5564e7f7b82f64f6a95a7df59295a55b66bc81",
+    "remote_and_pr_head_verified": true,
+    "scope": "Only three experiment/progress records. Original two-run evidence-generation criterion independently accepted; whole task prerequisites remain open."
+  },
+  "changes": [
+    "Four plan viewer-checkpoint questions appear in generated handoffs and response guidance as optional feedback.",
+    "Unanswered questions do not gate review packages or become performed human review. Readiness decisions and JSON shape are unchanged.",
+    "Current experiment setup contract permits the trusted pinned synthetic preflight alongside the invented localhost app. Unrelated apps/private data remain excluded.",
+    "Isolation is documented as a pinned recording skill with retained host/default guidance. No global settings or historical child setup files changed."
+  ],
+  "local_checks": {
+    "delivery_tests": 20,
+    "evidence_tests": 22,
+    "before": "Two new tests fail against published formatting in all seven subcases because questions are absent. One initial test-draft invalid empty-watch-list fixture was corrected to the existing valid unlinked-watch-target control; both outputs retained.",
+    "examples": "New copies of three synthetic deliveries: supported, unreviewed, missing result. Before/after handoffs and unchanged readiness JSON are packaged. They do not repair or re-evaluate child outputs.",
+    "environment": "Builder macOS, Python 3.14.2, FFmpeg/ffprobe 8.0 and Pillow 12.1.1. No separate media regression suite or browser run.",
+    "packaged_reproduction": "Pass: eight-file patch applies and reproduces candidate; three structural examples pass; before/after readiness JSON byte-identical; all other handoff text unchanged.",
+    "skill_discovery": "Six skills listed including record-product-demo using existing cached CLI in offline mode. Initial sandboxed registry lookup failed ENOTFOUND and is preserved.",
+    "plan_validation": "pass; all original task status/dependency/acceptance/evidence arrays unchanged",
+    "supporting_links": "pass",
+    "preservation": {
+      "status": "pass",
+      "protected_files_unchanged": 4468,
+      "installed_skill_files_unchanged": 14,
+      "prior_runs_reels_zips_and_child_outputs": "All protected hashes unchanged",
+      "supporting_links_checked": 14,
+      "git_diff_check": "pass",
+      "index_empty": true,
+      "additional_child_model_invocations": 0,
+      "cumulative": 6,
+      "remaining": 0
+    }
+  },
+  "setup_evidence": {
+    "launcher": "runs/20260919-0006-two-s1-f383/launch_child.py, lines 25-29 and 38-39: ephemeral contexts, one global recording-skill disable, task-local browser config/socket directory.",
+    "preflight": "Pinned scripts/preflight.py opens its bundled synthetic HTML via a data URL. Permission wording inspected; not re-executed.",
+    "supporting_skill_reads": "ChatGPT independently reported both transcripts reading global unslop at item_3, source line 8; Drew relayed the result. No claim of complete single-skill isolation."
+  },
+  "preservation": "Earlier run files, child outputs, ZIPs, reels, installed skill and unrelated pilot edits remain unchanged. New examples and outputs are separate.",
+  "limitations": [
+    "Optional questions are structurally tested; no new human feedback or fresh child adherence result was collected.",
+    "The setup wording correction has not been exercised in another child/browser run.",
+    "Run 2 failed-take root cause remains unresolved.",
+    "Formal marker timing, repeated S4/seeded defects, automatic alignment, five-take calibration and other original prerequisites remain open."
+  ],
+  "usage": {
+    "additional_child_or_model_invocations": 0,
+    "cumulative": 6,
+    "remaining": 0
+  },
+  "evidence_run": "dev/record-product-demo/runs/20260919-checkpoint-setup-f383",
+  "next_action": "Publish accepted correction with approved three-field compatibility repair; then only assigned T3.1 environment-check slice, left uncommitted for independent review.",
+  "independent_review": {
+    "author": "ChatGPT review partner",
+    "relayed_by": "Drew",
+    "source": "Self-contained user message; no archive required or claimed inspected.",
+    "environment": {
+      "ffmpeg": "7.1.5",
+      "ffprobe": "7.1.5",
+      "python": "3.13.5",
+      "pillow": "12.3.0"
+    },
+    "result": "One packaged reproduction passed: 20 delivery tests, 22 evidence tests, three examples, eight-file patch, all 166 payload hashes. Readiness JSON identical; only optional-question block changes handoff text. No fresh child compliance claimed.",
+    "accepted_patch_sha256": "bcf9c60e5abcf829fd46e362fe4182122fb2a0925956f3d015c0f467560521e8",
+    "approved_record_only_repair": "Add at copied verbatim from date to two existing logs, retaining date; add entry copied verbatim from note to checkpoint/setup log, retaining note and task. validate/status/next independently pass on corrected copy."
+  },
+  "local_log_repair": {
+    "fields_added": 3,
+    "other_existing_plan_fields_changed": false,
+    "published_and_candidate_status_crashes_reproduced": true,
+    "validate": "pass",
+    "status": "pass",
+    "next": "pass",
+    "tracker_source_changed": false
+  }
+}

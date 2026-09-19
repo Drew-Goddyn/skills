@@ -20,6 +20,12 @@ from test_check_evidence import save
 
 HERE = Path(__file__).resolve().parent
 AUTHOR = {'kind': 'agent', 'name': 'Automated synthetic fixture: pixel assertions only'}
+VIEWER_QUESTIONS = (
+    'What did the app do, and what was the result?',
+    'Where did you need another look? Rough times are enough.',
+    'Is anything on screen that should not be public?',
+    'Would you attach this to a pull request as it is?',
+)
 
 
 def finding(state='supported', observation='Numbered blue FRAME 02 is visible in the selected synthetic frame.'):
@@ -267,6 +273,53 @@ class DeliveryReviewTests(unittest.TestCase):
         self.data['review']['beat_findings'][0]['author'] = None; save(self.path, self.data)
         invalid = run(self.path, self.folder/'invalid'); self.assertEqual(invalid.returncode, 2)
         self.assertNotIn('Traceback', invalid.stderr)
+
+    def test_optional_viewer_questions_in_ready_and_diagnostic_handoffs(self):
+        for scenario, folder in self.fixtures.items():
+            with self.subTest(scenario=scenario):
+                result = assess(folder / 'evidence.json')
+                original = copy.deepcopy(result)
+                rendered = handoff(result)
+                self.assertEqual(result['status'], 'ready_for_review' if scenario == 'supported' else 'diagnostic_only')
+                self.assertIn('Optional viewer feedback', rendered)
+                self.assertIn('You do not need to watch or answer before an independent agent reviews this package.', rendered)
+                self.assertIn('Unanswered questions do not block delivery or count as performed human review.', rendered)
+                for number, question in enumerate(VIEWER_QUESTIONS, 1):
+                    self.assertEqual(rendered.count(f'{number}. {question}'), 1)
+                self.assertEqual(result, original)
+
+    def test_generated_questions_preserve_readiness_warnings_and_attribution(self):
+        report_path = self.folder / 'facts/media.json'
+        report = json.loads(report_path.read_text())
+        report['warnings'] = ['Synthetic warning preservation control']
+        save(report_path, report)
+        self.data['review']['beat_findings'][0]['relay'] = {'kind': 'human', 'name': 'Fixture relay'}
+        self.data['review']['human'].update(status='unavailable', coverage='No direct human result collected.')
+        for status in ('ready_for_review', 'diagnostic_only'):
+            with self.subTest(status=status):
+                if status == 'diagnostic_only':
+                    del self.data['review']['watch_list'][0]['beat_id']
+                    del self.data['review']['watch_list'][0]['precision']
+                self.check()
+                original = self.path.read_bytes()
+                expected = assess(self.path)
+                output = self.folder / status
+                result = build(self.path, output)
+                rendered = (output / 'HANDOFF.md').read_text()
+                self.assertEqual(result, expected)
+                self.assertEqual(json.loads((output / 'review-readiness.json').read_text()), expected)
+                self.assertEqual(result['status'], status)
+                self.assertEqual(result['check_results'][0]['result'], report)
+                self.assertEqual(result['review_coverage']['human'], self.data['review']['human'])
+                for question in VIEWER_QUESTIONS:
+                    self.assertIn(question, rendered)
+                for text in ('Synthetic warning preservation control', 'agent author:', 'relayed by human Fixture relay',
+                             'human: unavailable. No direct human result collected.', 'continuous_watch: not_performed',
+                             'listening: not_performed', 'privacy: not_performed'):
+                    self.assertIn(text, rendered)
+                if status == 'diagnostic_only':
+                    self.assertIn('missing linked watch-list target', rendered)
+                self.assertEqual(self.path.read_bytes(), original)
 
 
 if __name__ == '__main__':

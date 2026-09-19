@@ -144,6 +144,16 @@ media checks. Deliver that diagnostic record with its blockers; do not describe
 the reel as an unqualified success. Exit 2 is a structural/reference error or an
 unwritable/existing output path.
 
+Copy the handoff's four optional viewer-feedback questions into the response
+alongside the watch list and review ZIP, including for diagnostic packages. They
+ask about the action/result, moments needing another look, screen content that
+should not be public, and suitability for a pull request. The user need not watch
+or answer before an independent agent reviews the package. Unanswered questions
+do not affect readiness or count as performed human review. Keep an uncollected
+human result explicit; if feedback later arrives, record its actual author and
+coverage, with any relay separate. A relayed agent assessment remains agent
+review. The questions themselves establish no viewing or privacy clearance.
+
 The evidence validator checks author fields, index/reel identity, referenced
 frame hashes, sheet membership, and linked watch timing. It cannot verify who
 actually inspected an image or judge its meaning. Visibility findings must also

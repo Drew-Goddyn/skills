@@ -8,6 +8,12 @@ from check_evidence import Evidence, Invalid, read_json, validate
 
 
 SCOPE = 'recorded_frame_review_readiness_only'
+VIEWER_CHECKPOINT_QUESTIONS = (
+    'What did the app do, and what was the result?',
+    'Where did you need another look? Rough times are enough.',
+    'Is anything on screen that should not be public?',
+    'Would you attach this to a pull request as it is?',
+)
 
 
 def assess(path):
@@ -78,6 +84,10 @@ def handoff(result):
         time = 'time unresolved' if span is None else '–'.join(timestamp(s) for s in span)
         precision = watch.get('precision') or 'precision unrecorded'
         lines.append(f"- {time} ({precision}) — {watch['label']}: {watch['note']}")
+    lines += ['', 'Optional viewer feedback:', '',
+              'You do not need to watch or answer before an independent agent reviews this package. '
+              'Unanswered questions do not block delivery or count as performed human review.', '']
+    lines += [f'{number}. {question}' for number, question in enumerate(VIEWER_CHECKPOINT_QUESTIONS, 1)]
     lines += ['', 'Recorded decisive-beat findings:', '']
     for beat in result['decisive_beats']:
         finding = beat['finding']

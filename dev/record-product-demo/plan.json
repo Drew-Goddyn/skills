@@ -116,7 +116,9 @@
       "python3 skills/codex/record-product-demo/scripts/test_beat_frames.py -v",
       "python3 skills/codex/record-product-demo/scripts/test_review_delivery.py -v"
     ],
-    "mechanical_suite_rule": "Each task that adds a test appends its command to mechanical_suite."
+    "mechanical_suite_rule": "Each task that adds a test appends its command to mechanical_suite.",
+    "local_experiment_setup": "dev/record-product-demo/experiment-setup.md: current task-local contract permits the supplied invented app and trusted bundled synthetic preflight. Historical setups and runs remain unchanged; six child invocations used, zero remaining.",
+    "skill_isolation": "One pinned recording-skill copy; retained host/default guidance. The per-run skills.config override disables only the global recording-skill copy, not unrelated skills or host instructions. Both accepted S1 transcripts read global unslop at item_3, source line 8."
   },
   "scenarios": [
     {
@@ -359,7 +361,7 @@
         "If D3 is answered, use the setting it allows instead of retrying the narrower settings. Otherwise, if all three settings fail, mark this task blocked with a note, set D3 to open, and stop without trying a run with sandbox and approvals disabled."
       ],
       "evidence": [],
-      "note": ""
+      "note": "Scoped setup wording correction permits the trusted bundled synthetic preflight alongside the invented localhost app and documents retained defaults; no new permission probe, browser run or child invocation. Earlier acceptance criteria remain unperformed. See experiment-setup.md and checkpoint-setup-validation.json."
     },
     {
       "id": "T0.4",
@@ -535,7 +537,7 @@
         "S4 in two runs: decisive_value_missing returns fit_to_deliver false with broken_property decisive_value_not_visible, and truncated_before_result returns result_not_in_reel, each with time_seconds within 0.5 s of the seeded time. Baseline S4 is the fail-before evidence. Where baseline S4 already met this, apply standing rule 1."
       ],
       "evidence": [],
-      "note": "Frame-review/watch-list implementation published as 399e610d59e444fe0f6730ee7ef18dd0eaaeca39. Two fresh ordinary S1 deliveries independently accepted for six sampled findings and valid records/handoffs; no continuous watch or privacy clearance. Run 2 recovered from one preserved failed take; cause unresolved. Generic preflight was excluded by parent app-only setup and remains separate parent evidence; global unslop was read in both contexts. Explicit viewer-checkpoint questions absent from both responses and handoffs. Formal marker timing, S4 seeded defects, alignment/calibration and broader prerequisites stay open. Pending status and original criteria retained; see two-s1-validation.json."
+      "note": "Frame-review/watch-list implementation published as 399e610d59e444fe0f6730ee7ef18dd0eaaeca39. Two fresh ordinary S1 deliveries independently accepted for six sampled findings and valid records/handoffs; no continuous watch or privacy clearance. Run 2 recovered from one preserved failed take; cause unresolved. Generic preflight was excluded by parent app-only setup and remains separate parent evidence; global unslop was read in both contexts. Explicit viewer-checkpoint questions absent from both responses and handoffs. Formal marker timing, S4 seeded defects, alignment/calibration and broader prerequisites stay open. Pending status and original criteria retained; see two-s1-validation.json. Assigned follow-up adds optional viewer-checkpoint questions to generated handoffs and response guidance; browser-free local proof only, uncommitted pending independent review. Unanswered questions do not change readiness or human-review coverage. See checkpoint-setup-validation.json."
     },
     {
       "id": "T2.V",
@@ -968,15 +970,27 @@
     },
     {
       "date": "2026-09-18",
-      "entry": "Published accepted frame-review/watch-list slice as 399e610d59e444fe0f6730ee7ef18dd0eaaeca39. Seven implementation/test/guidance files match accepted candidate; remote branch and PR head verified. Beginning only the authorized two fresh S1 invocations against frozen published skill tree d2f6fc3d4159131152f5d16607e5cc74e800b9571eff7b8ffaffafc15dec3919. Parent localhost/preflight setup passed with separate Chrome sandboxed profile. No prior reels or completed evidence exposed to children; no skill changes authorized during experiment."
+      "entry": "Published accepted frame-review/watch-list slice as 399e610d59e444fe0f6730ee7ef18dd0eaaeca39. Seven implementation/test/guidance files match accepted candidate; remote branch and PR head verified. Beginning only the authorized two fresh S1 invocations against frozen published skill tree d2f6fc3d4159131152f5d16607e5cc74e800b9571eff7b8ffaffafc15dec3919. Parent localhost/preflight setup passed with separate Chrome sandboxed profile. No prior reels or completed evidence exposed to children; no skill changes authorized during experiment.",
+      "at": "2026-09-18"
     },
     {
       "date": "2026-09-18",
-      "entry": "Completed the authorized two fresh ordinary S1 child invocations on the same published 399e610 skill (26 frozen files each), using existing ChatGPT route and per-run approvals. Both deliver actual reels, evidence, three supported decisive findings, approximate watch lists and review ZIPs. Local parent media/evidence/readiness and sampled-frame checks pass without repairs. Second child preserved a failed no-stream take record and recovered by restarting only its owned browser; root cause remains unproven. New invocations 2/2, cumulative 6/6; stop at independent review. No source fixes, earlier reel edits, merge or install. T1.1 two valid ordinary-run records observed locally; formal S1 marker checks, T2.2 watch_list_timing/S4, alignment/calibration and harness criteria remain open. See two-s1-validation.json."
+      "entry": "Completed the authorized two fresh ordinary S1 child invocations on the same published 399e610 skill (26 frozen files each), using existing ChatGPT route and per-run approvals. Both deliver actual reels, evidence, three supported decisive findings, approximate watch lists and review ZIPs. Local parent media/evidence/readiness and sampled-frame checks pass without repairs. Second child preserved a failed no-stream take record and recovered by restarting only its owned browser; root cause remains unproven. New invocations 2/2, cumulative 6/6; stop at independent review. No source fixes, earlier reel edits, merge or install. T1.1 two valid ordinary-run records observed locally; formal S1 marker checks, T2.2 watch_list_timing/S4, alignment/calibration and harness criteria remain open. See two-s1-validation.json.",
+      "at": "2026-09-18"
     },
     {
       "at": "2026-09-19T03:21:36.308127+00:00",
       "entry": "ChatGPT independent acceptance relayed by Drew: observed integrated two-run S1 outcome accepted without another recording. Both media/evidence/reference/handoff checks pass in one FFmpeg/ffprobe 7.1.5 recheck; independently extracted 18 frames support six sampled findings; 351 hashes and reconstructed 26-file skill tree match 399e610. Child files unchanged. Record the demonstrated T1.1 two-run evidence-generation criterion, not whole-task completion. Qualifications retained: generic preflight excluded by parent app-only rule; global unslop read by both children (item_3, source line 8); run 2 recovered from a preserved failure with unresolved cause; no explicit viewer questions in responses/handoffs. Publish records only. Next assigned correction is optional viewer questions and accurate local setup/skill-isolation guidance, with browser-free checks only. No further child/model calls; six cumulative, zero remaining."
+    },
+    {
+      "at": "2026-09-19T03:26:57+00:00",
+      "task": "T2.2",
+      "note": "Published independently accepted two-S1 experiment records as 8b5564e7f7b82f64f6a95a7df59295a55b66bc81; remote branch and PR head verified. Implemented only assigned optional-question and local setup correction, pending independent review. Twenty delivery tests and 22 evidence tests pass locally; no new browser, recording, media-suite run or child/model invocation. Historical child evidence unchanged; no whole task completed.",
+      "entry": "Published independently accepted two-S1 experiment records as 8b5564e7f7b82f64f6a95a7df59295a55b66bc81; remote branch and PR head verified. Implemented only assigned optional-question and local setup correction, pending independent review. Twenty delivery tests and 22 evidence tests pass locally; no new browser, recording, media-suite run or child/model invocation. Historical child evidence unchanged; no whole task completed."
+    },
+    {
+      "at": "2026-09-18T20:59:30",
+      "entry": "ChatGPT independently accepts optional viewer questions/setup correction, with exact three-field log compatibility repair. Reviewed candidate bcf9c60e5abcf829fd46e362fe4182122fb2a0925956f3d015c0f467560521e8 matches implementation/test/guidance bytes; local validate/status/next pass. Original task status, criteria and evidence retained. Authorized publication followed only by scoped T3.1 environment check; no additional child/model invocations."
     }
   ]
 }
