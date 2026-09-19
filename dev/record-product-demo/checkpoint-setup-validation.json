@@ -1,11 +1,11 @@
 {
   "kind": "scoped_optional_viewer_checkpoint_and_setup_correction",
   "base_commit": "8b5564e7f7b82f64f6a95a7df59295a55b66bc81",
-  "status": "independently_accepted_ready_for_publication",
+  "status": "published_independently_accepted",
   "delivery_state": {
     "implemented": true,
     "independently_reviewed": true,
-    "published": false,
+    "published": true,
     "merged": false,
     "installed": false
   },
@@ -61,7 +61,7 @@
     "remaining": 0
   },
   "evidence_run": "dev/record-product-demo/runs/20260919-checkpoint-setup-f383",
-  "next_action": "Publish accepted correction with approved three-field compatibility repair; then only assigned T3.1 environment-check slice, left uncommitted for independent review.",
+  "next_action": "Only the assigned T3.1 environment-check slice, left uncommitted for independent review. No additional child/model invocations.",
   "independent_review": {
     "author": "ChatGPT review partner",
     "relayed_by": "Drew",
@@ -84,5 +84,14 @@
     "status": "pass",
     "next": "pass",
     "tracker_source_changed": false
+  },
+  "published_commit": "b0201bb310f36b841e1a55204d630bfa27684d55",
+  "publication_verification": {
+    "remote_head": "b0201bb310f36b841e1a55204d630bfa27684d55",
+    "pr_head": "b0201bb310f36b841e1a55204d630bfa27684d55",
+    "reviewed_implementation_test_guidance_setup_files": 5,
+    "reviewed_bytes_match": true,
+    "tracker_source_unchanged": true,
+    "plan_validate_status_next": "pass"
   }
 }

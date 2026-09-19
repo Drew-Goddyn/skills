@@ -8,7 +8,7 @@ from unittest.mock import patch
 
 from check_video import tool
 from demo import Demo
-from test_helpers import check_record_failures
+from test_helpers import TEST_ENVIRONMENT, check_record_failures
 
 
 class ToolSelection(unittest.TestCase):
@@ -64,7 +64,7 @@ class ToolSelection(unittest.TestCase):
         with patch.dict(os.environ, {}, clear=True), patch('demo.shutil.which', return_value=None), \
                 patch('demo.subprocess.run', side_effect=FileNotFoundError('simulated missing browser')):
             with self.assertRaisesRegex(RuntimeError, 'PATH.*DEMO_BROWSER') as caught:
-                with Demo('test', self.scratch).record('missing.webm'):
+                with Demo('test', self.scratch).record('missing.webm', environment=TEST_ENVIRONMENT):
                     self.fail('recording body entered after missing browser')
         report = json.loads((self.scratch / 'missing.take.json').read_text())
         self.assertEqual(report['status'], 'failed')

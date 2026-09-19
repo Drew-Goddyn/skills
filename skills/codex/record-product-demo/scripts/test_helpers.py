@@ -4,7 +4,10 @@ import json
 import tempfile
 from pathlib import Path
 from urllib.parse import quote
-from demo import Demo
+from demo import Demo, capture_environment
+
+TEST_ENVIRONMENT = json.loads((Path(__file__).resolve().parent.parent /
+                               'fixtures/capture-environments.json').read_text())['base']
 
 
 def check_record_failures(scratch):
@@ -30,7 +33,7 @@ def check_record_failures(scratch):
         recorder.stopped = recorder.cleared = False
         entered = False
         try:
-            with recorder.record(f'{failure}.webm'):
+            with recorder.record(f'{failure}.webm', environment=TEST_ENVIRONMENT):
                 entered = True
                 if failure == 'body':
                     raise recorder.error
@@ -46,7 +49,9 @@ def check_record_failures(scratch):
         if failure == 'start':
             if (entered or recorder.stopped or recorder.cleared or recorder.started is not None
                     or report.get('failure_stage') != 'recorder_start'
-                    or report.get('capture_request') != {'fps': 30}
+                    or report['capture_request']['fps'] != 30
+                    or report['capture_request']['environment'] != TEST_ENVIRONMENT
+                    or report['capture_request']['environment_check'] != {'status': 'allowed', 'reasons': []}
                     or report['video'] != str(scratch.resolve() / 'start.webm')
                     or report['wall_seconds'] is not None or report['flow_seconds'] is not None
                     or report['recorder'] != {} or report['events'] != []
@@ -61,18 +66,19 @@ def check_record_failures(scratch):
     recorder = FailingRecorder('unused', scratch)
     recorder.failure = None
     recorder.stopped = recorder.cleared = False
-    with recorder.record('success.webm') as active:
+    with recorder.record('success.webm', environment=TEST_ENVIRONMENT) as active:
         if active is not recorder:
             raise AssertionError('record yielded a different helper')
         recorder.event('stub-action', target='invented fixture')
     report = json.loads((scratch / 'success.take.json').read_text())
-    if (set(report) != {'status', 'video', 'wall_seconds', 'flow_seconds', 'recorder',
+    if (set(report) != {'status', 'video', 'wall_seconds', 'flow_seconds', 'recorder', 'capture_request',
                        'events', 'errors', 'playback_review'}
             or report['status'] != 'recorded' or report['errors'] != []
             or report['recorder'] != {'stub': True, 'stopped': True}
             or [event['action'] for event in report['events']] != ['stub-action']
             or not 0 <= report['flow_seconds'] <= report['wall_seconds']
             or report['playback_review'] != 'pending'
+            or report['capture_request']['environment_check'] != {'status': 'allowed', 'reasons': []}
             or not recorder.stopped or not recorder.cleared or recorder.started is not None):
         raise AssertionError('successful take changed its record or cleanup behavior')
     results.append('successful take preserves the existing schema, recorder facts, events, and cleanup')
@@ -81,7 +87,7 @@ def check_record_failures(scratch):
     recorder.error = RuntimeError('simulated start failure after a successful take')
     recorder.stopped = recorder.cleared = False
     try:
-        with recorder.record('next.webm'):
+        with recorder.record('next.webm', environment=TEST_ENVIRONMENT):
             raise AssertionError('flow entered after start failure')
     except RuntimeError as error:
         if error is not recorder.error:
@@ -94,7 +100,7 @@ def check_record_failures(scratch):
     results.append('start failure after success does not inherit previous events or recorder facts')
 
     try:
-        with recorder.record('missing-parent/unsavable.webm'):
+        with recorder.record('missing-parent/unsavable.webm', environment=TEST_ENVIRONMENT):
             raise AssertionError('flow entered after start failure')
     except RuntimeError as error:
         if error is not recorder.error or not isinstance(error.__cause__, OSError):
@@ -162,6 +168,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--record-only', action='store_true',
                         help='Run deterministic take-record checks without a browser.')
+    parser.add_argument('--browser-profile-mode', default='unknown',
+                        help='For live checks, set task_only after verifying the task profile configuration.')
     args = parser.parse_args()
     scratch = Path(tempfile.mkdtemp(prefix='demo-check-', dir='/tmp'))
     checks = check_record_failures(scratch)
@@ -171,6 +179,13 @@ def main():
         print(json.dumps(result, indent=2))
         return
     b = Demo('helpers', scratch)
+    fixture_url = 'data:text/html,' + quote('<body><input id="plain"><button id="behind">Open</button><dialog><input id="decisive"><button id="save" onclick="window.saved=true">Save</button></dialog><div style="height:1400px"></div><button id="last">Last</button></body>')
+    observed = dict(TEST_ENVIRONMENT, url=fixture_url, browser_profile_mode=args.browser_profile_mode,
+                    conditions='Bundled helper-test HTML with invented inputs and no authentication or external records. '
+                               'Caller supplies the verified task-profile mode; no profile inspection is automated.')
+    if capture_environment(observed)['status'] == 'blocked':
+        with b.record('failed.webm', environment=observed):
+            pass
     def check(name, expression):
         if b.js(expression) is not True:
             raise AssertionError(name)
@@ -179,7 +194,7 @@ def main():
         b.run('open', 'about:blank')
         b.run('set', 'viewport', 1440, 900)
         checks.extend(check_focus_colors(b, scratch))
-        b.open('data:text/html,' + quote('<body><input id="plain"><button id="behind">Open</button><dialog><input id="decisive"><button id="save" onclick="window.saved=true">Save</button></dialog><div style="height:1400px"></div><button id="last">Last</button></body>'))
+        b.open(fixture_url)
         b.type('#plain', 'routine')
         b.type('#plain', 'replacement')
         checks.append('real input events replace existing text')
@@ -219,7 +234,7 @@ def main():
         except RuntimeError:
             checks.append('ambiguous focus fails visibly')
         try:
-            with b.record('failed.webm'):
+            with b.record('failed.webm', environment=observed):
                 b.hold(.3, 'Failure-cleanup fixture')
                 raise ValueError('intentional failure')
         except ValueError:

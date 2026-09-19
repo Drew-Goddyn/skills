@@ -21,7 +21,11 @@
     "kind": "",
     "url": null,
     "signed_in_account_kind": "",
-    "conditions": ""
+    "conditions": "",
+    "authorized_for_capture": null,
+    "data_provenance": null,
+    "browser_profile_mode": null,
+    "production_indicators": null
   },
   "source": {
     "revision": null,

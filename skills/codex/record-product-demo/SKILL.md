@@ -27,6 +27,8 @@ These branches can combine. Read only those needed by the requested work:
 
 ## Capture when needed
 
+Before new capture, including app rehearsals, follow the [environment check](references/capture-environment.md). Establish an authorized local/test target, account kind (or confirmed no login), invented-data provenance and a task-only browser profile. Production indicators, personal/attached profiles or unresolved facts stop capture and require clarification. Record the observations and decision; localhost alone is insufficient. The trusted bundled preflight remains allowed in its task profile and does not clear the target app. Edit-only work retains source provenance and privacy gaps without inventing a new capture check.
+
 For new footage, choose beats that connect the action and its consequence. Give each hold a purpose appropriate to the brief. Establish setup and restoration within the authorized environment, then rehearse the sequence before the take. Use application-generated results and real gameplay. Preserve the input method and any camera, HUD, or timing adjustments with the capture. An edit of existing footage follows the post-production branch without repeating capture unless the revision requires it.
 
 For each new take, verify the decisive action and result both in the application and in the recording. A successful input or assertion does not prove that the recorder retained it. Check representative motion, any intended hold, and resumed action where relevant. Preserve failed takes when diagnosing a recording problem.

@@ -1,11 +1,38 @@
 """Small agent-browser helpers. Import into a task-specific Python driver."""
 from contextlib import contextmanager
+from copy import deepcopy
 import json
 import os
 from pathlib import Path
 import shutil
 import subprocess
 import time
+
+
+def capture_environment(environment):
+    """Decide from supplied observations; never infer safety from a URL or name."""
+    observed = environment if isinstance(environment, dict) else {}
+    reasons = []
+    if observed.get('kind') not in ('local', 'test'):
+        reasons.append('Establish a local or test target; production or unknown environments stop capture.')
+    if observed.get('authorized_for_capture') is not True:
+        reasons.append('Clarify whether capture of this local/test target is authorized.')
+    if not isinstance(observed.get('url'), str) or not observed['url'].strip():
+        reasons.append('Identify the actual browser target URL.')
+    if observed.get('signed_in_account_kind') not in ('none', 'test', 'demo'):
+        reasons.append('Clarify the account: establish no login, or a test/demo account without credentials.')
+    if observed.get('data_provenance') != 'invented':
+        reasons.append('Establish that the displayed data is invented; localhost alone is insufficient.')
+    if observed.get('browser_profile_mode') != 'task_only':
+        reasons.append('Use a separate task-only browser profile; personal, attached or unknown profiles stop capture.')
+    indicators = observed.get('production_indicators')
+    if not isinstance(indicators, list):
+        reasons.append('Establish whether production indicators are present; their absence has not been checked.')
+    elif indicators:
+        reasons.append('Production indicators reported: ' + json.dumps(indicators) + '. Clarify a local/test target before capture.')
+    if not isinstance(observed.get('conditions'), str) or not observed['conditions'].strip():
+        reasons.append('Record the observations supporting the environment, account, data and profile conclusions.')
+    return {'status': 'blocked' if reasons else 'allowed', 'reasons': reasons}
 
 
 class Demo:
@@ -93,17 +120,24 @@ class Demo:
         self.js(f'new Promise(resolve => {{ const target=document.querySelector({json.dumps(selector)}); let last=target.getBoundingClientRect().top, stable=0; function tick(){{const top=target.getBoundingClientRect().top;stable=top===last?stable+1:0;last=top;if(stable>5)resolve();else requestAnimationFrame(tick)}} requestAnimationFrame(tick) }})')
 
     @contextmanager
-    def record(self, name):
+    def record(self, name, *, environment=None):
         output = self.scratch / name
         if output.exists():
             raise FileExistsError(output)
+        request = {'fps': 30, 'environment': deepcopy(environment)}
+        request['environment_check'] = capture_environment(request['environment'])
+        stage = 'environment_check'
         try:
+            if request['environment_check']['status'] != 'allowed':
+                raise RuntimeError('Capture blocked. Please clarify before recording: ' +
+                                   ' '.join(request['environment_check']['reasons']))
+            stage = 'recorder_start'
             self.run('record', 'start', output, '--fps', 30)
         except BaseException as error:
             try:
                 output.with_suffix('.take.json').write_text(json.dumps({
                     'status': 'failed', 'video': str(output),
-                    'failure_stage': 'recorder_start', 'capture_request': {'fps': 30},
+                    'failure_stage': stage, 'capture_request': request,
                     'wall_seconds': None, 'flow_seconds': None,
                     'recorder': {}, 'events': [],
                     'errors': [{'type': type(error).__name__, 'message': str(error)}],
@@ -135,6 +169,7 @@ class Demo:
             self.started = None
             output.with_suffix('.take.json').write_text(json.dumps({
                 'status': 'failed' if errors else 'recorded',
+                'capture_request': request,
                 'video': str(output), 'wall_seconds': elapsed,
                 'flow_seconds': round(flow_seconds, 3),
                 'recorder': facts, 'events': self.events,

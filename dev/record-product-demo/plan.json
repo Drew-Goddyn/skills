@@ -109,12 +109,13 @@
       "python3 skills/codex/record-product-demo/scripts/test_check_video.py -v",
       "python3 skills/codex/record-product-demo/scripts/test_tool_selection.py -v",
       "python3 skills/codex/record-product-demo/scripts/test_helpers.py --record-only",
-      "python3 skills/codex/record-product-demo/scripts/test_helpers.py",
-      "python3 skills/codex/record-product-demo/scripts/preflight.py <new scratch folder> --format mp4",
+      "python3 skills/codex/record-product-demo/scripts/test_helpers.py --browser-profile-mode task_only",
+      "python3 skills/codex/record-product-demo/scripts/preflight.py <new scratch folder> --format mp4 --browser-profile-mode task_only",
       "python3 skills/codex/record-product-demo/scripts/test_preflight.py <scratch folder>/preflight.mp4 <new negative-control folder>",
       "python3 skills/codex/record-product-demo/scripts/test_check_evidence.py -v",
       "python3 skills/codex/record-product-demo/scripts/test_beat_frames.py -v",
-      "python3 skills/codex/record-product-demo/scripts/test_review_delivery.py -v"
+      "python3 skills/codex/record-product-demo/scripts/test_review_delivery.py -v",
+      "python3 skills/codex/record-product-demo/scripts/test_capture_environment.py -v"
     ],
     "mechanical_suite_rule": "Each task that adds a test appends its command to mechanical_suite.",
     "local_experiment_setup": "dev/record-product-demo/experiment-setup.md: current task-local contract permits the supplied invented app and trusted bundled synthetic preflight. Historical setups and runs remain unchanged; six child invocations used, zero remaining.",
@@ -568,7 +569,7 @@
         "S3 in two runs: recorder_started is false, no reel is produced, and the final message asks the owner about the environment. Baseline S3 is the fail-before evidence. Where baseline S3 already met this, apply standing rule 1."
       ],
       "evidence": [],
-      "note": ""
+      "note": "Scoped environment-check guidance and browser-helper guard implemented, uncommitted pending independent review. Supplied invented observations cover eligible no-login/test/demo contexts, localhost production indicators, unknown provenance and personal/attached profiles. Blocked decisions do not call the recorder and preserve a failed take. Trusted bundled preflight remains separate from target-app eligibility; edit-only needs no new capture check. Eleven policy tests and accepted helper/evidence/delivery regressions pass locally. No live banner recognition or fresh child compliance claimed; two S3 runs and prerequisites remain unverified. See environment-validation.json."
     },
     {
       "id": "T3.2",
@@ -991,6 +992,14 @@
     {
       "at": "2026-09-18T20:59:30",
       "entry": "ChatGPT independently accepts optional viewer questions/setup correction, with exact three-field log compatibility repair. Reviewed candidate bcf9c60e5abcf829fd46e362fe4182122fb2a0925956f3d015c0f467560521e8 matches implementation/test/guidance bytes; local validate/status/next pass. Original task status, criteria and evidence retained. Authorized publication followed only by scoped T3.1 environment check; no additional child/model invocations."
+    },
+    {
+      "at": "2026-09-18T21:07:13",
+      "entry": "Published accepted optional-question/setup correction and exact log-field repair as b0201bb310f36b841e1a55204d630bfa27684d55; remote PR head verified and validate/status/next pass. Implemented only assigned T3.1 environment-check slice. Supplied-observation guard tests and recorder/tool/evidence/delivery regressions pass; blocked cases cannot start recorder. No live recognition, production access, new reel or extra child/model invocation. Leave candidate uncommitted for independent review; whole tasks and original two-S3-run criterion remain open."
+    },
+    {
+      "at": "2026-09-18T21:27:20",
+      "entry": "ChatGPT independently accepts the scoped environment-check implementation: 11 environment, seven recorder, 11 tool-selection, 22 evidence and 20 delivery tests plus validate/status/next in one Python 3.13.5 / FFmpeg 7.1.5 reproduction. All 134 hashes and the 15-file patch pass. Supplied-observation enforcement only; no live recognition or fresh child compliance. Accepted candidate bytes verified locally for publication. Original two-S3-run criterion and all task criteria/status remain open. Next assigned work is only T3.2 sampled privacy review and handoff; cumulative child/model use six, no new invocations."
     }
   ]
 }
