@@ -19,9 +19,29 @@ Read [the technique manifest](../techniques.json) before writing a driver. Start
 
 Use `agent-browser` for browser interaction and viewport recording. Follow the installed executable's help. Put it on `PATH`, or set `DEMO_BROWSER` to an executable path or command name; the override takes precedence. Put FFmpeg's `ffmpeg` and `ffprobe` on `PATH` too. Tools are not searched in platform-specific installation directories. Use a short task-specific `AGENT_BROWSER_SOCKET_DIR` if the default is unwritable or the socket path is too long. A blocked launch calls for the supported scoped escalation, preserving the failure.
 
-Run the moving preflight when the recorder or settings are not yet verified for this task. After configuring and checking the task-only profile, pass `--browser-profile-mode task_only`; this records the caller's selection and does not inspect or configure the browser. Match the take's format and inspect actual output dimensions, including device scale. The fixture tests motion, an idle hold, and resumed motion; it does not establish the target app's environment, the completeness of a different flow or the capture rate of a busy game.
+Run the moving preflight when the recorder or settings are not yet verified for this task. Configure and check the task-only profile before passing `--browser-profile-mode task_only`; the flag records that supplied observation. Match the take's format and inspect actual output dimensions, including device scale. Keep the fixture's motion/hold/resumed-motion result separate from the target-app environment decision and app rehearsal. Reject settings that fail preflight; inspect the actual flow under representative load before using them for the take.
 
-Use the task rehearsal to inspect its characteristic action. For a form, confirm that the decisive typing, click, saved result, and reading hold survived capture. For animation or a browser game, sample the actual scene under the planned camera movement and rendering load. Encoded frame rate alone does not establish source cadence. Choose an alternative only after a relevant comparison supports it, and preserve the original failure.
+Use the task rehearsal to inspect its characteristic action. For a form, confirm that the decisive typing, click, saved result, and reading hold survived capture. For animation or a browser game, inspect source timestamps or distinct captured states under the planned camera movement and rendering load; encoded frame rate alone leaves source cadence unverified. Choose an alternative only after a relevant comparison supports it, and preserve the original failure.
+
+## Preserve the take and failure record
+
+Use a fresh session with `Demo.record(name, environment=observed)`; it requests
+30 fps on the current page in tested agent-browser 0.37.1. Each attempt retains
+the requested video path, FPS and environment decision. A blocked environment
+has `failure_stage: environment_check` and makes no recorder call. Recorder-start
+failure uses `failure_stage: recorder_start`, null timing and empty events/recorder
+facts. Both remain failed attempts with a requested path, not a produced reel.
+
+Startup and flow errors propagate after diagnostic recording/cleanup. If writing
+the start-failure diagnostic also fails, the startup error stays primary and the
+file error is chained. Successful takes retain their existing events and recorder
+facts. Keep all useful failures and clean up only task-owned resources.
+
+Driver events start after the recorder-start response and use the driver clock.
+Leave unknown alignment unresolved. Find video-time review targets in the actual
+encode using [frames and contact sheets](beat-frames.md), then follow the
+[verify-and-deliver workflow](../SKILL.md#4-inspect-the-actual-encode-and-record-findings).
+No automatic driver-clock mapping is supported.
 
 ## Keep the result readable
 

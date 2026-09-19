@@ -165,6 +165,17 @@ finding can pass structural validation. The handoff preserves raw check results,
 warnings and coverage limitations; it never promotes frame inspection to a
 continuous watch, listening result, human viewing result or privacy clearance.
 
+## Locating moments when driver alignment is unknown
+
+Start with whole-reel interval samples, then inspect native frames and necessary
+neighbors at finer video-time intervals. In a new evidence copy, record observed
+final-output ranges and their basis/precision (for example, `sampled`); retain the
+original driver references and `alignment: unknown`. No driver offset is needed
+to use an observed encoded-video timestamp. Preserve the initial record and edit
+map. A known source-to-output edit map describes encoded timelines, not a mapping
+from the driver clock. Missing or unresolved moments stay explicit in findings
+and coverage; unknown timing is not a finding that an action is absent.
+
 ## Sampled privacy review
 
 Inspect the final encode's beat and whole-reel interval sheets and their native

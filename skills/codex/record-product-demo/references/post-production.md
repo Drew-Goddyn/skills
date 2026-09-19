@@ -2,6 +2,12 @@
 
 Read this when the brief needs cuts, titles, sound, retiming, or a revision to an existing edit. Scale the work to the request: a simple trim does not need a soundtrack or a multi-stage production framework.
 
+For an edit-only task, retain the footage's source provenance and outstanding
+privacy limitations. A new environment check applies only if the work also
+starts an app rehearsal or capture. Return to the
+[encode-inspection workflow](../SKILL.md#4-inspect-the-actual-encode-and-record-findings)
+after rendering.
+
 ## Preserve source and edit decisions
 
 Keep original footage and audio separate from edited outputs. Record the cut list in a machine-readable form: source file and in/out times, destination times, camera/source identity where needed, and any crop, title, freeze, or speed change. Keep inputs and render commands sufficient to rebuild the delivered edit.
@@ -20,7 +26,7 @@ If the music is longer than the picture, select passages around musical structur
 
 ## Render and review the changed work
 
-Use a clean audio timeline for the final mix. Run `python3 scripts/check_video.py reel.mp4 --audio-policy require` when the brief requires sound, adding its media limits. The default `forbid` policy rejects audio tracks; `--audio-policy allow` (also `--allow-audio`) permits a silent reel. Every present audio track is decoded under all policies.
+Use a clean audio timeline for the final mix. Run `python3 <skill>/scripts/check_video.py reel.mp4 --audio-policy require` with the selected skill directory when the brief requires sound, adding its media limits. The default `forbid` policy rejects audio tracks; `--audio-policy allow` (also `--allow-audio`) permits a silent reel. Every present audio track is decoded under all policies.
 
 The JSON report separates `picture` and per-track `audio` presentation intervals. Start, end, and duration differences exceeding one video frame fail with an audio/picture timing diagnostic. Decoded timestamps retain stream offsets and codec skip/discard handling; a shorter signalled final audio-frame duration trims codec padding. The legacy top-level `duration_seconds` and `--max-duration` still use container duration. Missing timing or decode errors fail rather than establish alignment.
 
@@ -30,7 +36,7 @@ The report preserves the probe's `pixel_format` and `color_range` values, with s
 
 The default `--h264-range-policy report` flags H.264 signalled as full range (`color_range=pc` or a `yuvj` pixel format) in `compatibility_findings` as a warning; it does not fail solely for that metadata. For a delivery target whose compatibility requirements exclude full-range H.264, select `--h264-range-policy reject-full-range` to make that finding a violation. Neither policy establishes that colors look wrong or certifies a playback target: review the encode on the intended target and keep the finding in delivery evidence. Unknown range is still unknown, and other codecs are outside this specific policy. FFmpeg documents the range and full-scale pixel-format meanings in its [pixel format definitions](https://ffmpeg.org/doxygen/trunk/pixfmt_8h.html); rejection is a caller-selected delivery policy, not a universal H.264 restriction.
 
-Technical success does not establish meaningful audible content, listening quality, or perceptual synchronization. A decodable track of digital silence can pass `require`. Check loudness and peaks, then watch and listen to the delivered encode at normal playback speed using the review coverage established in the main workflow.
+The audio check establishes decoding and timing; a decodable track of digital silence can pass `require`. Check loudness and peaks, then watch and listen to the delivered encode at normal playback speed for meaningful content, balance and perceptual synchronization. Apply the coverage decision in the main workflow and report any unavailable or unperformed listening explicitly.
 
 For reproducibility checks, compare decoded picture and audio separately from container hashes. Container metadata can differ while media stays identical. Preserve differing renders and locate the changed stage before claiming a repeatable result. Use [media repair](media.md) for a demonstrated conversion or playback problem.
 

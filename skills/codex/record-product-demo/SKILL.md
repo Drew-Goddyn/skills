@@ -1,54 +1,166 @@
 ---
 name: record-product-demo
-description: Record and edit demos or trailers from running applications and games. Use for product walkthroughs, PR reels, and gameplay showcases.
+description: Record and edit video demos, screen recordings of web apps, and game showcases. Use for product walkthroughs, PR reels, and trailers. Requires Python 3 and FFmpeg/ffprobe; browser capture uses agent-browser, and contact sheets need Pillow >=10.1.
 ---
 
 # Record demos and trailers
 
-Show real behavior in a reel suited to its audience. Let the brief determine duration, framing, sound, and editing. Keep the source footage, actions, and presentation changes distinguishable so the reel remains credible and reproducible.
+Show real behavior and its result. Let the brief determine duration, framing,
+sound and editing; keep source footage, actions and presentation changes traceable.
 
-## Establish the brief and review coverage
+## 1. Establish the brief and choose the branch
 
-Identify what viewers should understand or want to try, and the visible behavior that supports it. Inspect the running product or supplied footage before choosing beats. Record the source revision and capture conditions. For a before/after claim, use corresponding revisions and equivalent inputs.
+Record the audience, intended takeaway, decisive moments, media limits, sound
+policy, source revision and capture or source-footage conditions. For before/after
+claims, use corresponding revisions and equivalent inputs. Establish authorized
+setup, restoration and created-record or scene identifiers. Choose beats from the
+actual product or supplied footage, connecting action and result; give each hold
+a purpose.
 
-Before production, establish whether the available tools or reviewer can watch continuous video and, when sound matters, hear audio. Surface missing coverage early. Complete supported checks and report the remaining gap; playback counters, still images, and audio meters cannot establish an audiovisual judgment.
+Arrange review coverage early: who can inspect native frames, watch the complete
+encode at normal speed, and listen when sound matters? Record unavailable coverage
+explicitly and continue with the checks available. Playback counters, thumbnails
+and audio meters cannot supply a missing audiovisual judgment.
 
-## Load the relevant guidance
-
-These branches can combine. Read only those needed by the requested work:
-
-| Work | Read |
+| Work | Route |
 | --- | --- |
-| Capture a browser interface or browser game | [Browser capture](references/browser-capture.md) |
-| Record gameplay, camera movement, or an engine-rendered sequence | [Gameplay capture](references/gameplay-capture.md); browser games also use browser capture |
-| Assemble shots, add titles or sound, retime footage, or revise an existing edit | [Post-production](references/post-production.md) |
-| Diagnose capture, conversion, or playback failures | [Media repair](references/media.md) |
-| An explicitly authorized assignment to maintain the recording toolkit or run a bounded skill experiment | [Toolkit maintenance](references/toolkit-maintenance.md) |
+| New browser footage | [Browser capture](references/browser-capture.md); use the [starter](references/recording-driver.md) for a form-to-result flow or a task-local driver for other interactions. |
+| Gameplay or engine output | [Gameplay capture](references/gameplay-capture.md); browser builds also follow browser capture. Native recording uses the project's recorder/input facilities. |
+| Edit existing footage or add presentation/sound | [Post-production](references/post-production.md); retain source provenance and edit maps. Edit-only work needs no fictitious new take or environment decision. |
+| A demonstrated capture/encode/playback failure | Preserve the failing output and follow [media repair](references/media.md) within the task's authorized scope. |
 
-## Capture when needed
+Use [the technique manifest](techniques.json) for supported entrypoints, tool
+prerequisites and focused checks. Python 3 and FFmpeg/ffprobe are needed for media
+verification; frame sheets also need Pillow >=10.1. Browser tools use `DEMO_BROWSER`
+or PATH as described in the browser guide. Resolve launch restrictions through
+supported per-run settings and required host approvals, preserving failures. Run
+manifest commands from the selected skill directory and substitute concrete task
+paths for placeholders.
 
-Before new capture, including app rehearsals, follow the [environment check](references/capture-environment.md). Establish an authorized local/test target, account kind (or confirmed no login), invented-data provenance and a task-only browser profile. Production indicators, personal/attached profiles or unresolved facts stop capture and require clarification. Record the observations and decision; localhost alone is insufficient. The trusted bundled preflight remains allowed in its task profile and does not clear the target app. Edit-only work retains source provenance and privacy gaps without inventing a new capture check.
+## 2. Establish the environment, then capture when needed
 
-For new footage, choose beats that connect the action and its consequence. Give each hold a purpose appropriate to the brief. Establish setup and restoration within the authorized environment, then rehearse the sequence before the take. Use application-generated results and real gameplay. Preserve the input method and any camera, HUD, or timing adjustments with the capture. An edit of existing footage follows the post-production branch without repeating capture unless the revision requires it.
+Before target-app rehearsal or capture, follow the [environment decision](references/capture-environment.md).
+Proceed with known invented data in an authorized local/test environment, a
+confirmed no-login/test/demo account and a task-only browser profile where a
+browser is used. Production indicators, a personal/attached profile or unresolved
+environment/account/data facts stop capture and require clarification. A localhost
+URL alone is insufficient. Record actual observations; realistic invented names
+remain invented. Native capture follows the same eligibility guidance, with no
+browser profile to invent.
 
-For each new take, verify the decisive action and result both in the application and in the recording. A successful input or assertion does not prove that the recorder retained it. Check representative motion, any intended hold, and resumed action where relevant. Preserve failed takes when diagnosing a recording problem.
+For browser work, select the skill directory explicitly in the starter or import
+its helpers into the task-local driver. Use the bundled moving preflight when
+recorder settings are unverified for this task; check the target app separately.
+Rehearse the intended action under representative load, inspect the actual
+rehearsal encode, then restore the authorized starting state for the take.
 
-## Verify and deliver
+Assert the application-generated result using its identity, including persistence
+when claimed. Preserve the input method, camera/HUD adjustments, capture settings,
+original take records and useful failed outputs. Startup failures remain failures
+even when a diagnostic record exists. If no reel was produced, deliver the failure
+and required next action rather than filling a fictitious reel record.
 
-Run [the media checker](scripts/check_video.py) with the requested dimensions, rate, duration, size, and audio policy. Set `--min-duration` and `--max-duration` from the brief. Use `--audio-policy require` when the brief requires sound; silence is the default policy. See `--help` for options and [post-production](references/post-production.md#render-and-review-the-changed-work) for timing, the full-range H.264 compatibility policy, and review limits. Watch the complete delivered encode at normal playback speed, including after edits, and listen when it contains meaningful sound. Judge clarity, continuity, and pacing against the brief. Record unavailable review explicitly.
+## 3. Prepare the delivered encode and evidence
 
-When independent review is requested or warranted, give a fresh viewer only the reel, audience context, and viewing constraints first. Ask what they understood, what happened, and where another look was needed; for a trailer, also ask what looked appealing and whether the build and finish worked. Preserve that response before sharing the intended takeaway and criteria. Revise implicated beats; a new first impression requires a fresh viewer.
+For edits, retain sources and rebuildable trim/crop/title/speed/audio decisions
+using [post-production](references/post-production.md). Keep picture independent
+of soundtrack revisions when that is the requested boundary, and verify it with
+decoded-frame comparisons. Review the final output after changes.
 
-Deliver each playable reel in its own folder with its measured duration and size and a fixed `evidence.json` beside it. For every delivery, fill the [versioned template](templates/evidence.json) using the [evidence field guide](references/evidence.md), then run `python3 <skill>/scripts/check_evidence.py <delivery>/evidence.json`. Reference existing take records and raw checker reports, preserving warnings and review gaps. Evidence validation checks structure and consistency; it does not establish clarity, privacy, or fitness to publish. Include created-record IDs or scene/action setup and cleanup evidence. Stop only the sessions and services started for this task.
+Give each reel its own delivery folder with `evidence.json` from the
+[template](templates/evidence.json). Fill it from actual facts using the
+[field guide](references/evidence.md); reference original takes and raw checker
+reports, including failures and warnings. Measure duration and size. Preserve an
+initial evidence copy before adding later findings; retain edit maps and history.
 
-After the media check, run `python3 <skill>/scripts/beat_frames.py <delivery>/evidence.json <delivery>/frames-review` to generate [encoded beat frames and contact sheets](references/beat-frames.md). Inspect the relevant sheets and native frames, then record a finding for every decisive beat under `review.beat_findings` using the [field guide](references/evidence.md#decisive-frame-findings-and-the-watch-list). Name the inspecting author and supporting index samples. A midpoint is only a sample: inspect neighboring frames when needed to establish the action, or leave the finding unresolved. Unknown timing is not proof that the action is absent. Keep these findings distinct from continuous viewing, listening, and privacy review.
+Run [the media checker](scripts/check_video.py) with the brief's dimensions, frame
+rate, duration and size limits. Use `--audio-policy require` when sound is required;
+`forbid` remains the silent default and `allow` permits silence. Keep the reported
+full-range H.264 compatibility warning, or use the explicit rejection policy when
+the delivery target requires it. The [media policies](references/post-production.md#render-and-review-the-changed-work)
+define picture/audio timing, minimum duration, color metadata and listening limits.
+A real media failure stays a blocker; a decodable output can still be inspected
+for a diagnostic package.
 
-Inspect beat **and interval** sheets and native frames from the delivered encode for unintended names/contact details, credentials or tokens, notifications, and internal URLs. Interpret them against the brief and known provenance: intended invented client names are not automatically defects. Record the actual inspector, inspected samples, coverage gaps and finding times in the [privacy block](references/evidence.md#sampled-privacy-review), with any relay separate. This applies after edits too; capture eligibility never substitutes for output review. Unperformed review stays unreviewed. Even a completed sample review with no findings can miss content between samples and establishes no privacy clearance or publication approval.
+## 4. Inspect the actual encode and record findings
 
-Save a short, beat-linked `review.watch_list` with final-output ranges and their existing precision; unknown times stay null. Revalidate the evidence, then run `python3 <skill>/scripts/review_delivery.py <delivery>/evidence.json <delivery>/handoff`. Include its timestamped watch list and four optional viewer-feedback questions in the response. The user need not watch or answer before an independent agent reviews the package; unanswered questions neither block delivery nor establish human review. Missing, unreviewed, unresolved or not-visible decisive moments prevent an unqualified successful-delivery claim: deliver a diagnostic package naming the blockers, or correct the implicated take within the authorized scope. A structurally valid incomplete record remains useful evidence. The helper summarizes recorded findings; it does not perform inspection or approve publication.
+Replace `<skill>` and `<delivery>` with the selected skill and delivery paths:
 
-Include a small review ZIP with the response: reel, brief, evidence, raw checks, indexes, timestamped sheets, native frames and watch list. A known privacy finding requires a diagnostic handoff with the concern and final-output location, using a description that avoids copying sensitive values. Preserve real flagged material locally; include it in a shared package only when that sharing is authorized. Otherwise send a metadata-only diagnostic and explain the omitted media and references. Keep assessment separate so the reviewer can inspect visuals first. Preserve original takes, edit maps, checker warnings, limitations and reviewer attribution; never replace earlier evidence to make a delivery appear complete. Include only the relevant invented or authorized data.
+```sh
+python3 <skill>/scripts/check_evidence.py <delivery>/evidence.json
+python3 <skill>/scripts/beat_frames.py <delivery>/evidence.json <delivery>/frames-review
+```
 
-During ordinary recording, record reusable friction under `toolkit` with its evidence and next action, then continue with existing supported capabilities where possible. App-specific drivers, selectors and authorized task-local adaptations remain recording work. Keep installed and copied skill files unchanged; friction does not authorize toolkit edits, maintenance agents or a larger improvement task. Use `pending` for friction awaiting a separate assignment, or `no_change` with a reason when there is no shared maintenance outcome to pursue.
+Use a new extraction directory. [Beat and interval sheets](references/beat-frames.md)
+include native frames, requested/decoded timestamps and coverage. If beat video
+times are unknown, start with interval samples and inspect denser samples or
+neighboring native frames to locate the moments. Record directly observed
+**final-output video times** with their sampling basis and precision. Driver/video
+alignment stays unknown unless separately established; no offset is required for
+visual review. Preserve the original driver events and source/output edit maps.
 
-An explicitly authorized maintenance assignment follows the [source-maintenance guide](references/toolkit-maintenance.md), including an ongoing repository-improvement session already operating under review/publication authority. Report that work separately from the reel. Optional maintenance does not delay a usable reel; actual capture, media, decisive-frame and privacy blockers still prevent an unqualified successful-delivery claim.
+Record a finding for each decisive beat with the inspecting author, supporting
+samples/sheets and unresolved coverage. A midpoint alone may miss an action;
+inspect the necessary neighbors or leave the finding unresolved. Unknown timing
+is not evidence that an action is absent. Follow the [finding and watch-list contract](references/evidence.md#decisive-frame-findings-and-the-watch-list).
+Credit the review author and any relay separately; relayed agent review stays agent
+review. Keep sample-selection decisions separate from evidence of viewing.
+
+Inspect beat **and interval** sheets and native frames for unintended names/contact
+details, credentials, notifications and internal URLs using the brief and known
+provenance. Record [sampled privacy findings](references/evidence.md#sampled-privacy-review)
+and actual coverage, including after edits. An intended invented name is not
+itself a defect. Unperformed review stays unreviewed; even inspected samples with
+no findings can miss intervening content and provide no privacy clearance.
+
+Watch the complete delivered encode at normal speed and listen when it contains
+meaningful sound, using the coverage arranged earlier. Judge clarity, continuity
+and pacing against the brief; retain unavailable coverage instead of substituting
+frame inspection. For requested or warranted independent review, give a fresh
+viewer the reel, audience context and viewing constraints first. Preserve their
+account of what happened and what needed another look before sharing the intended
+takeaway and criteria. For trailers, also ask about appeal, build and finish. Revise implicated beats within scope; another first impression needs a
+fresh viewer.
+
+## 5. Produce the review or diagnostic handoff
+
+Add a short beat-linked watch list using final-output ranges and existing precision;
+unknown times stay null. Revalidate after adding findings, then generate a new handoff:
+
+```sh
+python3 <skill>/scripts/check_evidence.py <delivery>/evidence.json
+python3 <skill>/scripts/review_delivery.py <delivery>/evidence.json <delivery>/handoff
+```
+
+Use the handoff's blockers and coverage honestly. Missing, unreviewed, unresolved
+or not-visible decisive moments, unsuccessful/unperformed media checks, and known
+privacy concerns require a diagnostic handoff. Unperformed privacy review remains
+prominent but does not prevent a useful review package. Structural validity and
+`ready_for_review` are not successful-delivery claims, viewing evidence or publication
+approval. The [handoff contract](references/evidence.md#decisive-frame-findings-and-the-watch-list)
+defines statuses and exit codes.
+
+Include measured duration/size, the watch list and the generated four optional
+viewer-feedback questions in the response. The user need not watch or answer
+before an independent agent reviews the package; unanswered feedback never becomes
+performed human review. Attach a small ZIP with the reel, brief, evidence, raw
+checks, indexes, sheets and native frames. Keep assessment separate. Preserve real
+flagged media locally and share it only when authorized; otherwise deliver a
+metadata diagnostic with omitted files explained. See the [privacy sharing rule](references/evidence.md#sampled-privacy-review).
+
+Include setup/created-record or scene details and cleanup evidence. Stop only the
+sessions and services started for this task.
+
+## Recording friction and maintenance
+
+During ordinary recording, log reusable friction and its next action under
+`toolkit`, then use existing supported capabilities where possible. App-specific
+drivers, selectors and authorized task-local adaptations remain recording work;
+keep installed/copied shared skills unchanged. Friction does not authorize toolkit
+edits, maintenance agents or a broader assignment.
+
+Separate, explicitly authorized maintenance follows the [source-maintenance guide](references/toolkit-maintenance.md)
+in a verified source checkout, carrying forward standing authority and review
+checkpoints. Keep proposed, tested, reviewed/published and installed states distinct.
+Optional maintenance need not delay a usable reel; actual capture, media,
+decisive-frame and privacy blockers remain blockers.

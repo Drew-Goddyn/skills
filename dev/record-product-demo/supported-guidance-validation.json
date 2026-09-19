@@ -1,0 +1,76 @@
+{
+  "scope": "T6.1 supported-workflow guidance only",
+  "status": "reviewed_and_published",
+  "base_commit": "c4edab72a19bc40b73ed83c649e9fb48ebd9448c",
+  "published_skill_tree": "4806af25d4d6d1ab35bc8bca90f4affad5649946",
+  "run": "dev/record-product-demo/runs/20260919-supported-guidance-f383",
+  "disposition": "dev/record-product-demo/guidance-disposition.md",
+  "outcome": "Five ordered stages connect the existing brief/environment, capture/failure, media, encoded-frame evidence and review/diagnostic handoff capabilities. Browser, gameplay and edit-only branches keep their own capture needs. Direct encoded-video times remain usable with unknown driver alignment.",
+  "changes": [
+    "Entrypoint workflow and prerequisite description; matching README catalog row.",
+    "Browser/starter guidance for retained failure records and observed final-output times.",
+    "Gameplay and edit-only routes return to common media/inspection/delivery steps.",
+    "Field guide explains video-time inspection without inventing a driver offset.",
+    "Manifest consolidates repeated prose through authoritative reference pointers; IDs, entrypoints, executable checks and tested versions remain unchanged."
+  ],
+  "local_checks": {
+    "environment": {
+      "python": "3.14.2",
+      "ffmpeg_ffprobe": "8.0",
+      "pillow": "12.1.1"
+    },
+    "browser_free": {
+      "evidence": 22,
+      "delivery": 20,
+      "capture_environment": 11,
+      "starter": 13,
+      "sampled_privacy": 14,
+      "toolkit_handoff": 8,
+      "recorder": 7,
+      "total": 95,
+      "result": "passed"
+    },
+    "documentation": {
+      "local_markdown_links_and_anchors": 43,
+      "manifest_references": 44,
+      "real_parser_command_variants": 15,
+      "runtime_test_template_files_byte_identical": 22,
+      "result": "passed"
+    },
+    "metadata": "Skill name/description and the single changed README catalog row checked; all other README lines preserved.",
+    "discovery": "npx --no-install skills add . --list passed on approved per-run route, listing six skills and the updated description. Initial sandbox attempt failed with ENOTFOUND; both outputs retained. Listing did not install a skill.",
+    "plan": "validate, status and next passed. Task status, acceptance, dependency and evidence arrays unchanged; scoped T6.1 note and plan.py log entry only."
+  },
+  "independent_review": {
+    "status": "accepted",
+    "author": "ChatGPT review partner",
+    "relay": "Drew",
+    "source": "Self-contained relayed acceptance in this conversation; no new review/archive search. Reviewer confirmed the two handoff ZIPs are byte-for-byte identical.",
+    "accepted_patch_sha256": "0ffadfaf22474469ba143080cf28ddcfba5f0254890c169c02aa2e7b2a3a74e8",
+    "limits": "No fresh independent check count, capture, viewing or new model invocation is claimed here."
+  },
+  "timing_boundary": {
+    "iteration": "closed after independently accepted offline negative finding",
+    "original_five_take_result": "0/5 unchanged",
+    "target_error_seconds": 0.2,
+    "automatic_alignment": "unresolved_deferred",
+    "dependent_driver_clock_freeze_correlation": "unresolved_deferred",
+    "research_preserved": "dev/record-product-demo/runs/20260919-timing-reanalysis-f383/closure-preservation/manifest.json",
+    "experimental_files_in_supported_skill": false
+  },
+  "limitations": [
+    "Documentation, interface and supplied/synthetic regression checks do not establish fresh-agent compliance or a visual improvement.",
+    "No new capture, viewing/listening, browser investigation or media campaign. Unchanged media/preflight/calibration suites were not rerun for documentation work.",
+    "Original T6.1 repeated S1-S5, complete mechanical suite and full-plan verification remain unperformed; no whole task is completed by this slice.",
+    "Runtime, templates, schemas, thresholds, accepted media and installed skill remain unchanged.",
+    "No additional child/model invocation; cumulative use remains six. Accepted guidance published under standing authority; no merge or installation. Clean-source integration/readiness remains a separate review packet."
+  ],
+  "delivery_state": {
+    "implemented": true,
+    "independently_reviewed": true,
+    "published": true,
+    "merged": false,
+    "installed": false
+  },
+  "base_skill_tree": "271ccdda4c25922762567ff6da80d0e46b5e988f"
+}

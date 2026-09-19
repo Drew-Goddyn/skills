@@ -800,7 +800,7 @@
         "Every command in harness.mechanical_suite passes, S1 to S5 run twice each with no scorecard regression, and `npx skills add . --list` shows the new description."
       ],
       "evidence": [],
-      "note": ""
+      "note": "Scoped supported-workflow guidance independently accepted by ChatGPT, relayed by Drew, and published under standing authority; accepted patch SHA-256 0ffadfaf22474469ba143080cf28ddcfba5f0254890c169c02aa2e7b2a3a74e8. See dev/record-product-demo/supported-guidance-validation.json and guidance-disposition.md. Runtime/schema/thresholds and installed skill unchanged. Unknown driver alignment remains unknown; observed final-output video times remain usable. Original repeated S1-S5, full mechanical-suite and full-plan verification prerequisites remain unperformed; dependencies/status/acceptance unchanged. Next assigned packet verifies a frozen published export and produces an uncommitted integration/readiness summary; no new capture/model calls."
     },
     {
       "id": "T6.V",
@@ -1042,6 +1042,14 @@
     {
       "at": "2026-09-19T12:13:47",
       "entry": "ChatGPT independently accepts the offline negative timing finding and closes this investigation for the current iteration. Python 3.13.5, FFmpeg/ffprobe 7.1.5 and Pillow 12.3.0 passed 118 checks, five original hash-matched replays, evidence/handoffs, all 442 payload hashes and both patch reconstructions. Combined execution timed out after suites/two replays; remaining three completed separately on unchanged bytes. Original 0/5 outcome, five attempts, 0.2-second target and earlier measurements are unchanged. Experimental sources/patches/hashes/reproduction preserved in the existing run archive and unpublished additions separated from the supported working skill. Automatic alignment and dependent driver-clock freeze correlation remain unresolved/deferred. Publish records only; next assigned T6.1 packet consolidates supported guidance, with original repeated-scenario/full-plan prerequisites open. No new capture/model call, merge or install."
+    },
+    {
+      "at": "2026-09-19T12:24:00",
+      "entry": "T6.1 supported-workflow guidance slice prepared for independent review against published c4edab72. Documentation only: browser/gameplay/edit-only routes, original capture/media/privacy/review/maintenance boundaries and optional feedback retained; direct encoded-video inspection does not require driver-clock alignment. Local documentation/interface checks and 95 affected browser-free checks pass. No new capture, media campaign, alignment feature, child/model call, merge or installation. Repeated S1-S5, full mechanical-suite and full-plan criteria remain open. New slice remains uncommitted."
+    },
+    {
+      "at": "2026-09-19T14:04:02",
+      "entry": "ChatGPT independently accepts the supported-workflow guidance, relayed by Drew; accepted patch SHA-256 0ffadfaf22474469ba143080cf28ddcfba5f0254890c169c02aa2e7b2a3a74e8. Reviewer confirmed the repeated handoff ZIPs are byte-for-byte identical. Publish the accepted scoped guidance and records without another review or duplicate package. Original task prerequisites remain open. Next: clean-source integration/readiness from the frozen published revision, using existing browser-free suites and preserved preflight; no new capture/model invocation, merge or install."
     }
   ]
 }

@@ -34,8 +34,8 @@ leaving the app server caller-owned. Failed/partial outputs are retained.
 
 When capture settings are unverified, run the bundled moving preflight separately
 in the configured task profile. Its result checks that synthetic fixture, never
-the app's eligibility. Inspect the actual app rehearsal too. Neither a passing
-preflight nor an application assertion proves the decisive action survived capture.
+the app's eligibility. Inspect the actual app rehearsal for the decisive action
+and result surviving capture before proceeding to the take.
 
 ## Inputs and adaptation
 
@@ -71,13 +71,16 @@ capture and media checks pass. This is not a successful-delivery claim. A failed
 media check with known picture measurements retains truthful evidence; unknown
 picture timing leaves diagnostics without a fictitious measured reel record.
 
-Beat references point to original driver events. Encoded-video times and clock
-alignment stay unknown. Generate interval sheets with the existing frame tool,
-inspect the native frames and necessary neighbors, and preserve the initial
-record before adding attributed findings in a new delivery copy. Follow the
-[evidence guide](evidence.md) for final-output times, privacy coverage and handoff.
-Application assertions never fill in decisive findings, continuous viewing,
-listening, privacy or human review. Missing inspection remains diagnostic.
+The initial record points beats to original driver events and leaves encoded-video
+times and clock alignment unknown. Follow the
+[encode-inspection workflow](../SKILL.md#4-inspect-the-actual-encode-and-record-findings):
+use interval sheets to locate moments, inspect native frames and necessary
+neighbors, and record directly observed final-output times with their precision.
+Driver/video alignment can remain unknown. Preserve the initial record before
+adding attributed findings in a new delivery copy. Application assertions leave
+decisive-frame, continuous-viewing, listening, privacy and human review unperformed.
+Use the [evidence guide](evidence.md) to record actual coverage and generate the
+appropriate review or diagnostic handoff.
 
 `python3 <skill>/scripts/test_record_walkthrough.py -v` exercises supplied inputs,
 real helper failure records and evidence construction with stubbed browser/media
