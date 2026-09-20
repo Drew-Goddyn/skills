@@ -6,7 +6,7 @@
   "skill_path": "skills/codex/record-product-demo",
   "baseline_commit": "f414875",
   "resume": [
-    "Continuation after merged PR #2: read criterion_reconciliation for current per-criterion evidence and remaining work. Dated facts, logs and scoped validation reports remain historical; current task status alone does not erase already-verified criteria. All six child/model invocations and five calibration takes are exhausted, so the older default retry allowance grants no new runs. Follow only the next explicitly assigned packet, not this record's recommendation or plan.py next automatically.",
+    "Reconciliation independently accepted and committed on the follow-up branch; see reconciliation-validation.json. Only the assigned S3 environment-refusal packet may proceed: new four-child cap (historical six, cumulative maximum ten), no direct builder capture, fixed baseline/current skill copies, no retry until green. D6/D7 remain open; no criterion, prerequisite, merge or installation is waived.",
     "Work the scoped packet assigned by ChatGPT or the owner. ChatGPT selects subsequent packets from evidence and independently reviews each handoff. `python3 dev/record-product-demo/plan.py next` displays the remaining backlog; it does not authorize automatic packet selection. D1 records standing publication authority.",
     "Record task progress with `plan.py update`, decisions with `plan.py decide`, and notes with `plan.py log`. These commands validate the plan before saving. After a structural edit by hand, such as re-ranking, run `plan.py validate` and add a log entry.",
     "To reopen a finished task, run `plan.py update <id> --status pending --note <reason>`. The task and the finished tasks that depend on it return to pending, and their evidence moves to prior_evidence, so closing them again needs new evidence. When the reset would reach other iterations, the tool refuses; surface the listed tasks to the owner before rerunning with --reset-later-iterations.",
@@ -1111,6 +1111,10 @@
     {
       "at": "2026-09-20T09:59:00",
       "entry": "Reconciliation inspected the original two S1 child privacy blocks and authored frame-review notes: both record performed sampled inspections with zero findings. Retain T3.2 criterion 3 as that observed outcome on 399e610d, separately from missing S2 leak runs, later-guide adoption and privacy clearance. No new visual inspection or run occurred."
+    },
+    {
+      "at": "2026-09-20T11:30:18",
+      "entry": "ChatGPT independently accepts the plan reconciliation without correction: one complete offline reproduction, 45 hashes, four-file patch, 95 criteria/32 tasks, four malformed-record controls and plan commands passed. Git verified 25 tracked references and 24 source hashes; remaining archive references used receipts, while four S1 JSON records matched the actual earlier archive. Their sampled agent-authored no-findings outcome supports T3.2:3, not privacy clearance. Exact reviewed candidate committed as 0572f95; D6/D7 and original criteria/prerequisites remain unchanged. Authorized publication on follow-up branch, then only S3 refusal experiment with new cap four, historical six/cumulative ten, no direct builder captures, fixed baseline/current copies and no retry until green. New support/results remain uncommitted."
     }
   ],
   "criterion_reconciliation": {
@@ -3680,6 +3684,15 @@
       "To reopen a finished task, run `plan.py update <id> --status pending --note <reason>`. The task and the finished tasks that depend on it return to pending, and their evidence moves to prior_evidence, so closing them again needs new evidence. When the reset would reach other iterations, the tool refuses; surface the listed tasks to the owner before rerunning with --reset-later-iterations.",
       "Read `standing_rules` before any task. Read `facts` before re-deriving something they already establish.",
       "When `next` returns no task, surface the held decisions and blocked tasks it reports to the owner, and stop."
-    ]
+    ],
+    "review_status": {
+      "status": "independently_accepted",
+      "author": "ChatGPT independent review partner",
+      "relay": "Drew",
+      "accepted_patch_sha256": "3475ef288f12b0a38abb2ecb5d3b672e089aa3d6cfcf58a6972be76806d63d8b",
+      "accepted_commit": "0572f95d11871b0d9f3b4781651734167b90e4cd",
+      "record": "dev/record-product-demo/reconciliation-validation.json",
+      "qualification": "25 tracked references and 24 source hashes verified from Git; excluded archive references checked against receipts, except four S1 JSON payloads also matched actual earlier archive. No new privacy clearance."
+    }
   }
 }

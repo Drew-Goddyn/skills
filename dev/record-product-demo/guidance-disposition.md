@@ -1,5 +1,7 @@
 # Supported-workflow guidance disposition
 
+The reconciliation is independently accepted; see [its scoped review record](reconciliation-validation.json).
+The exact four-file reviewed candidate is committed as `0572f95d11871b0d9f3b4781651734167b90e4cd`.
 Current continuation status is in [Continuation after PR #2](#continuation-after-pr-2).
 Earlier sections retain their recorded revision and review scope.
 
@@ -142,14 +144,14 @@ Main `53470415ea92f1644ecff9523125c813e86cc791` merged PR #2 on
 2026-09-20. The recording skill has the accepted tree
 `03a7332dbeed3eb5af44489a8c906092b04e94de`. The installed copy is unchanged.
 This record-only follow-up is on `codex/record-demo-plan-reconciliation` and
-remains uncommitted for independent review. It adds no runtime feature or test
+was independently accepted and committed for publication. It adds no runtime feature or test
 campaign. The existing plan is still the tracker; `criterion_reconciliation`
 annotates its exact acceptance entries by task ID, one-based position and hash.
 
 All 95 original criteria across 32 tasks are accounted for: **26 verified,
 41 partial, 23 untested, one failed and four deferred**. These are the builder's
-proposed criterion dispositions, supported by cited evidence; this reconciliation
-awaits independent review. Whole-task statuses remain pending. In particular,
+criterion dispositions, now independently accepted with the evidence-scope
+qualifications in the scoped review record. Whole-task statuses remain pending. In particular,
 T1.1, T5.2 and T5.3 have all their own criteria verified while their original
 prerequisites still prevent formal closure. Those proofs need not be repeated
 merely to change a prerequisite's status.

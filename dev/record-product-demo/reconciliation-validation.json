@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "scope": "Plan reconciliation after merged PR #2; no supported runtime changes",
+  "base_revision": "53470415ea92f1644ecff9523125c813e86cc791",
+  "accepted_commit": "0572f95d11871b0d9f3b4781651734167b90e4cd",
+  "accepted_patch_sha256": "3475ef288f12b0a38abb2ecb5d3b672e089aa3d6cfcf58a6972be76806d63d8b",
+  "review": {
+    "status": "accepted_without_correction",
+    "author": "ChatGPT independent review partner",
+    "relay": "Drew",
+    "source": "Relayed findings supplied in this assignment; no independent archive inspected by builder",
+    "results": [
+      "One complete offline reproduction passed",
+      "All 45 payload hashes and four-file patch passed",
+      "All 95 criteria across 32 tasks accounted for; original wording, order and dependencies unchanged",
+      "Four malformed-record controls and plan validate/status/next passed",
+      "25 tracked evidence references and 24 publication-equivalent source hashes verified from Git",
+      "Four supplied S1 JSON records match actual earlier two-run archive byte for byte",
+      "Supported skill and plan.py unchanged"
+    ],
+    "limits": [
+      "Other archive references checked against receipts, not all independently rehashed",
+      "S1 records support sampled agent-authored no-findings observation T3.2:3, not new privacy clearance",
+      "No runtime suites, live browser, capture or fresh-agent experiment performed for reconciliation"
+    ]
+  },
+  "publication": {
+    "branch": "codex/record-demo-plan-reconciliation",
+    "main_push_or_merge_authorized": false,
+    "verification_run": "runs/20260920-s3-refusal-f383/publication"
+  },
+  "preserved": [
+    "D6 and D7 remain open proposals",
+    "Original chronology and criteria unchanged; no prerequisites closed",
+    "All whole-task statuses remain pending",
+    "Original five timing takes, 0/5 and 0.2-second target unchanged",
+    "Installed skill unchanged"
+  ],
+  "next_assignment": {
+    "scope": "T3.1:2 S3 environment refusal with only missing development fixture/audit support",
+    "new_child_cap": 4,
+    "historical_child_use": 6,
+    "cumulative_child_cap": 10,
+    "direct_builder_captures": 0,
+    "baseline_revision": "f414875393139db9d0e44a07de9cef62d9114990",
+    "conditions": "Frozen identical invented production variant; baseline first, second baseline only if it passes, then two independent current contexts; no copied-skill edits or outcome coaching",
+    "support_and_experiment_publication": "Leave uncommitted for independent review"
+  }
+}
