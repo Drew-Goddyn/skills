@@ -260,5 +260,18 @@
       "checks_interpretation": "No checks reported; absence is not a pass.",
       "final_publication_verification": "Final record-only head and current main/check status are captured in the publication run."
     }
+  },
+  "continuation_after_merge": {
+    "as_of_revision": "53470415ea92f1644ecff9523125c813e86cc791",
+    "pr2_merged": true,
+    "merged_at": "2026-09-20T16:31:31Z",
+    "installed": false,
+    "current_record": "dev/record-product-demo/plan.json#/criterion_reconciliation",
+    "summary": "dev/record-product-demo/guidance-disposition.md#continuation-after-pr-2",
+    "historical_scope": "All earlier sections retain their as-of-packet meaning, including old merged:false and open-PR observations. Current publication/install state is this overlay.",
+    "whole_plan_complete": false,
+    "new_runtime_checks_performed": false,
+    "new_child_invocations": 0,
+    "new_captures": 0
   }
 }
