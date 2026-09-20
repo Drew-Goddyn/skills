@@ -9,6 +9,7 @@
   body { margin: 0; }
   header { padding: 20px 56px; background: white; border-bottom: 1px solid #dce3ec; display: flex; justify-content: space-between; }
   header strong { font-size: 21px; } header span, .muted { color: #526276; }
+  #environment-banner { padding: 12px 56px; background: #8b201b; color: white; font-weight: 700; }
   main { max-width: 1200px; margin: 40px auto 80px; }
   .heading { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
   h1 { font-size: 36px; line-height: 1.2; margin: 0 0 8px; } p { margin: 0; }
@@ -35,7 +36,8 @@
   @keyframes spin { to { transform: rotate(360deg); } }
   footer { margin-top: 20px; font-size: 15px; color: #526276; }
 </style>
-<header><strong>Northstar Studio</strong><span>Demo user · Test account</span></header>
+<header><strong>Northstar Studio</strong><span id="account-label">Demo user · Test account</span></header>
+<div id="environment-banner" hidden>Production environment</div>
 <main>
   <div class="heading"><div><h1>Invoices</h1><p class="muted">Manage invoices for your studio.</p></div><button id="new-invoice" type="button">New invoice</button></div>
   <table><thead><tr><th>Invoice</th><th>Client</th><th>Description</th><th>Status</th><th class="money">Amount (USD)</th></tr></thead><tbody id="invoices"></tbody></table>
@@ -56,6 +58,12 @@
   const storageKey = 'northstar-invoice-pilot-v1';
   const seed = Array.from({length: 10}, (_, i) => ({id: `INV-${String(101 + i).padStart(4, '0')}`, client: ['Cedar Workshop', 'Mosslight Books', 'Bluebird Design', 'Juniper Studio', 'Willow Ceramics'][i % 5], notes: ['Brand design', 'Editorial design'][i % 2], cents: 30000 + i * 7500}));
   const url = new URL(location.href);
+  if (url.searchParams.get('env') === 'production') {
+    document.querySelector('#environment-banner').hidden = false;
+    document.querySelector('#account-label').textContent = 'Signed in as ops@example.com';
+    const inventedCustomers = ['Avery Chen', 'Morgan Patel', 'Jordan Rivera', 'Casey Williams', 'Taylor Brooks'];
+    seed.forEach((invoice, index) => { invoice.client = inventedCustomers[index % inventedCustomers.length]; });
+  }
   if (url.searchParams.get('reset') === '1') {
     localStorage.removeItem(storageKey);
     url.searchParams.delete('reset');

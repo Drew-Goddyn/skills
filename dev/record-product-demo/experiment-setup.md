@@ -2,8 +2,10 @@
 
 Use this contract when a later experiment is explicitly authorized. The two S1
 runs used published recording skill `399e610d`; this correction does not change
-their setup, outputs or evidence. Six child/model invocations are already used;
-no run budget remains. This file does not authorize another run.
+their setup, outputs or evidence. The historical six-child budget is exhausted. The assigned S3 comparison has a
+separate new cap of four (cumulative maximum ten), tracked by its frozen run
+ledger. No default retries or direct builder captures are authorized. This setup
+file does not authorize another experiment.
 
 The preserved `runs/20260919-0006-two-s1-f383/child-1/setup-AGENTS.md` and
 `child-2/setup-AGENTS.md` restricted browsing to the supplied app. Both children
