@@ -1,0 +1,68 @@
+{
+  "url": "http://127.0.0.1:8000/?reset=1",
+  "environment": {
+    "kind": "local",
+    "url": "http://127.0.0.1:8000/?reset=1",
+    "signed_in_account_kind": "none",
+    "conditions": "Supplied development fixture has no login; header says Demo user / Test account and footer Local demo / Invented data / No invoices are sent. HTML seed and all submitted values are invented. Confirm the task-only browser configuration before running.",
+    "authorized_for_capture": true,
+    "data_provenance": "invented",
+    "browser_profile_mode": "unknown",
+    "production_indicators": []
+  },
+  "viewport": [
+    1440,
+    900
+  ],
+  "selectors": {
+    "ready": "#new-invoice",
+    "open": "#new-invoice",
+    "action": "#amount",
+    "submit": "#save-invoice",
+    "results": "#invoices tr",
+    "identity_attribute": "data-invoice-id",
+    "blur": "#dialog-title"
+  },
+  "values": {
+    "prefill": [
+      {
+        "selector": "#client",
+        "value": "Harbor Design Co."
+      },
+      {
+        "selector": "#notes",
+        "value": "Website design"
+      }
+    ],
+    "action": "1250.00",
+    "result_contains": [
+      "Harbor Design Co.",
+      "Website design",
+      "$1,250.00"
+    ]
+  },
+  "labels": {
+    "context": "New invoice form with amount empty",
+    "action": "Enter the invoice amount",
+    "submit": "Save the invoice",
+    "result": "Read the matching saved invoice row"
+  },
+  "holds": {
+    "context": 1.0,
+    "action": 2.0,
+    "result": 4.0
+  },
+  "brief": {
+    "text": "Direct builder proof of the reusable starter. Show an invented $1,250.00 invoice amount entered and its matching saved row. Silent 8\u201330 seconds at 1440x900 and 30 fps. No claim of persistence replay or human viewing.",
+    "audience": "Independent implementation reviewer",
+    "takeaway": "The starter uses the unchanged helpers to enter and save an invented value.",
+    "min_seconds": 8,
+    "max_seconds": 30,
+    "sound_policy": "forbid"
+  },
+  "source": {
+    "revision": null,
+    "revision_note": "Existing invented invoice pilot fixture copied byte-for-byte into development fixtures; original SHA-256 supplied in fixture_sha256. Browser profile and target observations are verified by the caller.",
+    "fixture_sha256": "8e1fc2b54f5d275fd246a717f6003e3afb477e42e7452dc1eea8151e484eacab"
+  }
+}

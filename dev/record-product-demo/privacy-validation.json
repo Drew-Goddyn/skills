@@ -1,0 +1,84 @@
+{
+  "kind": "scoped_sampled_privacy_review_and_handoff",
+  "base_commit": "af6fc7221a2ac291403aa91a0ca87ebb64f955d6",
+  "status": "published",
+  "delivery_state": {
+    "implemented": true,
+    "independently_reviewed": true,
+    "published": true,
+    "merged": false,
+    "installed": false
+  },
+  "scope": "Reuse version-1 privacy block, frame index references and delivery helper; no classifier, automatic clearance or scenario harness.",
+  "behavior": [
+    "Privacy inspection records actual author/relay, sheets/native samples and coverage; findings use final-output locations and supporting references. Historical records remain valid without upgraded review claims.",
+    "Known findings make handoffs diagnostic, even with unknown timing. Missing sampled review remains prominently unreviewed and does not require owner viewing to send a useful package.",
+    "Sample review with no findings can remain ready_for_review with explicit sampling and no-clearance limits. The helper copies no media; guidance retains real flagged material locally and restricts sharing to authorized content.",
+    "Edit-only output is reviewed in its own encode clock; no fictitious capture or environment-check claim."
+  ],
+  "local_results": {
+    "environment": {
+      "python": "3.14.2",
+      "ffmpeg": "8.0",
+      "ffprobe": "8.0",
+      "pillow": "12.1.1"
+    },
+    "privacy_tests": 14,
+    "evidence_tests": 22,
+    "delivery_tests": 20,
+    "extraction_tests": 17,
+    "environment_tests": 11,
+    "recorder_checks": 7,
+    "tool_selection_tests": 11,
+    "before": "Same supplied finding is structurally valid but published helper reports ready_for_review and omits concern/time. Initial 12 new tests fail in 15 subcases against the published runtime; raw output retained.",
+    "after": "Same supplied finding is diagnostic; unchanged clean/gap samples remain ready for review with no-clearance warning. Unreviewed and unknown-location examples preserve truthful limitations.",
+    "actual_visual_inspection": {
+      "author": "Codex builder in current task",
+      "relay": null,
+      "method": "view_image on six default contact sheets and fifteen native 800x450 frames; one additional sheet/frame for the gap follow-up. Distinct from tests of supplied findings.",
+      "clean": "Intended invented client and amount/result labels visible; no unintended content observed in inspected samples.",
+      "sampled_finding": "Obviously fake token notification visible in interval frame at final-output 2s / source 4s, between decisive beats at 1s and 5s. Diagnostic handoff.",
+      "gap": "Default frames at output 0/1/2/4/5s miss the notification. Separate additional frame at 3s / source 5s exposes it and produces a new diagnostic follow-up; earlier sample-only snapshot preserved."
+    },
+    "media_scope": "Only small synthetic encodes checked for this proof. No fresh complete media regression suite, live browser or recording. Accepted media/capture implementations unchanged.",
+    "skill_discovery": "Existing cached CLI --list passes; installed skill not changed."
+  },
+  "independent_review": {
+    "status": "accepted",
+    "author": "ChatGPT review partner",
+    "relayed_by": "Drew",
+    "source": "Self-contained user message; no independent archive required or claimed inspected.",
+    "environment": {
+      "python": "3.13.5",
+      "ffmpeg": "7.1.5",
+      "ffprobe": "7.1.5",
+      "pillow": "12.3.0"
+    },
+    "execution": "All 102 candidate checks passed across bounded executions. Initial combined command timed out after recorder checks; remaining checks completed separately against unchanged candidate bytes. No single-command completion claim.",
+    "results": "Three synthetic cases regenerated; all six provided records validated and regenerated handoffs matched. Known findings change published ready_for_review to diagnostic_only; missing review stays prominently unreviewed; unknown locations remain diagnostic with no invented timing.",
+    "visual_review": "Reviewer inspected relevant sheets/native frames including independently regenerated output-3s/source-5s notification missed by default sampling. Supports synthetic examples only, not privacy clearance or general live-content recognition.",
+    "integrity": "All 344 payload hashes and ten-file patch pass; original skill Git tree matches af6fc722.",
+    "accepted_patch_sha256": "09a3dfff255d0a0e593c45c8f6c9da96dbc5997ca3599e511665a7374e253148"
+  },
+  "limitations": [
+    "Supplied-finding tests establish mechanical behavior; they do not prove an uncoached agent detects private content.",
+    "Builder visual inspection is limited to listed synthetic still frames; no continuous viewing, live profile/banner recognition, human viewing result or privacy clearance.",
+    "The gap is demonstrated, not automatically detected or closed. No claim about uninspected frames.",
+    "Original repeated S1/S2 privacy timing criteria, two-S3-run criterion and broader unperformed prerequisites remain open."
+  ],
+  "usage": {
+    "additional_child_or_model_invocations": 0,
+    "cumulative": 6,
+    "remaining": 0
+  },
+  "evidence_run": "dev/record-product-demo/runs/20260919-privacy-review-f383",
+  "next_action": "Published; no further privacy work assigned. Current packet is the bounded T7.1 recording/maintenance boundary, uncommitted for independent review. Original scenario prerequisites remain open.",
+  "published_commit": "a3d272d8e995f268b7fa19fc47977bd79d1cbe65",
+  "publication": {
+    "reviewed_bytes": "All eight non-record candidate files matched accepted package; only scoped acceptance/progress records additionally updated.",
+    "remote_branch": "codex/plan-demo-recording-improvements",
+    "remote_head_verified": "a3d272d8e995f268b7fa19fc47977bd79d1cbe65",
+    "pr_head_verified": "a3d272d8e995f268b7fa19fc47977bd79d1cbe65",
+    "pr_state": "OPEN"
+  }
+}

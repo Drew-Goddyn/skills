@@ -1,5 +1,6 @@
 """Small agent-browser helpers. Import into a task-specific Python driver."""
 from contextlib import contextmanager
+from copy import deepcopy
 import json
 import os
 from pathlib import Path
@@ -8,19 +9,51 @@ import subprocess
 import time
 
 
+def capture_environment(environment):
+    """Decide from supplied observations; never infer safety from a URL or name."""
+    observed = environment if isinstance(environment, dict) else {}
+    reasons = []
+    if observed.get('kind') not in ('local', 'test'):
+        reasons.append('Establish a local or test target; production or unknown environments stop capture.')
+    if observed.get('authorized_for_capture') is not True:
+        reasons.append('Clarify whether capture of this local/test target is authorized.')
+    if not isinstance(observed.get('url'), str) or not observed['url'].strip():
+        reasons.append('Identify the actual browser target URL.')
+    if observed.get('signed_in_account_kind') not in ('none', 'test', 'demo'):
+        reasons.append('Clarify the account: establish no login, or a test/demo account without credentials.')
+    if observed.get('data_provenance') != 'invented':
+        reasons.append('Establish that the displayed data is invented; localhost alone is insufficient.')
+    if observed.get('browser_profile_mode') != 'task_only':
+        reasons.append('Use a separate task-only browser profile; personal, attached or unknown profiles stop capture.')
+    indicators = observed.get('production_indicators')
+    if not isinstance(indicators, list):
+        reasons.append('Establish whether production indicators are present; their absence has not been checked.')
+    elif indicators:
+        reasons.append('Production indicators reported: ' + json.dumps(indicators) + '. Clarify a local/test target before capture.')
+    if not isinstance(observed.get('conditions'), str) or not observed['conditions'].strip():
+        reasons.append('Record the observations supporting the environment, account, data and profile conclusions.')
+    return {'status': 'blocked' if reasons else 'allowed', 'reasons': reasons}
+
+
 class Demo:
     def __init__(self, session, scratch):
         self.scratch = Path(scratch).resolve()
         self.scratch.mkdir(parents=True, exist_ok=True)
         self.env = dict(os.environ, AGENT_BROWSER_SOCKET_DIR=os.environ.get('AGENT_BROWSER_SOCKET_DIR', str(self.scratch / 'browser')))
-        executable = os.environ.get('DEMO_BROWSER') or shutil.which('agent-browser') or '/opt/homebrew/bin/agent-browser'
+        executable = os.environ.get('DEMO_BROWSER') or shutil.which('agent-browser') or 'agent-browser'
         self.command = [executable, '--session', session, '--json']
         self.events = []
         self.started = None
 
     def run(self, *args):
-        result = subprocess.run(self.command + list(map(str, args)), env=self.env,
-                                text=True, capture_output=True, timeout=45)
+        try:
+            result = subprocess.run(self.command + list(map(str, args)), env=self.env,
+                                    text=True, capture_output=True, timeout=45)
+        except (FileNotFoundError, PermissionError) as error:
+            raise RuntimeError(
+                f'Cannot execute browser command {self.command[0]!r}. Check its installation and permissions. '
+                'Put agent-browser on PATH or set DEMO_BROWSER to a runnable executable path or command name.'
+            ) from error
         if result.returncode:
             raise RuntimeError(result.stderr.strip() or result.stdout.strip())
         payload = json.loads(result.stdout)
@@ -87,11 +120,33 @@ class Demo:
         self.js(f'new Promise(resolve => {{ const target=document.querySelector({json.dumps(selector)}); let last=target.getBoundingClientRect().top, stable=0; function tick(){{const top=target.getBoundingClientRect().top;stable=top===last?stable+1:0;last=top;if(stable>5)resolve();else requestAnimationFrame(tick)}} requestAnimationFrame(tick) }})')
 
     @contextmanager
-    def record(self, name):
+    def record(self, name, *, environment=None):
         output = self.scratch / name
         if output.exists():
             raise FileExistsError(output)
-        self.run('record', 'start', output, '--fps', 30)
+        request = {'fps': 30, 'environment': deepcopy(environment)}
+        request['environment_check'] = capture_environment(request['environment'])
+        stage = 'environment_check'
+        try:
+            if request['environment_check']['status'] != 'allowed':
+                raise RuntimeError('Capture blocked. Please clarify before recording: ' +
+                                   ' '.join(request['environment_check']['reasons']))
+            stage = 'recorder_start'
+            self.run('record', 'start', output, '--fps', 30)
+        except BaseException as error:
+            try:
+                output.with_suffix('.take.json').write_text(json.dumps({
+                    'status': 'failed', 'video': str(output),
+                    'failure_stage': stage, 'capture_request': request,
+                    'wall_seconds': None, 'flow_seconds': None,
+                    'recorder': {}, 'events': [],
+                    'errors': [{'type': type(error).__name__, 'message': str(error)}],
+                    'playback_review': 'pending',
+                }, indent=2) + '\n')
+            except OSError as record_error:
+                # Keep the startup failure primary if its diagnostic cannot be saved.
+                raise error from record_error
+            raise
         self.started = time.monotonic()
         self.events = []
         errors = []
@@ -114,6 +169,7 @@ class Demo:
             self.started = None
             output.with_suffix('.take.json').write_text(json.dumps({
                 'status': 'failed' if errors else 'recorded',
+                'capture_request': request,
                 'video': str(output), 'wall_seconds': elapsed,
                 'flow_seconds': round(flow_seconds, 3),
                 'recorder': facts, 'events': self.events,

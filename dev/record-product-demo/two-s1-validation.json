@@ -1,0 +1,126 @@
+{
+  "kind": "bounded_two_fresh_s1_experiment",
+  "status": "published_independently_accepted",
+  "tested_commit": "399e610d59e444fe0f6730ee7ef18dd0eaaeca39",
+  "skill_tree_sha256": "d2f6fc3d4159131152f5d16607e5cc74e800b9571eff7b8ffaffafc15dec3919",
+  "evidence_run": "dev/record-product-demo/runs/20260919-0006-two-s1-f383",
+  "review_zip": "dev/record-product-demo/runs/20260919-0006-two-s1-f383/two-s1-review.zip",
+  "invocations": {
+    "prior_pilot": 4,
+    "new_authorized": 2,
+    "new_used": 2,
+    "new_failed_launches": 0,
+    "cumulative": 6,
+    "remaining": 0,
+    "model": "gpt-6-astra",
+    "reasoning_effort": "max",
+    "account_route": "Existing ChatGPT account; OpenAI provider; forced_login_method=chatgpt; metered API-key environment variables removed. No fallback."
+  },
+  "execution": {
+    "fresh_context": "Two separate codex exec --ephemeral invocations. No resume/fork or further delegation.",
+    "workspaces": "Two fresh task-only Git workspaces, separate copied fixture/skill and browser profiles.",
+    "brief": "Same ordinary invoice brief; only each URL/output path differ. No evidence-field, tool, finding, watch-target or handoff coaching.",
+    "child_exposure": "No prior reels, completed evidence, review conclusions or first-run findings exposed to either child. Passive source manifest records skill revision/file hashes.",
+    "sandbox": "Per-run danger-full-access shell/child execution, approval on-request through host; Chrome sandbox enabled. No permanent configuration or security changes.",
+    "browser_config": "Each task has only its fresh profile in an explicit agent-browser config and a separate short socket directory.",
+    "copied_inputs": "26 skill files per child and the invented fixture remain byte-identical; no extra skill files.",
+    "skill_isolation": "Fresh contexts with one pinned recording-skill copy, not completely single-skill-isolated contexts. The per-run override disables only the global record-product-demo copy; other default skills and host instructions remain available. Both transcripts show the global unslop read at item_3, source line 8."
+  },
+  "runs": [
+    {
+      "id": 1,
+      "duration_seconds": 17.933333333333334,
+      "size_bytes": 567450,
+      "sha256": "9c338fde547fd660f7989238bcf0ece2716da5275d88b33e36e728d1df81ce32",
+      "wall_seconds": 403.387,
+      "reported_usage": {
+        "input_tokens": 2395441,
+        "cached_input_tokens": 2264064,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 18385,
+        "reasoning_output_tokens": 5738
+      },
+      "media": "pass",
+      "evidence": "pass",
+      "review_readiness": "ready_for_review",
+      "decisive_findings": 3,
+      "takes": 2
+    },
+    {
+      "id": 2,
+      "duration_seconds": 18.1,
+      "size_bytes": 516184,
+      "sha256": "7200e4cf296e77f31ea158c8fba0b6894eaa00b61184ec625780ecacbfdcd60a",
+      "wall_seconds": 572.498,
+      "reported_usage": {
+        "input_tokens": 3433085,
+        "cached_input_tokens": 3289088,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 25533,
+        "reasoning_output_tokens": 8789
+      },
+      "media": "pass",
+      "evidence": "pass",
+      "review_readiness": "ready_for_review",
+      "decisive_findings": 3,
+      "takes": 3
+    }
+  ],
+  "observed_failure": {
+    "run": 2,
+    "stage": "first final take after successful rehearsal",
+    "result": "No video stream/file; failed take record preserves timeout and recorder-stop errors. Child render-loop probe did not receive an animation frame. Child restarted only its task-owned browser and captured a successful replacement. Cause remains unproven.",
+    "source": "children/run-2/invoice-walkthrough/sources/final/ in review package"
+  },
+  "criteria_mapping": {
+    "S1_media": "Both delivered reels pass 1440x900,30fps,15-30seconds,silence. Parent sampled frames support amount entry/save/result. Formal decisive-marker-duration criterion unmeasured because this preserved fixture has no flow markers.",
+    "T1.1_two_runs": "Demonstrated and independently accepted: both fresh ordinary briefs produced evidence.json that validates without parent format coaching or repairs. The review rechecked both records and references. T0.7 and other original prerequisites remain open; the whole task is not complete.",
+    "T2.2_delivery": "Independently accepted sampled outcome: three authored supported findings and matching approximate watch targets per delivery. Reviewer independently extracted the 18 cited frames; all six sampled findings are supported. Formal marker-onset watch_list_timing and repeated S4/seeded-defect criteria remain unverified. Neither final response nor generated handoff included explicit viewer-checkpoint questions.",
+    "scope": "No task marked complete; all original status/dependency/acceptance/evidence arrays retained."
+  },
+  "review_limits": [
+    "Independent review is limited to media, evidence/references, handoff regeneration and 18 sampled frames. No continuous watch, live browser, persistence replay or privacy clearance is claimed by the reviewer.",
+    "Both children omitted generic moving-dot preflight under parent app-only isolation; parent preflight remains separate evidence.",
+    "Contexts were fresh with a pinned recording skill, while global default guidance remained available; both read global unslop.",
+    "Run 2 recovered from one preserved failed take; root cause remains unresolved.",
+    "Neither final response nor generated handoff included explicit viewer-checkpoint questions."
+  ],
+  "preservation": "Child responses, original ZIPs and delivered files preserved. All 26 skill files in each child copy unchanged. Earlier evidence, accepted reels and installed skill unchanged.",
+  "publication_state": {
+    "accepted_frame_review_slice": "published at 399e610d59e444fe0f6730ee7ef18dd0eaaeca39",
+    "experiment": "Published independently accepted scoped experiment records; whole tasks remain pending where prerequisites or criteria are open.",
+    "merged": false,
+    "installed": false
+  },
+  "next_action": "Assigned optional viewer-question and setup-contract correction only, left uncommitted for ChatGPT review. No further child/model invocations; six cumulative, zero remaining.",
+  "independent_review": {
+    "author": "ChatGPT review partner",
+    "relayed_by": "Drew",
+    "source": "Self-contained user message; no archive sought or claimed inspected.",
+    "decision": "Accept observed integrated two-run outcome with setup qualifications; no repeat recording required.",
+    "environment": {
+      "ffmpeg": "7.1.5",
+      "ffprobe": "7.1.5"
+    },
+    "reproduction": "Both full media checks, evidence/reference validations and regenerated ready_for_review handoffs passed in one recheck.",
+    "visual_review": "Reviewer independently extracted and inspected all 18 cited frames; amount-entry, saving/confirmation and matching rows support the six sampled findings.",
+    "package_hashes": 351,
+    "skill_files": 26,
+    "reconstructed_skill_git_tree_matches": "399e610d59e444fe0f6730ee7ef18dd0eaaeca39",
+    "child_delivered_files": "Unchanged during independent review.",
+    "unperformed": [
+      "continuous watch",
+      "live browser",
+      "persistence replay",
+      "privacy clearance"
+    ]
+  },
+  "published_commit": "8b5564e7f7b82f64f6a95a7df59295a55b66bc81",
+  "publication_verification": {
+    "remote_head": "8b5564e7f7b82f64f6a95a7df59295a55b66bc81",
+    "pr_head": "8b5564e7f7b82f64f6a95a7df59295a55b66bc81",
+    "committed_files": 3,
+    "source_skill_changed": false,
+    "force_push": false
+  }
+}

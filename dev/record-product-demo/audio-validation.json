@@ -1,0 +1,79 @@
+{
+  "kind": "scoped_audio_validation_implementation",
+  "date": "2026-09-18T14:30:33.297256+00:00",
+  "source_head": "9f5daa464643a3392502d053b2e08654efda2a1e",
+  "scope": "Audio-related slice of T4.1/T4.2/T4.4: audio policies, per-track decode, separate picture/audio timing, guidance, and browser-free regressions.",
+  "authorization": "Standing authority is recorded in plan.json decision D1. Repository implementation and publication of independently accepted packets are authorized. The installed skill and both preserved invoice reels remain unchanged.",
+  "progression": "ChatGPT assigns and independently reviews scoped packets. Larger original task statuses and acceptance criteria remain unchanged until their full evidence is available.",
+  "excluded": "This audio packet excludes the full harness, defect library, scorecard, freeze detector, color/minimum-duration implementation, and additional agents. Merging, installation, and additional private data access remain unauthorized.",
+  "run": "dev/record-product-demo/runs/20260918-audio-validation-f383",
+  "review_zip": "dev/record-product-demo/runs/20260918-audio-padding-correction-f383/audio-padding-correction-review.zip",
+  "new_child_invocations": 0,
+  "prior_child_invocations": 4,
+  "status": "published",
+  "known_gap": "Generated Opus/WebM control emits a parser diagnostic on the local FFmpeg 8.0 toolchain and fails both original and modified checks; it is preserved. Optional skill frontmatter validator cannot import PyYAML in existing Python runtimes.",
+  "implementation_review_zip": "dev/record-product-demo/runs/20260918-audio-validation-f383/audio-validation-review.zip",
+  "correction_run": "dev/record-product-demo/runs/20260918-audio-padding-correction-f383",
+  "review": {
+    "recorded_at": "2026-09-18T16:08:54.952733+00:00",
+    "provenance": "Independent ChatGPT review results relayed and confirmed by the user in this task. These are not new local reproductions.",
+    "reviewed_zip_sha256": "3dde111f5f1d72bc3c944ea648d58bcee87c729419f81541d0a516231f56cd6f",
+    "reviewed_test_sha256": "f942fd2f7304a9b23e37b3ca96279b31f96340768785495eb4acd2bbbaf04559",
+    "reviewed_runtime_checker_sha256": "08fc46c145975a8d01265878b54d8931828d413285ae983d6cde6cd9bdead873",
+    "padding_test_finding": "closed",
+    "independent_results": {
+      "ffmpeg_version": "7.1.5",
+      "counterexample_source": "Actual media recovered from the original independent-audio-review.zip by the independent reviewer.",
+      "counterexample_candidate_check": "pass",
+      "presentation_difference_ms_reported": 0.333,
+      "signalled_trailing_padding_ms_reported": 15,
+      "corrected_regression_suite": {
+        "tests": 10,
+        "passed": 10
+      },
+      "unchanged_components_verified": [
+        "runtime checker",
+        "synthetic media generator",
+        "strict one-frame boundary controls"
+      ],
+      "preceding_independent_review": {
+        "asserted_packaged_media_cases": 15,
+        "expected_outcomes_reproduced": 15,
+        "healthy_frozen_preflight_control": "pass"
+      }
+    },
+    "local_results": {
+      "ffmpeg_version": "8.0",
+      "corrected_regression_suite": {
+        "tests": 10,
+        "passed": 10,
+        "exit_code": 0
+      },
+      "regression_evidence": "dev/record-product-demo/runs/20260918-audio-padding-correction-f383/local/regression-suite.json",
+      "padding_evidence": "dev/record-product-demo/runs/20260918-audio-padding-correction-f383/local/padded-aac-measurements.json",
+      "healthy_frozen_preflight_evidence": "dev/record-product-demo/runs/20260918-audio-padding-correction-f383/local/preflight/checks.json"
+    },
+    "closure": "The prior handoff gap was closed by independent verification of the actual counterexample and the complete corrected suite. Earlier evidence and ZIPs remain unchanged as historical records.",
+    "readiness_scope": "The scoped audio packet only. Larger T4.1/T4.2/T4.4 tasks remain open with unchanged acceptance criteria.",
+    "new_local_reproduction_performed": false,
+    "restrictions_at_review": "Leave changes uncommitted. No push, merge, installation, additional agents or child Codex invocations, or automatic next-task progression."
+  },
+  "standing_authorization": {
+    "decision": "D1",
+    "recorded_at": "2026-09-18T18:25:25.316183+00:00",
+    "record": "dev/record-product-demo/plan.json",
+    "summary": "Drew authorizes implementation, independent review, corrections, and commit/push work through this plan without repeated owner approval. ChatGPT remains the independent reviewer and selects subsequent scoped packets from the evidence. Publish accepted packets to codex/plan-demo-recording-improvements with ordinary pushes; leave a new packet uncommitted at its review handoff until independent acceptance. Preserve review checkpoints and separately record implemented, independently reviewed, published, merged, and installed states. Merging, replacing the installed skill, additional private data access, and force-push are outside this authorization."
+  },
+  "delivery_state": {
+    "implemented": true,
+    "independently_reviewed": true,
+    "publication": "published",
+    "merged": false,
+    "installed": false,
+    "branch": "codex/plan-demo-recording-improvements",
+    "commit": "d29e8104acf35a0e4b5d6f453437f7a0463083e6",
+    "remote_verified_at": "2026-09-18T18:26:28.886222+00:00",
+    "pr": "https://github.com/Drew-Goddyn/skills/pull/2"
+  },
+  "publication_evidence": "dev/record-product-demo/runs/20260918-duration-color-f383/publication/verified.json"
+}

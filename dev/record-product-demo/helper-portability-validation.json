@@ -1,0 +1,80 @@
+{
+  "kind": "scoped_helper_portability_implementation",
+  "updated_at": "2026-09-18T20:48:58.093199+00:00",
+  "base_commit": "7a9a607b10ad1772de891db74de03d19ad54fd2d",
+  "scope": "T5.3 only: remove the implicit application accent dependency and unsupported Homebrew-only fallback search; preserve explicit colors, PATH/override routes, and accepted recorder behavior.",
+  "status": "reviewed_and_published",
+  "delivery_state": {
+    "implemented": true,
+    "independently_reviewed": true,
+    "published": true,
+    "merged": false,
+    "installed": false
+  },
+  "standing_authorization": "dev/record-product-demo/plan.json decision D1",
+  "focus_ring": {
+    "default": "#448fff, independent of --c-accent",
+    "override": "Explicit CSS color retained",
+    "geometry_tracking_visibility_pointer_cleanup": "Existing runtime statements unchanged; full helper checks pass.",
+    "visual_evidence": "Three actual 900x520 screenshots before and after; full helper test also saves its three screenshots. Invented amount field, no invoice reel edit."
+  },
+  "executable_selection": {
+    "evidence": "Retained successful fourth pilot invocation found agent-browser, ffmpeg, and ffprobe using shutil.which on PATH. Homebrew locations were discovered through PATH, not helper fallbacks.",
+    "decision": "No demonstrated fallback-only need. Remove implicit Homebrew lookup; keep DEMO_BROWSER precedence and PATH discovery, including Homebrew tools already on PATH.",
+    "browser_missing": "Fail when command execution is attempted, so constructing browser-free stubs still works without a browser. FileNotFoundError/PermissionError become actionable RuntimeError with the original OS error as cause. Invalid explicit overrides do not silently fall back.",
+    "media_missing": "RuntimeError names the missing tool and explains FFmpeg/PATH setup.",
+    "simulated_tests": "Paths and subprocess failures mocked; tests do not require tools at simulated locations."
+  },
+  "local_validation": {
+    "environment": "Python 3.14.2; FFmpeg/ffprobe 8.0; agent-browser 0.37.1; Chrome 149.0.7827.115 on macOS. Fresh task-only profile; Chrome sandbox enabled.",
+    "tool_selection_tests": 11,
+    "accepted_browser_free_record_checks": 7,
+    "full_helper_checks": 23,
+    "media_regression_tests": 17,
+    "audio_padding_strict_timing_controls": "passed",
+    "healthy_frozen_control": "passed using preserved prior preflight; no new preflight recording",
+    "focus_before": "No-accent default and explicit override pass; app-accent default renders rose and fails the intended independent-default contract.",
+    "focus_after": "All three color/geometry/visibility/pointer cases pass; rendered screenshots inspected.",
+    "source_boundaries": "Recording context source unchanged; emphasis changes only the default-color expression; media checker changes only tool lookup.",
+    "discovery": "Cached skills CLI --list finds record-product-demo among six skills; no installation.",
+    "original_plan": "Statuses, dependencies, and acceptance remain unchanged."
+  },
+  "independent_validation": {
+    "provenance": "Drew relayed ChatGPT acceptance in this conversation; no independent archive inspected.",
+    "ffmpeg_ffprobe": "7.1.5",
+    "executable_selection_tests": 11,
+    "recorder_checks": 7,
+    "media_tests": 17,
+    "media_run": "All 17 passed in one execution.",
+    "rendered_review": "All three screenshot pairs inspected; no-accent and explicit override pixel-identical; app-accent changes only ring to existing blue default.",
+    "other_checks": [
+      "preserved healthy/frozen control",
+      "plan validation",
+      "all 126 payload hashes",
+      "patch reproduces all ten scoped files",
+      "recording context unchanged; checker changes only lookup; emphasis changes only default color"
+    ],
+    "reviewed_patch_sha256": "03191d9d089926e88d4eca83c7002f500a304712e500612e9ffe4673fcec71bd",
+    "limit": "The live 23-check browser suite remains the builder macOS result; no fresh independent browser run."
+  },
+  "source_sha256": {
+    "skills/codex/record-product-demo/scripts/demo.py": "cce10061bad4540d4c2a3b251eacc7c17a6e803fe27e2391cc9c838f5c8c321c",
+    "skills/codex/record-product-demo/scripts/emphasis.js": "f04ed416cf7218257ff6e0aa12a5f407be20bcb5b0aa96ecb3de036759039d80",
+    "skills/codex/record-product-demo/scripts/check_video.py": "dcc23bfd5140fec5ecdc3811e3ff5ad2d74c4ef59fb1f674e046c64f14028a14",
+    "skills/codex/record-product-demo/scripts/test_helpers.py": "1f76aba78ee87c97333518782454b335a98796b3b513875a12244c7cb93887a9",
+    "skills/codex/record-product-demo/scripts/test_tool_selection.py": "4ed81cc5f9cd22d86808fa548b956be25fbfd2c1fffa2bb053af9e2635f09b2e",
+    "skills/codex/record-product-demo/references/browser-capture.md": "18ac93212f24ac913f13c0195955fcc5b317b94dcb39dd81f434d7f3dd8c424e",
+    "skills/codex/record-product-demo/techniques.json": "f1c1f622f86d839071403f6579191eba95706ecfa39081b3423c1dcceef2064b"
+  },
+  "evidence_run": "dev/record-product-demo/runs/20260918-helper-portability-f383",
+  "review_zip": "dev/record-product-demo/runs/20260918-helper-portability-f383/helper-portability-review.zip",
+  "limitations": [
+    "Live browser/tool execution was tested on macOS only; selection branches at other paths are simulated.",
+    "The full T0.2/T0.7 scenario/harness prerequisites remain outstanding.",
+    "No new invoice experiment or perceptual media review was performed."
+  ],
+  "new_child_invocations": 0,
+  "pilot_invocations": 4,
+  "handoff": "Published accepted portability; T1.1 evidence-file packet remains a separate uncommitted review handoff. No merge or installation.",
+  "published_commit": "37f515932c070fa6e450c937dc930d72918a690c"
+}

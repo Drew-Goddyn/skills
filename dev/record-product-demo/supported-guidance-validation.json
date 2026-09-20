@@ -1,0 +1,264 @@
+{
+  "scope": "T6.1 supported-workflow guidance only",
+  "status": "reviewed_and_published",
+  "base_commit": "c4edab72a19bc40b73ed83c649e9fb48ebd9448c",
+  "published_skill_tree": "4806af25d4d6d1ab35bc8bca90f4affad5649946",
+  "run": "dev/record-product-demo/runs/20260919-supported-guidance-f383",
+  "disposition": "dev/record-product-demo/guidance-disposition.md",
+  "outcome": "Five ordered stages connect the existing brief/environment, capture/failure, media, encoded-frame evidence and review/diagnostic handoff capabilities. Browser, gameplay and edit-only branches keep their own capture needs. Direct encoded-video times remain usable with unknown driver alignment.",
+  "changes": [
+    "Entrypoint workflow and prerequisite description; matching README catalog row.",
+    "Browser/starter guidance for retained failure records and observed final-output times.",
+    "Gameplay and edit-only routes return to common media/inspection/delivery steps.",
+    "Field guide explains video-time inspection without inventing a driver offset.",
+    "Manifest consolidates repeated prose through authoritative reference pointers; IDs, entrypoints, executable checks and tested versions remain unchanged."
+  ],
+  "local_checks": {
+    "environment": {
+      "python": "3.14.2",
+      "ffmpeg_ffprobe": "8.0",
+      "pillow": "12.1.1"
+    },
+    "browser_free": {
+      "evidence": 22,
+      "delivery": 20,
+      "capture_environment": 11,
+      "starter": 13,
+      "sampled_privacy": 14,
+      "toolkit_handoff": 8,
+      "recorder": 7,
+      "total": 95,
+      "result": "passed"
+    },
+    "documentation": {
+      "local_markdown_links_and_anchors": 43,
+      "manifest_references": 44,
+      "real_parser_command_variants": 15,
+      "runtime_test_template_files_byte_identical": 22,
+      "result": "passed"
+    },
+    "metadata": "Skill name/description and the single changed README catalog row checked; all other README lines preserved.",
+    "discovery": "npx --no-install skills add . --list passed on approved per-run route, listing six skills and the updated description. Initial sandbox attempt failed with ENOTFOUND; both outputs retained. Listing did not install a skill.",
+    "plan": "validate, status and next passed. Task status, acceptance, dependency and evidence arrays unchanged; scoped T6.1 note and plan.py log entry only."
+  },
+  "independent_review": {
+    "status": "accepted",
+    "author": "ChatGPT review partner",
+    "relay": "Drew",
+    "source": "Self-contained relayed acceptance in this conversation; no new review/archive search. Reviewer confirmed the two handoff ZIPs are byte-for-byte identical.",
+    "accepted_patch_sha256": "0ffadfaf22474469ba143080cf28ddcfba5f0254890c169c02aa2e7b2a3a74e8",
+    "limits": "No fresh independent check count, capture, viewing or new model invocation is claimed here."
+  },
+  "timing_boundary": {
+    "iteration": "closed after independently accepted offline negative finding",
+    "original_five_take_result": "0/5 unchanged",
+    "target_error_seconds": 0.2,
+    "automatic_alignment": "unresolved_deferred",
+    "dependent_driver_clock_freeze_correlation": "unresolved_deferred",
+    "research_preserved": "dev/record-product-demo/runs/20260919-timing-reanalysis-f383/closure-preservation/manifest.json",
+    "experimental_files_in_supported_skill": false
+  },
+  "limitations": [
+    "Documentation, interface and supplied/synthetic regression checks do not establish fresh-agent compliance or a visual improvement.",
+    "No new capture, viewing/listening, browser investigation or media campaign. Unchanged media/preflight/calibration suites were not rerun for documentation work.",
+    "Original T6.1 repeated S1-S5, complete mechanical suite and full-plan verification remain unperformed; no whole task is completed by this slice.",
+    "Runtime, templates, schemas, thresholds, accepted media and installed skill remain unchanged.",
+    "No additional child/model invocation; cumulative use remains six. Accepted guidance published under standing authority; no merge or installation. Clean-source readiness and target-branch reconciliation are independently accepted and published; original criteria remain open."
+  ],
+  "delivery_state": {
+    "implemented": true,
+    "independently_reviewed": true,
+    "published": true,
+    "merged": false,
+    "installed": false
+  },
+  "base_skill_tree": "271ccdda4c25922762567ff6da80d0e46b5e988f",
+  "clean_source_integration": {
+    "status": "independently_reviewed_and_published",
+    "published_guidance_commit": "7a63336db222cac9927b5dd189881568a7d1806b",
+    "published_skill_tree": "4806af25d4d6d1ab35bc8bca90f4affad5649946",
+    "run": "dev/record-product-demo/runs/20260919-clean-source-f383",
+    "source_basis": "Frozen git archive, all 99 tracked blobs verified. All 35 recording-skill files copied into a standalone task-owned directory outside the development checkout.",
+    "readiness": "Supported browser-free workflow passes from published source with documented prerequisites; clean-source results and the launch-prompt correction are independently accepted and published. Original scenario and full-plan criteria remain open. Target-branch reconciliation is independently accepted and published with recording-source identity preserved.",
+    "supported_and_published": [
+      "Audio policy and separate picture/audio timing; minimum picture duration and color metadata/range policy",
+      "Recorder failure diagnostics and portable executable/focus helpers",
+      "Versioned evidence, encoded frames/sheets, attributed decisive findings and watch-list handoffs",
+      "Pre-capture environment decisions, sampled privacy records, optional feedback and maintenance separation",
+      "Explicit-source recording starter and consolidated supported-workflow guidance"
+    ],
+    "checks": {
+      "supported_browser_free": 140,
+      "suites": 10,
+      "preserved_preflight_assertions": 3,
+      "local_links": 43,
+      "manifest_references": 44,
+      "help_entrypoints": 8,
+      "module_origins": 7,
+      "plan": "validate/status/next pass on published export and uncommitted readiness records",
+      "discovery": "six skills and current description listed from clean export; no install",
+      "source_unchanged_after_checks": true
+    },
+    "local_environment": {
+      "python": "3.14.2",
+      "ffmpeg_ffprobe": "8.0",
+      "pillow": "12.1.1",
+      "agent_browser_available": "0.37.1; version checked only, no live browser execution"
+    },
+    "isolation": "Supported suites ran from standalone exported skill; no inherited PYTHONPATH/user-site loading, credentials, browser override or project configuration. The documented existing Pillow package was hash-verified into task scratch and supplied explicitly. Source/import checks found no dependency on unpublished files, the development worktree, timing experiments or installed skill. This is not a universal OS filesystem-access audit.",
+    "preserved_preflight": {
+      "source": "dev/record-product-demo/runs/20260919-driver-template-f383/preflight/preflight.mp4",
+      "sha256": "f391f929d6e4926a975af2e7be6d4599ef9da92d8f873e5331f40e9b436ddb6d",
+      "bytes": 326063,
+      "proof": "Healthy saved clip passes; generated frozen tail still passes media validation but fails for missing resumed motion. Fixture-specific control, not a general freeze detector or driver-clock correlation."
+    },
+    "initial_unavailable_checks": [
+      "Initial isolated run passed 57 checks, then frame tests could not import Pillow because user-site packages were disabled. Supplied the existing documented dependency explicitly and reran all 140 plus the control successfully; initial output retained.",
+      "Offline skills CLI listing was unavailable with ENOTCACHED. Approved per-run network route listed the clean source successfully; both outputs retained."
+    ],
+    "demonstrated_issue": {
+      "path": "skills/codex/record-product-demo/agents/openai.yaml",
+      "before": "Default prompt asked ordinary recording to resolve reusable friction, conflicting with accepted maintenance separation.",
+      "after": "Record reusable friction for a separate authorized maintenance assignment.",
+      "scope": "One prompt phrase only; runtime/tests/templates/fixtures unchanged.",
+      "status": "independently_reviewed_and_published",
+      "proof": "Exact before/after metadata inspection and candidate packaging/entrypoint checks; no fresh-agent compliance claimed."
+    },
+    "unperformed": [
+      "New live browser/helper/preflight/starter capture; existing prior results are historical evidence only",
+      "Fresh continuous viewing, listening, privacy clearance, live environment recognition or persistence replay",
+      "Full scenario harness/scorecard/seeded-defect prerequisites and repeated original S1-S5/S6 criteria, template-adoption and comparative-effort proof",
+      "Cross-host/version matrix or full-plan verification"
+    ],
+    "deferred": {
+      "automatic_alignment": "unresolved/deferred; accepted negative investigation closed this iteration",
+      "driver_clock_freeze_correlation": "unresolved/deferred",
+      "five_take_result": "Original 0/5 unchanged; target 0.2 seconds unchanged"
+    },
+    "publication_boundary": "Clean-source integration, launch-prompt correction and target-branch reconciliation are reviewed and published. No merge of PR #2 into main or installed-skill replacement.",
+    "additional_child_model_invocations": 0,
+    "cumulative_child_model_invocations": 6,
+    "independent_review": {
+      "author": "ChatGPT review partner",
+      "relay": "Drew",
+      "source": "Self-contained acceptance relayed in the user message; no independent archive received or searched.",
+      "status": "accepted",
+      "accepted_patch_sha256": "bb24f82e5f8effc16b9a0e2fd9dc50ea26cb4f126405be14db93bbb8190d8b9a",
+      "environment": {
+        "python": "3.13.5",
+        "ffmpeg_ffprobe": "7.1.5",
+        "pillow": "12.3.0"
+      },
+      "checks": {
+        "supported_checks": 140,
+        "suites": 10,
+        "saved_preflight_assertions": 3,
+        "links": 43,
+        "manifest_references": 44,
+        "entrypoints": 8,
+        "module_origins": 7,
+        "payload_hashes": 193,
+        "patch_files": 4,
+        "plan": "Published and candidate validate/status/next passed.",
+        "source_tree": "Complete 35-file skill tree matches published 7a63336d."
+      },
+      "qualification": "Supplied reproducer copied PIL but omitted the Linux wheel sibling pillow.libs directory. Reviewer preserved the initial failure and a timed-out attempt, then supplied the complete existing dependency in a task-only Python environment. The full run passed in one execution after that environment correction. The original unmodified reproduction command is not claimed to have passed on that host.",
+      "supported_source_tests_thresholds_changed": false,
+      "limits": "No new supported-runtime change, capture, model invocation or original scenario/full-plan completion is established."
+    }
+  },
+  "target_branch_reconciliation": {
+    "scope": "Preserve reviewed PR source and current main additions through the accepted target-branch merge; no feature changes.",
+    "status": "independently_reviewed_and_published",
+    "published_prompt_commit": "8578f561e2f017562b13de97efba38297c22ab2f",
+    "main_commit": "8af28a53ac2b4d5820281b08e0e0519f61c330b5",
+    "merge_base": "f414875393139db9d0e44a07de9cef62d9114990",
+    "method": "Task-owned detached worktree; normal merge commit with both reviewed parents and exact reviewed tree; acceptance/publication bookkeeping follows as a separate record-only commit.",
+    "actual_conflicts": [
+      "README.md"
+    ],
+    "resolution": "Main README verbatim except its recording catalog row is replaced with the reviewed PR row. Four Build Orchestrator files remain exactly main.",
+    "checks": {
+      "recording_skill_files_identical": 35,
+      "recording_skill_tree": "03a7332dbeed3eb5af44489a8c906092b04e94de",
+      "main_added_files_identical": 4,
+      "other_published_files_identical": 95,
+      "catalog_skills": 7,
+      "discovery": "npx --no-install skills add . --list: passed; list only, no installation",
+      "local_links": 67,
+      "manifest_references": 44,
+      "plan": [
+        "validate: pass",
+        "status: pass",
+        "next: pass"
+      ],
+      "task_criteria_and_decisions": "unchanged",
+      "whitespace": "git diff HEAD --check: pass"
+    },
+    "check_correction": "Initial packet-only link checker treated same-page heading links as directories. Failed output retained; corrected link resolution passes. No supported-source change.",
+    "runtime_evidence": "Accepted clean-source runtime and saved-preflight acceptance retained by exact 35-file skill identity; no new media/browser suite run.",
+    "review_attribution": "Accepted by the independent ChatGPT review partner, relayed by Drew. Earlier review authorship and Linux Pillow qualification are preserved.",
+    "limits": [
+      "Static link/discovery/preservation checks do not prove Build Orchestrator agent behavior.",
+      "No new model invocation, capture, scenario, timing research or installed-skill replacement.",
+      "Original scenario/full-plan criteria remain open; automatic alignment and dependent driver-clock freeze correlation remain unresolved/deferred."
+    ],
+    "run": "dev/record-product-demo/runs/20260919-reconcile-main-f383",
+    "additional_child_model_invocations": 0,
+    "cumulative_child_model_invocations": 6,
+    "publication": {
+      "merge_commit": "cf779e95769170e6b6e9e124a6987631aaeabf02",
+      "ordered_parents": [
+        "8578f561e2f017562b13de97efba38297c22ab2f",
+        "8af28a53ac2b4d5820281b08e0e0519f61c330b5"
+      ],
+      "reviewed_tree": "dda651b3cbf8261e80791be4366589ff79628df5",
+      "accepted_patch_sha256": "2157756ff66318136cc53777de93fb17f75deab9590f718c3d99225e087c50a1",
+      "remote_tips_matched_before_commit": true,
+      "merge_remote_head_verified": true,
+      "reviewed_main_is_ancestor": true,
+      "bookkeeping": "Separate record-only commit preserves the exact accepted merge tree.",
+      "pr_merged_into_main": false,
+      "installed_skill_changed": false,
+      "publication_run": "dev/record-product-demo/runs/20260920-publish-reconciliation-f383"
+    },
+    "independent_review": {
+      "status": "accepted",
+      "author": "ChatGPT review partner",
+      "relay": "Drew",
+      "source": "Self-contained acceptance in the user message; no additional archive search.",
+      "offline_reproduction": "One execution; patch reconstruction and actual merge replay in separate fresh repositories produced the same reviewed tree.",
+      "checks": {
+        "actual_conflicts": [
+          "README.md"
+        ],
+        "conflict_stages": 3,
+        "exact_readme_composition": true,
+        "recording_files_unchanged": 35,
+        "main_files_matching": 4,
+        "other_pr_files_preserved": 95,
+        "payload_hashes": 72,
+        "catalog_frontmatter_entries": 7,
+        "links": 67,
+        "manifest_references": 44,
+        "whitespace": "pass",
+        "plan": [
+          "validate: pass",
+          "status: pass",
+          "next: pass"
+        ]
+      },
+      "cli_discovery": "Not independently rerun; previous builder discovery remains separately attributed.",
+      "runtime": "Retained acceptance through exact source identity; no fresh runtime run."
+    },
+    "remote_pr_observation": {
+      "at_commit": "cf779e95769170e6b6e9e124a6987631aaeabf02",
+      "state": "OPEN",
+      "mergeable": "MERGEABLE",
+      "merge_state_status": "CLEAN",
+      "status_check_rollup": [],
+      "checks_interpretation": "No checks reported; absence is not a pass.",
+      "final_publication_verification": "Final record-only head and current main/check status are captured in the publication run."
+    }
+  }
+}

@@ -1,0 +1,173 @@
+{
+  "kind": "scoped_reusable_recording_driver_template",
+  "base_commit": "fb162ebe44da5d021f7cdc7ad13a6d033b941ab1",
+  "status": "published",
+  "delivery_state": {
+    "implemented": true,
+    "independently_reviewed": true,
+    "published": true,
+    "merged": false,
+    "installed": false
+  },
+  "scope": "T5.1 runnable form-to-new-result starter, input skeleton, guidance, browser-free tests and existing invented fixture inputs. No action language, installer, clock alignment or scenario harness.",
+  "source_patterns": "Inspected both preserved S1 capture_invoice.py drivers: explicit selected skill imports, prepare unrelated fields, native typing, identify exactly one new result and read it. Reused current helper lifecycle/environment decision and version-1 evidence template.",
+  "local_checks": {
+    "starter": 13,
+    "evidence": 22,
+    "delivery": 20,
+    "privacy": 14,
+    "toolkit": 8,
+    "environment": 11,
+    "recorder": 7,
+    "total": 95,
+    "versions": {
+      "python": "3.14.2",
+      "ffmpeg": "8.0",
+      "ffprobe": "8.0",
+      "pillow": "12.1.1",
+      "agent_browser": "0.37.1"
+    }
+  },
+  "direct_fixture_proof": {
+    "deliveries": [
+      {
+        "name": "rehearsal",
+        "reel": {
+          "path": "reel.mp4",
+          "sha256": "de2367c66ea62c35ae2281623987d8249ab1a159116fa1aa3f8349543e6e8c8c",
+          "duration_seconds": 6.9,
+          "size_bytes": 565414
+        },
+        "media_status": "fail",
+        "violations": [
+          "picture duration 6.9s is below minimum 8s"
+        ],
+        "warnings": [
+          {
+            "basis": [
+              "color_range=pc",
+              "pixel_format=yuvj420p"
+            ],
+            "code": "full_range_h264",
+            "message": "full-range H.264 flagged by delivery compatibility policy; not an observed color defect",
+            "severity": "warning"
+          }
+        ],
+        "flow_seconds": 6.891,
+        "driver_wall_seconds": 6.938,
+        "command_wall_seconds": 10.705,
+        "driver_sha256": "bd31857b178bc4e5b61149e06e6cd7cc0530ee62b5c2fa51db9292c15c0a97b7",
+        "initial_evidence_sha256": "c77f379f930256cf1466b853c8e503aaafb6b6a5a9e0c353ceee9239ab778668",
+        "take_sha256": "aa6c7e515bb2d3689b2c8715e9b0d51804f0c9b6d6f0f51c1f2398c5bbfb73d3",
+        "interval_frames": 14,
+        "unresolved_beats": 4,
+        "handoff_status": "diagnostic_only"
+      },
+      {
+        "name": "rehearsal-2",
+        "reel": {
+          "path": "reel.mp4",
+          "sha256": "0accaa9e56c9048df95b1a6c3cb0e2613ee2e636017b48afb53a35d570cb5c30",
+          "duration_seconds": 8.933333333333334,
+          "size_bytes": 615680
+        },
+        "media_status": "pass",
+        "violations": [],
+        "warnings": [
+          {
+            "basis": [
+              "color_range=pc",
+              "pixel_format=yuvj420p"
+            ],
+            "code": "full_range_h264",
+            "message": "full-range H.264 flagged by delivery compatibility policy; not an observed color defect",
+            "severity": "warning"
+          }
+        ],
+        "flow_seconds": 8.917,
+        "driver_wall_seconds": 8.952,
+        "command_wall_seconds": 11.17,
+        "driver_sha256": "bd31857b178bc4e5b61149e06e6cd7cc0530ee62b5c2fa51db9292c15c0a97b7",
+        "initial_evidence_sha256": "4a716b463c9121c2bff5877f501807bfbac57b33b9ddee7fca97bf4983cdb4b4",
+        "take_sha256": "a9834f92aa191e813937b8a7d6e1413fe71d235ae67f7d9680441641fc259750",
+        "interval_frames": 18,
+        "unresolved_beats": 4,
+        "handoff_status": "diagnostic_only"
+      },
+      {
+        "name": "take",
+        "reel": {
+          "path": "reel.mp4",
+          "sha256": "1352d4be876c3a9f6dad416e40d82601037fc79dc86020d56497b63e8a424755",
+          "duration_seconds": 8.9,
+          "size_bytes": 635708
+        },
+        "media_status": "pass",
+        "violations": [],
+        "warnings": [
+          {
+            "basis": [
+              "color_range=pc",
+              "pixel_format=yuvj420p"
+            ],
+            "code": "full_range_h264",
+            "message": "full-range H.264 flagged by delivery compatibility policy; not an observed color defect",
+            "severity": "warning"
+          }
+        ],
+        "flow_seconds": 8.888,
+        "driver_wall_seconds": 8.914,
+        "command_wall_seconds": 11.024,
+        "driver_sha256": "bd31857b178bc4e5b61149e06e6cd7cc0530ee62b5c2fa51db9292c15c0a97b7",
+        "initial_evidence_sha256": "44776bded8ab0bb04a6a1a837807b0e798a886fd426561b96d395b7f2f859a90",
+        "take_sha256": "91a2e2dfeb61c8712bb251174a496a694e6b120c7066bdc5bb317ed497a07daa",
+        "interval_frames": 18,
+        "unresolved_beats": 4,
+        "handoff_status": "diagnostic_only"
+      }
+    ],
+    "template_unchanged_between_runs": true,
+    "input_adjustment": "Reading holds only; minimum remains 8 seconds. First failed rehearsal preserved.",
+    "comparison": "Elapsed measurements describe this direct builder proof only; no before/after efficiency comparison exists.",
+    "child_model_invocations": 0
+  },
+  "preflight": "Actual bundled MP4 media/motion preflight passed in verified fresh task-only Chrome profile; no sandbox-disable flags. Separate from app eligibility.",
+  "generated_review_state": "All three initial evidence records validate and remain diagnostic_only with unknown encoded beat times/alignment and unperformed visual/privacy/viewing fields. Later actual builder sample inspections are separate assessment files; originals unchanged.",
+  "limitations": [
+    "Direct builder proof is not a fresh child-agent S1 run. Original two-run template adoption, scorecard/prerequisites and comparative-effort criteria remain open.",
+    "No claim of reduced elapsed effort, persistence replay, continuous viewing, listening, direct human review or privacy clearance.",
+    "Full-range H.264 compatibility warning retained in every recorded result; no visible color defect claim.",
+    "First rehearsal missed the unchanged eight-second minimum. Preserved failure; only fixture reading holds changed before the passing rehearsal and take.",
+    "Existing capture/media/evidence/extractor implementations and installed skill remain unchanged."
+  ],
+  "usage": {
+    "additional_child_or_model_invocations": 0,
+    "cumulative": 6,
+    "remaining": 0
+  },
+  "evidence_run": "dev/record-product-demo/runs/20260919-driver-template-f383",
+  "next_action": "Only assigned per-take driver/video correspondence and five direct calibration takes. No child/model invocations, merge or installation.",
+  "independent_review": {
+    "status": "accepted",
+    "author": "ChatGPT review partner",
+    "relayed_by": "Drew",
+    "source": "Self-contained user attachment; no independent archive sought or claimed inspected.",
+    "environment": {
+      "python": "3.13.5",
+      "ffmpeg": "7.1.5",
+      "ffprobe": "7.1.5",
+      "pillow": "12.3.0"
+    },
+    "checks": "All 95 browser-free checks; three expected media outcomes, three valid evidence records and identical diagnostic handoffs. Actual driver/helper identities match; only task-input holds changed. Final extraction 18 native frames and four unresolved beats matches timestamps. All 304 hashes, eleven-file patch, published source tree and plan validate/status/next passed.",
+    "execution": "Combined reproduction reached the review execution limit during final extraction; extraction and remaining assertions completed separately. Not a successful single-command reproduction or fresh independent browser capture.",
+    "visual_inspection": "Action/result sheets and independently extracted native frames support direct fixture demonstration; no continuous watch, privacy clearance, fresh-agent adoption or reduced-effort claim.",
+    "accepted_candidate_patch_sha256": "29d1048fe956e2565025cc2afe544b75879244dba39306331703c72d21c2722f"
+  },
+  "published_commit": "0aff4af635f25dc1a1129448c2742d3cf1f0b1ab",
+  "publication": {
+    "remote_head_verified": "0aff4af635f25dc1a1129448c2742d3cf1f0b1ab",
+    "pr_head_verified": "0aff4af635f25dc1a1129448c2742d3cf1f0b1ab",
+    "pr_state": "OPEN",
+    "reviewed_bytes": "All eleven accepted candidate files matched before relayed review/progress updates. Implementation, tests, fixture and guidance committed unchanged."
+  }
+}

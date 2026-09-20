@@ -5,10 +5,18 @@
       "id": "browser-capture",
       "use_when": "A short browser flow is ready to rehearse and record.",
       "entrypoint": "scripts/demo.py:Demo",
-      "usage": "Import Demo into the task driver. Demo(session, scratch). Use run(*args) for native agent-browser commands, ready(expression) for UI state, and with record('take.webm') for capture. DEMO_BROWSER selects an executable. The context writes take.take.json even when the flow fails. Event times use the driver clock after the start response; the recorder starts asynchronously, so align visual actions before treating these as video timecodes.",
-      "limits": "Requires agent-browser with record --fps and ffmpeg on PATH. Fixed 30 fps request. Use a fresh session; record starts on the current page in tested version 0.37.1. No fixture reset or application-specific behavior.",
-      "check": "python3 scripts/preflight.py /absolute/new-scratch-directory",
+      "usage": "Import Demo into the task driver: Demo(session, scratch), run(*args) for native commands, ready(expression) for UI state, and with record('take.webm', environment=observed) for capture. Establish references/capture-environment.md observations before each app rehearsal/take. Missing or blocked observations stop startup. Failed starts/flows retain diagnostics and propagate errors; see references/browser-capture.md#preserve-the-take-and-failure-record for the record contract. Driver events start after the recorder response; unknown video alignment stays unknown. Direct encoded-video review uses references/beat-frames.md.",
+      "limits": "Requires agent-browser with record --fps and FFmpeg. DEMO_BROWSER overrides PATH discovery with a runnable path or command name. Media tools use PATH; no implicit installation-directory search. The retained working route used Homebrew tools through PATH, not a fallback-only path. Use a fresh session; capture requests 30 fps on the current page in tested 0.37.1. No fixture reset or app-specific behavior. Environment decisions apply to supplied target observations, never automatic banner/account/profile inspection or an implicitly reused permission.",
+      "check": "python3 scripts/test_capture_environment.py -v checks supplied decisions and blocked recorder startup without a browser; python3 scripts/test_tool_selection.py -v checks tool selection with simulated paths; python3 scripts/test_helpers.py --record-only checks startup/success/error propagation without a browser; python3 scripts/preflight.py /absolute/new-scratch-directory --browser-profile-mode task_only checks actual capture.",
       "tested_with": "agent-browser 0.37.1; 0.27.3 produced 10 fps and is unsuitable for the default take"
+    },
+    {
+      "id": "recording-driver-starter",
+      "use_when": "A browser form-to-new-result flow needs a task-local rehearsal/capture driver.",
+      "entrypoint": "templates/record_walkthrough.py; templates/walkthrough-inputs.json; references/recording-driver.md",
+      "usage": "Copy the starter and fill task inputs. Pass --skill, --inputs, --phase rehearsal|take and a new --output directory. Uses the selected Demo helpers, existing environment decision, recorder lifecycle, media checker and evidence template. Task-local prepare/perform functions may be adapted; shared helpers stay unchanged.",
+      "limits": "Fixed starter flow, not an action language. Caller configures and verifies a task-only browser and authorizes setup/reset. Preflight is separate. Initial evidence preserves unknown encoded beat times and unperformed review; application assertions do not establish visibility, privacy or viewing. A successful run means recorded_pending_review only.",
+      "check": "python3 scripts/test_record_walkthrough.py -v. Direct invented-fixture proof is separate from two child-run template-adoption and comparative-effort criteria."
     },
     {
       "id": "human-pacing",
@@ -16,32 +24,48 @@
       "entrypoint": "scripts/demo.py:Demo.type, Demo.scroll_to, Demo.hold",
       "usage": "type(selector, text, decisive=True) uses real key events and asserts the value. scroll_to(selector) waits for visible, settled motion. hold(seconds, target) records why the viewer is waiting. Fill unrelated fields before capture through run('fill', selector, text).",
       "limits": "Typing covers text inputs and textareas. CLI overhead bounds typing speed. Scroll targets must fit in the viewport. Use native driver commands for custom editors, drag gestures, or nested scrolling that needs special handling.",
-      "check": "python3 scripts/test_helpers.py"
+      "check": "python3 scripts/test_helpers.py --browser-profile-mode task_only"
     },
     {
       "id": "focus-ring",
       "use_when": "The changed field or result is easy to miss.",
       "entrypoint": "scripts/emphasis.js",
       "usage": "Demo.focus(selector, color=None), then Demo.clear(). The standalone script also exposes window.__productDemo.focus and remove. It follows one live target and works inside modal dialogs. focus waits for finite ancestor entrance animations and confirms the ring has faded in before the reading hold begins.",
-      "limits": "Requires native Popover API. Color uses the product's --c-accent or an explicit CSS color. No captions, dimming, content replacement, or source edits. A hidden or detached target removes the ring.",
-      "check": "python3 scripts/test_helpers.py"
+      "limits": "Requires native Popover API. Default color is #448fff, independent of application theme variables; an explicit CSS color overrides it. No captions, dimming, content replacement, or source edits. A hidden or detached target removes the ring.",
+      "check": "python3 scripts/test_helpers.py --browser-profile-mode task_only checks default and explicit colors on an invented page with an app accent, saves rendered screenshots, and checks geometry, tracking, visibility, pointer noninterference, and cleanup."
     },
     {
       "id": "moving-preflight",
       "use_when": "Before a take with a recorder or capture setting not yet verified for this task.",
       "entrypoint": "scripts/preflight.py; scripts/test_preflight.py",
-      "usage": "python3 scripts/preflight.py /absolute/new-scratch-directory --format mp4. Match the planned take format: mp4 or webm (default). The fixture moves for two seconds, holds fully still for six seconds, then moves in green for two seconds. Retain preflight.media.json, preflight.motion.json, and preflight.fixture.json. Watch the entire preflight video at normal speed; reject it if the green dot does not move after the pause.",
-      "limits": "Uses the capture helper at 1440 by 900. Decoded dot colors and positions catch missing motion after a hold and missing hold time; this check is specific to the fixture and does not certify source cadence or replace playback review. A nonzero exit rejects the selected capture setting. Confirm the task-specific action separately in rehearsal; the dot fixture does not verify typing, saving, or game-scene capture completeness.",
-      "check": "python3 scripts/preflight.py /absolute/new-scratch-directory --format mp4, then python3 scripts/test_preflight.py /absolute/new-scratch-directory/preflight.mp4 /absolute/new-negative-control-directory. The test proves a frozen tail still passes media checks but fails the motion check.",
+      "usage": "python3 scripts/preflight.py /absolute/new-scratch-directory --format mp4 --browser-profile-mode task_only. Match the planned take format: mp4 or webm (default). The fixture moves for two seconds, holds fully still for six seconds, then moves in green for two seconds. Retain preflight.media.json, preflight.motion.json, and preflight.fixture.json. Watch the entire preflight video at normal speed; reject it if the green dot does not move after the pause.",
+      "limits": "Uses the capture helper at 1440 by 900. The dot's decoded colors/positions check resumed motion and hold time; retain whole-video playback review too. A nonzero exit rejects the selected setting. Target-app environment and representative-action rehearsal remain separate obligations in references/browser-capture.md: the synthetic fixture leaves busy-scene cadence, typing and saved-result capture unverified. Configure and verify the task-only profile before reporting it with the profile-mode flag; the flag performs neither step.",
+      "check": "python3 scripts/preflight.py /absolute/new-scratch-directory --format mp4 --browser-profile-mode task_only, then python3 scripts/test_preflight.py /absolute/new-scratch-directory/preflight.mp4 /absolute/new-negative-control-directory. The test proves a frozen tail still passes media checks but fails the motion check.",
       "tested_with": "agent-browser 0.37.1; MP4/H.264 with real six-second idle hold; WebM/VP8 also selectable"
     },
     {
       "id": "media-check",
       "use_when": "A take or final encode is ready for review.",
       "entrypoint": "scripts/check_video.py",
-      "usage": "python3 scripts/check_video.py demo.webm --expected-size 1440x900 --expected-fps 30 --max-duration 30 --max-bytes 10000000 Set limits from the brief. Add --allow-audio when the requested reel includes sound.",
-      "limits": "Checks duration, decoded video frames, dimensions, rate, audio-stream presence, size, and video decode errors. Validate audio decoding separately when sound is present. Does not judge pacing, legibility, privacy, source cadence, audio synchronization, or listening quality.",
-      "check": "Run on the final reel and on a deliberately wrong expected size; the latter must exit nonzero."
+      "usage": "python3 scripts/check_video.py demo.webm --expected-size 1440x900 --expected-fps 30 --min-duration 15 --max-duration 30 --max-bytes 10000000 Set limits from the brief. Use --audio-policy require for required sound; forbid is the silent default. --allow-audio remains an alias for --audio-policy allow. --h264-range-policy report (default) warns on full-range H.264; select reject-full-range when the delivery target's compatibility requirements exclude it.",
+      "limits": "Requires ffmpeg and ffprobe on PATH; missing commands report how to supply them. Checks minimum picture presentation span (equality passes; omitted means no minimum), maximum container duration, decoded picture frame count against picture timing, dimensions, rate, size, and full video/audio decode. Reports raw pixel format and color range with known/unknown/missing statuses. Flags full-range H.264 under a documented delivery compatibility policy, without claiming a visible color defect. Reports separate picture and audio presentation intervals and rejects start, end, or duration mismatches beyond one video frame, accounting for codec padding. Does not judge meaningful audible content, listening quality, perceptual synchronization, pacing, legibility, privacy, or source cadence.",
+      "check": "python3 scripts/test_check_video.py runs browser-free synthetic audio-policy, timing, minimum-duration, and color-reporting regressions. Also run the checker on the final reel and on a deliberately wrong expected size; the latter must exit nonzero."
+    },
+    {
+      "id": "delivery-evidence",
+      "use_when": "Any reel is ready to deliver, including an edit of existing footage.",
+      "entrypoint": "templates/evidence.json; references/evidence.md; scripts/check_evidence.py; scripts/review_delivery.py",
+      "usage": "Keep one evidence.json beside each reel. Use templates/evidence.json and references/evidence.md for brief/provenance, capture or edit settings, original takes, clock-labelled beats, raw checks, review/privacy coverage, limitations, reproduction and toolkit friction. Run python3 scripts/check_evidence.py <delivery>/evidence.json. Inspect beat/interval sheets and native frames, record attributed decisive findings, sampled privacy coverage and final-output watch targets, then run python3 scripts/review_delivery.py <delivery>/evidence.json <delivery>/handoff. Follow SKILL.md#5-produce-the-review-or-diagnostic-handoff for the response/ZIP, optional viewer questions and sharing rules. Toolkit follow-up follows references/toolkit-maintenance.md.",
+      "limits": "Python standard library only. Validates structure, identity and stated consistency; retain raw checks/warnings and original take/clock facts. Structure can pass for truthful incomplete or failed records. The separate handoff reports diagnostic_only for missing/unreviewed/unresolved/not-visible decisive findings, unavailable/failing media checks or known privacy concerns. Unperformed privacy review remains prominently unreviewed; sample coverage can miss intervening content. Ready_for_review establishes neither viewing, privacy clearance nor acceptance. The helper copies no media. Toolkit state stays separate: pending optional maintenance cannot add or erase reel blockers, grant maintenance authority, or establish installation. See references/evidence.md for field, attribution and sharing contracts.",
+      "check": "python3 scripts/test_check_evidence.py -v; validate the actual final delivery folder too. python3 scripts/test_review_delivery.py -v checks synthetic pixels, truthful diagnostic records, attribution and generated handoffs. python3 scripts/test_privacy_review.py -v checks supplied privacy findings, references/times, missing review and handoff preservation with invented media; it is not agent visual inspection. python3 scripts/test_toolkit_handoff.py -v checks supplied records and handoff preservation; instruction/example checks do not prove fresh-agent compliance."
+    },
+    {
+      "id": "encoded-beat-frames",
+      "use_when": "A delivered encode needs inspectable beat frames and whole-reel interval samples.",
+      "entrypoint": "scripts/beat_frames.py; references/beat-frames.md",
+      "usage": "python3 scripts/beat_frames.py <delivery>/evidence.json <delivery>/frames-review writes a new index, timestamped sheets and full-resolution PNGs. Default mode both includes beat midpoints and two-second interval sampling. Use --mode beats or intervals, and --interval <seconds> when needed.",
+      "limits": "Requires Pillow >= 10.1 and ffmpeg/ffprobe on PATH. Uses final-output encoded times and decoded presentation intervals, retaining raw PTS and supplied precision/alignment. Never infers driver offsets, rewrites takes/maps/evidence, clamps out-of-range targets, or upgrades sampled material to viewing/privacy clearance. Unknown times remain unresolved. Exit 0 means extracted, 1 partial, 2 error; none certifies visual quality. Existing output directories are refused.",
+      "check": "python3 scripts/test_beat_frames.py -v runs browser-free lossless numbered/color-coded frame tests, including exact/range boundaries, nonzero starts, variable frame spacing, missing output, edited clocks and inspectable sheet pixels."
     }
   ]
 }

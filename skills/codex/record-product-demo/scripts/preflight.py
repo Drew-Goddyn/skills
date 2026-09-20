@@ -7,7 +7,7 @@ import sys
 from urllib.parse import quote
 from uuid import uuid4
 from check_video import tool
-from demo import Demo
+from demo import Demo, capture_environment
 
 
 HTML = '''<!doctype html><meta charset="utf-8">
@@ -50,6 +50,16 @@ MOTION = '''(() => {
     }), 6000);
   });
 })()'''
+
+
+def environment(profile_mode):
+    return {'kind': 'test', 'url': 'data:text/html,' + quote(HTML),
+            'signed_in_account_kind': 'none', 'authorized_for_capture': True,
+            'data_provenance': 'invented', 'browser_profile_mode': profile_mode,
+            'production_indicators': [],
+            'conditions': 'Trusted bundled preflight HTML: no authentication, app records or external data. '
+                          'Profile mode is supplied by the caller after checking the task configuration; '
+                          'this fixture check does not establish the target application environment.'}
 
 
 def check_motion(video):
@@ -109,14 +119,21 @@ def main():
     parser.add_argument('scratch', type=Path)
     parser.add_argument('--format', choices=('webm', 'mp4'), default='webm',
                         help='Use the same format as the planned take (default: webm).')
+    parser.add_argument('--browser-profile-mode', default='unknown',
+                        help='Set task_only after verifying the task profile configuration; this does not configure or inspect a browser.')
     args = parser.parse_args()
     demo = Demo('pf-' + uuid4().hex[:8], args.scratch)
     video = demo.scratch / f'preflight.{args.format}'
+    observed = environment(args.browser_profile_mode)
+    if capture_environment(observed)['status'] == 'blocked':
+        # Reuse the failed-take diagnostic before opening any browser session.
+        with demo.record(video.name, environment=observed):
+            pass
     try:
         demo.run('open', 'about:blank')
         demo.run('set', 'viewport', 1440, 900)
         demo.open('data:text/html,' + quote(HTML))
-        with demo.record(video.name):
+        with demo.record(video.name, environment=observed):
             demo.js(MOTION)
             demo.hold(10.2, 'Blue motion, six-second amber hold, then renewed green motion')
             demo.ready('window.preflight.done === true')

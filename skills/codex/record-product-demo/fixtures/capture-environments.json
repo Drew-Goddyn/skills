@@ -1,0 +1,21 @@
+{
+  "scope": "Supplied invented observations for browser-free policy tests; no live banner recognition or privacy inspection.",
+  "base": {
+    "kind": "test",
+    "url": "http://127.0.0.1:8765/invoices",
+    "signed_in_account_kind": "none",
+    "conditions": "Supplied fixture facts: no authentication exists; the local fixture and seed were authored for this task. Morgan Vale and Cedar Studio are invented client names. The task config selects a separate fresh profile, not an attached browser. No production banner or domain was observed in the supplied description.",
+    "authorized_for_capture": true,
+    "data_provenance": "invented",
+    "browser_profile_mode": "task_only",
+    "production_indicators": []
+  },
+  "cases": [
+    {"id": "known_test_no_login", "changes": {}, "expected": "allowed"},
+    {"id": "known_local_demo_account", "changes": {"kind": "local", "signed_in_account_kind": "demo", "conditions": "Supplied observations: authorized local fixture, signed in as a task-created demo account; invented seed data; fresh task profile; inspected description has no production indicators."}, "expected": "allowed"},
+    {"id": "localhost_production_banner", "changes": {"kind": "local", "production_indicators": ["Supplied banner observation: PRODUCTION - live billing"], "conditions": "Supplied target is localhost but displays a production banner. Other fixture facts are unchanged."}, "expected": "blocked"},
+    {"id": "unknown_account_and_data", "changes": {"signed_in_account_kind": "unknown", "data_provenance": "unknown", "conditions": "The target is authorized as a test instance and the fresh task profile is known, but authentication and the source of displayed records have not been established."}, "expected": "blocked"},
+    {"id": "personal_profile", "changes": {"browser_profile_mode": "personal", "conditions": "Supplied capture setup uses the owner's personal browser profile. The app is otherwise the invented local fixture."}, "expected": "blocked"},
+    {"id": "attached_browser", "changes": {"browser_profile_mode": "attached", "conditions": "Supplied setup attaches to an already running browser. Account and profile isolation are not established."}, "expected": "blocked"}
+  ]
+}

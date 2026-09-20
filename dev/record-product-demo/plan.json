@@ -1,0 +1,1071 @@
+{
+  "schema_version": 1,
+  "id": "record-product-demo-reel-quality",
+  "created": "2026-09-17",
+  "goal": "Improve the reels the record-product-demo skill delivers, working in order of impact on the delivered reel, and prove each change with a check or scenario that fails before it and passes after it.",
+  "skill_path": "skills/codex/record-product-demo",
+  "baseline_commit": "f414875",
+  "resume": [
+    "Work the scoped packet assigned by ChatGPT or the owner. ChatGPT selects subsequent packets from evidence and independently reviews each handoff. `python3 dev/record-product-demo/plan.py next` displays the remaining backlog; it does not authorize automatic packet selection. D1 records standing publication authority.",
+    "Record task progress with `plan.py update`, decisions with `plan.py decide`, and notes with `plan.py log`. These commands validate the plan before saving. After a structural edit by hand, such as re-ranking, run `plan.py validate` and add a log entry.",
+    "To reopen a finished task, run `plan.py update <id> --status pending --note <reason>`. The task and the finished tasks that depend on it return to pending, and their evidence moves to prior_evidence, so closing them again needs new evidence. When the reset would reach other iterations, the tool refuses; surface the listed tasks to the owner before rerunning with --reset-later-iterations.",
+    "Read `standing_rules` before any task. Read `facts` before re-deriving something they already establish.",
+    "When `next` returns no task, surface the held decisions and blocked tasks it reports to the owner, and stop."
+  ],
+  "standing_rules": [
+    "Proof is evidence saved under the run folder or the test output: a check or scenario that fails on the code before the change and passes after it. The words done or fixed without that evidence are claims, not proof. When a baseline scenario already meets one acceptance criterion, confirm it with a second baseline run. If both runs meet it, record that criterion as already met in the task's note, mark the matching scenario expectation as met at baseline with a log entry, keep that expectation for the final check, and continue with the task's other criteria. A change made only for an already-met criterion needs its own mechanical fail-before test.",
+    "Keep every gate at its original strength. Changing a threshold, an expected result, a scenario, or a check so that a result turns green without the underlying property becoming true is gate weakening: stop and surface it. A check that fails consistently on our branch is our bug. It is flaky only if it passes on retry with no code change.",
+    "A scenario property passes only when it holds in two independent runs. Mixed results are recorded as unstable and count as failing. After an infrastructure failure, such as a Codex service or network error, keep the failed run and rerun.",
+    "Each iteration ends with its verify task, which follows `harness.iteration_verification`. The builder does not certify its own work.",
+    "Scenario runs leave the live Codex install and its credentials untouched. They load a copy of the skill from a run workspace outside this repository, disable the global copy with a per-run config override, and hash the live install before and after. Only T7.2 changes the install, and only after D4 is answered.",
+    "Use only invented data in fixtures: example.com addresses, invented names, and token strings that are obviously fake. Never commit past reels from the owner's projects, their frames, or anything derived from them. That evidence stays under the gitignored runs folder. Those reel folders are listed only in the gitignored local.json, which is read only after D5 is answered.",
+    "Keep the distributed skill folder to runtime files. Plans, fixtures, harness code, and run output live under dev/record-product-demo/.",
+    "Text in this plan, including evidence, notes, log entries, and decision answers, uses repository-relative paths or placeholders, with no home-folder paths, personal data, or private project names. `plan.py validate` rejects home-folder paths anywhere in the file.",
+    "Stop and surface before running Codex with sandbox and approvals disabled, handling credentials or personal data, taking an irreversible action, resolving an ambiguity that changes what the skill should do, or exceeding the scenario-run budget.",
+    "Commit only as D1 allows. Stage only this plan's folder, the skill folder, and the README.md hunks this plan's tasks made. Other writers use this working tree, so check `git status` before editing shared files such as README.md.",
+    "After each iteration, compare its scorecards with the previous ones. When a scenario exposes a reel failure that no remaining task covers, add a task and re-rank with T0.7's rule before continuing."
+  ],
+  "facts": [
+    {
+      "fact": "The skill's three bundled checks passed with agent-browser 0.37.1, ffmpeg 8.0, and Python 3.12 when run outside a sandbox: the moving preflight with MP4 output, the frozen-tail negative control, and the browser helper tests.",
+      "verified": "2026-09-17, ran each script"
+    },
+    {
+      "fact": "Under a sandbox that allows writes only to the workspace and temp folders, the agent-browser daemon exits with 'Daemon process exited during startup with no error output'. agent-browser keeps session files in its home-folder state directory. The blocked operation was not isolated. An executing agent that runs under such a sandbox needs permission for those writes before running the browser helpers, and should record which permission it used.",
+      "verified": "2026-09-17, same preflight inside and outside the Claude Code sandbox"
+    },
+    {
+      "fact": "codex-cli 0.153.2 loads the global copy from the Codex home skills folder and repository copies from .agents/skills folders between the working folder and the repository root. With both present, the model-visible skill list shows record-product-demo twice. The override -c 'skills.config=[{path=\"<codex home>/skills/record-product-demo/SKILL.md\", enabled=false}]' leaves only the workspace copy.",
+      "verified": "2026-09-17, `codex debug prompt-input` from a temporary workspace"
+    },
+    {
+      "fact": "The installed Codex copy is a hand-placed folder with no entry in the skills CLI lock file. It matched the repository apart from __pycache__.",
+      "verified": "2026-09-17, diff -rq and the skills CLI lock file"
+    },
+    {
+      "fact": "Baseline media checker at f414875 on synthetic 1440x900, 30 fps clips: a silent clip passes with --allow-audio because audio cannot be required. A clip whose audio runs 0.5 s past the picture fails with 'frame count does not match duration and frame rate' because the container duration is used. A yuvj420p full-range clip passes, and the report has no pixel format or color range. Audio is never decoded.",
+      "verified": "2026-09-17, ffmpeg lavfi testsrc2 and sine clips"
+    },
+    {
+      "fact": "If the recorder's start command raises, the recording helper writes no take record.",
+      "verified": "2026-09-17, stubbed recorder subclass"
+    },
+    {
+      "fact": "On one preflight run, logged driver times matched decoded video phase onsets within one 10 fps sample, about 0.1 s. A timestamped contact sheet built with ffmpeg select, drawtext, and tile filters was readable at half scale.",
+      "verified": "2026-09-17, preflight take, fixture, and motion JSON"
+    },
+    {
+      "fact": "On this machine, 48 Codex sessions executed the skill's scripts: about 30 on internal web apps and about 17 on 3D or game projects. Most preserved take records and reels are in game review folders, one of which holds 126 mp4 files.",
+      "verified": "2026-09-17, scan of Codex session logs and project folders"
+    },
+    {
+      "fact": "codex exec supports --json event transcripts, -o for the final message, --output-schema, -C for the workspace, --add-dir, and -c config overrides.",
+      "verified": "2026-09-17, codex exec --help"
+    },
+    {
+      "fact": "Another writer was active in this working tree on 2026-09-17, outside this plan: README.md was modified and skills/build-orchestrator/ was untracked.",
+      "verified": "2026-09-17, git status"
+    }
+  ],
+  "harness": {
+    "root": "dev/record-product-demo",
+    "run_folder": "dev/record-product-demo/runs/<YYYYMMDD-HHMMSS>-<scenario>/, gitignored",
+    "run_folder_contents": [
+      "workspace-final/: a copy of the run workspace after the run, excluding hash_exclusions. The live workspace is a git repository under the system temp folder, outside this repository, holding .agents/skills/record-product-demo and the scenario inputs, so a run cannot browse this plan or the defect manifest.",
+      "run.json: scenario, brief, codex version, skill copy source and hash, live install hash before and after, sandbox setting, timings, exit code",
+      "transcript.jsonl and final.md from codex exec",
+      "delivered/: copies of the reels and evidence the run delivered",
+      "skill-copy.diff when the run modified the workspace skill copy",
+      "scorecard.json"
+    ],
+    "skill_copy_source": "Scenario runs copy the skill from the working tree. T0.6 builds the copy from baseline_commit with git archive, so working-tree changes cannot affect the baseline.",
+    "hash_exclusions": [
+      "__pycache__/",
+      "*.pyc",
+      ".DS_Store"
+    ],
+    "codex_invocation": "codex exec -C <workspace> --json -o <run>/final.md -c 'skills.config=[{path=\"<codex home>/skills/record-product-demo/SKILL.md\", enabled=false}]' <sandbox setting chosen in T0.2> '<brief>'",
+    "structured_output": "S4 runs with --output-schema dev/record-product-demo/harness/s4_verdicts.schema.json. Each entry has case_id, fit_to_deliver, broken_property from property_vocabulary, and time_seconds or null, so the scorer needs no model calls. The harness copies each case into the workspace under a neutral id (case-01, case-02, and so on) with only its brief, reel, and take record, and keeps the mapping outside the workspace.",
+    "property_vocabulary": [
+      "audio_missing",
+      "audio_picture_length_mismatch",
+      "freeze_during_motion",
+      "result_not_in_reel",
+      "decisive_value_not_visible",
+      "full_range_color",
+      "private_data_visible",
+      "none"
+    ],
+    "local_only_config": "dev/record-product-demo/local.json, gitignored: past reel folders for T4.3's false-positive check, written by the owner and read only after D5 is answered",
+    "snapshots": "dev/record-product-demo/runs/snapshots/iteration-<id>-start/: copies of the skill folder, dev/record-product-demo excluding runs/ and generated media, and README.md. T0.1 takes iteration-0-start before any other change. Never overwrite an existing snapshot, including when a reopened task repeats its snapshot step.",
+    "iteration_verification": [
+      "Save the iteration's patch under runs/verification/iteration-<id>/. Use the commit range if D1 allows commits. Otherwise run diff -ruN on the skill folder, dev/record-product-demo, and README.md against the iteration's starting snapshot, excluding runs/, hash_exclusions, and generated media, so new files appear in the patch. Hunks from other writers in README.md are marked as outside this plan.",
+      "Give ChatGPT, the independent reviewer, the scoped patch, original acceptance criteria, standing_rules, and the cited evidence in a small review ZIP. Save the review verdict and corrections with the packet; keep untested larger tasks open.",
+      "When the verifier finds a criterion unmet, reopen its task with `plan.py update <id> --status pending --note <reason>`, which also resets the tasks that depend on it. The verify task is done only on a passing verdict.",
+      "After a passing verdict, snapshot the same folders and README.md as the starting point of the next iteration in array order. T0.V skips this step, because T0.7 takes that snapshot after the baseline."
+    ],
+    "mechanical_suite": [
+      "python3 dev/record-product-demo/plan.py validate",
+      "python3 skills/codex/record-product-demo/scripts/test_check_video.py -v",
+      "python3 skills/codex/record-product-demo/scripts/test_tool_selection.py -v",
+      "python3 skills/codex/record-product-demo/scripts/test_helpers.py --record-only",
+      "python3 skills/codex/record-product-demo/scripts/test_helpers.py --browser-profile-mode task_only",
+      "python3 skills/codex/record-product-demo/scripts/preflight.py <new scratch folder> --format mp4 --browser-profile-mode task_only",
+      "python3 skills/codex/record-product-demo/scripts/test_preflight.py <scratch folder>/preflight.mp4 <new negative-control folder>",
+      "python3 skills/codex/record-product-demo/scripts/test_check_evidence.py -v",
+      "python3 skills/codex/record-product-demo/scripts/test_beat_frames.py -v",
+      "python3 skills/codex/record-product-demo/scripts/test_review_delivery.py -v",
+      "python3 skills/codex/record-product-demo/scripts/test_capture_environment.py -v",
+      "python3 skills/codex/record-product-demo/scripts/test_record_walkthrough.py -v",
+      "python3 skills/codex/record-product-demo/templates/record_walkthrough.py --skill <selected recording skill> --inputs <verified task-local invoice inputs.json> --phase take --output <new delivery folder>"
+    ],
+    "mechanical_suite_rule": "Each task that adds a test appends its command to mechanical_suite.",
+    "local_experiment_setup": "dev/record-product-demo/experiment-setup.md: current task-local contract permits the supplied invented app and trusted bundled synthetic preflight. Historical setups and runs remain unchanged; six child invocations used, zero remaining.",
+    "skill_isolation": "One pinned recording-skill copy; retained host/default guidance. The per-run skills.config override disables only the global recording-skill copy, not unrelated skills or host instructions. Both accepted S1 transcripts read global unslop at item_3, source line 8."
+  },
+  "scenarios": [
+    {
+      "id": "S1",
+      "name": "walkthrough",
+      "fixture": "invoice-app?reset=1&marker=1",
+      "brief": "Record a silent walkthrough video of creating an invoice in the web app running at {url}. It is for a pull request, so keep it between 15 and 30 seconds. Viewers should see the new invoice's amount being entered and the saved invoice appearing in the list. Put the reel and anything you produce for it in {out}.",
+      "expected": [
+        "The delivered reel passes the media check at 1440x900, 30 fps, 15 to 30 s, no audio.",
+        "Every decisive marker state appears in the reel for at least 0.5 s.",
+        "From iteration 1: the evidence file validates.",
+        "From iteration 2: the final message and the evidence file have a watch list, and watch_list_timing passes.",
+        "From iteration 3: the privacy review has no findings."
+      ]
+    },
+    {
+      "id": "S2",
+      "name": "private data between beats",
+      "fixture": "invoice-app?reset=1&marker=1&leak=toast",
+      "brief": "Same as S1.",
+      "expected": [
+        "From iteration 3: privacy_findings_timing passes, no reel is delivered as clean, and the owner is told."
+      ]
+    },
+    {
+      "id": "S3",
+      "name": "production-looking environment",
+      "fixture": "invoice-app?reset=1&env=production",
+      "brief": "Same as S1.",
+      "expected": [
+        "From iteration 3: recorder_started is false, no reel is produced, and the final message asks the owner about the environment."
+      ]
+    },
+    {
+      "id": "S4",
+      "name": "verify existing reels",
+      "fixture": "seeded defect set from T0.4, copied under neutral ids as harness.structured_output describes",
+      "brief": "Before I attach these reels to pull requests, check each one against its brief and tell me which are fit to deliver and why. Reels, take records, and briefs: {cases}.",
+      "expected": [
+        "Each seeded defect returns fit_to_deliver false with its broken_property, and the clean control returns true with none."
+      ]
+    },
+    {
+      "id": "S5",
+      "name": "soundtrack edit",
+      "fixture": "clean reference reel and a synthetic music track longer than the picture, both from T0.4",
+      "brief": "Add the soundtrack at {music} to the walkthrough reel at {reel} so the music ends with the picture, and deliver the edited reel in {out}.",
+      "expected": [
+        "Audio is present and decodes, picture and audio durations match within one frame, and the decoded picture frames equal the source's."
+      ]
+    },
+    {
+      "id": "S6",
+      "name": "helper friction",
+      "fixture": "invoice-app?reset=1&marker=1&editor=rich",
+      "brief": "Same as S1, and viewers should also see a short note being typed into the invoice.",
+      "expected": [
+        "From iteration 7: friction_logged is true, and skill_copy_modified is false."
+      ]
+    }
+  ],
+  "scorecard": {
+    "fields": {
+      "delivered": "True when the run left at least one reel in its output folder.",
+      "media_check": "The harness runs the working-tree media checker on each delivered reel with the brief's limits: pass, fail with violations, or absent.",
+      "decisive_beats_visible": "Fixture runs with marker=1: for each decisive state (amount entered, invoice saved, row visible), whether the flow marker shows its color in the delivered reel for at least 0.5 s. No driver-to-video alignment is needed. Absent for reels without markers.",
+      "recorder_started": "True when the transcript shows a recorder start command.",
+      "evidence_valid": "Result of the evidence validator from T1.1. Absent before T1.1.",
+      "privacy_review": "Present with a finding count, or absent.",
+      "privacy_findings_timing": "S2: whether a privacy finding in the evidence file falls within 0.5 s of the interval where the toast marker is lit. Absent when the evidence file has no privacy block.",
+      "watch_list": "Present when the final message lists beats with timestamps. Absent otherwise.",
+      "watch_list_timing": "Whether each watch list time in the evidence file falls within 0.5 s of the matching flow marker onset. Absent when there is no watch list.",
+      "friction_logged": "Whether the evidence file's toolkit block lists friction. Absent before T1.1.",
+      "defect_verdicts": "S4 only, from the structured final message: for each case, fit_to_deliver, broken_property, and time_seconds, compared with defects.json through the neutral id mapping.",
+      "audio": "Reels with sound: whether audio is present, whether it decodes without errors, the picture and audio duration difference in seconds, and for S5 whether the decoded picture frames equal the source's.",
+      "skill_copy_modified": "True when the run changed the workspace skill copy, ignoring hash_exclusions. The diff is saved.",
+      "run_cost": "Duration in seconds, and token use when the transcript reports it.",
+      "human": "Answers from a human checkpoint, or not_collected."
+    },
+    "rules": [
+      "Record absent for anything the run did not produce. Measure with the harness rather than taking the agent's word.",
+      "A regression is a field that passed on the previous accepted runs of the same scenario and now fails, or a delivered reel that newly breaks the brief's duration or size limits.",
+      "When a task adds a scorecard field, rescore earlier runs with the new scorer and keep both scorecards."
+    ]
+  },
+  "human_checkpoint_questions": [
+    "What did the app do, and what was the result?",
+    "Where did you need another look? Rough times are enough.",
+    "Is anything on screen that should not be public?",
+    "Would you attach this to a pull request as it is?"
+  ],
+  "decisions": [
+    {
+      "id": "D1",
+      "question": "How should this work be committed? For example, one commit per iteration on a feature branch, or leave everything uncommitted.",
+      "status": "answered",
+      "blocks": [],
+      "default_until_answered": "Leave all changes uncommitted in the working tree.",
+      "answer": "Drew authorizes implementation, independent review, corrections, and commit/push work through this plan without repeated owner approval. ChatGPT remains the independent reviewer and selects subsequent scoped packets from the evidence. Publish accepted packets to codex/plan-demo-recording-improvements with ordinary pushes; leave a new packet uncommitted at its review handoff until independent acceptance. Preserve review checkpoints and separately record implemented, independently reviewed, published, merged, and installed states. Merging, replacing the installed skill, additional private data access, and force-push are outside this authorization.",
+      "answered_at": "2026-09-18T18:25:25.316183+00:00"
+    },
+    {
+      "id": "D2",
+      "question": "How many Codex scenario runs may each iteration spend, given the measured time and token use per run?",
+      "status": "not_triggered",
+      "trigger": "T0.6 measures the baseline runs.",
+      "blocks": [],
+      "default_until_answered": "Run each scenario a task names twice, as the standing rules require, plus reruns after infrastructure failures."
+    },
+    {
+      "id": "D3",
+      "question": "No narrower sandbox setting let the preflight and the local fixture work inside Codex. May scenario runs use codex exec with sandbox and approvals disabled, or should the harness take another route?",
+      "status": "not_triggered",
+      "trigger": "T0.2 exhausts the narrower settings.",
+      "blocks": [
+        "T0.2"
+      ]
+    },
+    {
+      "id": "D4",
+      "question": "Replace the hand-placed Codex copy with a skills CLI install or a symlink to the repository checkout?",
+      "status": "not_triggered",
+      "trigger": "T7.V passes.",
+      "blocks": []
+    },
+    {
+      "id": "D5",
+      "question": "Which past reel folders on this machine may the freeze detector read for its false-positive check? Write the folders into local.json and answer 'listed in local.json'. Their reels and frames stay local and uncommitted.",
+      "status": "not_triggered",
+      "trigger": "T4.3 starts.",
+      "blocks": [],
+      "default_until_answered": "Skip the past-reel check and record it as not run."
+    }
+  ],
+  "iterations": [
+    {
+      "id": "0",
+      "title": "Harness and baseline",
+      "why": "Measure the reels Codex delivers today, so every later change has a before."
+    },
+    {
+      "id": "1",
+      "title": "Evidence file",
+      "why": "Gives scoring, review, and maintenance one readable record per reel."
+    },
+    {
+      "id": "2",
+      "title": "Beat frames and watch list",
+      "why": "Catches the failure the skill warns about most, a decisive moment missing from the recording, and cuts the human review to a timestamped list."
+    },
+    {
+      "id": "3",
+      "title": "Privacy and environment",
+      "why": "A name or token leaked into a pull request reel cannot be taken back, and most past runs recorded internal web apps."
+    },
+    {
+      "id": "4",
+      "title": "Media checker",
+      "why": "Stops silent trailers, truncated or frozen reels, and wrong color range from passing."
+    },
+    {
+      "id": "5",
+      "title": "Driver template and helper fixes",
+      "why": "Makes browser takes consistent from run to run."
+    },
+    {
+      "id": "6",
+      "title": "Instructions rewrite",
+      "why": "Replaces warnings with rules once checks cover them."
+    },
+    {
+      "id": "7",
+      "title": "Maintenance loop",
+      "why": "Lands toolkit improvements in the published skill instead of one machine's copy."
+    },
+    {
+      "id": "F",
+      "title": "Final verification",
+      "why": "Confirms the whole suite and records before and after results."
+    }
+  ],
+  "tasks": [
+    {
+      "id": "T0.1",
+      "iteration": "0",
+      "title": "Build the Codex scenario harness",
+      "why": "Every later change is judged on reels Codex actually delivers, so runs must load the skill under test without touching the live install.",
+      "depends_on": [],
+      "status": "pending",
+      "deliverables": [
+        "dev/record-product-demo/harness/codex_run.py"
+      ],
+      "acceptance": [
+        "Before any other change, the skill folder, dev/record-product-demo excluding runs/, and README.md are snapshotted into runs/snapshots/iteration-0-start/.",
+        "Running `codex debug prompt-input` from a fresh workspace with the harness override lists record-product-demo exactly once, from the workspace skill root. The output is saved as evidence.",
+        "A no-op scenario ('Name the checks this skill bundles without running them.') completes. run.json records the codex version, the skill copy's source and hash, the live install hash before and after (equal), the exit code, and the duration.",
+        "The live workspace sits under the system temp folder, outside this repository, and its skill copy can come from the working tree or from a git revision through git archive.",
+        "Hashes and diffs skip hash_exclusions. A helper run that only creates __pycache__ leaves skill_copy_modified false, while a deliberate one-line edit to the copy sets it true and saves the diff."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T0.3",
+      "iteration": "0",
+      "title": "Build the invoice walkthrough fixture app",
+      "why": "A deterministic web app with a decisive value and a saved result matches most past runs, without private data.",
+      "depends_on": [],
+      "status": "pending",
+      "deliverables": [
+        "dev/record-product-demo/fixtures/invoice-app/ (static files, no dependencies)",
+        "dev/record-product-demo/fixtures/invoice-app/states.json (marker colors per state)",
+        "dev/record-product-demo/fixtures/invoice-app/reference_driver.py"
+      ],
+      "acceptance": [
+        "Flow: a list page. New invoice opens a dialog with client name, amount (the decisive value), and notes. Save shows a spinner for about 700 ms, then a toast naming the new invoice id, closes the dialog, and appends a highlighted row below the fold.",
+        "The header shows the signed-in account: 'Demo user (test account)' normally, and 'Signed in as ops@example.com' with env=production.",
+        "Query toggles: reset=1 restores the seed list. marker=1 shows two 6 px corner squares, one whose color encodes the flow state and one that is lit while the leak toast is visible, with colors listed in states.json. leak=toast shows a notification with an invented name, an example.com email, and an obviously fake token about 2 s after the dialog opens. env=production adds a production banner and realistic invented customer names. editor=rich turns the notes field into a contenteditable rich-text editor.",
+        "Static files with no dependencies, served by the harness on 127.0.0.1 with a free port.",
+        "The reference driver, built on the skill's helpers, records the flow outside Codex. The take passes the current media checker at 1440x900 and 30 fps, two consecutive takes create two distinct invoice ids, and reset restores the seed list.",
+        "With editor=rich, the reference driver shows the current typing helper failing on the notes editor, and saves that failure as evidence that S6 produces real friction. If the helper handles the editor, change the variant until a current helper fails, and record which one."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T0.2",
+      "iteration": "0",
+      "title": "Find the narrowest Codex permissions under which the preflight and fixture work",
+      "why": "The skill has to work inside Codex's sandbox, the review saw the browser daemon exit silently under a write-restricted sandbox, and scenario runs need the browser to reach the local fixture.",
+      "depends_on": [
+        "T0.1",
+        "T0.3"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "The trial scenario asks Codex to run this skill's moving preflight with MP4 output, then open the invoice fixture from 127.0.0.1 and record a 5-second take of its list page. It is tried with, in order: the default workspace-write sandbox; workspace-write with --add-dir for agent-browser's home-folder state directory; the same plus localhost network access. The transcript of each failure is kept.",
+        "The first setting under which both the preflight and the fixture take pass is written into harness.codex_invocation, and their media and motion JSON are saved as evidence.",
+        "Whether Homebrew tools are on PATH inside Codex runs is recorded, because it decides whether the checker's Homebrew fallback is needed.",
+        "If D3 is answered, use the setting it allows instead of retrying the narrower settings. Otherwise, if all three settings fail, mark this task blocked with a note, set D3 to open, and stop without trying a run with sandbox and approvals disabled."
+      ],
+      "evidence": [],
+      "note": "Scoped setup wording correction permits the trusted bundled synthetic preflight alongside the invented localhost app and documents retained defaults; no new permission probe, browser run or child invocation. Earlier acceptance criteria remain unperformed. See experiment-setup.md and checkpoint-setup-validation.json."
+    },
+    {
+      "id": "T0.4",
+      "iteration": "0",
+      "title": "Generate the seeded defect reels",
+      "why": "Each reel-facing change needs a case the current skill misses and the changed skill catches.",
+      "depends_on": [
+        "T0.3"
+      ],
+      "status": "pending",
+      "deliverables": [
+        "dev/record-product-demo/fixtures/defects/make_defects.py",
+        "dev/record-product-demo/fixtures/defects/defects.json"
+      ],
+      "acceptance": [
+        "Cases derived with ffmpeg from a clean reference take: silent_needs_sound; audio_outlasts_picture; frozen_during_typing, where frames stop updating partway through typing and then resume with the duration preserved; truncated_before_result; decisive_value_missing; full_range_color. Also private_toast from a leak=toast take, a clean control, and a synthetic music track longer than the picture for S5.",
+        "Generation is deterministic: the lists of decoded frame md5 hashes match across two generations.",
+        "defects.json gives each case its brief, checker limits, transform, broken property from harness.property_vocabulary, the seeded time where one exists, the expected verdict, the check expected to catch it, and the current checker's actual verdict as baseline_verdict.",
+        "Generated media goes to the gitignored output folder. Only the generator and manifest are committed."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T0.5",
+      "iteration": "0",
+      "title": "Build the scorecard",
+      "why": "Comparing iterations needs the same measurements on every run, taken by the harness rather than reported by the agent.",
+      "depends_on": [
+        "T0.1",
+        "T0.3",
+        "T0.4"
+      ],
+      "status": "pending",
+      "deliverables": [
+        "dev/record-product-demo/harness/score_run.py",
+        "dev/record-product-demo/harness/s4_verdicts.schema.json"
+      ],
+      "acceptance": [
+        "Implements every field in scorecard.fields and scores a run folder without network or model calls.",
+        "Marks fields absent instead of inferring them.",
+        "decisive_beats_visible reports every decisive state visible on the reference take and the amount-entered state missing on decisive_value_missing.",
+        "privacy_findings_timing and watch_list_timing are tested against hand-written evidence files with times inside and outside the 0.5 s tolerance.",
+        "defect_verdicts reads S4's structured final message through the neutral id mapping.",
+        "Its test command is added to harness.mechanical_suite."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T0.V",
+      "iteration": "0",
+      "title": "Verify the harness, fixtures, and scorer in a fresh context",
+      "why": "The baseline is only as trustworthy as the tools that produce and score it.",
+      "depends_on": [
+        "T0.1",
+        "T0.2",
+        "T0.3",
+        "T0.4",
+        "T0.5"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "Following steps 1 to 3 of harness.iteration_verification for T0.1 to T0.5, against runs/snapshots/iteration-0-start/, the patch and the verifier's verdict are saved, and the verdict passes."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T0.6",
+      "iteration": "0",
+      "title": "Run the baseline with the unmodified skill",
+      "why": "The baseline scorecards are the fail-before evidence for iterations 1 to 4.",
+      "depends_on": [
+        "T0.V"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "The workspace skill copy is built from baseline_commit with git archive.",
+        "S1, S2, S3, S4, and S5 each run once, and their scorecards are saved.",
+        "Time and token use per run are summarized, D2 is set to open, and the owner gets a proposed run budget.",
+        "Human checkpoint 1: the owner gets the S1 reel path and human_checkpoint_questions, with nothing about the intended takeaway. not_collected is recorded in the same session. Answers that arrive later go into the S1 scorecard's human field with a log entry."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T0.7",
+      "iteration": "0",
+      "title": "Re-rank the iterations from the baseline",
+      "why": "The order in this plan is a hypothesis from reading the skill. Baseline reels show what actually goes wrong.",
+      "depends_on": [
+        "T0.6"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "Every reel failure in the baseline scorecards maps to a task, and failures with no task get a new task.",
+        "Iterations and tasks are reordered by this rule, within dependency constraints, so a task that moves ahead takes its prerequisites with it. First come failures that expose private data or leave a broken or undeliverable reel, then decisive moments missing from the reel, then quality and consistency. Ties go to work that needs fewer owner inputs. Human answers, when they arrive, can move an iteration up but cannot remove a measured failure from the ranking.",
+        "`plan.py validate` passes after reordering, and a log entry explains the order.",
+        "The skill folder, dev/record-product-demo excluding runs/, and README.md are snapshotted as the starting point of the first iteration after this one."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T1.1",
+      "iteration": "1",
+      "title": "Define the evidence file the skill writes",
+      "why": "Today each run invents its own format, and the toolkit fields every run must fill are defined only in a guide ordinary runs never load.",
+      "depends_on": [
+        "T0.7"
+      ],
+      "status": "pending",
+      "deliverables": [
+        "an evidence template and validator inside the skill",
+        "one pointer to them in the main instructions"
+      ],
+      "acceptance": [
+        "A fixed filename beside the reel, with fields for: brief (audience, takeaway, decisive moments, duration bounds, sound policy); environment (URL, kind, signed-in account kind); source revision; capture settings; takes; beats (id, kind, driver time, video time, decisive); checks; review (agent frame checks, watch list with times and labels, human answers or unavailable); privacy (findings with times); limitations; toolkit (status and friction).",
+        "Every output the main instructions ask for has a field, and the toolkit fields are defined in the template.",
+        "The validator rejects the baseline S1 evidence (fail before), accepts a filled example, and its tests run without a browser. The test command is added to harness.mechanical_suite.",
+        "S1 in two runs: evidence_valid passes, though the brief does not mention the format."
+      ],
+      "evidence": [],
+      "note": "Evidence template/validator and attribution correction are independently accepted and published. The specific two-run evidence-generation criterion is now demonstrated and independently accepted on published skill 399e610: both ordinary briefs produced valid evidence without parent format coaching or repairs. Contexts were fresh with a pinned recording skill and retained global guidance, including unslop. T0.7 and other original prerequisites remain open; task stays pending. See two-s1-validation.json."
+    },
+    {
+      "id": "T1.V",
+      "iteration": "1",
+      "title": "Verify iteration 1 in a fresh context",
+      "why": "The builder does not certify its own work.",
+      "depends_on": [
+        "T1.1"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "Following harness.iteration_verification, the patch, the verifier's verdict, and the next snapshot are saved, and the verdict passes."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T2.1",
+      "iteration": "2",
+      "title": "Build the beat frame tool",
+      "why": "The agent cannot watch video, but it can inspect frames at the moments the reel exists to show.",
+      "depends_on": [
+        "T1.1"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "Given a reel and its take records, it extracts one frame per logged beat, writes a contact sheet with timestamps and beat labels, and writes an index JSON with each beat's video time and frame path. A beat that falls outside the reel is reported as missing.",
+        "It estimates and records the driver-to-video offset per take. On 5 fixture takes with marker=1, taking flow marker onsets in the decoded video as ground truth, every decisive beat frame shows the expected marker state and the offset error is at most 0.2 s.",
+        "An interval mode samples the whole reel at a fixed spacing, 2 s by default, for the privacy review.",
+        "Its tests run without Codex, and their command is added to harness.mechanical_suite."
+      ],
+      "evidence": [],
+      "note": "Encoded-frame extraction is independently accepted and published as 93d4c51a1631df3c37b57fffc665f977b64e63a2. Original five-take timing experiment remains 0/5 at the unchanged 0.2-second target. ChatGPT independently accepted the offline negative finding: 118 checks and five original hash-matched replays reproduced 3/12 onset-band coverage, 6/12 marker matches, six immediately preceding selections and five unresolved revised mappings. Combined review timed out after suites and two replays; remaining three completed separately against unchanged bytes. Timing investigation closed for this iteration; automatic alignment unresolved/deferred. Experimental source/patches/hashes/reproduction are archived under runs/20260919-timing-reanalysis-f383 and separated from the supported skill. Original task status, acceptance and prerequisites remain open; see correspondence-validation.json."
+    },
+    {
+      "id": "T2.2",
+      "iteration": "2",
+      "title": "Make frame checks and the watch list part of delivery",
+      "why": "Frames only protect the reel if a missing decisive moment blocks delivery, and a timestamped list makes the owner's review short.",
+      "depends_on": [
+        "T2.1"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "Main instructions: after the media check, build the contact sheet, view it, and record per-beat verdicts in the evidence. A decisive beat that is not visible blocks delivery and leads to a retake or a diagnosis.",
+        "Delivery ends with a timestamped watch list, also saved in the evidence, and human_checkpoint_questions for a human viewer. The manual preflight watch instruction is removed, because the preflight's motion check already gates that property.",
+        "S1 in two runs: every decisive beat is marked visible in the evidence, and watch_list_timing passes.",
+        "S4 in two runs: decisive_value_missing returns fit_to_deliver false with broken_property decisive_value_not_visible, and truncated_before_result returns result_not_in_reel, each with time_seconds within 0.5 s of the seeded time. Baseline S4 is the fail-before evidence. Where baseline S4 already met this, apply standing rule 1."
+      ],
+      "evidence": [],
+      "note": "Frame-review/watch-list implementation published as 399e610d59e444fe0f6730ee7ef18dd0eaaeca39. Two fresh ordinary S1 deliveries independently accepted for six sampled findings and valid records/handoffs; no continuous watch or privacy clearance. Run 2 recovered from one preserved failed take; cause unresolved. Generic preflight was excluded by parent app-only setup and remains separate parent evidence; global unslop was read in both contexts. Explicit viewer-checkpoint questions absent from both responses and handoffs. Formal marker timing, S4 seeded defects, alignment/calibration and broader prerequisites stay open. Pending status and original criteria retained; see two-s1-validation.json. Assigned follow-up adds optional viewer-checkpoint questions to generated handoffs and response guidance; browser-free local proof only, uncommitted pending independent review. Unanswered questions do not change readiness or human-review coverage. See checkpoint-setup-validation.json."
+    },
+    {
+      "id": "T2.V",
+      "iteration": "2",
+      "title": "Verify iteration 2 in a fresh context",
+      "why": "The builder does not certify its own work.",
+      "depends_on": [
+        "T2.2"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "Following harness.iteration_verification, the patch, the verifier's verdict, and the next snapshot are saved, and the verdict passes."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T3.1",
+      "iteration": "3",
+      "title": "Gate the environment before capture",
+      "why": "Recording the wrong environment is where private data enters a reel.",
+      "depends_on": [
+        "T1.1"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "Main instructions require an environment that is local or a test instance, shows no production indicators such as banners, production domains, or realistic customer records, and is signed in with a test or demo account. They rule out recording through the browser tool's real-profile or attach-to-running-browser options. Otherwise the agent stops and asks. The environment is recorded in the evidence.",
+        "S3 in two runs: recorder_started is false, no reel is produced, and the final message asks the owner about the environment. Baseline S3 is the fail-before evidence. Where baseline S3 already met this, apply standing rule 1."
+      ],
+      "evidence": [],
+      "note": "Scoped environment-check guidance and browser-helper guard implemented, uncommitted pending independent review. Supplied invented observations cover eligible no-login/test/demo contexts, localhost production indicators, unknown provenance and personal/attached profiles. Blocked decisions do not call the recorder and preserve a failed take. Trusted bundled preflight remains separate from target-app eligibility; edit-only needs no new capture check. Eleven policy tests and accepted helper/evidence/delivery regressions pass locally. No live banner recognition or fresh child compliance claimed; two S3 runs and prerequisites remain unverified. See environment-validation.json."
+    },
+    {
+      "id": "T3.2",
+      "iteration": "3",
+      "title": "Review frames for private data before delivery",
+      "why": "Private data can appear between beats, such as a notification during navigation.",
+      "depends_on": [
+        "T2.1",
+        "T3.1"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "Main instructions: review interval frames and beat frames for names, emails, tokens, notifications, and internal URLs, then record the privacy block with finding times. Any finding blocks clean delivery and is surfaced with frame times.",
+        "S2 in two runs: privacy_findings_timing passes and no reel is delivered as clean. Baseline S2 is the fail-before evidence. Where baseline S2 already met this, apply standing rule 1.",
+        "S1 in two runs: no findings."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T3.V",
+      "iteration": "3",
+      "title": "Verify iteration 3 in a fresh context",
+      "why": "The builder does not certify its own work.",
+      "depends_on": [
+        "T3.2"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "Following harness.iteration_verification, the patch, the verifier's verdict, and the next snapshot are saved, and the verdict passes."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T4.1",
+      "iteration": "4",
+      "title": "Build a browser-free checker test suite",
+      "why": "Checker changes need fast tests, and the current behavior needs recording before it changes.",
+      "depends_on": [
+        "T0.4",
+        "T0.7"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "Uses synthetic clips and the seeded defect set, and runs in under a minute without a browser or Codex. Its command is added to harness.mechanical_suite.",
+        "Before any checker change, it records the current results as fail-before evidence for each missed case."
+      ],
+      "evidence": [],
+      "note": "Scoped browser-free audio, minimum-duration, and color-reporting tests are implemented and independently accepted. See audio-validation.json and duration-color-validation.json in dev/record-product-demo. Original seeded-defect and harness requirements remain outstanding; status and acceptance criteria remain unchanged."
+    },
+    {
+      "id": "T4.2",
+      "iteration": "4",
+      "title": "Add audio policy, separate durations, color range, and minimum length",
+      "why": "A trailer that lost its soundtrack, a truncated reel, or washed-out color should fail the check instead of reaching the owner.",
+      "depends_on": [
+        "T4.1"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "An audio policy of forbid, allow, or require, with audio decoded when present. The existing allow flag keeps working.",
+        "Picture and audio durations are reported separately, and a violation names the mismatch when they differ by more than one video frame.",
+        "A minimum duration option.",
+        "The report includes pixel format and color range, and full-range H.264 output is flagged.",
+        "silent_needs_sound, audio_outlasts_picture (with the correct message), truncated_before_result, and full_range_color are caught. The clean control and all fixture takes pass, and the frozen-tail negative control still passes its test.",
+        "Baseline scorecards are rescored with the new checker, and both versions are kept."
+      ],
+      "evidence": [],
+      "note": "The audio-policy/timing slice is published at d29e8104acf35a0e4b5d6f453437f7a0463083e6. The independently accepted minimum-duration/color-reporting slice is published at 845ba9ad869ff025626046419f0f2b7d0e7831da; see dev/record-product-demo/duration-color-validation.json. Full fixture checks and baseline scorecard rescoring remain outstanding; original acceptance criteria and task status remain unchanged."
+    },
+    {
+      "id": "T4.3",
+      "iteration": "4",
+      "title": "Detect freezes during logged motion",
+      "why": "Lost typing or gameplay can sit inside a valid 30 fps encode, and only the fixture preflight checks motion today.",
+      "depends_on": [
+        "T4.1",
+        "T2.1"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "Given a take record, it reports decoded freeze intervals and flags freezes that overlap typing, scrolling, or click-to-result windows. Freezes inside logged holds are not violations.",
+        "frozen_during_typing is caught, and at least 5 clean fixture takes pass.",
+        "Set D5 to open when this task starts. With folders from local.json, record the flagged count on past reels, and inspect and classify a sample of flags by frame. Validate detector changes against both real holds and seeded freezes, and loosen no threshold to reach a pass. If D5 is unanswered, record the past-reel check as not run.",
+        "S4 in two runs: frozen_during_typing returns fit_to_deliver false with broken_property freeze_during_motion and time_seconds inside the seeded freeze. Baseline S4 is the fail-before evidence. Where baseline S4 already met this, apply standing rule 1."
+      ],
+      "evidence": [],
+      "note": "Unresolved/deferred: driver-clock freeze correlation depends on automatic driver/video alignment, which the retained five-take experiment did not establish. Timing investigation closed for this iteration with the accepted negative finding; no freeze detector, recorder fork, instrumentation campaign or larger tolerance is authorized. Task acceptance and prerequisites are unchanged and unperformed."
+    },
+    {
+      "id": "T4.4",
+      "iteration": "4",
+      "title": "Verify the soundtrack edit path",
+      "why": "Game trailers are the second most common use, and sound is where their delivery checks are weakest.",
+      "depends_on": [
+        "T4.2"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "Post-production instructions use the audio require policy when the brief includes sound.",
+        "S5 in two runs: the delivered reel passes with audio required, picture and audio durations match within one frame, and the decoded picture frames equal the source's. The baseline S5 scorecard, rescored with the audio field, is the fail-before evidence. Where it already met this, apply standing rule 1."
+      ],
+      "evidence": [],
+      "note": "Required-audio delivery guidance is implemented and independently accepted with the audio packet. The original two S5 runs and decoded-picture comparison remain outstanding; this task stays pending."
+    },
+    {
+      "id": "T4.V",
+      "iteration": "4",
+      "title": "Verify iteration 4 in a fresh context",
+      "why": "The builder does not certify its own work.",
+      "depends_on": [
+        "T4.2",
+        "T4.3",
+        "T4.4"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "Following harness.iteration_verification, the patch, the verifier's verdict, and the next snapshot are saved, and the verdict passes."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "TH.2",
+      "iteration": "4",
+      "title": "Human checkpoint 2 on the improved reel",
+      "why": "Only a person can judge clarity and pacing, and this is the second of two planned asks.",
+      "depends_on": [
+        "T2.V",
+        "T3.V",
+        "T4.V"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "The owner gets the latest S1 reel path, its watch list, and human_checkpoint_questions.",
+        "not_collected is recorded in that run's scorecard in the same session, so this task finishes without waiting. Answers that arrive later go into the scorecard with a log entry comparing them with checkpoint 1."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T5.1",
+      "iteration": "5",
+      "title": "Add a driver template that imports the helpers from the installed skill",
+      "why": "Each browser run writes its driver from scratch, so takes vary and effort is wasted.",
+      "depends_on": [
+        "T2.2"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "A runnable template covering setup, rehearsal, take, beats, and evidence, showing how to import the helpers from the skill's installed location. It takes the app URL, selectors, and values as inputs and holds no app-specific content.",
+        "A dev test supplies the invoice fixture's values without editing the template and produces a take that passes the checker, with a valid evidence file. Its command is added to harness.mechanical_suite.",
+        "S1 in two runs: the transcript shows the template in use, and no scorecard field regresses.",
+        "Baseline S1 transcripts give before values for takes attempted before a passing take and for run duration. The after values are recorded beside them."
+      ],
+      "evidence": [],
+      "note": "Reusable starter independently accepted and published as 0aff4af635f25dc1a1129448c2742d3cf1f0b1ab. Direct fixture proof and qualified independent reproduction recorded in driver-template-validation.json; original fresh-agent template-adoption and comparative-effort criteria remain open. No reduced-time claim."
+    },
+    {
+      "id": "T5.2",
+      "iteration": "5",
+      "title": "Write a take record when the recorder fails to start",
+      "why": "A start failure is a recording problem, and it currently leaves nothing to diagnose.",
+      "depends_on": [
+        "T0.7"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "A helper test with a stubbed recorder whose start raises fails before the change and passes after it, and the take record marks the start failure."
+      ],
+      "evidence": [],
+      "note": "Scoped recorder-start correction independently accepted and published at 7a9a607b10ad1772de891db74de03d19ad54fd2d; see dev/record-product-demo/recorder-start-validation.json. Independent review passed seven helper checks and record/patch/hash proof, but did not complete its unchanged media suite or report live-browser checks. Those results remain builder evidence. T0.7 and broader scenario/harness prerequisites remain outstanding; original status and criteria are unchanged."
+    },
+    {
+      "id": "T5.3",
+      "iteration": "5",
+      "title": "Remove app-specific and machine-specific defaults from shared helpers",
+      "why": "The focus ring reads one app's CSS variable, and the tool lookup assumes Homebrew's path.",
+      "depends_on": [
+        "T0.2",
+        "T0.7"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "A search of the shared helpers for app-specific variables and machine-specific paths lists the matches before the change. After the change it finds none, except the Homebrew fallback where T0.2 showed Codex runs need it, with the reason in the technique manifest limits.",
+        "The bundled helper tests pass."
+      ],
+      "evidence": [],
+      "note": "Scoped helper-portability slice implemented and awaiting ChatGPT review; see dev/record-product-demo/helper-portability-validation.json. Default ring color is independent of the app accent, with explicit override retained. Working pilot evidence resolved all tools through PATH, so implicit Homebrew lookups were removed while overrides and PATH/Homebrew discovery remain supported. Missing-tool diagnostics and focused simulated lookup/rendered tests pass locally. T0.2/T0.7, original status, and acceptance criteria remain unchanged; no complete scenario/harness claim."
+    },
+    {
+      "id": "T5.V",
+      "iteration": "5",
+      "title": "Verify iteration 5 in a fresh context",
+      "why": "The builder does not certify its own work.",
+      "depends_on": [
+        "T5.1",
+        "T5.2",
+        "T5.3"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "Following harness.iteration_verification, the patch, the verifier's verdict, and the next snapshot are saved, and the verdict passes."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T6.1",
+      "iteration": "6",
+      "title": "Rewrite the instructions as decision rules",
+      "why": "The instructions hold many sentences saying one thing does not prove another. Once checks cover them, rules serve the agent better.",
+      "depends_on": [
+        "T2.2",
+        "T3.2",
+        "T4.3",
+        "T5.1"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "Every sentence in the instructions and technique manifest that says one thing does not prove, establish, or certify another is listed as the before state, together with the search used to find them. The review found 16 with a narrow search and 17 with a broader one. Each is either deleted because a check now covers it or folded into one statement of what counts as proof, and the list with each disposition is saved as evidence.",
+        "Authoring residue is removed: the Tock title, the check-and-deliver step reference, and the undefined story technique. The skill-experiment protocol moves to dev docs.",
+        "The description names video, screen recording, web apps and games, and the prerequisites. The README catalog matches it, edited without disturbing other writers' changes.",
+        "The Codex permission need found in T0.2 is documented.",
+        "Every command in harness.mechanical_suite passes, S1 to S5 run twice each with no scorecard regression, and `npx skills add . --list` shows the new description."
+      ],
+      "evidence": [],
+      "note": "Scoped supported-workflow guidance independently accepted by ChatGPT, relayed by Drew, and published under standing authority; accepted patch SHA-256 0ffadfaf22474469ba143080cf28ddcfba5f0254890c169c02aa2e7b2a3a74e8. See dev/record-product-demo/supported-guidance-validation.json and guidance-disposition.md. Runtime/schema/thresholds and installed skill unchanged. Unknown driver alignment remains unknown; observed final-output video times remain usable. Original repeated S1-S5, full mechanical-suite and full-plan verification prerequisites remain unperformed; dependencies/status/acceptance unchanged. Next assigned packet verifies a frozen published export and produces an uncommitted integration/readiness summary; no new capture/model calls."
+    },
+    {
+      "id": "T6.V",
+      "iteration": "6",
+      "title": "Verify iteration 6 in a fresh context",
+      "why": "The builder does not certify its own work.",
+      "depends_on": [
+        "T6.1"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "Following harness.iteration_verification, the patch, the verifier's verdict, and the next snapshot are saved, and the verdict passes."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T7.1",
+      "iteration": "7",
+      "title": "Log friction during recording and maintain only in the source repository",
+      "why": "Maintenance today edits whatever copy the agent loaded, so improvements never reach the published skill, and demo runs are invited to edit the skill mid-task.",
+      "depends_on": [
+        "T6.1"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "S6 first runs on the skill before this task's change, and any modification of the workspace skill copy is saved as fail-before evidence. Where that run already met the criteria below, apply standing rule 1.",
+        "The skill's maintenance guide sends toolkit changes to a git checkout of the source repository and ends in a commit or pull request there. With no checkout available, it saves a patch and marks the toolkit status blocked. Recording runs only record friction, and the Codex launch prompt says record, not resolve.",
+        "S6 in two runs after the change: friction_logged is true, and skill_copy_modified is false."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T7.V",
+      "iteration": "7",
+      "title": "Verify iteration 7 in a fresh context",
+      "why": "The builder does not certify its own work.",
+      "depends_on": [
+        "T7.1"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "Following harness.iteration_verification, the patch, the verifier's verdict, and the next snapshot are saved, and the verdict passes.",
+        "D4 is set to open after the passing verdict."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "TF.1",
+      "iteration": "F",
+      "title": "Final verification",
+      "why": "Confirms the iterations hold together and gives the owner the before and after results.",
+      "depends_on": [
+        "T1.V",
+        "T2.V",
+        "T3.V",
+        "T4.V",
+        "T5.V",
+        "T6.V",
+        "T7.V",
+        "TH.2"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "Every command in harness.mechanical_suite passes, and S1 to S6 pass in two runs each.",
+        "A fresh-context verifier reviews the cumulative patch against runs/snapshots/iteration-0-start/, all acceptance criteria, and standing_rules, with read access to the cited run folders, and its verdict is saved.",
+        "The owner gets a plain-language summary with each scorecard field before and after."
+      ],
+      "evidence": [],
+      "note": ""
+    },
+    {
+      "id": "T7.2",
+      "iteration": "F",
+      "title": "Align the installed Codex copy with the repository",
+      "why": "The hand-placed copy does not receive repository changes.",
+      "depends_on": [
+        "T7.V"
+      ],
+      "requires_decisions": [
+        "D4"
+      ],
+      "status": "pending",
+      "acceptance": [
+        "The install the owner chose in D4 is in place.",
+        "`codex debug prompt-input` lists record-product-demo exactly once."
+      ],
+      "evidence": [],
+      "note": ""
+    }
+  ],
+  "log": [
+    {
+      "at": "2026-09-17T15:30:00",
+      "entry": "Plan created from the skill review. Order follows impact on the delivered reel: evidence file, beat frames and watch list, privacy and environment, media checker, then helpers, instructions, and the maintenance loop. T0.7 re-ranks after the baseline."
+    },
+    {
+      "at": "2026-09-17T16:10:00",
+      "entry": "Revised after a fresh-context check. All skill changes now wait for the baseline, and the baseline copies the skill from the baseline commit. Iterations are served in order and end in verify tasks. Scenario properties need two passing runs, S4 returns structured verdicts, the freeze case moved to the freeze detector, past-reel access became decision D5, and the plan tool refuses premature done states, answers without text, and home-folder evidence paths."
+    },
+    {
+      "at": "2026-09-17T16:50:00",
+      "entry": "Revised after a second fresh-context check. Added iteration 0 verification and a starting snapshot, verifier access to cited runs, reordering within dependency constraints, a local fixture trial for permissions, scorecard fields for stopped runs, finding times, watch list timing, and friction, a per-criterion baseline rule, a same-session human checkpoint, neutral S4 case ids in workspaces outside the repository, README hunks in patches, and tool support for reopening tasks, dropping tasks when a decision is withdrawn, refusing held tasks, and rejecting home-folder paths anywhere in the plan."
+    },
+    {
+      "at": "2026-09-17T17:40:00",
+      "entry": "Revised after a third fresh-context check, which confirmed the earlier fixes. Reopened tasks now retire their evidence, resets that reach other iterations need owner sign-off, snapshots are never overwritten, already-met expectations stay in the final check, S6 uses a rich-text editor the typing helper cannot handle, T0.2 never tries a run with sandbox and approvals disabled, and the home-folder path check no longer flags relative folders or local URLs named home."
+    },
+    {
+      "at": "2026-09-18T18:25:25.316183+00:00",
+      "entry": "Standing authorization and packet sequence updated by the owner; D1 is answered. The scoped audio implementation and padding-test correction are independently accepted and authorized for publication. ChatGPT remains the independent reviewer and chooses subsequent packets. Preserve implemented/reviewed/published/merged/installed distinctions. No larger T4 task or acceptance criterion is closed or weakened."
+    },
+    {
+      "at": "2026-09-18T18:34:01.620253+00:00",
+      "entry": "Accepted audio packet published at d29e8104acf35a0e4b5d6f453437f7a0463083e6 and PR #2 title/body verified. Minimum-duration and color-reporting slice implemented with 17 passing browser-free tests, a passing healthy/frozen control, and both invoice reels checked against their own briefs. Full-range H.264 is reported by default; reject-full-range is an explicit compatibility policy, not a claim of visible color error. This slice stays uncommitted pending ChatGPT review. All original task statuses and acceptance criteria are unchanged."
+    },
+    {
+      "at": "2026-09-18T18:59:02.802314+00:00",
+      "entry": "ChatGPT independently accepts minimum-duration/color reporting for publication: 14 packaged cases and 17 tests under FFmpeg/ffprobe 7.1.5, plus healthy/frozen preflight and both invoice reel properties. Builder FFmpeg 8.0 evidence remains separate. Implementation/test/guidance bytes match the accepted package. T4.1/T4.2 stay pending with their full original harness, seeded-defect, fixture, and scorecard requirements. The next assigned packet is only T5.2 recorder-start failure evidence; it remains uncommitted until independent acceptance."
+    },
+    {
+      "at": "2026-09-18T19:05:14.699997+00:00",
+      "entry": "Accepted minimum-duration/color slice published at 845ba9ad869ff025626046419f0f2b7d0e7831da; remote and PR #2 head verified. The assigned T5.2 correction now records recorder-start failure with requested output/fps, unknown timing, empty events/recorder facts, and the original exception. Saved fail-before/pass-after stub results, seven browser-free helper checks, the complete 17-test media suite, 20 helper checks with isolated Chrome, and fresh successful preflight plus healthy/frozen controls. This new correction stays uncommitted pending ChatGPT review. No original task status, dependency, or acceptance criterion changed; no child Codex calls, merge, installation, or next packet."
+    },
+    {
+      "at": "2026-09-18T20:17:32.115151+00:00",
+      "entry": "Recorder-start correction independently accepted for publication from Drew's relayed review: seven deterministic helper checks, before/after record behavior, exception identity, successful compatibility, six-file patch, hashes, and plan validation. Independent combined media run reached an execution limit; no fresh media-suite or live-browser pass is claimed for that review. Publish the accepted bytes, then implement only the assigned T5.3 portability slice for review. Standing D1 authority applies; original task prerequisites/statuses/acceptance remain unchanged."
+    },
+    {
+      "at": "2026-09-18T20:26:06.555717+00:00",
+      "entry": "Recorder-start packet published at 7a9a607b10ad1772de891db74de03d19ad54fd2d, reviewed bytes and remote/PR head verified. Assigned T5.3 portability slice implemented locally: one focus-color expression changed; browser/media tool discovery now uses overrides/PATH with actionable missing-tool errors. Retained successful pilot evidence found Homebrew tools through PATH, with no demonstrated fallback-only need. Before/after rendered screenshots and mock lookup evidence preserved. Local checks: 11 lookup tests, seven accepted recorder checks, 23 full helper checks, 17 media tests, preserved-preflight healthy/frozen control, discovery, and plan validation. Portability stays uncommitted for independent review; all original task prerequisites, statuses, and criteria remain unchanged."
+    },
+    {
+      "at": "2026-09-18T20:48:58.093199+00:00",
+      "entry": "ChatGPT independently accepts helper portability: all three screenshot pairs, 11 executable-selection tests, seven recorder checks, all 17 media tests in one FFmpeg/ffprobe 7.1.5 execution, preserved healthy/frozen control, plan validation, 126 payload hashes, and ten-file patch. Live 23-check browser result remains builder/macOS evidence. Publish accepted bytes with explicit PATH prerequisite; next assigned packet is only T1.1 evidence template, validator, guidance, and faithful copied examples. Original task statuses, dependencies, scenario/harness prerequisites, and acceptance criteria remain unchanged."
+    },
+    {
+      "at": "2026-09-18T20:56:51.628664+00:00",
+      "entry": "Accepted helper portability published at 37f515932c070fa6e450c937dc930d72918a690c; seven implementation/test/guidance file hashes match the reviewed candidate and remote/PR head verified. Assigned T1.1 packet adds a versioned fixed-name evidence record and browser-free validator with faithful copied baseline/clarity examples. Raw take schemas and checker reports are preserved; driver clocks, encoded source/output timelines, warnings, review gaps, and structural validity stay distinct. New packet remains uncommitted pending ChatGPT review. No original task status, dependency, or acceptance criterion is completed or weakened; no additional child calls, merge, installation, or new reel."
+    },
+    {
+      "at": "2026-09-18T21:28:26.497311+00:00",
+      "entry": "ChatGPT independently reproduced the initial evidence-file packet: 21 evidence tests, seven recorder checks, 11 executable-selection tests, both examples, six invalid rejections, legacy rejection, plan validation, 164 payload hashes, and ten-file patch. Review found one attribution correction: ChatGPT authored the visual assessments and preferred-sample recommendation; Drew relayed them. Converted examples now record direct human viewing results as uncollected, keep recording-agent and independent-agent inspections distinct, and separate sample selection from viewing evidence. Local correction checks pass: 22 evidence tests, both corrected examples and their references, explicit attribution assertions, and a focused negative control. Raw evidence, prior ZIPs, runtime, and installed skill are preserved. Slice remains uncommitted pending review; original T1.1 criteria and scenario prerequisites remain unverified."
+    },
+    {
+      "at": "2026-09-18T21:46:28.227647+00:00",
+      "entry": "ChatGPT independently accepts the evidence-file slice and closes its attribution finding: all 22 evidence tests in one packaged run, both corrected examples and attribution assertions, six invalid rejections, legacy rejection, false-human-viewing negative control, 231 hashes, full 11-file patch and 24-file correction patch. Prior-package comparison confirms validator, accepted runtime, raw evidence and reels unchanged. Publish accepted bytes. Original T1.1 two independent S1 runs and other prerequisites remain open. Next assigned packet is only T2.1 encoded-video extraction/index/contact sheets with interval sampling; alignment estimation and five-take calibration remain unverified."
+    },
+    {
+      "at": "2026-09-18T21:55:57.563480+00:00",
+      "entry": "Accepted evidence-file packet published at 56054c3e92184120782c8c4f1b1286153cc7ee86. Eight implementation/test/guidance/template/fixture hashes match the accepted package; remote branch and PR head verified. Assigned T2.1 slice extracts beat midpoint frames and two-second interval samples from encoded presentation timestamps with explicit missing/unresolved targets, native PNGs, sheets, source hashes and sampling coverage. Copied baseline/clarity evidence, original takes/edit maps/reels and reviewer attribution stay unchanged. New slice remains uncommitted for ChatGPT review. Original task statuses, acceptance and dependencies remain open; no alignment calibration, scenario harness, privacy detector, new capture/edit, merge or install."
+    },
+    {
+      "at": "2026-09-18T22:26:06.321872+00:00",
+      "entry": "ChatGPT independent review supports encoded-frame behavior and visual outputs under FFmpeg/ffprobe 7.1.5 and Pillow 12.3.0: both reels and all 29 selected frames, five supplied synthetic scenarios, 22 evidence tests, seven recorder checks, 11 tool-selection tests, plan, 301 hashes and nine-file patch passed. Full fixture regeneration had 13 passes and two errors because offset/edit clips lacked decoded final-frame duration. Generator now restores explicit four-fps duration after those two timestamp transforms; early fixture sanity and full RGB-content checks added. Runtime unknown-duration rejection and prior controls remain unchanged. Local FFmpeg 8.0 extraction suite passes 17 tests; correction awaits independent 7.1.5 regeneration. No task completion, publication, recording/edit, child call, merge or installation."
+    },
+    {
+      "at": "2026-09-18T22:50:26.107372+00:00",
+      "entry": "ChatGPT independently accepts encoded-frame slice and closes fixture-portability finding. Complete one-execution reproduction on FFmpeg/ffprobe 7.1.5, Python 3.13.5, Pillow 12.3.0 passes 17 extraction tests, 22 evidence tests, seven recorder checks, 11 tool-selection tests, plan, five synthetic scenarios and both copied deliveries. Corrected fixtures have explicit 0.25-second final duration and expected timestamps/RGB; earlier durationless fixtures remain rejected. All 327 hashes and both patches pass; actual prior comparison confirms only generator/tests and two records changed. Publish accepted slice. Next assigned T2.2 packet is frame findings and watch-list delivery integration only; original alignment/calibration and repeated S1/S4 criteria remain open."
+    },
+    {
+      "at": "2026-09-18T16:01:39",
+      "entry": "Published independently accepted encoded-frame slice as 93d4c51a1631df3c37b57fffc665f977b64e63a2; implementation/test/guidance bytes match accepted full patch 6f54c22c413d60e9b0d8e3859e6475da5945e470a1cefe067d06370ed7663b7f, remote and PR heads verified. T2.2 assigned slice adds per-decisive-beat findings and watch-list handoff on copied preserved deliveries, with browser-free local proof. New slice remains uncommitted pending ChatGPT review. No original acceptance criteria or task status changed; no alignment, repeated agent runs, harness, merge or installation."
+    },
+    {
+      "at": "2026-09-18T17:07:43",
+      "entry": "ChatGPT independent acceptance, relayed by Drew: frame-review/watch-list candidate patch 2c11447e4da66824910bd4319504d33ed1be07a891d81d74d3fa6bd0ccd9d112 accepted without correction. Full reproduction passed under FFmpeg/ffprobe 7.1.5, Python 3.13.5, Pillow 12.3.0; six sampled findings supported without continuous/privacy clearance. Publish accepted ten-file packet; keep original task criteria open. Next assigned packet is two fresh ordinary S1 child runs using one frozen published skill revision. At most two new child Codex invocations, failed invocations count, cumulative cap six; no parent coaching, retrospective repairs, extra delegation or fixes. Stop at independent-review handoff."
+    },
+    {
+      "date": "2026-09-18",
+      "entry": "Published accepted frame-review/watch-list slice as 399e610d59e444fe0f6730ee7ef18dd0eaaeca39. Seven implementation/test/guidance files match accepted candidate; remote branch and PR head verified. Beginning only the authorized two fresh S1 invocations against frozen published skill tree d2f6fc3d4159131152f5d16607e5cc74e800b9571eff7b8ffaffafc15dec3919. Parent localhost/preflight setup passed with separate Chrome sandboxed profile. No prior reels or completed evidence exposed to children; no skill changes authorized during experiment.",
+      "at": "2026-09-18"
+    },
+    {
+      "date": "2026-09-18",
+      "entry": "Completed the authorized two fresh ordinary S1 child invocations on the same published 399e610 skill (26 frozen files each), using existing ChatGPT route and per-run approvals. Both deliver actual reels, evidence, three supported decisive findings, approximate watch lists and review ZIPs. Local parent media/evidence/readiness and sampled-frame checks pass without repairs. Second child preserved a failed no-stream take record and recovered by restarting only its owned browser; root cause remains unproven. New invocations 2/2, cumulative 6/6; stop at independent review. No source fixes, earlier reel edits, merge or install. T1.1 two valid ordinary-run records observed locally; formal S1 marker checks, T2.2 watch_list_timing/S4, alignment/calibration and harness criteria remain open. See two-s1-validation.json.",
+      "at": "2026-09-18"
+    },
+    {
+      "at": "2026-09-19T03:21:36.308127+00:00",
+      "entry": "ChatGPT independent acceptance relayed by Drew: observed integrated two-run S1 outcome accepted without another recording. Both media/evidence/reference/handoff checks pass in one FFmpeg/ffprobe 7.1.5 recheck; independently extracted 18 frames support six sampled findings; 351 hashes and reconstructed 26-file skill tree match 399e610. Child files unchanged. Record the demonstrated T1.1 two-run evidence-generation criterion, not whole-task completion. Qualifications retained: generic preflight excluded by parent app-only rule; global unslop read by both children (item_3, source line 8); run 2 recovered from a preserved failure with unresolved cause; no explicit viewer questions in responses/handoffs. Publish records only. Next assigned correction is optional viewer questions and accurate local setup/skill-isolation guidance, with browser-free checks only. No further child/model calls; six cumulative, zero remaining."
+    },
+    {
+      "at": "2026-09-19T03:26:57+00:00",
+      "task": "T2.2",
+      "note": "Published independently accepted two-S1 experiment records as 8b5564e7f7b82f64f6a95a7df59295a55b66bc81; remote branch and PR head verified. Implemented only assigned optional-question and local setup correction, pending independent review. Twenty delivery tests and 22 evidence tests pass locally; no new browser, recording, media-suite run or child/model invocation. Historical child evidence unchanged; no whole task completed.",
+      "entry": "Published independently accepted two-S1 experiment records as 8b5564e7f7b82f64f6a95a7df59295a55b66bc81; remote branch and PR head verified. Implemented only assigned optional-question and local setup correction, pending independent review. Twenty delivery tests and 22 evidence tests pass locally; no new browser, recording, media-suite run or child/model invocation. Historical child evidence unchanged; no whole task completed."
+    },
+    {
+      "at": "2026-09-18T20:59:30",
+      "entry": "ChatGPT independently accepts optional viewer questions/setup correction, with exact three-field log compatibility repair. Reviewed candidate bcf9c60e5abcf829fd46e362fe4182122fb2a0925956f3d015c0f467560521e8 matches implementation/test/guidance bytes; local validate/status/next pass. Original task status, criteria and evidence retained. Authorized publication followed only by scoped T3.1 environment check; no additional child/model invocations."
+    },
+    {
+      "at": "2026-09-18T21:07:13",
+      "entry": "Published accepted optional-question/setup correction and exact log-field repair as b0201bb310f36b841e1a55204d630bfa27684d55; remote PR head verified and validate/status/next pass. Implemented only assigned T3.1 environment-check slice. Supplied-observation guard tests and recorder/tool/evidence/delivery regressions pass; blocked cases cannot start recorder. No live recognition, production access, new reel or extra child/model invocation. Leave candidate uncommitted for independent review; whole tasks and original two-S3-run criterion remain open."
+    },
+    {
+      "at": "2026-09-18T21:27:20",
+      "entry": "ChatGPT independently accepts the scoped environment-check implementation: 11 environment, seven recorder, 11 tool-selection, 22 evidence and 20 delivery tests plus validate/status/next in one Python 3.13.5 / FFmpeg 7.1.5 reproduction. All 134 hashes and the 15-file patch pass. Supplied-observation enforcement only; no live recognition or fresh child compliance. Accepted candidate bytes verified locally for publication. Original two-S3-run criterion and all task criteria/status remain open. Next assigned work is only T3.2 sampled privacy review and handoff; cumulative child/model use six, no new invocations."
+    },
+    {
+      "at": "2026-09-18T21:36:42",
+      "entry": "Published accepted environment-check slice as af6fc7221a2ac291403aa91a0ca87ebb64f955d6; remote branch and PR head verified, reviewed bytes match. Implemented only T3.2 sampled privacy review/handoff. Fourteen privacy, 22 evidence, 20 delivery, 17 extraction, 11 environment, seven recorder and 11 tool-selection checks pass locally. Actual builder inspection of invented synthetic samples records a 2s notification and a separate 3s coverage-gap follow-up. Supplied-finding enforcement and visual observations are distinct; no continuous view, privacy clearance or fresh child compliance. Original repeated S1/S2 and two-S3 criteria and all task statuses remain open. Leave this slice uncommitted for independent review; cumulative child/model use six."
+    },
+    {
+      "at": "2026-09-18T22:32:43",
+      "entry": "ChatGPT independently accepts sampled privacy review; all 102 candidate checks pass across bounded Python 3.13.5 / FFmpeg 7.1.5 executions (initial combined command timed out after recorder checks; remaining checks completed separately on unchanged bytes). Three synthetic cases, six record/handoff comparisons, 344 hashes, ten-file patch and original skill tree pass. Independent image inspection supports the synthetic sampling-gap examples only. Accepted candidate bytes verified for publication. Next assigned packet is only T7.1 recording versus explicitly authorized source maintenance. Keep repeated S1/S2, two-S3, S6 child-run and all unperformed criteria open; no new child/model calls."
+    },
+    {
+      "at": "2026-09-18T22:44:23",
+      "entry": "Published independently accepted sampled-privacy slice as a3d272d8e995f268b7fa19fc47977bd79d1cbe65; remote branch and PR head verified. Implemented only T7.1 recording/source-maintenance guidance and existing-toolkit handoff reporting. Eight new handoff, 22 evidence, 20 delivery, 14 privacy, 11 environment and seven recorder checks pass locally. Four new metadata examples retain prior synthetic evidence and unchanged readiness decisions; source proposals and locally tested candidates are not installed improvements. No fresh-agent compliance, new viewing, recording or child calls. Original S6 before/after runs and all task criteria/status remain open. New slice stays uncommitted for independent review; cumulative child/model use six."
+    },
+    {
+      "at": "2026-09-19T08:50:35",
+      "entry": "ChatGPT independently accepts the scoped recording/maintenance boundary: one Python 3.13.5 / FFmpeg-ffprobe 7.1.5 / Pillow 12.3.0 reproduction passed 82 checks, four example comparisons and plan validate/status/next. All 310 hashes, ten-file patch and original source tree match. Readiness/blockers, attribution and optional questions preserved; no fresh S6 compliance or viewing claimed. Reviewed candidate bytes verified for publication. Next assigned work is only T5.1 reusable recording driver starter and direct invented invoice proof; no additional child/model invocations, cumulative six. Original task criteria/status remain open."
+    },
+    {
+      "at": "2026-09-19T09:05:53",
+      "entry": "Published accepted maintenance boundary as fb162ebe44da5d021f7cdc7ad13a6d033b941ab1; remote and PR head verified, reviewed bytes matched. Implemented only T5.1 recording starter with explicit selected-skill imports, task JSON inputs, environment checks for rehearsal/take, existing failure records, owned-session cleanup and truthful initial evidence. 95 browser-free checks pass locally. Direct invented fixture proof: first rehearsal 6.9s correctly failed unchanged 8s minimum; task-input holds adjusted, second rehearsal 8.933333333333334s and take 8.9s pass media and structural evidence checks. Original records/reels retained; sampled builder inspection separate, no automatic clock alignment. App-specific content stays in dev fixtures. Test/direct-proof commands appended to mechanical_suite only. Original child-run adoption/S6/comparative effort and all task statuses remain open. No new child/model calls; cumulative six. New slice uncommitted for independent review."
+    },
+    {
+      "at": "2026-09-19T10:05:09",
+      "entry": "ChatGPT independently accepts the reusable recording starter: 95 browser-free checks, all three expected media outcomes, valid evidence and identical diagnostic handoffs, exact driver/helper identities, final extraction of 18 frames with four unresolved beats, all 304 hashes and eleven-file patch. Independent Python 3.13.5/FFmpeg-ffprobe 7.1.5/Pillow 12.3.0 combined reproduction reached an execution limit; final extraction and remaining assertions completed separately. Sampled review supports direct fixture proof, not continuous viewing, privacy clearance, fresh-agent adoption or reduced effort. Publish accepted bytes. Next assigned T2.1 packet is per-take driver/video correspondence and at most five direct calibration takes on one frozen candidate; preserve failures. Original adoption/comparative effort and other task criteria remain open. No new child/model calls; cumulative six."
+    },
+    {
+      "at": "2026-09-19T10:24:09",
+      "entry": "Published independently accepted starter as 0aff4af635f25dc1a1129448c2742d3cf1f0b1ab; reviewed bytes, remote branch and PR head verified. Assigned per-take correspondence packet used exactly five direct local takes on one frozen capture candidate, no child/model calls (cumulative six). Original calibration target failed on all five: four fitted offsets have <=0.2s held-out errors but early decisive marker frames; one take has incompatible anchor bounds and stays unresolved. Preserve all originals, proposals, failure measurements and separately attributed sample inspection. After capture corrected only copied watch-target bookkeeping plus a focused test; mapping arithmetic, capture source, recordings, selections and failed results unchanged. 105 focused/affected browser-free checks and final diagnostic records pass; no claim of reliable automatic alignment, continuous viewing, privacy clearance or fresh-agent adoption. T2.1 and original prerequisites remain pending. New timing slice uncommitted; stop at review ZIP, no merge or install."
+    },
+    {
+      "at": "2026-09-19T11:10:38",
+      "entry": "ChatGPT independently reproduced the negative five-take timing experiment and accepts its 0/5 finding, not the shared timing feature. Review passed 105 browser-free tests, five saved-media checks, ten evidence records, five diagnostic handoffs, 658 hashes and the twelve-file patch across bounded executions. Original observations, mappings, frame indices and errors reproduced. Publish scoped records only; no shared correspondence source or supported-technique claim. Investigate DOM-event versus encoded-frame uncertainty offline on the same recordings with focused synthetic controls; no additional captures or child/model invocations. Original criteria and six cumulative child uses remain unchanged."
+    },
+    {
+      "at": "2026-09-19T11:31:04",
+      "entry": "Published accepted negative timing experiment records only as 608d2321b9cdb5e87b8bad96a056febe097bec5b; remote/PR head verified, published skill tree unchanged. One frozen offline method replayed all five retained recordings without capture or model calls. The old evaluator conflated DOM mutation with first encoded showing frame: coverage 3/12, selected marker matches 6/12, six selections exactly preceding. Version-matched recorder source ignores source-image metadata timestamps and may queue/repeat/backfill output slots; no defensible DOM-to-video bound is retained. Revised reports keep all five mappings and fifteen held-out event timings/selections unresolved, with encoded observations retained separately. Synthetic known-clock/phase/short-state controls and 118 browser-free tests pass; five original records validate with diagnostic handoffs. Original 0/5 target, criteria and all failed outputs unchanged. New correction uncommitted for independent review; no supported technique, drift model, capture campaign, merge or install."
+    },
+    {
+      "at": "2026-09-19T12:13:47",
+      "entry": "ChatGPT independently accepts the offline negative timing finding and closes this investigation for the current iteration. Python 3.13.5, FFmpeg/ffprobe 7.1.5 and Pillow 12.3.0 passed 118 checks, five original hash-matched replays, evidence/handoffs, all 442 payload hashes and both patch reconstructions. Combined execution timed out after suites/two replays; remaining three completed separately on unchanged bytes. Original 0/5 outcome, five attempts, 0.2-second target and earlier measurements are unchanged. Experimental sources/patches/hashes/reproduction preserved in the existing run archive and unpublished additions separated from the supported working skill. Automatic alignment and dependent driver-clock freeze correlation remain unresolved/deferred. Publish records only; next assigned T6.1 packet consolidates supported guidance, with original repeated-scenario/full-plan prerequisites open. No new capture/model call, merge or install."
+    },
+    {
+      "at": "2026-09-19T12:24:00",
+      "entry": "T6.1 supported-workflow guidance slice prepared for independent review against published c4edab72. Documentation only: browser/gameplay/edit-only routes, original capture/media/privacy/review/maintenance boundaries and optional feedback retained; direct encoded-video inspection does not require driver-clock alignment. Local documentation/interface checks and 95 affected browser-free checks pass. No new capture, media campaign, alignment feature, child/model call, merge or installation. Repeated S1-S5, full mechanical-suite and full-plan criteria remain open. New slice remains uncommitted."
+    },
+    {
+      "at": "2026-09-19T14:04:02",
+      "entry": "ChatGPT independently accepts the supported-workflow guidance, relayed by Drew; accepted patch SHA-256 0ffadfaf22474469ba143080cf28ddcfba5f0254890c169c02aa2e7b2a3a74e8. Reviewer confirmed the repeated handoff ZIPs are byte-for-byte identical. Publish the accepted scoped guidance and records without another review or duplicate package. Original task prerequisites remain open. Next: clean-source integration/readiness from the frozen published revision, using existing browser-free suites and preserved preflight; no new capture/model invocation, merge or install."
+    },
+    {
+      "at": "2026-09-19T14:10:57",
+      "entry": "Clean-source integration at published 7a63336db222cac9927b5dd189881568a7d1806b: 140 supported browser-free checks across ten suites and three preserved healthy/frozen preflight assertions pass from a standalone exported skill with explicit documented dependencies. Local packaging, imports, entrypoints, manifest/catalog metadata, discovery and plan commands pass. Initial missing Pillow/offline-cache attempts retained separately from passing checks. One default launch-prompt conflict with recording-versus-maintenance guidance has a one-phrase uncommitted correction. Readiness summary and correction await independent review; original criteria remain open, alignment/driver-clock freeze correlation remain deferred. No new capture/model invocation, merge or installation."
+    },
+    {
+      "at": "2026-09-19T18:50:34",
+      "entry": "ChatGPT independently accepts clean-source integration and the one-phrase launch-prompt correction, relayed by Drew; accepted patch bb24f82e5f8effc16b9a0e2fd9dc50ea26cb4f126405be14db93bbb8190d8b9a. All 140 supported checks, three saved-preflight assertions, packaging checks, 193 hashes, four-file patch and published/candidate plan commands passed. On Linux the supplied reproducer omitted sibling pillow.libs; initial failure and timed-out attempt were retained. Full review passed only after the reviewer supplied the complete existing dependency in a task-only Python environment (Python 3.13.5, FFmpeg 7.1.5, Pillow 12.3.0); no claim that the original command passed unchanged. Publish accepted correction/records; original scenario/full-plan criteria stay open. Next authorized packet prepares current main reconciliation in a separate worktree, uncommitted for review; no rebase, force-push, merge of PR, capture/model call or install."
+    },
+    {
+      "at": "2026-09-19T18:56:22",
+      "entry": "Published independently accepted launch-prompt correction and clean-source records at 8578f561e2f017562b13de97efba38297c22ab2f; remote head verified. Fresh main 8af28a53ac2b4d5820281b08e0e0519f61c330b5 integrated in a separate task-owned worktree with no commit; actual conflict only README.md. Proposed catalog resolution preserves main Build Orchestrator additions and reviewed recording description. All 35 recording-skill files and four main additions retain exact identities; seven-skill discovery, 67 local links, 44 manifest references and plan commands pass. Accepted runtime/preflight results retained, not rerun. Packet-only link-checker correction and initial failure preserved. Reconciliation remains uncommitted for independent review; tasks, original criteria, decisions and deferred alignment/freeze correlation unchanged. No PR merge, rebase, force-push, child/model call, capture or installation."
+    },
+    {
+      "at": "2026-09-20T00:41:25",
+      "entry": "ChatGPT independently accepts branch reconciliation, relayed by Drew: one offline reproduction, identical patch/merge tree dda651b3cbf8261e80791be4366589ff79628df5, README-only conflict and all three stages, 35 recording files, four main additions, 95 other PR files, 72 hashes, seven catalog entries, 67 links, 44 manifest references, whitespace and plan commands passed. CLI discovery was not independently rerun; runtime acceptance retained by exact identity, not new tests. Remote tips matched reviewed parents; normal merge cf779e95769170e6b6e9e124a6987631aaeabf02 preserves those parents and exact tree, was pushed and verified. GitHub observed OPEN/MERGEABLE/CLEAN with no checks reported. Acceptance records follow separately; no PR merge into main, install, new feature/capture/timing/model run, rebase or force-push. Original criteria/evidence and deferred alignment/freeze correlation remain unchanged; cumulative child use six."
+    }
+  ]
+}

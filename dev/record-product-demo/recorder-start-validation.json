@@ -1,0 +1,84 @@
+{
+  "kind": "scoped_recorder_start_failure_implementation",
+  "updated_at": "2026-09-18T19:05:14.699997+00:00",
+  "base_commit": "845ba9ad869ff025626046419f0f2b7d0e7831da",
+  "scope": "T5.2 only: preserve a diagnostic take record when recorder startup raises, with compatible success records and original error propagation.",
+  "status": "published",
+  "delivery_state": {
+    "implemented": true,
+    "independently_reviewed": true,
+    "published": true,
+    "merged": false,
+    "installed": false,
+    "commit": "7a9a607b10ad1772de891db74de03d19ad54fd2d",
+    "remote_verified_commit": "7a9a607b10ad1772de891db74de03d19ad54fd2d",
+    "pr": "https://github.com/Drew-Goddyn/skills/pull/2"
+  },
+  "standing_authorization": "dev/record-product-demo/plan.json decision D1",
+  "published_duration_color_commit": "845ba9ad869ff025626046419f0f2b7d0e7831da",
+  "implementation": {
+    "failure_record": "Existing .take.json path and status=failed; failure_stage=recorder_start. The requested video path and capture_request.fps=30 are request context, not capture facts.",
+    "unknowns": "wall_seconds and flow_seconds are null; recorder is empty and events is empty. No frames, media duration, or successful startup are invented. playback_review remains pending because no playback was reviewed.",
+    "propagation": "Re-raise the original exception. If writing the diagnostic raises OSError, preserve the startup exception as primary and chain the file error.",
+    "unchanged": "The successful record schema and the body/cleanup/stop path are unchanged."
+  },
+  "consumer_check": {
+    "inspected": "demo.py, test_helpers.py, preflight.py, techniques.json, and repository references to take.json, timing, status, recorder, and errors.",
+    "finding": "No strict take-record schema or runtime reader requires numeric timing for a failed startup. Existing helper readers check failure status/errors; successful record keys remain unchanged.",
+    "limit": "Consumers outside this repository were not examined. Consumers must treat null startup timing as unknown."
+  },
+  "local_validation": {
+    "ffmpeg": "8.0",
+    "ffprobe": "8.0",
+    "agent_browser": "0.37.1",
+    "chrome": "149.0.7827.115",
+    "fail_before": "Same deterministic recorder-start exception propagated with no take record; successful stub control passed.",
+    "pass_after": "Same startup failure leaves an explicit failed record; original exception identity retained and flow/cleanup/stop were not entered.",
+    "record_only_checks_passed": 7,
+    "browser_helper_checks_passed": 20,
+    "browser_free_media_tests_passed": 17,
+    "audio_padding_and_strict_timing_controls": "passed unchanged",
+    "preflight": "Fresh actual successful MP4 take retains the existing record schema and passes media/motion checks; healthy/frozen negative control passes on both fresh and preserved preflights.",
+    "invoice_reels": "Both preserved reels pass their own duration briefs with audio forbidden. Baseline keeps its full-range warning; clarity remains limited-range.",
+    "skill_discovery": "Cached skills CLI list-only command found record-product-demo among six skills; no installation.",
+    "plan": "valid; original statuses, dependencies, and acceptance criteria unchanged"
+  },
+  "independent_validation": {
+    "reviewer": "ChatGPT",
+    "acceptance_source": "Drew explicitly relayed independent acceptance on 2026-09-18; this message is sufficient provenance. No archive search or inspection claimed.",
+    "checks_passed": [
+      "Same stub reproduces missing record on published helper and explicit failed-start record on candidate.",
+      "Original exception identity, unknown timing, empty events/recorder facts, and successful-record compatibility confirmed.",
+      "All seven browser-free helper checks passed.",
+      "Patch applies and reproduces all six changed files; package hashes, plan validation, and published-source identities pass."
+    ],
+    "limits": [
+      "Combined reproduction reached an execution limit during the unchanged media suite; no fresh 17-test pass is attributed to this review.",
+      "No live-browser pass is attributed to this review.",
+      "Existing local FFmpeg 8.0 and browser results remain builder evidence; earlier independent media acceptance remains attached to its reviewed bytes."
+    ]
+  },
+  "source_sha256": {
+    "skills/codex/record-product-demo/scripts/demo.py": "0047c58383ceab208fe8aba69a9d5a812cb3dc4fffc461c26170520c457e3fc6",
+    "skills/codex/record-product-demo/scripts/test_helpers.py": "de8ef49dc954000b29a46c03be1d54c052201b77c89bcf997c813b2c970a4d3f",
+    "skills/codex/record-product-demo/techniques.json": "e7a35044f7539417e7a0c3999671911c15566c10c4566aee8445c147774866b6"
+  },
+  "evidence_run": "dev/record-product-demo/runs/20260918-recorder-start-f383",
+  "review_zip": "dev/record-product-demo/runs/20260918-recorder-start-f383/recorder-start-review.zip",
+  "limitations": [
+    "A diagnostic requires a writable destination; file failures remain visible in the exception chain.",
+    "The failed-start proof is a deterministic stub, not a campaign of OS/browser/encoder failure injections.",
+    "This correction records the failure; it does not add retries or infer whether an external recorder partly started before returning an error.",
+    "No new perceptual playback or listening review is claimed."
+  ],
+  "preservation": "Prior evidence, installed skill, both invoice reels, and unrelated pilot work remain unchanged. No T5.3, freeze detector, privacy work, beat-frame tool, or full scenario harness.",
+  "new_child_invocations": 0,
+  "pilot_invocations": 4,
+  "handoff": "Published after independent acceptance with a normal push and verified PR head. The next helper-portability slice is uncommitted pending independent review. No merge or installation.",
+  "publication_verification": {
+    "accepted_demo_sha256": "0047c58383ceab208fe8aba69a9d5a812cb3dc4fffc461c26170520c457e3fc6",
+    "accepted_implementation_tests_guidance": "Byte-for-byte match before publication; status metadata updated for relayed acceptance.",
+    "evidence_run": "dev/record-product-demo/runs/20260918-helper-portability-f383",
+    "committed_implementation_tests_guidance": "Verified byte-for-byte against accepted package before and after commit."
+  }
+}
