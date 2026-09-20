@@ -166,5 +166,46 @@
       "supported_source_tests_thresholds_changed": false,
       "limits": "No new supported-runtime change, capture, model invocation or original scenario/full-plan completion is established."
     }
+  },
+  "target_branch_reconciliation": {
+    "scope": "Preserve reviewed PR source and current main additions through a proposed target-branch merge; no feature changes.",
+    "status": "locally_checked_uncommitted_pending_independent_review",
+    "published_prompt_commit": "8578f561e2f017562b13de97efba38297c22ab2f",
+    "main_commit": "8af28a53ac2b4d5820281b08e0e0519f61c330b5",
+    "merge_base": "f414875393139db9d0e44a07de9cef62d9114990",
+    "method": "Detached task-owned worktree; git merge --no-commit --no-ff main; no rebase or force-push.",
+    "actual_conflicts": [
+      "README.md"
+    ],
+    "resolution": "Main README verbatim except its recording catalog row is replaced with the reviewed PR row. Four Build Orchestrator files remain exactly main.",
+    "checks": {
+      "recording_skill_files_identical": 35,
+      "recording_skill_tree": "03a7332dbeed3eb5af44489a8c906092b04e94de",
+      "main_added_files_identical": 4,
+      "other_published_files_identical": 95,
+      "catalog_skills": 7,
+      "discovery": "npx --no-install skills add . --list: passed; list only, no installation",
+      "local_links": 67,
+      "manifest_references": 44,
+      "plan": [
+        "validate: pass",
+        "status: pass",
+        "next: pass"
+      ],
+      "task_criteria_and_decisions": "unchanged",
+      "whitespace": "git diff HEAD --check: pass"
+    },
+    "check_correction": "Initial packet-only link checker treated same-page heading links as directories. Failed output retained; corrected link resolution passes. No supported-source change.",
+    "runtime_evidence": "Accepted clean-source runtime and saved-preflight acceptance retained by exact 35-file skill identity; no new media/browser suite run.",
+    "review_attribution": "This reconciliation has builder checks only and awaits the independent ChatGPT review partner. Earlier review authorship and Linux Pillow qualification are preserved.",
+    "remote_pr_state": "OPEN / CONFLICTING after the prompt-correction publication; the proposed merge has not been committed or pushed.",
+    "limits": [
+      "Static link/discovery/preservation checks do not prove Build Orchestrator agent behavior.",
+      "No new model invocation, capture, scenario, timing research or installed-skill replacement.",
+      "Original scenario/full-plan criteria remain open; automatic alignment and dependent driver-clock freeze correlation remain unresolved/deferred."
+    ],
+    "run": "dev/record-product-demo/runs/20260919-reconcile-main-f383",
+    "additional_child_model_invocations": 0,
+    "cumulative_child_model_invocations": 6
   }
 }

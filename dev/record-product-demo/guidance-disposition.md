@@ -78,3 +78,37 @@ directory. After preserving that failure and a timed-out attempt, the reviewer
 supplied the complete existing dependency in a task-only Python environment; the
 full run then passed in one execution. The unmodified reproduction command did
 not pass on that host. No supported source, tests or thresholds changed.
+
+## Target-branch reconciliation, proposed for independent review
+
+The accepted launch-prompt correction and scoped clean-source records are
+published at `8578f561e2f017562b13de97efba38297c22ab2f`; the remote PR head was
+verified after a normal push. The independent results and Linux Pillow
+qualification above remain unchanged.
+
+Fresh main is `8af28a53ac2b4d5820281b08e0e0519f61c330b5`; the merge base is
+`f414875393139db9d0e44a07de9cef62d9114990`. An actual no-commit merge in a
+separate task-owned worktree found one conflicting path, `README.md`. The
+proposal preserves main's Build Orchestrator catalog entry and installation
+guidance alongside the reviewed recording-skill description. The resulting
+README is exactly main's version with only its recording row replaced by the
+reviewed row. All four added Build Orchestrator files match main; all 35
+recording-skill files match the accepted published source. The other 95
+published files outside the resolved catalog and three scoped readiness
+records also remain unchanged.
+
+Local checks pass: seven discoverable skills with matching catalog/frontmatter,
+67 local links, 44 recording manifest references, plan validate/status/next and
+Git whitespace checks. The packet-only link checker initially mishandled a
+same-page heading link; its failed output is retained and its target resolution
+was corrected. No supported-source defect was involved. Exact recording-source
+identity retains the accepted 140-check and saved-preflight results; no runtime,
+media or capture experiment was repeated. Static checks do not prove Build
+Orchestrator agent behavior or new scenario compliance.
+
+This reconciliation and readiness update remain uncommitted for independent
+review. PR #2 remains open and conflicting remotely until an accepted resolution
+is published. The original development checkout and its unrelated pilot records
+are preserved. No rebase, force-push, PR merge or installed-skill replacement
+occurred. Original tasks, criteria and evidence stay intact; alignment and
+its dependent driver-clock freeze correlation remain unresolved/deferred.
