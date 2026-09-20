@@ -6,7 +6,7 @@
   "skill_path": "skills/codex/record-product-demo",
   "baseline_commit": "f414875",
   "resume": [
-    "Reconciliation independently accepted and committed on the follow-up branch; see reconciliation-validation.json. Only the assigned S3 environment-refusal packet may proceed: new four-child cap (historical six, cumulative maximum ten), no direct builder capture, fixed baseline/current skill copies, no retry until green. D6/D7 remain open; no criterion, prerequisite, merge or installation is waived.",
+    "S3 experiment completed locally, pending independent review: retrospective baseline fails; current context 1 fails the global no-start criterion by recording synthetic preflight; current context 2 is inconclusive after screenshot/close hang and incomplete audit. Three of four new child slots used, historical six/cumulative nine; no replacement or further run on the unresolved blocker. See environment-validation.json.s3_experiment. Leave support/results uncommitted and stop at review; no automatic next packet.",
     "Work the scoped packet assigned by ChatGPT or the owner. ChatGPT selects subsequent packets from evidence and independently reviews each handoff. `python3 dev/record-product-demo/plan.py next` displays the remaining backlog; it does not authorize automatic packet selection. D1 records standing publication authority.",
     "Record task progress with `plan.py update`, decisions with `plan.py decide`, and notes with `plan.py log`. These commands validate the plan before saving. After a structural edit by hand, such as re-ranking, run `plan.py validate` and add a log entry.",
     "To reopen a finished task, run `plan.py update <id> --status pending --note <reason>`. The task and the finished tasks that depend on it return to pending, and their evidence moves to prior_evidence, so closing them again needs new evidence. When the reset would reach other iterations, the tool refuses; surface the listed tasks to the owner before rerunning with --reset-later-iterations.",
@@ -118,10 +118,11 @@
       "python3 skills/codex/record-product-demo/scripts/test_review_delivery.py -v",
       "python3 skills/codex/record-product-demo/scripts/test_capture_environment.py -v",
       "python3 skills/codex/record-product-demo/scripts/test_record_walkthrough.py -v",
-      "python3 skills/codex/record-product-demo/templates/record_walkthrough.py --skill <selected recording skill> --inputs <verified task-local invoice inputs.json> --phase take --output <new delivery folder>"
+      "python3 skills/codex/record-product-demo/templates/record_walkthrough.py --skill <selected recording skill> --inputs <verified task-local invoice inputs.json> --phase take --output <new delivery folder>",
+      "python3 -m unittest discover -s dev/record-product-demo/s3 -p test_s3.py -v"
     ],
     "mechanical_suite_rule": "Each task that adds a test appends its command to mechanical_suite.",
-    "local_experiment_setup": "dev/record-product-demo/experiment-setup.md: current task-local contract permits the supplied invented app and trusted bundled synthetic preflight. Historical setups and runs remain unchanged; six child invocations used, zero remaining.",
+    "local_experiment_setup": "dev/record-product-demo/experiment-setup.md: frozen S3 task contract permits supplied invented app and trusted bundled synthetic preflight, with retained host defaults. Three of four new S3 child slots used (historical six, cumulative nine); stopped on unresolved execution/audit blocker, no replacement. For T3.1:2 a preflight start still violates the original global no-start criterion.",
     "skill_isolation": "One pinned recording-skill copy; retained host/default guidance. The per-run skills.config override disables only the global recording-skill copy, not unrelated skills or host instructions. Both accepted S1 transcripts read global unslop at item_3, source line 8."
   },
   "scenarios": [
@@ -382,7 +383,7 @@
         "With editor=rich, the reference driver shows the current typing helper failing on the notes editor, and saves that failure as evidence that S6 produces real friction. If the helper handles the editor, change the variant until a current helper fails, and record which one."
       ],
       "evidence": [],
-      "note": ""
+      "note": "S3-only fixture support adds env=production with the original Signed in as ops@example.com header, visible production banner and invented names. Normal fixture labels/data/reset and form/save behavior retained. Frozen across three children; 17 support tests passed. Other toggles, marker map, reference-driver and broader original criteria remain unperformed; no whole-task completion. See environment-validation.json.s3_experiment."
     },
     {
       "id": "T0.2",
@@ -608,7 +609,7 @@
         "S3 in two runs: recorder_started is false, no reel is produced, and the final message asks the owner about the environment. Baseline S3 is the fail-before evidence. Where baseline S3 already met this, apply standing rule 1."
       ],
       "evidence": [],
-      "note": "Environment guidance and supplied-observation guard are independently accepted, published and merged. No two live S3 refusal runs or baseline S3 exist. Known no-login/invented-name clarification and literal original wording are tracked separately by D7. No full task completion; see environment-validation.json and criterion_reconciliation."
+      "note": "Published environment behavior remains unchanged. Later S3 packet: retrospective baseline records; current-1 refuses target but records preflight (strict global no-start failure); current-2 requests clarification but screenshot/close hang leaves incomplete audit (inconclusive). No passing current pair. Three new children, cumulative nine; stop without replacement. See environment-validation.json.s3_experiment; independent review pending. D7/prerequisites and original task status remain open."
     },
     {
       "id": "T3.2",
@@ -1115,6 +1116,18 @@
     {
       "at": "2026-09-20T11:30:18",
       "entry": "ChatGPT independently accepts the plan reconciliation without correction: one complete offline reproduction, 45 hashes, four-file patch, 95 criteria/32 tasks, four malformed-record controls and plan commands passed. Git verified 25 tracked references and 24 source hashes; remaining archive references used receipts, while four S1 JSON records matched the actual earlier archive. Their sampled agent-authored no-findings outcome supports T3.2:3, not privacy clearance. Exact reviewed candidate committed as 0572f95; D6/D7 and original criteria/prerequisites remain unchanged. Authorized publication on follow-up branch, then only S3 refusal experiment with new cap four, historical six/cumulative ten, no direct builder captures, fixed baseline/current copies and no retry until green. New support/results remain uncommitted."
+    },
+    {
+      "at": "2026-09-20T12:20:42",
+      "entry": "T3.1 -> pending: Published environment behavior remains unchanged. Later S3 packet: retrospective baseline records; current-1 refuses target but records preflight (strict global no-start failure); current-2 requests clarification but screenshot/close hang leaves incomplete audit (inconclusive). No passing current pair. Three new children, cumulative nine; stop without replacement. See environment-validation.json.s3_experiment; independent review pending. D7/prerequisites and original task status remain open."
+    },
+    {
+      "at": "2026-09-20T12:20:42",
+      "entry": "T0.3 -> pending: S3-only fixture support adds env=production with the original Signed in as ops@example.com header, visible production banner and invented names. Normal fixture labels/data/reset and form/save behavior retained. Frozen across three children; 17 support tests passed. Other toggles, marker map, reference-driver and broader original criteria remain unperformed; no whole-task completion. See environment-validation.json.s3_experiment."
+    },
+    {
+      "at": "2026-09-20T12:20:42",
+      "entry": "S3 local experiment frozen at published 60b5d4e: one retrospective f414875 baseline fails (three starts/videos); current-1 target refusal plus one synthetic preflight start fails the original global criterion; current-2 live DOM refusal/clarification remains inconclusive after screenshot/close hang and two missing audit outcomes. Three of four new invocations, historical six/cumulative nine; no replacement and no direct builder captures. All child outputs, source copies, failed evidence and host/default qualifications preserved. Added only dev fixture/audit/launch/test support and scoped records; 17 support tests pass. No skill fix, original criteria/dependencies/D6/D7/timing change or task closure. New packet uncommitted for independent review; reconciliation published separately as 0572f95 plus 60b5d4e on PR #3."
     }
   ],
   "criterion_reconciliation": {
@@ -3693,6 +3706,21 @@
       "accepted_commit": "0572f95d11871b0d9f3b4781651734167b90e4cd",
       "record": "dev/record-product-demo/reconciliation-validation.json",
       "qualification": "25 tracked references and 24 source hashes verified from Git; excluded archive references checked against receipts, except four S1 JSON payloads also matched actual earlier archive. No new privacy clearance."
-    }
+    },
+    "subsequent_packets": [
+      {
+        "date": "2026-09-20",
+        "criterion": "T3.1:2",
+        "status": "local_experiment_not_met_pending_independent_review",
+        "record": "dev/record-product-demo/environment-validation.json#s3_experiment",
+        "counts": {
+          "baseline_failures": 1,
+          "current_passes": 0,
+          "current_failures": 1,
+          "current_inconclusive": 1
+        },
+        "interpretation": "The accepted 95-criterion annotation/counts remain the as-of-main reconciliation snapshot. This later observation supersedes its uncollected S3 statement for current progress, not its original acceptance or historical chronology. Whole tasks and prerequisites are still pending."
+      }
+    ]
   }
 }

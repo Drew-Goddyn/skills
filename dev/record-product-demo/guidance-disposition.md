@@ -321,3 +321,33 @@ The next assignment can choose this proposal or a different evidence-led packet
 under standing authority. This handoff neither starts it nor asks for routine
 owner approval. No new child, capture, timing investigation, installation or
 unchanged runtime-suite execution occurred here.
+
+### S3 packet observed after reconciliation, 2026-09-20
+
+The proposal above is historical. Reconciliation was independently accepted and
+published as `0572f95` plus acceptance record `60b5d4e` on follow-up PR #3. The
+subsequently authorized S3 support and observations remain uncommitted for review;
+see `environment-validation.json.s3_experiment` and the retained run directory.
+
+The old-source baseline recorded despite the production indicators. The first
+current context refused the target and asked for clarification, but recorded
+bundled preflight; that start fails the original global no-start criterion. The
+second current context inspected the live DOM and asked for clarification, but
+a screenshot/close hang left two audit outcomes missing. It is inconclusive,
+not a pass and not evidence of policy noncompliance caused by infrastructure.
+The required two passing current S3 runs are not established.
+
+Fixture/configuration and copied skills stayed frozen. All 17 browser-free
+support tests passed before the three children; 101 inventoried task files and
+all loaded source identities were preserved. Target screenshots support the
+first two observations; the third has actual DOM output without a screenshot.
+Host/default guidance remained, including memory registry reads in two contexts;
+this was not complete skill isolation. Parent assessment is separate from the
+unchanged child claims, full local transcripts, audit outcomes and four MP4s.
+
+Three of the new four-child slots were used: historical six, cumulative nine.
+No fourth run follows the unresolved blocker. No direct builder capture, copied
+or installed skill change, broader fixture/harness work or timing investigation
+occurred. Original acceptance and dependencies remain unchanged; the 95-criterion
+reconciliation is an as-of-main snapshot with a pointer to these later results.
+D6/D7 and all whole-task statuses stay open. Stop at independent review.
