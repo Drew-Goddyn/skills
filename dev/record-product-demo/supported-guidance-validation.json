@@ -63,7 +63,7 @@
     "No new capture, viewing/listening, browser investigation or media campaign. Unchanged media/preflight/calibration suites were not rerun for documentation work.",
     "Original T6.1 repeated S1-S5, complete mechanical suite and full-plan verification remain unperformed; no whole task is completed by this slice.",
     "Runtime, templates, schemas, thresholds, accepted media and installed skill remain unchanged.",
-    "No additional child/model invocation; cumulative use remains six. Accepted guidance published under standing authority; no merge or installation. Clean-source integration/readiness remains a separate review packet."
+    "No additional child/model invocation; cumulative use remains six. Accepted guidance published under standing authority; no merge or installation. Clean-source readiness and target-branch reconciliation are independently accepted and published; original criteria remain open."
   ],
   "delivery_state": {
     "implemented": true,
@@ -79,7 +79,7 @@
     "published_skill_tree": "4806af25d4d6d1ab35bc8bca90f4affad5649946",
     "run": "dev/record-product-demo/runs/20260919-clean-source-f383",
     "source_basis": "Frozen git archive, all 99 tracked blobs verified. All 35 recording-skill files copied into a standalone task-owned directory outside the development checkout.",
-    "readiness": "Supported browser-free workflow passes from published source with documented prerequisites; clean-source results and the launch-prompt correction are independently accepted and published. Original scenario and full-plan criteria remain open. Target-branch reconciliation is a separate uncommitted review packet.",
+    "readiness": "Supported browser-free workflow passes from published source with documented prerequisites; clean-source results and the launch-prompt correction are independently accepted and published. Original scenario and full-plan criteria remain open. Target-branch reconciliation is independently accepted and published with recording-source identity preserved.",
     "supported_and_published": [
       "Audio policy and separate picture/audio timing; minimum picture duration and color metadata/range policy",
       "Recorder failure diagnostics and portable executable/focus helpers",
@@ -135,7 +135,7 @@
       "driver_clock_freeze_correlation": "unresolved/deferred",
       "five_take_result": "Original 0/5 unchanged; target 0.2 seconds unchanged"
     },
-    "publication_boundary": "Clean-source integration findings and launch-prompt correction are reviewed and published. Target-branch reconciliation remains a separate uncommitted review packet; no merge of PR #2 or installed-skill replacement.",
+    "publication_boundary": "Clean-source integration, launch-prompt correction and target-branch reconciliation are reviewed and published. No merge of PR #2 into main or installed-skill replacement.",
     "additional_child_model_invocations": 0,
     "cumulative_child_model_invocations": 6,
     "independent_review": {
@@ -168,12 +168,12 @@
     }
   },
   "target_branch_reconciliation": {
-    "scope": "Preserve reviewed PR source and current main additions through a proposed target-branch merge; no feature changes.",
-    "status": "locally_checked_uncommitted_pending_independent_review",
+    "scope": "Preserve reviewed PR source and current main additions through the accepted target-branch merge; no feature changes.",
+    "status": "independently_reviewed_and_published",
     "published_prompt_commit": "8578f561e2f017562b13de97efba38297c22ab2f",
     "main_commit": "8af28a53ac2b4d5820281b08e0e0519f61c330b5",
     "merge_base": "f414875393139db9d0e44a07de9cef62d9114990",
-    "method": "Detached task-owned worktree; git merge --no-commit --no-ff main; no rebase or force-push.",
+    "method": "Task-owned detached worktree; normal merge commit with both reviewed parents and exact reviewed tree; acceptance/publication bookkeeping follows as a separate record-only commit.",
     "actual_conflicts": [
       "README.md"
     ],
@@ -197,8 +197,7 @@
     },
     "check_correction": "Initial packet-only link checker treated same-page heading links as directories. Failed output retained; corrected link resolution passes. No supported-source change.",
     "runtime_evidence": "Accepted clean-source runtime and saved-preflight acceptance retained by exact 35-file skill identity; no new media/browser suite run.",
-    "review_attribution": "This reconciliation has builder checks only and awaits the independent ChatGPT review partner. Earlier review authorship and Linux Pillow qualification are preserved.",
-    "remote_pr_state": "OPEN / CONFLICTING after the prompt-correction publication; the proposed merge has not been committed or pushed.",
+    "review_attribution": "Accepted by the independent ChatGPT review partner, relayed by Drew. Earlier review authorship and Linux Pillow qualification are preserved.",
     "limits": [
       "Static link/discovery/preservation checks do not prove Build Orchestrator agent behavior.",
       "No new model invocation, capture, scenario, timing research or installed-skill replacement.",
@@ -206,6 +205,60 @@
     ],
     "run": "dev/record-product-demo/runs/20260919-reconcile-main-f383",
     "additional_child_model_invocations": 0,
-    "cumulative_child_model_invocations": 6
+    "cumulative_child_model_invocations": 6,
+    "publication": {
+      "merge_commit": "cf779e95769170e6b6e9e124a6987631aaeabf02",
+      "ordered_parents": [
+        "8578f561e2f017562b13de97efba38297c22ab2f",
+        "8af28a53ac2b4d5820281b08e0e0519f61c330b5"
+      ],
+      "reviewed_tree": "dda651b3cbf8261e80791be4366589ff79628df5",
+      "accepted_patch_sha256": "2157756ff66318136cc53777de93fb17f75deab9590f718c3d99225e087c50a1",
+      "remote_tips_matched_before_commit": true,
+      "merge_remote_head_verified": true,
+      "reviewed_main_is_ancestor": true,
+      "bookkeeping": "Separate record-only commit preserves the exact accepted merge tree.",
+      "pr_merged_into_main": false,
+      "installed_skill_changed": false,
+      "publication_run": "dev/record-product-demo/runs/20260920-publish-reconciliation-f383"
+    },
+    "independent_review": {
+      "status": "accepted",
+      "author": "ChatGPT review partner",
+      "relay": "Drew",
+      "source": "Self-contained acceptance in the user message; no additional archive search.",
+      "offline_reproduction": "One execution; patch reconstruction and actual merge replay in separate fresh repositories produced the same reviewed tree.",
+      "checks": {
+        "actual_conflicts": [
+          "README.md"
+        ],
+        "conflict_stages": 3,
+        "exact_readme_composition": true,
+        "recording_files_unchanged": 35,
+        "main_files_matching": 4,
+        "other_pr_files_preserved": 95,
+        "payload_hashes": 72,
+        "catalog_frontmatter_entries": 7,
+        "links": 67,
+        "manifest_references": 44,
+        "whitespace": "pass",
+        "plan": [
+          "validate: pass",
+          "status: pass",
+          "next: pass"
+        ]
+      },
+      "cli_discovery": "Not independently rerun; previous builder discovery remains separately attributed.",
+      "runtime": "Retained acceptance through exact source identity; no fresh runtime run."
+    },
+    "remote_pr_observation": {
+      "at_commit": "cf779e95769170e6b6e9e124a6987631aaeabf02",
+      "state": "OPEN",
+      "mergeable": "MERGEABLE",
+      "merge_state_status": "CLEAN",
+      "status_check_rollup": [],
+      "checks_interpretation": "No checks reported; absence is not a pass.",
+      "final_publication_verification": "Final record-only head and current main/check status are captured in the publication run."
+    }
   }
 }

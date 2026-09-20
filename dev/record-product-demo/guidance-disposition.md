@@ -68,7 +68,7 @@ effort and full-plan criteria remain open. Automatic alignment and dependent
 driver-clock freeze correlation remain unresolved/deferred; the original five
 attempts, 0/5 result and 0.2-second target are unchanged. This readiness summary
 and the prompt correction are independently accepted and published. Target-branch
-reconciliation is a separate uncommitted review packet.
+reconciliation is independently accepted and published, as recorded below.
 
 ChatGPT, relayed by Drew, independently passed all 140 checks, three preserved
 preflight assertions, packaging checks, 193 hashes, the four-file patch and both
@@ -79,7 +79,7 @@ supplied the complete existing dependency in a task-only Python environment; the
 full run then passed in one execution. The unmodified reproduction command did
 not pass on that host. No supported source, tests or thresholds changed.
 
-## Target-branch reconciliation, proposed for independent review
+## Target-branch reconciliation, independently accepted and published
 
 The accepted launch-prompt correction and scoped clean-source records are
 published at `8578f561e2f017562b13de97efba38297c22ab2f`; the remote PR head was
@@ -89,7 +89,7 @@ qualification above remain unchanged.
 Fresh main is `8af28a53ac2b4d5820281b08e0e0519f61c330b5`; the merge base is
 `f414875393139db9d0e44a07de9cef62d9114990`. An actual no-commit merge in a
 separate task-owned worktree found one conflicting path, `README.md`. The
-proposal preserves main's Build Orchestrator catalog entry and installation
+accepted resolution preserves main's Build Orchestrator catalog entry and installation
 guidance alongside the reviewed recording-skill description. The resulting
 README is exactly main's version with only its recording row replaced by the
 reviewed row. All four added Build Orchestrator files match main; all 35
@@ -106,9 +106,29 @@ identity retains the accepted 140-check and saved-preflight results; no runtime,
 media or capture experiment was repeated. Static checks do not prove Build
 Orchestrator agent behavior or new scenario compliance.
 
-This reconciliation and readiness update remain uncommitted for independent
-review. PR #2 remains open and conflicting remotely until an accepted resolution
-is published. The original development checkout and its unrelated pilot records
-are preserved. No rebase, force-push, PR merge or installed-skill replacement
-occurred. Original tasks, criteria and evidence stay intact; alignment and
-its dependent driver-clock freeze correlation remain unresolved/deferred.
+ChatGPT, relayed by Drew, independently accepts the reconciliation. One complete
+offline reproduction applied the patch and replayed the actual merge in separate
+fresh repositories; both produced tree `dda651b3cbf8261e80791be4366589ff79628df5`.
+The reviewer confirmed the README-only conflict and its three stages, exact
+catalog composition, 35 unchanged recording files, four main additions and 95
+other preserved PR files. All 72 hashes, seven catalog/frontmatter entries,
+67 links, 44 manifest references, whitespace and plan validate/status/next
+passed. CLI discovery was not independently rerun. Existing runtime acceptance
+is retained by exact source identity, not described as a new test run.
+
+Both remote tips still matched the reviewed parents before publication. Normal
+merge commit `cf779e95769170e6b6e9e124a6987631aaeabf02` preserves the exact reviewed
+tree and ordered parents `8578f561e2f017562b13de97efba38297c22ab2f` and
+`8af28a53ac2b4d5820281b08e0e0519f61c330b5`. It was pushed normally and verified
+remotely. These acceptance/publication notes are a separate record-only commit;
+they do not alter the identifiable accepted integration commit.
+
+GitHub's observed state at that published merge was OPEN / MERGEABLE / CLEAN.
+Its check rollup was empty; no CI pass is claimed. The supported iteration is
+implemented, independently reviewed and published, with original scenario and
+full-plan criteria still outstanding. PR #2 has not been merged into main and
+the installed skill is unchanged. The original development checkout, unrelated
+pilot records and historical evidence are preserved. No rebase, force-push,
+capture or additional child/model invocation occurred; cumulative use stays six.
+Automatic alignment and dependent driver-clock freeze correlation remain
+unresolved/deferred; the original five attempts, 0/5 and 0.2-second target remain.
