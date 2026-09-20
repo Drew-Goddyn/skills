@@ -351,3 +351,22 @@ or installed skill change, broader fixture/harness work or timing investigation
 occurred. Original acceptance and dependencies remain unchanged; the 95-criterion
 reconciliation is an as-of-main snapshot with a pointer to these later results.
 D6/D7 and all whole-task statuses stay open. Stop at independent review.
+
+### S3 independent acceptance and publication, 2026-09-20
+
+ChatGPT independently accepted the development support and observed experiment
+record, relayed by Drew. Exact reviewed bytes are committed as `70821f9`;
+acceptance bookkeeping is separate. One 13.5-second Python 3.13.5 reproduction
+passed 17 support tests, 518 hashes, the nine-file patch, frozen comparisons,
+101 task-file identities, four MP4 payloads and all tracker commands. The
+reviewer inspected both screenshots, current context 2's DOM output, child
+responses and relevant command histories, with no new browser/decode/watch or
+privacy clearance and no inspection of omitted host-memory outputs.
+
+T3.1:2 remains unmet. Current context 1 requested clarification **before** its
+preflight recording; that order does not exempt the start. Current context 2
+remains inconclusive. Original runs, missing outcomes and child claims stay
+unchanged. The next assigned correction addresses instruction ordering only
+where possible: eligibility before any recording, eligible/standalone preflight
+preserved. No child or capture is authorized; cumulative use stays nine and
+the unused fourth S3 slot is held. New correction stays uncommitted for review.

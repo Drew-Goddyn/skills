@@ -6,7 +6,7 @@
   "skill_path": "skills/codex/record-product-demo",
   "baseline_commit": "f414875",
   "resume": [
-    "S3 experiment completed locally, pending independent review: retrospective baseline fails; current context 1 fails the global no-start criterion by recording synthetic preflight; current context 2 is inconclusive after screenshot/close hang and incomplete audit. Three of four new child slots used, historical six/cumulative nine; no replacement or further run on the unresolved blocker. See environment-validation.json.s3_experiment. Leave support/results uncommitted and stop at review; no automatic next packet.",
+    "S3 support and observed results independently accepted for publication; T3.1:2 remains not met (baseline failure, current-1 global no-start failure, current-2 inconclusive). Next assigned packet only: target eligibility before any recording, including synthetic preflight, with guidance/interface and affected browser-free checks. No child/model invocation or direct capture; cumulative nine, unused fourth S3 slot held for no replacement. Leave new correction uncommitted for independent review; no automatic next packet.",
     "Work the scoped packet assigned by ChatGPT or the owner. ChatGPT selects subsequent packets from evidence and independently reviews each handoff. `python3 dev/record-product-demo/plan.py next` displays the remaining backlog; it does not authorize automatic packet selection. D1 records standing publication authority.",
     "Record task progress with `plan.py update`, decisions with `plan.py decide`, and notes with `plan.py log`. These commands validate the plan before saving. After a structural edit by hand, such as re-ranking, run `plan.py validate` and add a log entry.",
     "To reopen a finished task, run `plan.py update <id> --status pending --note <reason>`. The task and the finished tasks that depend on it return to pending, and their evidence moves to prior_evidence, so closing them again needs new evidence. When the reset would reach other iterations, the tool refuses; surface the listed tasks to the owner before rerunning with --reset-later-iterations.",
@@ -609,7 +609,7 @@
         "S3 in two runs: recorder_started is false, no reel is produced, and the final message asks the owner about the environment. Baseline S3 is the fail-before evidence. Where baseline S3 already met this, apply standing rule 1."
       ],
       "evidence": [],
-      "note": "Published environment behavior remains unchanged. Later S3 packet: retrospective baseline records; current-1 refuses target but records preflight (strict global no-start failure); current-2 requests clarification but screenshot/close hang leaves incomplete audit (inconclusive). No passing current pair. Three new children, cumulative nine; stop without replacement. See environment-validation.json.s3_experiment; independent review pending. D7/prerequisites and original task status remain open."
+      "note": "Environment behavior remains published and unchanged. S3 support/observed record independently accepted and published as 70821f9; T3.1:2 is NOT met: retrospective baseline three starts/videos; current-1 asked for clarification before preflight start (strict failure); current-2 screenshot/close outcomes missing (inconclusive). Preserve original runs, claims and gaps. Cumulative child use nine; unused fourth S3 slot held. Only assigned target-before-any-recording guidance correction may proceed without capture/model calls; leave it uncommitted for review. D7/prerequisites stay open."
     },
     {
       "id": "T3.2",
@@ -1128,6 +1128,14 @@
     {
       "at": "2026-09-20T12:20:42",
       "entry": "S3 local experiment frozen at published 60b5d4e: one retrospective f414875 baseline fails (three starts/videos); current-1 target refusal plus one synthetic preflight start fails the original global criterion; current-2 live DOM refusal/clarification remains inconclusive after screenshot/close hang and two missing audit outcomes. Three of four new invocations, historical six/cumulative nine; no replacement and no direct builder captures. All child outputs, source copies, failed evidence and host/default qualifications preserved. Added only dev fixture/audit/launch/test support and scoped records; 17 support tests pass. No skill fix, original criteria/dependencies/D6/D7/timing change or task closure. New packet uncommitted for independent review; reconciliation published separately as 0572f95 plus 60b5d4e on PR #3."
+    },
+    {
+      "at": "2026-09-20T13:06:35",
+      "entry": "T3.1 -> pending: Environment behavior remains published and unchanged. S3 support/observed record independently accepted and published as 70821f9; T3.1:2 is NOT met: retrospective baseline three starts/videos; current-1 asked for clarification before preflight start (strict failure); current-2 screenshot/close outcomes missing (inconclusive). Preserve original runs, claims and gaps. Cumulative child use nine; unused fourth S3 slot held. Only assigned target-before-any-recording guidance correction may proceed without capture/model calls; leave it uncommitted for review. D7/prerequisites stay open."
+    },
+    {
+      "at": "2026-09-20T13:06:35",
+      "entry": "ChatGPT independently accepts the development-only S3 support and experiment record: one 13.5 s offline reproduction on Python 3.13.5, 17 tests, 518 hashes, nine-file patch, frozen comparisons, 101 task files, four MP4 payloads and all tracker commands passed. Reviewer inspected target screenshots, current-2 DOM, child responses and relevant command histories. This is not acceptance of T3.1:2: baseline fails; current-1 clarified BEFORE preflight recording and fails global no-start; current-2 remains inconclusive with missing screenshot/close outcomes. No new browser/decode/watch/privacy clearance or omitted host-memory inspection claimed. Exact reviewed bytes committed as 70821f9, with acceptance bookkeeping separate. Publish only these scoped files on PR #3. Next assigned target-eligibility ordering correction is uncommitted for review, with no new children/captures; cumulative nine and fourth S3 slot held."
     }
   ],
   "criterion_reconciliation": {
@@ -3719,7 +3727,12 @@
           "current_failures": 1,
           "current_inconclusive": 1
         },
-        "interpretation": "The accepted 95-criterion annotation/counts remain the as-of-main reconciliation snapshot. This later observation supersedes its uncollected S3 statement for current progress, not its original acceptance or historical chronology. Whole tasks and prerequisites are still pending."
+        "interpretation": "The accepted 95-criterion annotation/counts remain the as-of-main reconciliation snapshot. This later observation supersedes its uncollected S3 statement for current progress, not its original acceptance or historical chronology. Whole tasks and prerequisites are still pending.",
+        "review_status": {
+          "status": "independently_accepted_observations_criterion_not_met",
+          "record": "dev/record-product-demo/environment-validation.json#s3_experiment/independent_review",
+          "accepted_commit": "70821f93644fb7c654ff962daa2dd1b948eb09af"
+        }
       }
     ]
   }
