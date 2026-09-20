@@ -32,3 +32,49 @@ review, or repeated S1–S5 results. T6.1 status, acceptance criteria and depend
 stay open; its full mechanical-suite, repeated scenarios and full-plan verification
 criteria are not claimed. The [scoped validation record](supported-guidance-validation.json)
 records actual results separately from the independent timing finding.
+
+## Clean-source readiness, independently accepted
+
+Guidance is independently accepted and published at
+`7a63336db222cac9927b5dd189881568a7d1806b`. The supported media checks, recorder
+failure records, portable helpers, evidence/frame tools, review handoffs,
+environment/privacy decisions, maintenance boundary and starter are also
+implemented, reviewed and published. None of this claims merge or installation.
+
+A frozen Git export reproduced all 99 tracked blobs. Its 35-file recording skill,
+copied alone outside the development checkout, passed 140 existing browser-free
+checks and three healthy/frozen assertions using the preserved preflight clip.
+Local links, manifest references, entrypoints, imports, discovery metadata and
+plan validate/status/next passed. Supported source and the clip stayed unchanged.
+This establishes the tested workflow's independence from unpublished worktree
+files, archived timing code and the installed skill, given the documented tools.
+
+These are local Python 3.14.2, FFmpeg/ffprobe 8.0 and Pillow 12.1.1 results.
+Disabling user-site loading initially made Pillow unavailable after 57 passing
+checks; copying the existing prerequisite to task scratch allowed the complete
+run. Offline discovery lacked a cached registry response; the approved network
+route listed the clean export. Both initial outputs are preserved as unavailable
+checks, separately from the subsequent passing runs.
+
+The launch metadata correction is independently accepted and published: ordinary
+recording now records reusable friction for separate authorized maintenance. Only
+that prompt phrase changed; runtime, tests and thresholds are unchanged. This
+instruction check does not prove fresh-agent compliance.
+
+No new browser capture, viewing, listening, privacy clearance or scenario run
+occurred. The saved-clip control is specific to the synthetic moving fixture.
+Original harness/scorecard, repeated scenarios, template-adoption, comparative
+effort and full-plan criteria remain open. Automatic alignment and dependent
+driver-clock freeze correlation remain unresolved/deferred; the original five
+attempts, 0/5 result and 0.2-second target are unchanged. This readiness summary
+and the prompt correction are independently accepted and published. Target-branch
+reconciliation is a separate uncommitted review packet.
+
+ChatGPT, relayed by Drew, independently passed all 140 checks, three preserved
+preflight assertions, packaging checks, 193 hashes, the four-file patch and both
+sets of tracker commands under Python 3.13.5, FFmpeg/ffprobe 7.1.5 and Pillow
+12.3.0. The original reproducer omitted the Linux wheel’s sibling `pillow.libs`
+directory. After preserving that failure and a timed-out attempt, the reviewer
+supplied the complete existing dependency in a task-only Python environment; the
+full run then passed in one execution. The unmodified reproduction command did
+not pass on that host. No supported source, tests or thresholds changed.

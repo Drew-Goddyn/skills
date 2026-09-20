@@ -1,4 +1,4 @@
 interface:
   display_name: "Record demos and trailers"
   short_description: "Record and verify app demos and game trailers"
-  default_prompt: "Use $record-product-demo to record and verify a demo or trailer from the running app or game, follow the requested presentation, and resolve demonstrated reusable recording friction."
+  default_prompt: "Use $record-product-demo to record and verify a demo or trailer from the running app or game, follow the requested presentation, and record reusable toolkit friction for a separate authorized maintenance assignment."

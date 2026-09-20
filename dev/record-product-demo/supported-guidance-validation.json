@@ -72,5 +72,99 @@
     "merged": false,
     "installed": false
   },
-  "base_skill_tree": "271ccdda4c25922762567ff6da80d0e46b5e988f"
+  "base_skill_tree": "271ccdda4c25922762567ff6da80d0e46b5e988f",
+  "clean_source_integration": {
+    "status": "independently_reviewed_and_published",
+    "published_guidance_commit": "7a63336db222cac9927b5dd189881568a7d1806b",
+    "published_skill_tree": "4806af25d4d6d1ab35bc8bca90f4affad5649946",
+    "run": "dev/record-product-demo/runs/20260919-clean-source-f383",
+    "source_basis": "Frozen git archive, all 99 tracked blobs verified. All 35 recording-skill files copied into a standalone task-owned directory outside the development checkout.",
+    "readiness": "Supported browser-free workflow passes from published source with documented prerequisites; clean-source results and the launch-prompt correction are independently accepted and published. Original scenario and full-plan criteria remain open. Target-branch reconciliation is a separate uncommitted review packet.",
+    "supported_and_published": [
+      "Audio policy and separate picture/audio timing; minimum picture duration and color metadata/range policy",
+      "Recorder failure diagnostics and portable executable/focus helpers",
+      "Versioned evidence, encoded frames/sheets, attributed decisive findings and watch-list handoffs",
+      "Pre-capture environment decisions, sampled privacy records, optional feedback and maintenance separation",
+      "Explicit-source recording starter and consolidated supported-workflow guidance"
+    ],
+    "checks": {
+      "supported_browser_free": 140,
+      "suites": 10,
+      "preserved_preflight_assertions": 3,
+      "local_links": 43,
+      "manifest_references": 44,
+      "help_entrypoints": 8,
+      "module_origins": 7,
+      "plan": "validate/status/next pass on published export and uncommitted readiness records",
+      "discovery": "six skills and current description listed from clean export; no install",
+      "source_unchanged_after_checks": true
+    },
+    "local_environment": {
+      "python": "3.14.2",
+      "ffmpeg_ffprobe": "8.0",
+      "pillow": "12.1.1",
+      "agent_browser_available": "0.37.1; version checked only, no live browser execution"
+    },
+    "isolation": "Supported suites ran from standalone exported skill; no inherited PYTHONPATH/user-site loading, credentials, browser override or project configuration. The documented existing Pillow package was hash-verified into task scratch and supplied explicitly. Source/import checks found no dependency on unpublished files, the development worktree, timing experiments or installed skill. This is not a universal OS filesystem-access audit.",
+    "preserved_preflight": {
+      "source": "dev/record-product-demo/runs/20260919-driver-template-f383/preflight/preflight.mp4",
+      "sha256": "f391f929d6e4926a975af2e7be6d4599ef9da92d8f873e5331f40e9b436ddb6d",
+      "bytes": 326063,
+      "proof": "Healthy saved clip passes; generated frozen tail still passes media validation but fails for missing resumed motion. Fixture-specific control, not a general freeze detector or driver-clock correlation."
+    },
+    "initial_unavailable_checks": [
+      "Initial isolated run passed 57 checks, then frame tests could not import Pillow because user-site packages were disabled. Supplied the existing documented dependency explicitly and reran all 140 plus the control successfully; initial output retained.",
+      "Offline skills CLI listing was unavailable with ENOTCACHED. Approved per-run network route listed the clean source successfully; both outputs retained."
+    ],
+    "demonstrated_issue": {
+      "path": "skills/codex/record-product-demo/agents/openai.yaml",
+      "before": "Default prompt asked ordinary recording to resolve reusable friction, conflicting with accepted maintenance separation.",
+      "after": "Record reusable friction for a separate authorized maintenance assignment.",
+      "scope": "One prompt phrase only; runtime/tests/templates/fixtures unchanged.",
+      "status": "independently_reviewed_and_published",
+      "proof": "Exact before/after metadata inspection and candidate packaging/entrypoint checks; no fresh-agent compliance claimed."
+    },
+    "unperformed": [
+      "New live browser/helper/preflight/starter capture; existing prior results are historical evidence only",
+      "Fresh continuous viewing, listening, privacy clearance, live environment recognition or persistence replay",
+      "Full scenario harness/scorecard/seeded-defect prerequisites and repeated original S1-S5/S6 criteria, template-adoption and comparative-effort proof",
+      "Cross-host/version matrix or full-plan verification"
+    ],
+    "deferred": {
+      "automatic_alignment": "unresolved/deferred; accepted negative investigation closed this iteration",
+      "driver_clock_freeze_correlation": "unresolved/deferred",
+      "five_take_result": "Original 0/5 unchanged; target 0.2 seconds unchanged"
+    },
+    "publication_boundary": "Clean-source integration findings and launch-prompt correction are reviewed and published. Target-branch reconciliation remains a separate uncommitted review packet; no merge of PR #2 or installed-skill replacement.",
+    "additional_child_model_invocations": 0,
+    "cumulative_child_model_invocations": 6,
+    "independent_review": {
+      "author": "ChatGPT review partner",
+      "relay": "Drew",
+      "source": "Self-contained acceptance relayed in the user message; no independent archive received or searched.",
+      "status": "accepted",
+      "accepted_patch_sha256": "bb24f82e5f8effc16b9a0e2fd9dc50ea26cb4f126405be14db93bbb8190d8b9a",
+      "environment": {
+        "python": "3.13.5",
+        "ffmpeg_ffprobe": "7.1.5",
+        "pillow": "12.3.0"
+      },
+      "checks": {
+        "supported_checks": 140,
+        "suites": 10,
+        "saved_preflight_assertions": 3,
+        "links": 43,
+        "manifest_references": 44,
+        "entrypoints": 8,
+        "module_origins": 7,
+        "payload_hashes": 193,
+        "patch_files": 4,
+        "plan": "Published and candidate validate/status/next passed.",
+        "source_tree": "Complete 35-file skill tree matches published 7a63336d."
+      },
+      "qualification": "Supplied reproducer copied PIL but omitted the Linux wheel sibling pillow.libs directory. Reviewer preserved the initial failure and a timed-out attempt, then supplied the complete existing dependency in a task-only Python environment. The full run passed in one execution after that environment correction. The original unmodified reproduction command is not claimed to have passed on that host.",
+      "supported_source_tests_thresholds_changed": false,
+      "limits": "No new supported-runtime change, capture, model invocation or original scenario/full-plan completion is established."
+    }
+  }
 }

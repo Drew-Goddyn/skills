@@ -1050,6 +1050,14 @@
     {
       "at": "2026-09-19T14:04:02",
       "entry": "ChatGPT independently accepts the supported-workflow guidance, relayed by Drew; accepted patch SHA-256 0ffadfaf22474469ba143080cf28ddcfba5f0254890c169c02aa2e7b2a3a74e8. Reviewer confirmed the repeated handoff ZIPs are byte-for-byte identical. Publish the accepted scoped guidance and records without another review or duplicate package. Original task prerequisites remain open. Next: clean-source integration/readiness from the frozen published revision, using existing browser-free suites and preserved preflight; no new capture/model invocation, merge or install."
+    },
+    {
+      "at": "2026-09-19T14:10:57",
+      "entry": "Clean-source integration at published 7a63336db222cac9927b5dd189881568a7d1806b: 140 supported browser-free checks across ten suites and three preserved healthy/frozen preflight assertions pass from a standalone exported skill with explicit documented dependencies. Local packaging, imports, entrypoints, manifest/catalog metadata, discovery and plan commands pass. Initial missing Pillow/offline-cache attempts retained separately from passing checks. One default launch-prompt conflict with recording-versus-maintenance guidance has a one-phrase uncommitted correction. Readiness summary and correction await independent review; original criteria remain open, alignment/driver-clock freeze correlation remain deferred. No new capture/model invocation, merge or installation."
+    },
+    {
+      "at": "2026-09-19T18:50:34",
+      "entry": "ChatGPT independently accepts clean-source integration and the one-phrase launch-prompt correction, relayed by Drew; accepted patch bb24f82e5f8effc16b9a0e2fd9dc50ea26cb4f126405be14db93bbb8190d8b9a. All 140 supported checks, three saved-preflight assertions, packaging checks, 193 hashes, four-file patch and published/candidate plan commands passed. On Linux the supplied reproducer omitted sibling pillow.libs; initial failure and timed-out attempt were retained. Full review passed only after the reviewer supplied the complete existing dependency in a task-only Python environment (Python 3.13.5, FFmpeg 7.1.5, Pillow 12.3.0); no claim that the original command passed unchanged. Publish accepted correction/records; original scenario/full-plan criteria stay open. Next authorized packet prepares current main reconciliation in a separate worktree, uncommitted for review; no rebase, force-push, merge of PR, capture/model call or install."
     }
   ]
 }
