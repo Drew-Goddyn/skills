@@ -7,6 +7,7 @@ Personal agent skills for ChatGPT and supported coding agents, using the [Agent 
 | Category | Skill | Purpose |
 | --- | --- | --- |
 | Any agent | [Build Orchestrator](skills/build-orchestrator/SKILL.md) | Plan with the human, delegate building to a persistent or one-shot builder agent, and judge the results, from any agent environment. |
+| Any agent | [Visual Convergence — draft](skills/visual-convergence/SKILL.md) | Improve visual work against explicit references while protecting accepted behavior, with matched comparisons and evidence-based retention decisions. Includes a mixed-outcome case study; not a proven photorealism recipe. |
 | Codex | [Record Demos and Trailers](skills/codex/record-product-demo/SKILL.md) | Record and edit video demos, screen recordings of web apps, and game showcases, with evidence and review handoffs. Requires Python 3 and FFmpeg/ffprobe; browser capture uses agent-browser, and contact sheets need Pillow >=10.1. |
 | ChatGPT web | [Build Loop](skills/chatgpt%20web/build-loop/SKILL.md) | An ongoing thinking and review partner for human-directed work with a separate coding agent. |
 | ChatGPT web | [Codebase Design](skills/chatgpt%20web/codebase-design/SKILL.md) | Design deep modules, interfaces, and testable seams. |
