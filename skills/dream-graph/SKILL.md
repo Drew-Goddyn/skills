@@ -11,29 +11,31 @@ The human keeps acceptance authority unless they explicitly delegate it. This sk
 
 ## Working graph
 
-    living baseline
-          |
-          v
-    imagination field
-      /   |    \
-    branch mutate collide -- probe
-      \   |    /
-       lineage
-          |
-          v
-      Dream seed
-          |
-          v
-       DREAM LOOP
-      /          \
-   reject       retain
-     |             |
-   lesson       integrate
-                   |
-                   v
-            new living baseline
-                   |
-                   +----> imagine again
+```text
+living baseline
+      |
+      v
+imagination field
+  /   |    \
+branch mutate collide -- probe
+  \   |    /
+   lineage
+      |
+      v
+  Dream seed
+      |
+      v
+   DREAM LOOP
+  /          \
+reject       retain
+  |             |
+lesson       integrate
+                |
+                v
+         new living baseline
+                |
+                +----> imagine again
+```
 
 A graph node earns its place only when it changes what gets imagined, built, retained, or discarded.
 
@@ -59,10 +61,12 @@ Let candidate count emerge from genuine diversity. Prefer distinct experiential 
 
 A compact node is enough when recording matters:
 
-    I7 [fragment] parent:I2
-    moment: the floor remembers where weight rested
-    pull: the world notices the body
-    unknown: what does the memory do back?
+```text
+I7 [fragment] parent:I2
+moment: the floor remembers where weight rested
+pull: the world notices the body
+unknown: what does the memory do back?
+```
 
 Fresh Imagine contributors normally need only the living baseline, kernel, inherited capabilities, and representative captures. Add rejected history or implementation archaeology only when it directly bears on the branch.
 
