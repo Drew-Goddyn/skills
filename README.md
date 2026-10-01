@@ -8,6 +8,7 @@ Personal agent skills for ChatGPT and supported coding agents, using the [Agent 
 | --- | --- | --- |
 | Any agent | [Build Orchestrator](skills/build-orchestrator/SKILL.md) | Plan with the human, delegate building to a persistent or one-shot builder agent, and judge the results, from any agent environment. |
 | Any agent | [Visual Convergence — draft](skills/visual-convergence/SKILL.md) | Improve visual work against explicit references while protecting accepted behavior, with matched comparisons and evidence-based retention decisions. Includes a mixed-outcome case study; not a proven photorealism recipe. |
+| Any agent | [Dream Graph](skills/dream-graph/SKILL.md) | Grow interactive experiences through branching imagination, playable Dream loops, selective retention, and capability inheritance. |
 | Codex | [1Password](skills/codex/1password/SKILL.md) | Reuse 1Password CLI authorization across related commands and keep secrets scoped to the processes that need them. Requires the local `op` CLI and 1Password desktop app integration. |
 | Codex | [Record Demos and Trailers](skills/codex/record-product-demo/SKILL.md) | Record and edit video demos, screen recordings of web apps, and game showcases, with evidence and review handoffs. Requires Python 3 and FFmpeg/ffprobe; browser capture uses agent-browser, and contact sheets need Pillow >=10.1. |
 | ChatGPT web | [Build Loop](skills/chatgpt%20web/build-loop/SKILL.md) | An ongoing thinking and review partner for human-directed work with a separate coding agent. |
@@ -64,6 +65,12 @@ Install Build Orchestrator:
 
 ```sh
 npx skills add Drew-Goddyn/skills --skill build-orchestrator
+```
+
+Install Dream Graph:
+
+```sh
+npx skills add Drew-Goddyn/skills --skill dream-graph
 ```
 
 To install it globally for Claude Code:
