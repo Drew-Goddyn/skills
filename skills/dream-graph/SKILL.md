@@ -1,6 +1,6 @@
 ---
 name: dream-graph
-description: Dream Graph: evolve interactive experiences through branching imagination, playable Dreams, selective retention, and inheritance. Use when starting or evolving a creative prototype, deciding what to dream next, or choosing whether to deepen, reject, park, or harden a branch.
+description: "Dream Graph: evolve interactive experiences through branching imagination, playable Dreams, selective retention, and inheritance. Use when starting or evolving a creative prototype, deciding what to dream next, or choosing whether to deepen, reject, park, or harden a branch."
 ---
 
 # Dream Graph
