@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dream Graph"
+  short_description: "Imagine freely. Build small experiences convincingly."
+  default_prompt: "Use $dream-graph to explore or realize this experience, improve it against concrete targets, and retain only demonstrated gains."

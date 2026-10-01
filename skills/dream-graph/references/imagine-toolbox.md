@@ -1,66 +1,31 @@
 # Imagine toolbox
 
-Read this when the imagination field is collapsing into polished choices, promising branches need ways to move, or the right probe is unclear. It is a toolbox, not a checklist.
+Use this when exploration is stuck, cosmetic, or too quickly reduced to polished choices. These are available moves, not a checklist.
 
-## Transform a fragment
+## Change the relationship
 
-Useful moves include:
+Mutate one part while preserving the appeal. Combine branches when their interaction creates something new. Reverse who acts on whom. Change scale, timing, perspective, or what the person can control. Remove the obvious mechanic and see what remains interesting.
 
-- **Mutate** — change one relationship while preserving the pull.
-- **Collide** — combine two fragments only when the interaction creates a new experience.
-- **Invert** — reverse who acts on whom, who follows whom, or which side has agency.
-- **Scale** — change physical, social, temporal, or perceptual scale.
-- **Time** — add anticipation, memory, accumulation, delay, repetition, or decay.
-- **Perspective** — change what can be seen, heard, controlled, or known.
-- **Remove** — take away the obvious mechanic and see whether the experience becomes stranger or clearer.
+Prefer a different experience to the same idea in another costume. Allow impractical possibilities during exploration; use probes to learn where reality matters instead of letting ease of implementation choose everything.
 
-Use any other transformation that serves the lineage. A wild branch may ignore this list entirely.
+## Make the cheapest revealing probe
 
-## Choose a probe
+Use a still for composition or material, a motion study for timing and weight, an audio sketch for atmosphere or response, a spatial study for reach and enclosure, or a disposable interaction for something that must be felt through input.
 
-Probe only when the artifact can change the branch.
+Before making it, name the uncertainty it could change. Afterwards, name what was surprising or learned. Repeating the same assumption at higher polish does not create a new branch.
 
-- **Still image** — composition, material, scale, or one decisive state.
-- **Motion study/storyboard** — timing, weight, anticipation, reaction, transformation.
-- **Audio sketch** — rhythm, distance, atmosphere, hidden events, material response.
-- **Spatial/material study** — enclosure, reach, affordance, surface, light, wetness, deformation.
-- **10–30 second visit** — moment-to-moment player experience before visual language is settled.
-- **Disposable interaction probe** — a question that cannot be answered without behavior.
+An unexpected detail can be a better starting point than the prompt that produced it. Follow it before forcing the result back into the original idea.
 
-A probe earns another node when it reveals something. Polishing the same assumption does not.
+## Imagine an ordinary visit
 
-## Follow the artifact
+Describe what someone naturally does or notices, what the world does back, what changes, and why the next few seconds matter. For a scene intended mainly to be observed, the interest may come from atmosphere, scale, or unfolding motion rather than a new mechanic.
 
-React to accidents and unexpected details. If a generated artifact contains a stronger possibility than the idea that produced it, branch from the discovered detail.
+Keep enough specificity to imagine the experience, not enough paperwork to settle every design choice. Choose a direction when its appeal is concrete and a real build is the next useful test.
 
-Use generated media as an imagination partner, not proof that a finished implementation should reproduce every accident.
+## Keep the field open without drifting forever
 
-## Keep lineages experiential
+Watch for a fixed menu replacing exploration, the prettiest still outrunning the experience, obvious next features choosing the direction, or old failures crowding out new possibilities.
 
-Before deepening a branch, ask:
+Give fresh contributors the current baseline, representative captures, and capabilities they can rely on. Add rejected history only when it directly affects their question. Separate parallel questions rather than assigning cosmetic variants of the same one.
 
-- What does the player naturally do?
-- What does the world do back?
-- What changes because of that interaction?
-- Why might the next few seconds be interesting?
-
-A branch with a beautiful setting but no relationship may still be useful as an atmosphere fragment; it has not yet earned a Dream seed.
-
-## Bias checks
-
-Use these only when the field or selection feels suspicious:
-
-- **Menu bias** — a fixed set of polished choices replaced open exploration.
-- **Image bias** — the prettiest still is outrunning the playable relationship.
-- **Roadmap gravity** — the next branch is merely the obvious next feature.
-- **Feasibility gravity** — ease of implementation is choosing the concept too early.
-- **Context gravity** — old experiments are crowding out genuinely new branches.
-- **Duplicate effort** — parallel contributors are exploring the same question with cosmetic variation.
-
-Correct the graph rather than adding ceremony: reopen imagination, change the probe, split the question, collide different fragments, or park the branch.
-
-## Keep context selective
-
-Give fresh Imagine contributors the living baseline, kernel, inherited capabilities, and representative captures. Add rejected history, implementation detail, or prior design rationale only when that information is necessary to the branch.
-
-Selective context preserves inheritance without turning history into destiny.
+Stop when new branches mostly repeat existing relationships or the exploration budget ends. Present the strongest direction and genuinely different alternatives with the evidence that changed the choice. Selection ends exploration for that Dream; realization can reveal a conflict without reopening auditions by default.

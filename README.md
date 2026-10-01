@@ -8,7 +8,7 @@ Personal agent skills for ChatGPT and supported coding agents, using the [Agent 
 | --- | --- | --- |
 | Any agent | [Build Orchestrator](skills/build-orchestrator/SKILL.md) | Plan with the human, delegate building to a persistent or one-shot builder agent, and judge the results, from any agent environment. |
 | Any agent | [Visual Convergence — draft](skills/visual-convergence/SKILL.md) | Improve visual work against explicit references while protecting accepted behavior, with matched comparisons and evidence-based retention decisions. Includes a mixed-outcome case study; not a proven photorealism recipe. |
-| Any agent | [Dream Graph](skills/dream-graph/SKILL.md) | Grow interactive experiences through branching imagination, playable Dream loops, selective retention, and capability inheritance. |
+| Any agent | [Dream Graph](skills/dream-graph/SKILL.md) | Explore creative possibilities, realize chosen experiences through target-driven build and critique, and let validated gains inspire what comes next. Self-contained replacement for the separate Dream Loop workflow. |
 | Claude Code | [Simplify Plus](skills/claude%20code/simplify-plus/SKILL.md) | `/simplify` for any scope (a commit, PR, branch, path, tool, or the whole repo): chunked cleanup review, a skeptic filter, then one checked local commit per chunk. Requires Claude Code workflows; scopes over about 12,000 lines get a list of narrower targets instead. |
 | Codex | [1Password](skills/codex/1password/SKILL.md) | Reuse 1Password CLI authorization across related commands and keep secrets scoped to the processes that need them. Requires the local `op` CLI and 1Password desktop app integration. |
 | Codex | [Record Demos and Trailers](skills/codex/record-product-demo/SKILL.md) | Record and edit video demos, screen recordings of web apps, and game showcases, with evidence and review handoffs. Requires Python 3 and FFmpeg/ffprobe; browser capture uses agent-browser, and contact sheets need Pillow >=10.1. |
@@ -84,7 +84,9 @@ Install Dream Graph:
 npx skills add Drew-Goddyn/skills --skill dream-graph
 ```
 
-To install it globally for Claude Code:
+Dream Graph includes its own realization, review, asset, and diagnostic guidance. Use it instead of running a separate Dream Loop alongside it; Visual Convergence is not an installation dependency. Existing targets and checkpoints can be reused without converting the project. See [migration and provenance](skills/dream-graph/PROVENANCE.md) and [validation limits](dev/dream-graph/VALIDATION.md).
+
+Install Build Orchestrator globally for Claude Code:
 
 ```sh
 npx skills add Drew-Goddyn/skills --skill build-orchestrator --agent claude-code --global

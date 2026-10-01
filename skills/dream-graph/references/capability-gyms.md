@@ -1,29 +1,21 @@
 # Capability gyms
 
-Read this when multiple Dreams expose the same weak shared capability, or when a promising Dream is blocked by infrastructure that should serve more than one branch.
+Use a gym only when a selected Dream or repeated branches expose a shared capability worth strengthening separately. "Gym" means focused capability work, not a new creative planning layer.
 
-A **gym** is a focused engineering or art-development branch. It strengthens what future Dreams can inherit; it does not choose the project's creative direction.
+## Define a bounded improvement
 
-## Open a gym
+Name the capability, observed failure, representative scenario, protected baseline, and evidence needed for a useful gain. Examples include carrying, locomotion, deformation, rendering, capture, conversion, or sound response.
 
-Name:
+Choose the smallest coherent capability improvement that serves the experience. Keep the Dream's remaining quality gaps and effort allowance visible; moving work into a gym does not reset them.
 
-- the shared capability;
-- the observed failures that matter across Dreams;
-- the smallest representative scenarios that exercise it;
-- the retained baseline that must remain recoverable;
-- the evidence needed to validate a gain.
+## Test what the capability must actually do
 
-Examples include locomotion, carrying, deformation, rendering, weather, capture, asset conversion, or audio response.
+Use cheap deterministic checks for bulk iteration when faithful. Keep a real-deliverable check for timing, rendering, interaction, or perception claims. Avoid fixture-specific assistance, weakened assertions, or tests that bypass the failing mechanism.
 
-## Work the capability separately
+Preserve independently supported gains even when a larger experiment fails. State what was demonstrated, what remains unobserved, and where the capability still fails.
 
-Use deterministic or cheap tests for bulk iteration when they faithfully exercise the capability. Keep a representative real-deliverable check for anything timing-, rendering-, interaction-, or perception-dependent.
+## Return to the chosen experience
 
-Preserve independently validated gains even when a larger experiment fails. Avoid fixture-specific cheats, hidden assistance, weakened limits, or changes that only make the test pass.
+Integrate an authorized, validated gain without presenting an unfinished Dream as complete. Recheck the Dream in ordinary use: a capability test passing does not establish the experience's appearance, feel, or readiness.
 
-## Rejoin the graph
-
-A gym result becomes inheritance only after it demonstrates a general capability gain and preserves protected behavior. Merge or integrate that gain into the living baseline, record its limitation, then return to Dream Graph.
-
-If the gym starts deciding what the next Dream should be, stop: capability work has crossed into creative selection.
+Resume realization when the blockage clears. If it does not, pause or park with the actual limitation. Let the human's chosen experience guide capability work, not the reverse.
