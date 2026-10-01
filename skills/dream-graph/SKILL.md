@@ -1,15 +1,15 @@
 ---
 name: dream-graph
-description: Explore and grow interactive experiences through branching imagination, playable Dream loops, retention, and capability inheritance. Use when starting a creative prototype, evolving an existing playable thing, deciding what to dream next, or turning an imagined moment into a real experience without collapsing imagination into a fixed menu of concepts.
+description: Dream Graph: evolve interactive experiences through branching imagination, playable Dreams, selective retention, and inheritance. Use when starting or evolving a creative prototype, deciding what to dream next, or choosing whether to deepen, reject, park, or harden a branch.
 ---
 
 # Dream Graph
 
-A practical evolution of Dream Loop. Use a graph before and around the build loop: imagine branches before commitment, dream one selected seed against reality, retain only what survives play, and let later dreams inherit the gains.
+A practical evolution of Dream Loop. Imagine before committing, Dream one selected seed against reality, retain only what survives play, and let later Dreams inherit validated gains.
 
-This is not a roadmap generator. It does not authorize publication, purchases, destructive repository changes, or scope outside the user's request. Preserve the user's acceptance authority.
+The human keeps acceptance authority unless they explicitly delegate it. This skill does not authorize publication, purchases, destructive repository changes, or unrelated scope.
 
-## The working graph
+## Working graph
 
     living baseline
           |
@@ -35,173 +35,109 @@ This is not a roadmap generator. It does not authorize publication, purchases, d
                    |
                    +----> imagine again
 
-    repeated shared weakness
-              |
-              v
-       capability gym
-              |
-        validated gain
-              |
-              +----> living baseline
-
-The graph is lightweight. A node is useful only when it changes what gets imagined, built, retained, or discarded.
+A graph node earns its place only when it changes what gets imagined, built, retained, or discarded.
 
 ## 1. Ground the living baseline
 
 Experience the actual playable artifact when one exists. If the project is only a seed, inspect the seed without inventing a roadmap.
 
-Record three things:
+Record:
 
 - **Kernel** — what is already intrinsically interesting to inhabit, operate, touch, or observe.
-- **Inheritance** — capabilities and qualities a new dream may rely on because they already work.
-- **Live tension** — something the current thing makes you curious about, without treating it as a required feature.
+- **Inheritance** — capabilities and qualities a new Dream may rely on because they already work.
+- **Live tension** — something the current thing makes you curious about without turning it into a required feature.
 
-Keep the baseline recoverable. Representative captures and a short capability list are usually more useful to Imagine than the complete project history.
+Keep the baseline recoverable. Give Imagine representative captures and a short capability list rather than the complete project history.
 
-**Done when:** the current thing can be described without a feature backlog, and the next Imagine work can tell what is alive already.
+**Done when:** the current thing can be described without a feature backlog, and Imagine can tell what is already alive.
 
 ## 2. Open an imagination field
 
-Create **fragments before concepts**. A fragment can be a moment, relationship, sensation, world response, rule change, contradiction, impossible variation, or question. It does not need to be a complete game idea.
+Create **fragments before concepts**. A fragment can be a moment, relationship, sensation, world response, rule change, contradiction, impossible variation, or question.
 
-Do not force a fixed candidate count. Continue until there are several genuinely different lineages rather than cosmetic variations of one idea. A small field is enough when it has real diversity.
+Let candidate count emerge from genuine diversity. Prefer distinct experiential relationships over cosmetic changes in props, theme, or reference art.
 
-Use a compact node when recording matters:
+A compact node is enough when recording matters:
 
     I7 [fragment] parent:I2
     moment: the floor remembers where weight rested
     pull: the world notices the body
     unknown: what does the memory do back?
 
-Fresh Imagine contributors should normally receive the living baseline, kernel, inherited capabilities, and a few representative captures. Give them rejected history or implementation archaeology only when it is directly relevant. Selective context reduces gravity toward the project's previous answers.
+Fresh Imagine contributors normally need only the living baseline, kernel, inherited capabilities, and representative captures. Add rejected history or implementation archaeology only when it directly bears on the branch.
 
-**Done when:** the field contains distinct experiential directions, not merely different props, themes, or reference images.
+If the field collapses into polished choices, needs new mutation moves, or the right probe is unclear, read [Imagine toolbox](references/imagine-toolbox.md).
 
-## 3. Probe imagination instead of illustrating it
+**Done when:** several genuinely different experiential lineages exist, or one lineage has clearly earned deeper exploration.
 
-Use the cheapest medium that can teach something the fragment cannot answer in words. Depending on the question, that may be:
+## 3. Probe and grow lineages
 
-- a gameplay still;
-- a short motion study or storyboard;
-- an audio or atmosphere sketch;
-- a spatial or material study;
-- a 10–30 second written visit from inside the experience;
-- a tiny disposable interaction probe.
+Use the cheapest probe that can teach something words cannot. A probe may be an image, motion study, audio sketch, short visit, spatial/material study, or disposable interaction.
 
-Reference media are **probes**, not specifications. Generate only where the probe can change the branch. React to accidents and discoveries inside the artifact; a surprising detail may become the new parent node.
+Treat reference media as **probes**, not specifications. Let artifacts change the branch when an unexpected detail proves more interesting than the prompt that produced it.
 
-Do not make a polished image for every branch. Appearance is only one dimension of an experience.
-
-**Done when:** at least one promising lineage has become more specific because a probe taught something, not merely because it looked polished.
-
-## 4. Grow promising lineages
-
-Deepen fragments with whichever transformations help. Useful moves include mutation, collision, inversion, scale change, time change, perspective change, or removing the obvious mechanic. These are a toolbox, not a checklist.
+Deepen promising lineages by mutation, collision, inversion, scale, time, perspective, or another transformation that serves the question. Park weak branches without turning them into backlog.
 
 For a promising lineage, imagine an ordinary 10–30 second visit:
 
 1. What does the player naturally do?
 2. What does the world do back?
-3. What changes because of the interaction?
+3. What changes?
 4. What creates curiosity about the next few seconds?
 
-Branches may combine when their relationship creates a stronger experience. Park weak branches without turning them into backlog. Preserve a short lesson only when it will matter later.
+Prefer **pull + uncertainty** over completeness: the team wants to inhabit it, and something important still needs reality to answer.
 
-Prefer **pull + uncertainty** over completeness: a strong lineage makes the team want to inhabit it, while leaving an important question that only a real build can answer.
+**Done when:** one or a few lineages have enough pull to justify a real build.
 
-**Done when:** one or a few lineages have enough experiential pull to justify crossing into a build.
+## 4. Crystallize a Dream seed
 
-## 5. Crystallize a Dream seed
-
-A Dream seed is intentionally smaller than a design document. Capture:
+A Dream seed is smaller than a design document. Capture:
 
 - **Pull** — why this is worth inhabiting.
 - **Moment** — the decisive imagined encounter, frame, motion, sound, or short visit.
-- **Invariants** — the few qualities that make it this dream.
+- **Invariants** — the few qualities that make it this Dream.
 - **Unknown** — what reality must answer.
 - **Evidence** — only the probes that created conviction.
 - **Inheritance** — what existing qualities or capabilities should survive.
 
-Recommend a seed when useful, but let the human choose by default unless selection authority was explicitly delegated. Do not resolve every system before implementation; leave room for the running artifact to teach the design.
+Recommend a seed when useful; let the human choose by default. Leave room for the running artifact to teach the design.
 
 **Done when:** the seed is specific enough to test and small enough that Dream can still discover its form.
 
-## 6. Cross the commitment line and Dream
+## 5. Cross the commitment line and Dream
 
-After selection, narrow the question. Build the smallest real experience capable of disproving or validating the seed's promise.
+After selection, narrow the question. Build the smallest real experience capable of validating or disproving the seed's promise.
 
-Use target artifacts as **attractors**, not contracts. Preserve the experiential invariant when a generated accident is impossible or harmful. Judge the actual running result, not the builder's explanation.
+Use target artifacts as **attractors**, not contracts. Preserve the experiential invariant when a generated accident is impossible or harmful. Judge the running artifact rather than the builder's explanation.
 
-Keep one recoverable retained best, one meaningful candidate, and parked experiments when needed. Use matched captures, real input sequences, actual audio or motion, and independent review where they can change the retention decision. For visual convergence, use the repository's [Visual Convergence](../visual-convergence/SKILL.md) procedure rather than inventing a second review system.
+Keep a recoverable retained best and compare meaningful candidates against it. Use evidence that matches the claim: stills for appearance, real input sequences for interaction, timed playback for motion, actual audio for sound, and performance measurements for performance.
 
-Ask the human to play when the decision is genuinely experiential or cannot be resolved from evidence. Do not turn subtle technical comparisons into human homework.
+Reserve human play for decisions that are genuinely experiential or cannot be resolved from captured evidence.
 
-Return one compact review handoff for a meaningful milestone rather than a pile of loosely related evidence.
+When visual iteration becomes substantial or stalls, use [Visual Convergence](../visual-convergence/SKILL.md) rather than creating a second visual-review process. When coordinating contributors, independent review, or milestone evidence, read [Review and handoffs](references/review-and-handoffs.md).
 
-**Done when:** ordinary play gives a credible answer to the Dream seed's unknown, including material regressions and evidence limits.
+**Done when:** ordinary play gives a credible answer to the Dream seed's unknown, including material regressions and observation limits.
 
-## 7. Retain, reject, or park
+## 6. Retain, reject, or park
 
-Choose the graph edge that reality earned:
+Choose the edge reality earned:
 
 - **Retain** when the imagined pull survives ordinary play and protected behavior remains sound.
-- **Reject** when the central pleasure collapses in reality. Keep the lesson; do not convert the branch into debt.
-- **Park** when the question is still interesting but the next useful move needs different authority, tooling, or a shared capability that is not ready.
+- **Reject** when the central pleasure collapses in reality. Keep the useful lesson, not a backlog obligation.
+- **Park** when the question remains interesting but the next useful move needs different authority, tooling, or a shared capability that is not ready.
 
-For a retained Dream, identify what the living baseline actually inherits. Useful categories are experience, capability, identity, visual language, interaction vocabulary, and technical foundation. Integrate only validated gains; a branch does not become inheritance merely because it exists.
+For a retained Dream, record what the living baseline actually inherits: experience, capability, identity, visual language, interaction vocabulary, or technical foundation. Integrate only validated gains.
 
-After integration, the new living baseline becomes the parent of the next Imagine phase.
+If several Dreams expose the same shared weakness, read [Capability gyms](references/capability-gyms.md) and strengthen that capability separately from creative selection.
 
 **Done when:** the retained baseline is recoverable, rejected work is not masquerading as roadmap, and the next Imagine phase knows what truly changed.
 
-## Capability gyms
+## 7. Repeat from the new living baseline
 
-When multiple dreams expose the same weak shared capability, split that problem into a **gym**: a focused engineering or art-development branch with its own test. Examples include locomotion, carrying, deformation, rendering, weather, capture, or asset conversion.
+After integration, the retained result becomes the parent of the next Imagine phase. Carry forward validated inheritance and a concise record of useful lessons; keep old branch detail out of fresh imagination unless it becomes relevant.
 
-A gym strengthens what future dreams can inherit; it does not choose creative direction. Merge only independently validated gains back into the living baseline, then return to the graph.
+Stop expanding Imagine when new nodes mostly repeat existing relationships. Stop a Dream when its promise is validated, disproved, or the next useful work would test a different question. Continue refinement only while it improves the whole playable experience without eroding protected gains.
 
-## Lightweight roles
+The core cycle is:
 
-Use roles only when they create a real context or review advantage:
-
-- **Dreamweaver** — owns the graph, preserves identity and inheritance, and decides which kind of work is needed next.
-- **Imagine contributor** — explores with selective context and may branch, mutate, collide, or probe.
-- **Dream builder** — gets the deeper implementation context after a seed is chosen.
-- **Reviewer** — judges the artifact against the seed, retained best, and protected behavior.
-
-One top-level agent may coordinate all of these. Do not manufacture organizational ceremony. A second pass in the same context is not independent review; call it self-review unless a genuine separate reviewer was used.
-
-## Bias checks
-
-Before committing to a seed or retaining a Dream, check for these common distortions:
-
-- **Menu bias** — a fixed set of polished choices replaced open imagination.
-- **Image bias** — the prettiest still won despite a weak playable relationship.
-- **Roadmap gravity** — the next idea is merely the obvious next feature.
-- **Feasibility gravity** — the easiest implementation won before the experience was understood.
-- **Context gravity** — old experiments crowded out genuinely new branches.
-- **Score chasing** — a metric or reviewer score replaced whole-experience judgment.
-- **Refinement drift** — repeated polishing continues after the important question is already answered.
-- **Duplicate effort** — parallel builders are implementing near-identical ideas instead of exploring independent questions.
-
-Correct the distortion at the graph level: reopen imagination, change the probe, separate a gym, or stop the branch.
-
-## Practical handoffs
-
-Keep handoffs small and phase-specific:
-
-- **Imagine:** a graph snapshot with active lineages and the probes that changed them.
-- **Dream seed:** pull, moment, invariants, unknown, evidence, and inheritance.
-- **Dream milestone:** playable location or revision plus one compact review package.
-- **Retention:** preferred revision, inherited gains, remaining limits, and parked lessons.
-
-Do not copy the entire project history into every handoff. The graph should preserve decisions while each worker receives only the context needed for its branch.
-
-## Stop rules
-
-- Stop expanding Imagine when new nodes mostly repeat existing relationships; deepen the strongest lineages instead.
-- Stop a Dream when its promise is validated, disproved, or the next useful work would test a different question.
-- Continue refinement only while it improves the whole playable experience without eroding protected gains.
-- There is no universal round count. Preserve the best known state and make the next iteration earn its cost.
-
-The core cycle is simple: **imagine broadly, commit narrowly, test in reality, retain selectively, inherit honestly, repeat.**
+**imagine broadly, commit narrowly, test in reality, retain selectively, inherit honestly, repeat.**
