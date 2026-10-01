@@ -15,6 +15,9 @@ _Avoid_: Attractor, when it makes the quality optional.
 **Probe**:
 A limited artifact made to resolve uncertainty or change a creative choice. It can justify further work without being a finished experience.
 
+**Gym**:
+A bounded effort to strengthen a shared capability used by Dreams. Its result is a capability improvement, not a complete experience.
+
 **Checkpoint**:
 A recoverable candidate worth preserving during work. It may be unfinished, unaccepted, or accompanied by known defects.
 _Avoid_: Retained baseline, when only progress has been saved.

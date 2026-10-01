@@ -1,6 +1,6 @@
 # Capability gyms
 
-Use a gym only when a selected Dream or repeated branches expose a shared capability worth strengthening separately. "Gym" means focused capability work, not a new creative planning layer.
+Use a [gym](../CONTEXT.md) only when a selected Dream or repeated branches expose a shared capability worth strengthening separately. Keep this focused capability work in service of the chosen experience.
 
 ## Define a bounded improvement
 
