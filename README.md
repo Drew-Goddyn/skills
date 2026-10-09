@@ -10,6 +10,7 @@ Personal agent skills for ChatGPT and supported coding agents, using the [Agent 
 | Any agent | [Visual Convergence — draft](skills/visual-convergence/SKILL.md) | Improve visual work against explicit references while protecting accepted behavior, with matched comparisons and evidence-based retention decisions. Includes a mixed-outcome case study; not a proven photorealism recipe. |
 | Any agent | [Dream Graph](skills/dream-graph/SKILL.md) | Explore creative possibilities, realize chosen experiences through target-driven build and critique, and let validated gains inspire what comes next. Self-contained replacement for the separate Dream Loop workflow. |
 | Any agent | [Motion Loop — draft](skills/motion-loop/SKILL.md) | Animate an existing character, object, or UI element against a reference clip or timing sheet. The judge works from measured motion and still images instead of video, and the loop stops at a solid 7/10 rather than chasing perfection. Not yet tried on a real animation task. |
+| Any agent | [Lucid Loop — draft](skills/lucid-loop/SKILL.md) | Build a game or 3D scene inside a locked art style (low-poly, clay, abstract, voxel, paper, ink), modeling in Blender, so effort goes into form, quantity, motion and life instead of realism. The target is a floor, not a ceiling. Not yet tried on a real build. |
 | Claude Code | [Simplify Plus](skills/claude%20code/simplify-plus/SKILL.md) | `/simplify` for any scope (a commit, PR, branch, path, tool, or the whole repo): chunked cleanup review, a skeptic filter, then one checked local commit per chunk. Requires Claude Code workflows; scopes over about 12,000 lines get a list of narrower targets instead. |
 | Codex | [1Password](skills/codex/1password/SKILL.md) | Reuse 1Password CLI authorization across related commands and keep secrets scoped to the processes that need them. Requires the local `op` CLI and 1Password desktop app integration. |
 | Codex | [Record Demos and Trailers](skills/codex/record-product-demo/SKILL.md) | Record and edit video demos, screen recordings of web apps, and game showcases, with evidence and review handoffs. Requires Python 3 and FFmpeg/ffprobe; browser capture uses agent-browser, and contact sheets need Pillow >=10.1. |
@@ -94,6 +95,14 @@ npx skills add Drew-Goddyn/skills --skill motion-loop
 ```
 
 Motion Loop animates a subject that already exists. Build the subject first (for example with Dream Graph), then run Motion Loop on one short shot at a time. See [provenance](skills/motion-loop/PROVENANCE.md).
+
+Install Lucid Loop:
+
+```sh
+npx skills add Drew-Goddyn/skills --skill lucid-loop
+```
+
+Lucid Loop picks a style lock first, then dreams, builds and judges inside it. It expects image generation (or a supplied target) and works best with Blender available through an MCP or Python scripting. See [provenance](skills/lucid-loop/PROVENANCE.md).
 
 Install Build Orchestrator globally for Claude Code:
 
