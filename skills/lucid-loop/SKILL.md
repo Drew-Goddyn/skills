@@ -10,6 +10,8 @@ A dream you steer. Adapted from [achimala/dream-loop](https://github.com/achimal
 
 Realism spends an agent's effort on what it authors worst: painted textures, photo materials, scanned detail. Even a strong run lands at "almost real", which reads as wrong. A style **lock** takes realism off the table, and that raises the ceiling. Every surface becomes something Blender and code make perfectly, so effort is **diverted** into what reads as complexity: crafted form, quantity, motion, behavior and composition. Simple parts, rich scene.
 
+A rich scene still needs a reason to look at it: a **hook**. Ordinary subjects become interesting through a situation in progress, an unusual point of view, or something that reacts when poked. The hook is where play tends to hide, so the loop names one up front and reports where play showed up at the end, without forcing gameplay in.
+
 Put working files in `.lucid-loop/` and gitignore it.
 
 ## Prerequisites
@@ -19,9 +21,11 @@ Put working files in `.lucid-loop/` and gitignore it.
 - Blender, through a Blender MCP or bridge (such as Higgsfield's) or its Python scripting, for models. Without it, build models in code and tell the user once.
 - A way to screenshot the running product at chosen times.
 
-## 1. Lock the style
+## 1. Name the hook, lock the style
 
-Write `.lucid-loop/style.md`. Start from the closest entry in [references/styles.md](references/styles.md). If the user named no style, pick the one whose "detail goes to" channels best match what they want to feel alive, and say which. Fill every field:
+Write `.lucid-loop/style.md`. Open it with the **hook** in one or two sentences: what is happening, from whose point of view, and what (if anything) responds to the viewer. Take it from the brief when it names one; otherwise propose one and say so. The hook may sharpen as the build teaches you something; the lock below does not.
+
+For the lock, start from the closest entry in [references/styles.md](references/styles.md). If the user named no style, pick the one whose "detail goes to" channels best match what they want to feel alive, and say which. Fill every field:
 
 - **Palette:** 3-8 exact hex colors. All color comes from the palette; light may tint it.
 - **Shapes:** the allowed geometry and its budget.
@@ -34,7 +38,7 @@ Done when every field holds values a judge can check from a screenshot. The lock
 
 ## 2. Dream the target
 
-Generate a target screenshot. Ask for a real in-engine screenshot of the product, not concept art, and quote the lock in the prompt: palette hexes, shape rules and banned list. If the product already exists, screenshot it and pass that in as the base so the target refines it.
+Generate a target screenshot. Ask for a real in-engine screenshot of the product, not concept art, quote the lock in the prompt (palette hexes, shape rules and banned list), and frame the shot so the hook reads at a glance. If the product already exists, screenshot it and pass that in as the base so the target refines it.
 
 Check the result against the lock yourself and regenerate until it passes. A target the lock can't reach is a target you can't reach. Save it as `.lucid-loop/target.png`.
 
@@ -65,5 +69,7 @@ Fix every item in the verdict, then return to step 4.
 - **Stall approaching:** the best score hasn't risen a full point in 2 rounds, or the judge named the same gap twice. Small tweaks have stopped working, so make one big-picture change: recompose the scene, remodel the key assets, rework the light or move the camera.
 - **Stalled:** the big change didn't help. Stop and ask the user to weigh in.
 - **Otherwise:** keep looping.
+
+Whenever you stop and hand back, add **play notes**: up to 3 moments in the scene that felt like play (something worth poking, a situation that could become a goal, a view worth controlling). They are observations for the user to build on, not features to add.
 
 If the user gives a time budget, record the start time once the target is saved and check it between rounds. The lock holds under time pressure; spend the remaining time on richness.

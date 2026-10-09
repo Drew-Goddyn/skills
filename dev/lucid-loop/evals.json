@@ -1,25 +1,29 @@
 {
   "skill_name": "lucid-loop",
+  "notes": "Each prompt is written the way a coordinating agent hands work to a builder: it has already turned the human's rough idea into a brief. 'origin' records that rough idea for context; the builder only sees 'prompt'.",
   "evals": [
     {
       "id": 1,
-      "name": "named-style-scene",
-      "prompt": "lucid loop: a low-poly harbor at dusk in three.js. boats bobbing, gulls circling, windows lighting up one by one, chimney smoke. no gameplay, just a scene that feels alive. 60fps in the browser. use blender for the models.",
-      "expected_output": "A style.md filled from the low-poly lock, a target.png that obeys it, Blender-made .glb models in the palette, a running three.js scene, contact sheets per round, judge verdicts scoring Lock/Composition/Richness/Cohesion, and a final scene richer than the target.",
+      "name": "short-brief-named-style",
+      "origin": "a few sentences: low-poly harbor, evening, feels alive, maybe the tide doing something",
+      "prompt": "Use the Lucid Loop skill to build a single three.js scene: a small low-poly fishing harbor at dusk, viewed from a fixed three-quarter angle above the quay. The hook is the tide going out. Over about a minute the water slides back and the moored boats settle onto the mud one by one, tilting as they ground, while the harbor carries on around them: gulls circling and landing on masts, windows lighting up house by house, smoke drifting from chimneys.\n\nThis is a scene, not a game: no player character, no UI, no scoring. Model the boats, houses and quay in Blender and keep everything inside the low-poly lock. It must hold 60 fps in a desktop browser. Done when the judge scores 8 or more for two rounds and the tide cycle loops cleanly; hand back with your play notes.",
+      "expected_output": "style.md opens with the tide hook and uses the low-poly lock; target.png obeys it and shows grounded boats; Blender-made .glb models in the palette; a looping tide that the contact sheets make visible; judge verdicts that score the hook under Composition; a final scene richer than the target; and up to 3 play notes on hand-back.",
       "files": []
     },
     {
       "id": 2,
-      "name": "no-style-named",
-      "prompt": "i want a tiny animated room for the top of my portfolio site, like a little desk diorama with a plant, a lamp and a cat that does stuff. three.js. i don't care about realism, i just want it to feel charming and alive. use lucid loop",
-      "expected_output": "The agent picks a lock itself (likely clay or low-poly), says which and why, and the result spends detail on motion and small reactions rather than surface detail.",
+      "name": "voice-note-brief-no-style",
+      "origin": "a rambling voice note about wanting a tiny animated room for a portfolio header, a cat, a desk, something about late at night",
+      "prompt": "Use the Lucid Loop skill. The brief below comes from a voice conversation with the owner; where it is vague, make the call yourself and record it.\n\n## Goal\nA small animated diorama for the header of a personal portfolio site: a cluttered desk at 3 a.m., seen from the height of a cat sitting on the shelf above it.\n\n## The situation\nThe cat is watching a mug near the edge of the desk. Nothing has fallen yet. The scene should feel like the moment just before something happens: the cat's tail flicks, its head tracks a moth circling the desk lamp, the monitor's screensaver throws slow color across the papers, and a houseplant leans toward the lamp.\n\n## Interaction\nOne optional poke: hovering near the mug makes the cat lean further toward it. No clicks, no goals, no score.\n\n## Style\nNot chosen. The owner wants it charming, warm and alive, not realistic. Pick the lock that best fits and say why.\n\n## Constraints\n- three.js, embedded in a page, about 1200 x 500 px.\n- Loads in under 3 seconds on broadband; 60 fps on a mid-range laptop.\n- Models from Blender; nothing generated or downloaded.\n\n## Done when\nThe judge scores 8 or more for two rounds, the scene loops without a visible seam, and you hand back with your chosen lock, the reason for it, and your play notes.",
+      "expected_output": "The builder chooses a lock itself (likely clay or low-poly), states which and why, and writes the cat-and-mug hook at the top of style.md. The target and build use the cat's-height point of view. Detail goes into small motions and the hover reaction rather than surface detail. Hand-back includes the lock rationale and play notes.",
       "files": []
     },
     {
       "id": 3,
-      "name": "abstract-no-models",
-      "prompt": "make a geometric music visualizer in the browser that reacts to an mp3 i drop in. shapes and color only, nothing that looks like real objects. lucid loop it",
-      "expected_output": "An abstract lock with a 3-5 color palette, mostly code-built shapes (Blender optional), and richness judged on rhythm, pattern and motion synced to the audio.",
+      "name": "mini-design-doc-abstract",
+      "origin": "an idea about rush hour traffic looking like music, maybe from above, shapes not cars",
+      "prompt": "Use the Lucid Loop skill to build the scene described in this design document.\n\n# Rush Hour, Abstracted\n\n## Pitch\nA four-way city intersection at rush hour, seen straight down from above and reduced to pure shapes. Cars are squares, pedestrians are dots, signals are bars of color. Left alone it is a hypnotic, rhythmic pattern: queues build, release and ripple through the grid.\n\n## Experience\nThe viewer should feel the rhythm of the city: pulses of movement, waves of stopping, near misses that resolve. It should be watchable for minutes without anything being explained.\n\n## Scene\n- One intersection centered on screen, with the approaching streets running to each edge.\n- 40-80 vehicles and 20-40 pedestrians active at once, each following simple traffic rules.\n- Signals cycle on a fixed timer; queues form and drain visibly.\n- Occasional events add variety: an emergency vehicle that everything yields to, a pedestrian crowd after a signal change, a stalled car that traffic flows around.\n\n## Interaction\nOptional and minimal: clicking a signal advances its phase early. The scene must be complete and interesting without it.\n\n## Style direction\nAbstract geometric lock. Shapes and color carry all meaning; nothing should look like a real car or person. Motion is where the detail goes: easing on starts and stops, spacing in queues, the ripple when a light changes.\n\n## Technical\n- three.js with an orthographic top-down camera.\n- Everything can be built in code; use Blender only if a form needs it.\n- 60 fps with the maximum counts above.\n\n## Out of scope\nScore, win or lose states, sound, menus.\n\n## Done when\nThe judge scores 8 or more for two rounds, the simulation runs for 10 minutes without jams that never clear, and you hand back with play notes.",
+      "expected_output": "An abstract lock with a 3-5 color palette; the hook (the city's rhythm seen from above) at the top of style.md; mostly code-built shapes with Blender optional; richness judged on rhythm, easing, queue ripples and events across the contact sheets; a stable 10-minute run; and play notes, likely around the signal-tap interaction.",
       "files": []
     }
   ]

@@ -14,6 +14,7 @@ Lucid Loop adapts Dream Loop's build-and-judge workflow from chasing realism to 
 - The rubric is Lock, Composition, Richness and Cohesion instead of Composition, Lighting, Materials and Details. Any lock break caps the score at 6.
 - On the lock's detail channels the target is a floor, not a ceiling: exceeding it scores higher.
 - The judge sees a 3-frame contact sheet, so motion and life count.
+- Each scene names a hook (a situation, a point of view, or something that reacts) that the judge scores under Composition, and every hand-back includes up to 3 play notes. Dream Loop has neither.
 - The Plus/Pro workflow split and model-tier checks are removed. Directive tracking (LANDED / PARTIAL / NOT DONE) is borrowed from Motion Loop.
 
 These are design choices, not measured performance improvements.
