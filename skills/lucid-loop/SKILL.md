@@ -1,6 +1,6 @@
 ---
 name: lucid-loop
-description: "Lucid Loop: build a game, app or 3D scene inside a locked art style (low-poly, clay, abstract, voxel, paper cutout, ink) so detail goes into form, quantity, motion and life instead of realism. Use when the user says \"lucid loop\", asks for a stylized or toy-like look, wants a three.js or web scene modeled in Blender, or wants something visually ambitious without photorealism. For photoreal targets, use Dream Graph instead."
+description: "Lucid Loop: build a game, app or 3D scene inside a locked art style (low-poly, clay, abstract, voxel, paper cutout, ink) so detail goes into form, quantity, motion and life instead of realism. Use only when the user asks for Lucid Loop by name."
 license: MIT
 ---
 
@@ -16,7 +16,7 @@ Put working files in `.lucid-loop/` and gitignore it.
 
 - Vision input, and image generation or a target image from the user.
 - Subagents, strongly preferred, so the judge has fresh eyes.
-- Blender, through a Blender MCP or its Python scripting, for models. Without it, build models in code and tell the user once.
+- Blender, through a Blender MCP or bridge (such as Higgsfield's) or its Python scripting, for models. Without it, build models in code and tell the user once.
 - A way to screenshot the running product at chosen times.
 
 ## 1. Lock the style

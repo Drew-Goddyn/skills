@@ -11,7 +11,7 @@
     {
       "id": 2,
       "name": "no-style-named",
-      "prompt": "i want a tiny animated room for the top of my portfolio site, like a little desk diorama with a plant, a lamp and a cat that does stuff. three.js. i don't care about realism, i just want it to feel charming and alive",
+      "prompt": "i want a tiny animated room for the top of my portfolio site, like a little desk diorama with a plant, a lamp and a cat that does stuff. three.js. i don't care about realism, i just want it to feel charming and alive. use lucid loop",
       "expected_output": "The agent picks a lock itself (likely clay or low-poly), says which and why, and the result spends detail on motion and small reactions rather than surface detail.",
       "files": []
     },
