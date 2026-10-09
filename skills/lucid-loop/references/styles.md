@@ -1,11 +1,11 @@
 # Starting locks
 
-Copy the closest lock into `.lucid-loop/style.md`, then tighten it for the request. The palettes are working defaults; swap them for the user's colors when given ("clay, but only blues"). Every lock shares one surface rule: color comes from the palette as flat or vertex colors.
+Copy the closest lock into `.lucid-loop/style.md`, then tighten it for the request. The palettes are working defaults; swap them for the user's colors when given ("clay, but only blues"). Every lock shares one surface rule: color comes from the palette as flat or vertex colors. How to model each style in Blender is in [blender.md](blender.md).
 
 ## Low-poly
 
 - **Palette:** `#2B3A55` `#3E6259` `#7FA36B` `#D9C27E` `#E8885A` `#B5523B` `#F2EBDD`
-- **Shapes:** faceted forms, at most 300 triangles per prop and 2,000 per hero object. In Blender, Decimate then flat shading.
+- **Shapes:** faceted forms, at most 300 triangles per prop and 2,000 per hero object.
 - **Surfaces:** flat shading, one color per face.
 - **Light:** one warm directional sun, cool ambient, crisp shadows, distance fog in the darkest palette color.
 - **Banned:** smooth shading, gradients across a face, bloom, outlines.
@@ -14,7 +14,7 @@ Copy the closest lock into `.lucid-loop/style.md`, then tighten it for the reque
 ## Clay
 
 - **Palette:** `#F4E3C3` `#E9A36B` `#D85C4A` `#6FA8A1` `#3F5E7A` `#2E2A33`
-- **Shapes:** soft rounded forms with no hard edges. In Blender, heavy Bevel plus Subdivision, or sculpted blobs.
+- **Shapes:** soft rounded forms with no hard edges.
 - **Surfaces:** matte, slightly rough, no specular highlights.
 - **Light:** one large soft key light, soft contact shadows, gentle ambient occlusion.
 - **Banned:** sharp corners, metallic or glossy materials, thin details that clay couldn't hold.
@@ -32,7 +32,7 @@ Copy the closest lock into `.lucid-loop/style.md`, then tighten it for the reque
 ## Paper cutout (2.5D)
 
 - **Palette:** `#F6EFE0` `#E3C9A8` `#9DB4A5` `#5E7F8C` `#C9665A` `#3B3040`
-- **Shapes:** flat layered planes with slightly irregular edges, stacked in depth. In Blender, extruded curves a few millimeters thick.
+- **Shapes:** flat layered planes with slightly irregular edges, stacked in depth.
 - **Surfaces:** flat color per layer.
 - **Light:** one directional light casting hard drop shadows between layers.
 - **Banned:** rounded 3D volumes, perspective-heavy cameras, gradients.
@@ -41,7 +41,7 @@ Copy the closest lock into `.lucid-loop/style.md`, then tighten it for the reque
 ## Voxel
 
 - **Palette:** `#1E2A3A` `#4C6E57` `#86B05A` `#C7B26A` `#A8653F` `#D8DEE6`
-- **Shapes:** cubes on one fixed grid size. In Blender, Remesh in Blocks mode.
+- **Shapes:** cubes on one fixed grid size.
 - **Surfaces:** one color per cube.
 - **Light:** directional sun plus ambient occlusion in the corners.
 - **Banned:** off-grid shapes, smooth surfaces, mixed grid sizes.

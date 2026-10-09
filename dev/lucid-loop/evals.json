@@ -1,0 +1,26 @@
+{
+  "skill_name": "lucid-loop",
+  "evals": [
+    {
+      "id": 1,
+      "name": "named-style-scene",
+      "prompt": "lucid loop: a low-poly harbor at dusk in three.js. boats bobbing, gulls circling, windows lighting up one by one, chimney smoke. no gameplay, just a scene that feels alive. 60fps in the browser. use blender for the models.",
+      "expected_output": "A style.md filled from the low-poly lock, a target.png that obeys it, Blender-made .glb models in the palette, a running three.js scene, contact sheets per round, judge verdicts scoring Lock/Composition/Richness/Cohesion, and a final scene richer than the target.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "no-style-named",
+      "prompt": "i want a tiny animated room for the top of my portfolio site, like a little desk diorama with a plant, a lamp and a cat that does stuff. three.js. i don't care about realism, i just want it to feel charming and alive",
+      "expected_output": "The agent picks a lock itself (likely clay or low-poly), says which and why, and the result spends detail on motion and small reactions rather than surface detail.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "name": "abstract-no-models",
+      "prompt": "make a geometric music visualizer in the browser that reacts to an mp3 i drop in. shapes and color only, nothing that looks like real objects. lucid loop it",
+      "expected_output": "An abstract lock with a 3-5 color palette, mostly code-built shapes (Blender optional), and richness judged on rhythm, pattern and motion synced to the audio.",
+      "files": []
+    }
+  ]
+}
