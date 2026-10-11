@@ -13,7 +13,7 @@ Own the complete process here, including Dream Loop's target-driven build-and-cr
 
 - **Open question:** ground the current work, then explore in step 2.
 - **Chosen idea or supplied target:** ground the current work, then go straight to step 3. Preserve the choice rather than running another audition.
-- **Unfinished Dream:** recover its target, best checkpoint, remaining gaps, and budget; resume step 4.
+- **Unfinished Dream:** recover its target, rules, best checkpoint, remaining gaps, and budget; recheck its rules, then resume step 4.
 - **Exploration-only request:** return useful alternatives or probes. Building is not implied.
 
 The human owns direction, tradeoffs, and final acceptance unless explicitly delegated. Reuse decisions already made. This skill grants no purchase, publication, destructive-change, or unrelated-scope permission.
@@ -49,8 +49,11 @@ Capture a short brief, not a design bureaucracy:
 - **Experience:** what someone should see, hear, or do, and why it matters.
 - **Target:** references showing the intended quality, plus the short sequence or changing states a still cannot express.
 - **Must survive:** identity, behavior, and qualities inherited from the baseline.
+- **Rules, when the kind is clear:** what must hold throughout for it to be this kind of experience, each with a check that observes it in its own medium. A flying game's world holds still while you move, checked in continuous playback.
 - **Uncertainty, when relevant:** what building must teach us, separate from the quality required for completion.
 - **Scope and effort:** the limited experience to finish and the agreed stopping allowance.
+
+Take rules only from what the brief states or what its kind unavoidably entails, and label each **stated** or **entailed**. Keep them few and about realization: a rule says what being a flying game demands, never what this flying game should contain. While the kind is still open, leave rules empty; ask the human when a wrong rule would be costly. Show the rules in the brief so the human can strike or edit any of them. A rule nobody can see is a hidden rail.
 
 Derive a few concrete completion criteria from those inputs. Make them recognizable in the running result: weight in a landing, readable departure and return, convincing materials, or responsive control. Keep criteria proportionate to the commission. A list of implemented features is not a quality target.
 
@@ -60,7 +63,7 @@ Before substantial asset or representation work, read [Assets and diagnostics](r
 
 Allow the implementation to change while holding the intended experience and quality steady. Resolve material target conflicts explicitly; lowering the target to fit the current build requires the human's agreement.
 
-**Proceed when:** the direction, concrete target, required experience, protected gains, and effort bound are clear enough to build and review without reopening the concept.
+**Proceed when:** the direction, concrete target, rules (or their deliberate absence), required experience, protected gains, and effort bound are clear enough to build and review without reopening the concept.
 
 ## 4. Build, experience, compare, improve
 
@@ -69,14 +72,16 @@ Build the smallest coherent slice that can deliver the chosen experience at the 
 Run this loop:
 
 1. **Build a meaningful candidate.** Prefer a coherent improvement to unrelated tweaks. Use suitable authored or generated assets when simple placeholders are holding back the result.
-2. **Experience the actual deliverable.** Test normal input and the important aftermath or variation. Check changed behavior, appearance, and relevant performance; repair obvious faults before review.
+2. **Experience the actual deliverable.** Test normal input and the important aftermath or variation. Check changed behavior, appearance, relevant performance, and every rule; repair obvious faults before review.
 3. **Capture a fair comparison.** Identify the candidate, hold relevant viewing conditions steady, and compare with both the selected target and the best checkpoint. Use stills for appearance, timed playback for motion, actual audio for sound, and real input for interaction.
 4. **Get fresh criticism.** Before the first consequential review, read [Review and handoffs](references/review-and-handoffs.md). Use a fresh-context reviewer for meaningful candidates and before READY unless the human explicitly waives that requirement. Ask for observable gaps against the whole chosen experience, not agreement with the builder's explanation. When independent review is unavailable, keep the result unverified rather than substituting self-approval.
 5. **Close the important gaps.** Address what most limits the experience. Preserve gains, rebuild weak assets or approaches when needed, and repeat within budget. A better score or one flattering frame does not cancel a failed defining criterion.
 
 Save useful improvements as recoverable **checkpoints**. Saving progress is not completing the Dream or accepting it into the baseline. Rough intermediate edits may temporarily get worse; judge the coherent candidate rather than requiring every edit to improve everything.
 
-If the same important gap survives repeated meaningful attempts, change the question or approach. Diagnose the obstacle, replace an inadequate asset or representation, or pause when no credible next attempt fits the remaining budget. Neither endless micro-adjustments nor repeated wholesale rewrites earn extra time. Recheck the required experience after an optimization or major change.
+Once the first playable candidate exists, and whenever an unfinished Dream resumes, ask again what the experience now is and whether its rules still fit; the human approves any rule added or changed. Audit the build against the rules even when it already breaks them, and record each violation in the graph as **foundation debt**, not as a polish gap. Offer the human a deeper rebuild for substantial foundation debt instead of spending more rounds patching its symptoms.
+
+If the same important gap survives repeated meaningful attempts, first check whether it breaks a rule: patching around a broken rule returns the gap in new forms. Otherwise change the question or approach. Diagnose the obstacle, replace an inadequate asset or representation, or pause when no credible next attempt fits the remaining budget. Neither endless micro-adjustments nor repeated wholesale rewrites earn extra time. Recheck the required experience after an optimization or major change.
 
 **Leave the loop only through a decision in step 5.** Learning that the idea works, creating a checkpoint, or discovering an exciting next idea is not successful completion.
 
@@ -87,7 +92,7 @@ Keep progress, completion, and acceptance separate:
 | Decision | Required meaning | Next action |
 | --- | --- | --- |
 | **CONTINUE** | The idea remains promising, but a defining quality or behavior gap remains and useful work fits the budget. | Keep the best checkpoint and return to step 4. |
-| **READY** | The scoped experience meets its concrete quality criteria and protected gains survive the available required checks. | Present it for the designated acceptance decision. Stop adding refinements. |
+| **READY** | The scoped experience meets its concrete quality criteria, keeps its rules, and protected gains survive the available required checks. | Present it for the designated acceptance decision. Stop adding refinements. |
 | **REJECT** | An adequate realization or decisive probe shows the central experience is not worth pursuing. | Keep the lesson and separately validated reusable gains; do not create a backlog obligation. |
 | **PAUSE** | Effort is exhausted, progress lacks a credible next approach, or essential evidence, permission, or capability is missing. | Preserve the best work and name what remains unfinished and what would unblock it. Park the branch when useful. |
 

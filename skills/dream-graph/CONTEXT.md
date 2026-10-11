@@ -26,6 +26,13 @@ _Avoid_: Retained baseline, when only progress has been saved.
 The accepted starting experience and its explicitly retained capabilities, including disclosed limitations. It is not automatically the latest checkpoint.
 _Avoid_: Living baseline, inheritance, when the plain meaning is sufficient.
 
+**Rule**:
+A property the experience must keep throughout to be the kind of thing it is, shown in the brief with its source (stated or entailed) and a check that can observe it. It governs realization quality, not creative direction.
+_Avoid_: Constraint or requirement, when it hides where the rule came from.
+
+**Foundation debt**:
+A known violation of a Rule in the current build, recorded in the Graph. It calls for a deeper rebuild decision, not another polish pass.
+
 **Readiness**:
 The result's demonstrated satisfaction of the scoped quality criteria, with required checks accounted for. It does not by itself express the human's acceptance or release permission.
 

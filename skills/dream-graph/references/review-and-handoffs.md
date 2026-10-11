@@ -17,6 +17,7 @@ Compare with both the target and the best checkpoint. Ask:
 - Does the intended experience actually happen, at the intended visual and behavioral quality?
 - What defining gaps remain? Identify visible or audible symptoms before suggesting causes.
 - Did the change preserve the agreed baseline, including ordinary use after the new interaction?
+- Does it keep each rule in the brief, observed in the medium the rule lives in? A still cannot show a motion rule; a candidate that matches the target but breaks a rule is not ready.
 
 For appearance, inspect framing, composition, scale, lighting, materials, and decisive details at intended viewing size. For interaction or motion, observe the primary action through its aftermath and an important variation, interruption, or repeat when relevant. For a static deliverable, do not invent interaction requirements.
 
