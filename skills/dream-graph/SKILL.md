@@ -53,7 +53,7 @@ Capture a short brief, not a design bureaucracy:
 - **Uncertainty, when relevant:** what building must teach us, separate from the quality required for completion.
 - **Scope and effort:** the limited experience to finish and the agreed stopping allowance.
 
-Take rules only from what the brief states or what its kind unavoidably entails, and label each **stated** or **entailed**. Keep them few and about realization: a rule says what being a flying game demands, never what this flying game should contain. While the kind is still open, leave rules empty; ask the human when a wrong rule would be costly. Show the rules in the brief so the human can strike or edit any of them. A rule nobody can see is a hidden rail.
+Take rules only from what the brief states or what its kind unavoidably entails, and label each **stated** or **entailed**. Keep them few and about realization: a rule says what being a flying game demands, never what this flying game should contain. While the kind is still open, leave rules empty; ask the human when a wrong rule would be costly. Show the rules in the brief so the human can strike or edit any of them. A rule nobody can see is a hidden rail. Ask once, here, who judges the parts of a rule only a person can feel: the human plays, or accepts them unchecked, or delegates them.
 
 Derive a few concrete completion criteria from those inputs. Make them recognizable in the running result: weight in a landing, readable departure and return, convincing materials, or responsive control. Keep criteria proportionate to the commission. A list of implemented features is not a quality target.
 
