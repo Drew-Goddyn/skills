@@ -17,12 +17,23 @@ Compare with both the target and the best checkpoint. Ask:
 - Does the intended experience actually happen, at the intended visual and behavioral quality?
 - What defining gaps remain? Identify visible or audible symptoms before suggesting causes.
 - Did the change preserve the agreed baseline, including ordinary use after the new interaction?
+- Does it keep each rule in the brief? Check motion rules at the timescales below. A candidate that matches the target but breaks a rule is not ready.
 
 For appearance, inspect framing, composition, scale, lighting, materials, and decisive details at intended viewing size. For interaction or motion, observe the primary action through its aftermath and an important variation, interruption, or repeat when relevant. For a static deliverable, do not invent interaction requirements.
 
 Hold nonexperimental view, state, scale, and capture settings steady. Identify intentional changes. Verify the intended candidate and assets loaded, including uncommitted changes when a commit alone is insufficient.
 
 Use actual audio for listening claims and matched measurements for performance claims. Passing tests cannot substitute for seeing motion. A passing brief outing and a failing stress case can both be true. A later pass does not erase an earlier failure or prove its cause.
+
+## Judge motion at three timescales
+
+No agent watches video in real time. Check each motion rule where its failures live, using evidence that can show them:
+
+- **Frame to frame:** pops, snaps, swapped objects and dropped frames. Scan every frame for local differences, and read dropped frames from the render trace, since recorded timestamps can mislead.
+- **Seconds:** something with identity, such as a smoke column, a fire front, the aircraft or a shadow, drifting or jumping where nothing would carry it. Frame pairs miss this, because each step is small or hidden in churn and a local look explains it away. Track each such thing over time, preferably from logged positions. Ask whether it stays where its cause is, and moves only as fast and as far as that cause allows.
+- **Minutes:** sequences of state, such as spread, drying, recovery or an outcome. Stills a few seconds apart show these honestly.
+
+Some qualities need a person: smoothness as seen on a real display, the response and weight of the controls, pacing over minutes, and whether something reads at speed while flying. An agent studying a still for ten seconds overrates readability. Report these as unverified, not failed. The brief names who judges them, so they need not stall the round. When a person reports a felt problem, make it measurable so later rounds guard it.
 
 ## Return a decision that drives work
 
