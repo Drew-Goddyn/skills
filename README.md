@@ -12,6 +12,7 @@ Personal agent skills for ChatGPT and supported coding agents, using the [Agent 
 | Any agent | [Motion Loop — draft](skills/motion-loop/SKILL.md) | Animate an existing character, object, or UI element against a reference clip or timing sheet. The judge works from measured motion and still images instead of video, and the loop stops at a solid 7/10 rather than chasing perfection. Not yet tried on a real animation task. |
 | Any agent | [Lucid Loop — draft](skills/lucid-loop/SKILL.md) | Build a game or 3D scene inside a locked art style (low-poly, clay, abstract, voxel, paper, ink), modeling in Blender, so effort goes into form, quantity, motion and life instead of realism. The target is a floor, not a ceiling. Not yet tried on a real build. |
 | Claude Code | [Simplify Plus](skills/claude%20code/simplify-plus/SKILL.md) | `/simplify` for any scope (a commit, PR, branch, path, tool, or the whole repo): chunked cleanup review, a skeptic filter, then one checked local commit per chunk. Requires Claude Code workflows; scopes over about 12,000 lines get a list of narrower targets instead. |
+| Claude Code | [Dream Loop Fast — draft](skills/claude%20code/dream-loop-fast/SKILL.md) | Build a game, app, or 3D scene to match a Codex-generated target screenshot with many cheap rounds: parallel Sonnet builders, a Haiku panel that picks the closest candidate, and a Sonnet judge that keeps a candidate only when it is no further from the target. Re-implements dream-loop's Pro workflow to test whether many cheap rounds beat a few expensive ones. Requires Claude Code workflows, and the Codex CLI for images unless a target is supplied. Not yet run end to end. |
 | Codex | [1Password](skills/codex/1password/SKILL.md) | Reuse 1Password CLI authorization across related commands and keep secrets scoped to the processes that need them. Requires the local `op` CLI and 1Password desktop app integration. |
 | Codex | [Record Demos and Trailers](skills/codex/record-product-demo/SKILL.md) | Record and edit video demos, screen recordings of web apps, and game showcases, with evidence and review handoffs. Requires Python 3 and FFmpeg/ffprobe; browser capture uses agent-browser, and contact sheets need Pillow >=10.1. |
 | ChatGPT web | [Build Loop](skills/chatgpt%20web/build-loop/SKILL.md) | An ongoing thinking and review partner for human-directed work with a separate coding agent. |
@@ -55,6 +56,14 @@ npx skills add Drew-Goddyn/skills --skill simplify-plus --agent claude-code --gl
 ```
 
 Start it with `/simplify-plus`, optionally followed by a target such as `PR 1234` or `tools/importer review only`.
+
+Install Dream Loop Fast globally for Claude Code. It also runs a Claude Code workflow:
+
+```sh
+npx skills add Drew-Goddyn/skills --skill dream-loop-fast --agent claude-code --global
+```
+
+Start it with `/dream-loop-fast` followed by the build request, from an empty folder or a clean git repo. Use it or Dream Graph on a given project, not both: Dream Graph replaces the scoring and stopping rules this skill keeps. Prerequisites and options are in the [skill](skills/claude%20code/dream-loop-fast/SKILL.md); `node dev/dream-loop-fast/harness.cjs` checks its control flow.
 
 ### Coding agents
 
@@ -164,6 +173,8 @@ Commit and push the finished skill. No package manifest, build, deployment, or n
 **Codebase Design**, **Domain Modeling**, **Writing for Agents**, and **Grilling** are unofficial adaptations of [Matt Pocock’s skills](https://github.com/mattpocock/skills), based on upstream revision [`3cca18b`](https://github.com/mattpocock/skills/commit/3cca18b368ae95cdbdebbff572ccafa662551015). These versions are adapted for ChatGPT web’s environment and use alongside Build Loop, including resource access, repository-evidence boundaries, and handoffs to a separate coding agent.
 
 Original copyright: **Copyright (c) 2026 Matt Pocock**. Each adapted skill retains the original MIT `LICENSE`, source inventory, and upstream comparison patch. The adaptation notes are available for [Codebase Design](skills/chatgpt%20web/codebase-design/PROVENANCE.md), [Domain Modeling](skills/chatgpt%20web/domain-modeling/PROVENANCE.md), [Writing for Agents](skills/chatgpt%20web/writing-for-agents/PROVENANCE.md), and [Grilling](skills/chatgpt%20web/grilling/PROVENANCE.md). These adaptations are not an upstream release or an endorsement by Matt Pocock.
+
+**Dream Loop Fast** re-implements the Pro workflow of [achimala/dream-loop](https://github.com/achimala/dream-loop/tree/9bddb901f7d071cfefdd21e264267c757177a9df) by Anshu Chimala. It includes no upstream code; the original MIT notice is kept in its [LICENSE](skills/claude%20code/dream-loop-fast/LICENSE).
 
 ## skills.sh
 
