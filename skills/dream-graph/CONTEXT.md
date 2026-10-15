@@ -1,40 +1,51 @@
 # Dream Graph
 
-Language for distinguishing creative possibilities, working progress, and accepted experiences.
+Language for intended experiences, working progress, and accepted inheritance.
 
-## Language
+## Intended experience
 
 **Dream**:
-A selected, scoped experience being realized to an intended quality. It is more than a question to answer or a feature to implement.
-_Avoid_: Using "experiment" to mean a completed Dream.
+A selected, scoped experience being realized to an intended quality. A working mechanism or useful discovery alone is not a completed Dream.
+
+**Brief**:
+The working agreement expressing the intended encounter, its binding qualities, protected gains, and scope. Binding qualities are completion obligations; the brief indexes the agreed experience without exhaustively enumerating it.
 
 **Target**:
-The concrete reference and experience criteria that express a Dream's intended quality. Incidental details and the chosen implementation are not its identity.
-_Avoid_: Attractor, when it makes the quality optional.
-
-**Probe**:
-A limited artifact made to resolve uncertainty or change a creative choice. It can justify further work without being a finished experience.
-
-**Gym**:
-A bounded effort to strengthen a shared capability used by Dreams. Its result is a capability improvement, not a complete experience.
-
-**Checkpoint**:
-A recoverable candidate worth preserving during work. It may be unfinished, unaccepted, or accompanied by known defects.
-_Avoid_: Retained baseline, when only progress has been saved.
-
-**Baseline**:
-The accepted starting experience and its explicitly retained capabilities, including disclosed limitations. It is not automatically the latest checkpoint.
-_Avoid_: Living baseline, inheritance, when the plain meaning is sufficient.
+A saved, concrete reference or probe expressing the intended quality in the medium that carries it. Binding properties come from the agreement, including literal fidelity when requested.
 
 **Rule**:
-A property the experience must keep throughout to be the kind of thing it is, shown in the brief with its source (stated or entailed) and a check that can observe it. It governs realization quality, not creative direction.
-_Avoid_: Constraint or requirement, when it hides where the rule came from.
+An optional cross-state binding quality of the agreed experience, with an explicit source and observable check. It expresses what must hold, not why a failure occurs or how large its repair must be.
+
+## Work and evidence
+
+**Probe**:
+A limited artifact that resolves uncertainty or changes a creative choice, without necessarily realizing a finished experience.
 
 **Foundation debt**:
-A known violation of a Rule in the current build, recorded in the Graph. It calls for a deeper rebuild decision, not another polish pass.
+An evidence-supported limitation of the current representation or architecture that prevents a required quality. A failed Rule alone establishes a defect, not this diagnosis.
+
+**Candidate**:
+The identifiable artifact being built, inspected, or offered for handoff, including the code, assets, and configuration that determine it.
+
+**Checkpoint**:
+A recoverable candidate worth preserving, possibly unfinished, unaccepted, or accompanied by known defects. The best checkpoint can differ from the current candidate and accepted baseline.
+
+**Gym**:
+A bounded effort to strengthen a shared capability needed by chosen Dreams. Its result is a capability improvement, not a completed experience.
+
+## Status and inheritance
+
+**Baseline**:
+The accepted experience and explicitly retained capabilities, including disclosed limitations. A preserved starting artifact has no implied acceptance.
 
 **Readiness**:
-The result's demonstrated satisfaction of the scoped quality criteria, with required checks accounted for. It does not by itself express the human's acceptance or release permission.
+Satisfaction of the scoped binding experience and protected gains on the handoff candidate, with required evidence accounted for and explicit waivers disclosed. Readiness is distinct from acceptance and release permission.
+
+**Acceptance**:
+The designated authority's decision to accept a particular candidate as an experience. A required human observation can be complete while acceptance is still pending.
+
+**Active record**:
+The discoverable current state of a Dream, containing or linking its agreement, authority, artifact roles, evidence, decision, acceptance, remaining allowance, and next action.
 
 **Graph**:
-The relationships between meaningful ideas, probes, attempts, lessons, and retained results that influence subsequent creation. It is not a feature backlog or a transcript of every thought.
+The relationships between meaningful ideas, probes, attempts, lessons, and retained gains that influence later creation. The graph carries lineage; the active record carries resumable state.
