@@ -1,119 +1,124 @@
 ---
 name: dream-graph
-description: "Dream Graph: imagine, build, and refine compelling interactive experiences and visual scenes, then use retained results to inspire the next creation. Use for open-ended creative exploration, realizing a chosen idea or visual target, high-fidelity build-and-critique iteration, or continuing an existing Dream. Replaces the separate Dream Loop workflow."
+description: "Dream Graph: imagine and realize compelling interactive encounters, games, visual scenes, and prototypes; refine them against concrete targets and let retained results inspire what follows. Use for substantial creation in this domain, exploring an unresolved direction, realizing a chosen experience or visual target, or resuming an unfinished Dream. A routine isolated edit can use its existing brief and relevant checks without starting a new Dream."
 ---
 
 # Dream Graph
 
-Imagine freely. Choose a direction. Make a small experience convincing. Let what actually works open the next possibility.
+Make a chosen small experience convincing. Let what actually works open the next possibility.
 
-Own the complete process here, including Dream Loop's target-driven build-and-critique loop. No separate Dream Loop or Visual Convergence installation is required. Keep the user's requested scope and quality; a small scene can deserve excellent finish without becoming a production game.
+Own realization here, including target-driven building, serious asset work, and criticism. No separate Dream Loop or Visual Convergence installation is required. Preserve the requested scope and finish; a small scene need not become a production game.
 
-## Enter where the work is
+## 1. Enter or resume at the actual work
 
-- **Open question:** ground the current work, then explore in step 2.
-- **Chosen idea or supplied target:** ground the current work, then go straight to step 3. Preserve the choice rather than running another audition.
-- **Unfinished Dream:** recover its target, rules, best checkpoint, remaining gaps, and budget; recheck its rules, then resume step 4.
-- **Exploration-only request:** return useful alternatives or probes. Building is not implied.
+- **Chosen experience or supplied target:** ground the work, then use step 3. A request such as "a cozy fishing scene" supplies a direction even when its implementation is open.
+- **Open creative question:** ground the work, then explore in step 2.
+- **Unfinished Dream:** recover its active record, inspect the actual candidate, reconcile changed facts, then resume step 4. Reuse its direction, targets, assets, and decisions.
+- **Exploration only:** return useful alternatives or probes from step 2; building is not implied.
 
-The human owns direction, tradeoffs, and final acceptance unless explicitly delegated. Reuse decisions already made. This skill grants no purchase, publication, destructive-change, or unrelated-scope permission.
+Inspect an existing artifact through its normal controls. Preserve the starting state, including relevant uncommitted work and assets. Identify its appeal, useful capabilities, and known defects. A new project starts from the request, without an invented backlog or accepted baseline.
 
-Establish the tools actually available for building, image generation, runtime inspection, and fresh-context review. Use a supplied visual target; otherwise generate one for visually ambitious work. When required generation or observation is unavailable, name the limitation and continue only work it does not invalidate. A prose description cannot silently replace a required visual reference.
+Use **one active record**, either an existing project record or a designated section, linked from the project's ordinary entry or handoff. Store these facts there or point to their authoritative locations:
 
-Use the user's effort budget. If none exists, state a bounded initial allowance appropriate to the task before starting. Include exploration, asset work, review, and repairs in that allowance; delegation and new rounds do not reset it.
+| Facts to recover | Content |
+| --- | --- |
+| Agreement | Current brief, saved targets, binding qualities, and protected gains. |
+| Authority | Settled choices, implementation freedom, delegations, waivers, and outstanding human decisions or judgments. |
+| Artifacts | Current candidate, best recoverable checkpoint, and accepted baseline, or an explicit unknown/none. |
+| Evidence and status | Checks and findings tied to candidate identity; open gaps and evidence limits; decision and candidate-specific acceptance status. |
+| Effort and next move | Remaining allowance with its unit; next useful action or precise blocker. |
 
-## 1. Ground the starting point
+A **checkpoint** is recoverable work, possibly unfinished or unaccepted. The **accepted baseline** is the accepted experience and explicitly retained gains, not automatically the best or newest candidate. These roles may coincide; identify when they do not. An identity must recover the relevant code, assets, and configuration, not just a commit that omits them.
 
-Inspect the real artifact through its normal controls when one exists. Preserve a recoverable baseline, including relevant uncommitted work. Identify what is compelling already, what works, and known defects. For a new project, start from the brief without inventing a backlog.
+Update this record at consequential decisions and before a handoff or stop, and reconcile it on resumption. Existing notes can satisfy it; fill missing facts without reconstructing lost history. Verify what actually exists before relying on old evidence.
 
-Give creative contributors a short description, representative captures, and useful existing capabilities. Supply old experiments and implementation detail only when relevant to their question.
+**Proceed when:** the starting artifact or request, entry route, recoverable work, and active-record location are clear.
 
-**Proceed when:** the starting artifact or brief is identified, existing gains and limits are understood, and the entry route is clear.
+## 2. Explore only what is undecided
 
-## 2. Explore only what is still undecided
+Start with moments, sensations, relationships, or surprising world responses. Branch, combine, invert, or change scale. Seek different experiences rather than cosmetic variants or a quota of proposals.
 
-Start with moments, sensations, relationships, or surprising world responses, not polished feature proposals. Branch, combine, invert, or change scale. Let genuinely different possibilities determine the amount of exploration; a quota of ideas is not diversity.
+Use a cheap image, motion study, sound sketch, or disposable interaction when it can change the choice. Name that uncertainty and follow useful surprises. These probes are exploratory, not commitments. Read [Imagine toolbox](references/imagine-toolbox.md) when exploration is unresolved, repetitive, or stuck.
 
-Use a cheap image, motion study, sound sketch, or disposable interaction when it can change the choice. Follow useful surprises in the result. At this stage references are exploratory, not commitments. Read [Imagine toolbox](references/imagine-toolbox.md) when branches become cosmetic, predictable, or stuck.
+Imagine an ordinary visit: what someone notices or does, what the world does back, and why the next moment matters. Atmosphere or observation can be enough; add gameplay only when it serves the request.
 
-Imagine a short ordinary visit: what the person does or notices, how the world responds, and what makes the next moment worth experiencing. A visual or atmospheric experience can be enough; add no gameplay merely to satisfy a template.
+Recommend a direction with its compelling moment, evidence, and remaining uncertainty. The human selects genuinely unresolved direction unless selection was explicitly delegated. Preserve alternatives without making them obligations.
 
-Recommend a direction with its compelling moment and important uncertainty. Let the human choose unless selection is already delegated. Keep interesting alternatives available without making them obligations.
+**Proceed when:** direction is selected and a concrete encounter or revealing probe makes realization the next useful action. For exploration-only work, hand over the alternatives, observations, and remaining questions here.
 
-**Proceed when:** a direction is selected and supported by a concrete imagined encounter or decisive probe. Stop exploring when new branches repeat the same experience.
+## 3. Establish the working agreement
 
-## 3. Commit to a small experience and a real quality target
+Use a short **brief** as the working agreement, not a second document alongside it. Capture the central moment and ordinary visit; concrete binding qualities; protected baseline gains; saved targets; and the uncertainty building should resolve. Give binding items stable local identifiers, their source, and an observation that would demonstrate them. Separate optional refinements from completion obligations.
 
-Capture a short brief, not a design bureaucracy:
+Use **Rules** only when a few cross-state properties help express the encounter. A Rule is a binding quality, not a repair category. Label its source **stated** or **entailed** by the concrete agreed experience, not genre convention alone. For example, a perched bird keeps its contact relationship during a gentle turn. Show Rules for human editing; leave them empty when unnecessary. Treat costly or disputed inferences as proposals pending a decision.
 
-- **Experience:** what someone should see, hear, or do, and why it matters.
-- **Target:** references showing the intended quality, plus the short sequence or changing states a still cannot express.
-- **Must survive:** identity, behavior, and qualities inherited from the baseline.
-- **Rules, when the kind is clear:** what must hold throughout for it to be this kind of experience, each with a check that observes it in its own medium. A flying game's world holds still while you move, checked in continuous playback.
-- **Uncertainty, when relevant:** what building must teach us, separate from the quality required for completion.
-- **Scope and effort:** the limited experience to finish and the agreed stopping allowance.
+### Make the target concrete in the right medium
 
-Take rules only from what the brief states or what its kind unavoidably entails, and label each **stated** or **entailed**. Keep them few and about realization: a rule says what being a flying game demands, never what this flying game should contain. While the kind is still open, leave rules empty; ask the human when a wrong rule would be costly. Show the rules in the brief so the human can strike or edit any of them. A rule nobody can see is a hidden rail. Ask once, here, who judges the parts of a rule only a person can feel: the human plays, or accepts them unchecked, or delegates them.
+Save a reviewable target for the decisive qualities. Use a supplied reference rather than regenerate it. For substantial new visual invention without a suitable reference, default to generating an ambitious plausible image of the deliverable. For a narrow visual change, a baseline capture plus a concrete delta can be better. For motion, sound, or interaction, use a relevant sequence, study, reference, or probe with concrete behavior expectations; a still alone cannot specify their decisive qualities.
 
-Derive a few concrete completion criteria from those inputs. Make them recognizable in the running result: weight in a landing, readable departure and return, convincing materials, or responsive control. Keep criteria proportionate to the commission. A list of implemented features is not a quality target.
+Make binding reference properties legible, and identify consequential incidental details. Preserve literal fidelity when requested. An unlisted quality is not automatically optional: the brief indexes the agreed experience rather than replacing it. Implementation can change within that agreement; material aesthetic tradeoffs or reduced quality require authorization.
 
-For visual work, use the supplied target or generate an ambitious plausible screenshot of the actual deliverable. For an existing project, use its current capture as continuity input. Save the selected reference. Preserve the project's identity and intended quality, not accidental image distortions. Supplement motion or interaction with a short sequence, study, or explicit behavior expectations.
+### Set observation, authority, and allowance once
 
-Before substantial asset or representation work, read [Assets and diagnostics](references/assets-and-diagnostics.md). Test a doubtful approach against the hardest important state before investing heavily in it.
+For each important quality, identify the required observation, responsible observer, and actual available means. Check build, generation, runtime, and independent-review access. Use existing adequate evidence methods; create missing capture support only for a consequential required observation. Disclose unavailable means and continue only work they do not invalidate.
 
-Allow the implementation to change while holding the intended experience and quality steady. Resolve material target conflicts explicitly; lowering the target to fit the current build requires the human's agreement.
+Reuse existing decisions. The human owns direction, material scope or quality tradeoffs, and final acceptance unless explicitly delegated. Record who judges human-only qualities and any explicit waiver. New or changed Rule obligations and material changes to binding qualities need human approval; recording a requirement already settled by the request does not create another gate. Routine diagnosis and in-scope implementation or asset replacement remain builder work. This skill grants no purchase, destructive-change, publication, or unrelated-scope permission.
 
-**Proceed when:** the direction, concrete target, rules (or their deliberate absence), required experience, protected gains, and effort bound are clear enough to build and review without reopening the concept.
+Use the user's effort limit and its real unit. Without one, state a finite initial allowance with concrete work bounds and stopping conditions. Use observed time or metered usage when available; otherwise name bounded attempts and separately costly work without treating unlike calls as equal cost. Exploration, assets, capture support, review, delegation, repairs, and gyms share this allowance. Reserve enough for required inspection, credible repair, and a recoverable handoff.
 
-## 4. Build, experience, compare, improve
+While a human decision is pending, continue useful reversible work within settled authority and allowance. An unanswered choice blocks dependent work, not everything. Silence grants no new permission; PAUSE when no independent useful action remains.
 
-Build the smallest coherent slice that can deliver the chosen experience at the intended quality. A rough prototype can test a mechanism; when its appeal depends on finish, give it enough finish to be a fair test. A clumsy first attempt is not evidence that the idea is bad.
+**Proceed when:** the selected experience, binding qualities, targets, protected gains, observation responsibilities, authority, and finite allowance are clear enough for the next useful build. Ask only about consequential matters not already settled.
 
-Run this loop:
+## 4. Build, inspect, and improve
 
-1. **Build a meaningful candidate.** Prefer a coherent improvement to unrelated tweaks. Use suitable authored or generated assets when simple placeholders are holding back the result.
-2. **Experience the actual deliverable.** Test normal input and the important aftermath or variation. Check changed behavior, appearance, relevant performance, and every rule; repair obvious faults before review.
-3. **Capture a fair comparison.** Identify the candidate, hold relevant viewing conditions steady, and compare with both the selected target and the best checkpoint. Use stills for appearance, timed playback for motion, actual audio for sound, and real input for interaction.
-4. **Get fresh criticism.** Before the first consequential review, read [Review and handoffs](references/review-and-handoffs.md). Use a fresh-context reviewer for meaningful candidates and before READY unless the human explicitly waives that requirement. Ask for observable gaps against the whole chosen experience, not agreement with the builder's explanation. When independent review is unavailable, keep the result unverified rather than substituting self-approval.
-5. **Close the important gaps.** Address what most limits the experience. Preserve gains, rebuild weak assets or approaches when needed, and repeat within budget. A better score or one flattering frame does not cancel a failed defining criterion.
+Build the smallest coherent experience at sufficient finish to judge its appeal. A rough mechanism can answer a technical question without fairly testing the idea.
 
-Save useful improvements as recoverable **checkpoints**. Saving progress is not completing the Dream or accepting it into the baseline. Rough intermediate edits may temporarily get worse; judge the coherent candidate rather than requiring every edit to improve everything.
+1. **Choose the next useful investment.** Identify the compelling moment to strengthen or the experience-limiting gap or uncertainty. Choose a concrete lever: timing, spatial relationship, material, response, staging, or representation. Before an expensive attempt, note why it could help, approximate effort relative to what remains, and the observation that would change the next decision. Prefer a cheap discriminating check when diagnosis is uncertain; prefer coherent realization when appeal needs finish. Use the existing record, not another experiment report.
+2. **Realize a coherent candidate.** Protect what works. Qualify a doubtful asset or representation in its hardest required state inside the actual deliverable before investing heavily. Before substantial asset or representation work, read [Assets and diagnostics](references/assets-and-diagnostics.md). Give important objects serious authorship rather than endless placeholder polish.
+3. **Experience and compare.** Identify the loaded candidate and assets. Exercise normal input, relevant aftermath, and an important variation or repeat. Compare with both the saved target and best checkpoint, and check protected baseline gains. Match observation to appearance, motion, actual sound, or real input. Fix obvious faults. At the first coherent candidate and on resumption, audit whether the brief still expresses the agreed experience; unchanged obligations need no new approval ritual.
+4. **Respond to demonstrated gaps.** Tie a blocking finding to a binding item, or explain an observed failure of the original agreed experience or protected baseline that the brief omitted. Keep new aspirations nonblocking unless scope changes. For a consequential repair, name a closing observation. Use the repair branch below when cause or repair scope is uncertain; difficulty never turns a binding failure into optional polish.
+5. **Preserve and obtain criticism where it matters.** Save useful recoverable checkpoints; rough intermediate edits may be worse while the previous best remains safe. Use self-checks inside implementation. Seek independent review before a representative candidate justifies substantial further commitment, after changes invalidate important judgments, and on the handoff candidate before READY. One review can satisfy several triggers. Read [Review and handoffs](references/review-and-handoffs.md) before the first consequential review and use its exact-candidate closure policy. Leave enough allowance for criticism to change the work.
 
-Once the first playable candidate exists, and whenever an unfinished Dream resumes, ask again what the experience now is and whether its rules still fit; the human approves any rule added or changed. Audit the build against the rules even when it already breaks them, and record each violation in the graph as **foundation debt**, not as a polish gap. Offer the human a deeper rebuild for substantial foundation debt instead of spending more rounds patching its symptoms.
+After each coherent attempt, use step 5 to choose useful further work or stop. Update the active record when that decision changes its facts. A focused correction uses the existing agreement and affected regression scope; it need not reopen direction or repeat unrelated reviews.
 
-If the same important gap survives repeated meaningful attempts, first check whether it breaks a rule: patching around a broken rule returns the gap in new forms. Otherwise change the question or approach. Diagnose the obstacle, replace an inadequate asset or representation, or pause when no credible next attempt fits the remaining budget. Neither endless micro-adjustments nor repeated wholesale rewrites earn extra time. Recheck the required experience after an optimization or major change.
+### Choose repair scope from evidence
 
-**Leave the loop only through a decision in step 5.** Learning that the idea works, creating a checkpoint, or discovering an exciting next idea is not successful completion.
+A failed Rule establishes an unmet binding quality, initially with an unknown cause. Permit a credible local correction immediately. **Foundation debt** means an evidence-supported limitation of the representation or architecture that prevents a required quality. Keep tentative diagnoses tentative.
 
-## 5. Decide honestly
+When targeted fixes recur without new explanatory evidence, or accumulate compensating machinery, stop blind tuning. Two such rounds are a useful warning, not a mandatory wait or proof of foundation debt. Reproduce the symptom in its relevant medium, distinguish plausible causes, then choose a discriminating check, the smallest credible repair, a coherent replacement, or PAUSE. Direct evidence of a representation limit can justify replacement sooner.
 
-Keep progress, completion, and acceptance separate:
+Before replacing an approach, preserve the best candidate and qualify the alternative's hardest required state. Check protected behavior and the rebuilt encounter before retaining it. Scope-changing replacements need the relevant authority; an in-scope replacement does not create an automatic human gate. This branch is self-contained. A separately available `foundation-reset` remains optional and explicit-only.
+
+## 5. Decide without changing the promise
 
 | Decision | Required meaning | Next action |
 | --- | --- | --- |
-| **CONTINUE** | The idea remains promising, but a defining quality or behavior gap remains and useful work fits the budget. | Keep the best checkpoint and return to step 4. |
-| **READY** | The scoped experience meets its concrete quality criteria, keeps its rules, and protected gains survive the available required checks. | Present it for the designated acceptance decision. Stop adding refinements. |
-| **REJECT** | An adequate realization or decisive probe shows the central experience is not worth pursuing. | Keep the lesson and separately validated reusable gains; do not create a backlog obligation. |
-| **PAUSE** | Effort is exhausted, progress lacks a credible next approach, or essential evidence, permission, or capability is missing. | Preserve the best work and name what remains unfinished and what would unblock it. Park the branch when useful. |
+| **CONTINUE** | The experience remains promising; an unmet obligation or decision-relevant uncertainty remains, and useful authorized work fits the allowance. | Keep the best checkpoint and return to step 4. |
+| **READY** | The handoff candidate satisfies the binding experience and protected gains, with required evidence and independent-review objections accounted for. | Present it for the designated acceptance decision. Stop refinements. |
+| **REJECT** | An adequate realization or decisive probe undermines the central experience. | Preserve the lesson and separately validated reusable gains. |
+| **PAUSE** | No useful authorized action fits: allowance, credible approach, essential evidence, permission, or capability is missing. | Preserve unfinished work and name the precise blocker or next decision. |
 
-A blocked required check prevents READY unless the human explicitly accepts that limitation; it remains unverified. A reviewer can recommend readiness but cannot claim the human's taste approval. Existing known defects remain disclosed; a narrow addition need not repair the entire project, but must preserve its agreed baseline and meet its own criteria.
+At READY, required checks must cover the actual candidate under the review reference's closure policy. A missing required human observation or independent review prevents READY unless explicitly waived. Record an authorized exception as **READY - [check] waived; [property] unverified**. A known failed binding quality cannot be waived as a missing check; changing it requires an explicit scope or quality decision. A score or attractive frame cannot cancel that failure.
 
-Keep an improved but unfinished checkpoint without silently promoting it to a completed Dream. A deliberately partial milestone requires an explicit scope agreement. Budget exhaustion stops work, not lowers the quality bar.
+Keep decision, evidence limits, and acceptance status separate. READY with acceptance pending is valid when readiness obligations are otherwise met. A pending READY candidate does not replace the accepted baseline. Existing unrelated defects remain disclosed; a narrow addition need only meet its own agreement and preserve the protected baseline.
 
-**Proceed when:** the decision, supporting observation, remaining limits, and selected checkpoint are explicit. READY and human acceptance are different decisions unless acceptance was delegated.
+When a human reports a defect after READY, reopen the relevant finding. Retain a felt complaint even when no faithful numerical proxy exists. Use CONTINUE only when useful authorized work and allowance remain, otherwise PAUSE. A new aspiration needs a scope decision; rejecting a candidate does not automatically REJECT its central idea or authorize more work.
 
-## 6. Retain what earned its place; let it inspire what follows
+Budget exhaustion stops work without lowering the bar. A partial milestone requires an explicit scope agreement.
 
-Integrate an accepted result into the baseline only within the user's repository permissions. Acceptance of the experience does not itself authorize a merge or deployment. Separately validated gains from an unfinished or rejected Dream may be integrated when authorized, with their narrower status preserved.
+**Proceed when:** the decision, candidate, supporting evidence, remaining limits, acceptance status, and next action or blocker are recorded.
 
-Keep a lightweight graph of meaningful alternatives, attempts, lessons, and retained results. A small Markdown record is enough: **parent(s), idea or question, evidence/checkpoint, decision, and what this makes possible next**. Record a node only when it changes a choice or future work. Link actual inherited gains, including combinations from different branches, rather than copying the entire history.
+## 6. Retain and hand over
 
-After retention, experience the new baseline before proposing the next creation. Ask what now becomes interesting to inhabit, observe, or try, not which feature is next. A failed or parked branch may also inspire a new direction; carry its limits forward and do not assume its unfinished capability works.
+Integrate an accepted result, or separately validated gains with their narrower status, only within repository permission. Experience acceptance is not merge or deployment permission. After integration, experience the retained baseline before proposing what it makes possible next.
 
-When repeated Dreams expose a shared weak capability, use [Capability gyms](references/capability-gyms.md). Keep that work in service of chosen experiences rather than letting infrastructure choose the creative direction.
+Keep the graph for relationships and meaningful decisions: **parents, idea or question, evidence/checkpoint, decision, and next possibility**. Link the active record and actual inherited gains, including combinations from different branches. Record a node when it changes a choice, not for every edit; the graph does not duplicate the state, budget, or defect ledger. Carry limitations of parked or rejected work into subsequent ideas.
 
-Hand over the playable or inspectable result, one useful comparison or short recording, its decision, and remaining limits. Continue into another Dream only within the user's requested scope and remaining budget.
+When chosen Dreams expose a shared weak capability, read [Capability gyms](references/capability-gyms.md). Capability work serves the encounter and its allowance, not an independent infrastructure agenda.
 
-**Done when:** the retained baseline and unfinished branches are distinguishable, the useful inheritance is recorded, and the human has the requested result or an honest stopping report.
+Hand over the runnable or inspectable result, a useful existing comparison or recording when available, the decision and limits, and the active-record locator. Continue into another Dream only within the requested scope and remaining allowance.
 
-For terminology, consult [CONTEXT](CONTEXT.md). For a grounded example rather than an invented success story, read [A Small Visitor](references/worked-example.md). For origins and migration, see [Provenance](PROVENANCE.md).
+**Done when:** the human has the result or an honest stopping report, current/best/accepted work remain distinguishable, and another session can find the next useful action without reconstructing the conversation.
+
+Consult [CONTEXT](CONTEXT.md) for terminology, [A Small Visitor and illustrative state](references/worked-example.md) when a filled record or status transition would help, and [Provenance](PROVENANCE.md) for optional history and migration.

@@ -1,61 +1,68 @@
-# Dream Graph rebuild validation
+# Dream Graph validation and evidence
 
-## Scope and evidence
+## October 14, 2026 revision
 
-Rebuilt from `Drew-Goddyn/skills` at `cbd91c80ba25af3834735ba8f6a128e9a964f28a`. The change replaces the existing Dream Graph entrypoint and references, adds portable supporting guidance and metadata, and updates the Dream Graph catalog/install text in the root README. Publication was rebased onto `7780255c2f936ca4fc5dc9501ef8fe3b0f1266e4` to preserve the concurrently added Simplify Plus skill and its README entries. A neighboring installation label now explicitly names Build Orchestrator. Other skills are unchanged.
+Based on `Drew-Goddyn/skills` main at `2dbbaff4462a779e06e55d9dede2c8fbcd7a6bbc`. The revision changes the skill's workflow and supporting prose together. [REVISION.md](REVISION.md) records the source dispositions and design choices.
 
-This is an instruction redesign with structural checks and author-performed scenario review. No fresh agent built or played a new experience with this revision. The historical Kip example is source evidence for the design, not a benchmark of the rebuilt skill.
+This is an instruction redesign with executed structural checks and author-performed decision walkthroughs. No independent fresh-context review, new Dream, runtime playback, hands-on trial, absent-human reenactment, or comparative benchmark was performed for this candidate. Earlier supplied reviews assessed the prior revision, not this new candidate.
 
-## Checks performed
+### Checks performed
 
-- The installed skill-creator validator accepted the name, description, and frontmatter.
-- `python dev/dream-graph/validate.py` passed: entrypoint count and length, metadata fields, local Markdown reference closure, portable paths, upstream license identity, and the four decision rows.
-- Negative checks removed a referenced file, added an escaping dependency, removed metadata, and removed a decision row. The validator rejected each corrupted temporary copy; the candidate still passed afterwards.
-- Agent metadata was parsed as YAML; its display fields and default prompt were checked.
-- The standard skill packager produced a single-skill `skill.zip` containing ten files. Its member paths and every file's bytes matched the source folder. No sibling skill is needed.
-- The current README was reconstructed and matched its GitHub blob before applying the Dream Graph edits; the concurrent Simplify Plus additions were preserved.
-- Unchanged files reconstructed locally for packaging were checked against their staged GitHub blob identities. The license matched the original upstream blob exactly.
-- Direct GitHub access from the container failed DNS resolution. `npx skills add . --list` was then attempted in the partial candidate staging root with npm offline mode; it returned `ENOTCACHED` because the skills package was unavailable. CLI discovery is not verified. The GitHub connector was used for repository publication instead.
+- The installed skill-creator validator accepted the frontmatter, name, and description.
+- The unchanged repository `validate.py` passed on the complete ten-file candidate skill: entrypoint count/length, local Markdown reference closure, portable paths, metadata fields, upstream license identity, and four decision rows.
+- Four negative checks corrupted separate temporary copies: removed a linked reference, added an escaping local dependency, removed metadata, and removed READY's decision row. Each was rejected; the intact candidate still passed.
+- Frontmatter and agent metadata were parsed as YAML. The frontmatter contains only `name` and `description`; required UI fields remain present.
+- Unchanged license, agent metadata, and Imagine toolbox bytes match the pinned GitHub blob identities. The existing validator also matches its pinned blob. The historical visitor example is preserved byte-for-byte as the prefix of the extended file.
+- The standard skill packager produced a single-skill `skill.zip`. All ten member paths and their bytes were checked against the candidate folder; the archive contains no sibling skill or authoring documents.
+- Cross-file review and the walkthroughs below were performed by the author in the same context. They are reasoning checks, not automated semantic verification or independent review.
 
-Re-run the portable structural check from the repository root:
+Direct cloning from the container failed DNS resolution. The local candidate was staged from pinned files read through the GitHub connector; it is not the user's local checkout or a complete repository clone. `npx skills add . --list` was attempted from that staging root with npm offline mode and failed with `ENOTCACHED`, because the skills package was not cached. CLI discovery is **not verified for this revision**. No user checkout was inspected or modified.
+
+Run structural checks from a complete checkout:
 
 ```sh
 python dev/dream-graph/validate.py
+npx skills add . --list
 ```
 
-This script checks document structure, not semantic compliance or creative quality. It requires Python 3.10 or newer and the standard library. Run `npx skills add . --list` from a complete checkout with package access before claiming CLI discovery validation.
+The Python script requires Python 3.10 or newer and the standard library. It checks document structure, not instruction following, state recovery, rendered behavior, or creative quality. The CLI command requires the skills package to be available.
 
-## Decision scenarios reviewed by the author
+### Author-performed decision walkthroughs
 
-These are reasoning checks against the written instructions, not executed agent tests.
+These scenarios exercise the written decision interface by reasoning, not by running an agent or inventing an actual active Dream record.
 
-| Scenario | Expected behavior | Governing section |
+| Scenario | Outcome supported by the revised text | Governing location |
 | --- | --- | --- |
-| Human has chosen the visitor and supplied a target. | Ground the baseline and realize it; no new concept audition. | Entry; step 3 |
-| Human asks only to imagine the next creation. | Explore and return useful probes or alternatives; do not start an unauthorized build. | Entry; step 2 |
-| The mechanic works but the target's materials and atmosphere are absent. | CONTINUE within budget; save progress without calling it complete. | Steps 4-5 |
-| One beautiful frame hides an unreadable departure and return. | Review the sequence and repair the defining gap. | Step 4; review reference |
-| The first crude implementation makes a promising idea feel bad. | Give the appeal a fair test, not reflexively reject the idea. | Steps 4-5 |
-| A candidate improves appearance but breaks protected movement. | Keep the prior best; fix the regression before readiness. | Steps 4-5 |
-| A generated detail conflicts with the existing character or real interaction. | Preserve identity and quality; resolve material conflicts explicitly. | Step 3 |
-| No required motion observation or fresh reviewer is available. | Keep the claim unverified and block READY unless the human explicitly waives the requirement. | Steps 4-5; review reference |
-| The effort allowance ends with a promising unfinished build. | PAUSE and hand over the best checkpoint without lowering the bar. | Entry; step 5 |
-| The same defect survives meaningful attempts. | Diagnose or change approach within budget; pause without a credible next attempt. | Step 4; asset reference |
-| The scoped experience meets its criteria and agreed checks. | READY for the designated acceptance decision; no automatic extra polish. | Step 5 |
-| A capability test passes while the actual encounter remains weak. | Resume realization; capability success does not complete the Dream. | Capability reference |
-| A rejected branch contains a demonstrated reusable gain. | Preserve its narrower status; integrate only within permission. | Step 6 |
-| An attractive new idea appears before the current Dream is convincing. | Record it without evading the selected work; revisit within authorized scope. | Steps 4 and 6 |
+| A chosen cozy fishing scene has unresolved implementation details. | Start realization from the choice; no forced concept audition. | Main entry; brief |
+| The request is exploration only. | Return alternatives/probes; no implied build. | Main step 2 |
+| A failed Rule is traced to one wrong transform. | Permit a local correction without labeling foundation debt. | Main repair branch; CONTEXT |
+| Direct evidence shows a representation cannot satisfy a required state. | Qualify a replacement immediately; two failed repairs are not prerequisites. | Main repair branch; assets |
+| Targeted fixes repeat without new explanatory evidence. | Diagnose, choose a coherent alternative, or PAUSE; recurrence does not invent a Rule. | Main repair branch |
+| The reviewer asks for a newly desired feature. | Treat it as a nonblocking opportunity unless scope changes. | Review findings |
+| A newly observed failure belongs to the original encounter but lacks a brief ID. | Explain the connection; keep a material challenge open rather than exploiting the omission. | Main gap response; review findings |
+| A narrow visual correction already has a baseline capture and explicit delta. | Use that target and affected checks without regenerating an image or reopening direction. | Main target and loop |
+| A human-only required check is unavailable. | Continue useful independent work; otherwise PAUSE. No unsupported READY. | Authority; decisions; example |
+| The human explicitly waives a missing check. | READY only if other obligations hold, with the waiver and unverified property disclosed. | Decisions; example |
+| A binding quality is known to fail. | A missing-check waiver does not erase it; scope/quality changes need explicit authority. | Decisions; review closure |
+| A small post-review edit affects shared camera or timing. | Invalidate potentially affected evidence and broaden follow-up when impact is uncertain. | Review closure |
+| An earlier review recommended CONTINUE on a binding failure. | Account for the material objection on the handoff candidate before READY. A historical review is insufficient. | Review closure |
+| The current candidate is rougher than the best checkpoint, with an older accepted baseline. | Preserve all three roles and recover the right one without implying acceptance. | Active record; checkpoint definitions |
+| All required observations are met, but final acceptance is pending. | READY on that candidate; the accepted baseline does not advance automatically. | Decisions; illustrative state |
+| A defect is reported after READY and no repair allowance remains. | Reopen it and PAUSE; do not automatically REJECT the idea or invent more work. | Decisions; example |
+| A gym passes its capability checks. | Charge the same allowance and return to the actual encounter; capability success alone is not readiness. | Gym reference |
+| An old record calls every Rule failure foundation debt. | Preserve history and reassess the cause when relevant, without hiding the unresolved requirement. | Provenance migration |
+| An accepted candidate is ready to retain, but merge permission is absent. | Keep acceptance distinct from repository integration authority. | Main retention |
 
-## Design tradeoffs
+### What remains unverified
 
-Keep the core build/review/decision loop in SKILL.md rather than making the main file a router to another skill. Disclose specialized imagination moves, review details, asset diagnostics, and capability work through specific pointers. One skill remains the human-facing interface without requiring every reference on every path.
+Actual use may still reveal late review, poor impact analysis, stale state, excessive conservatism, or a weak encounter that appears to satisfy the brief. Structural success does not settle these risks. Observe them during the next substantive Dream the human already wants, using its ordinary target comparisons, work record, review, and acceptance response. Do not create additional benchmark commissions to satisfy this document.
 
-Use checkpoints for unfinished progress and baseline for accepted inheritance. Keep readiness separate from acceptance and release authority. Fresh review is required for realization by default; self-review cannot silently replace it. Remove most specialized creative terminology instead of building a larger vocabulary around the old ambiguity.
+No claim is made that the illustrative record has been used to resume a real session, that all agents follow the new branch conditions, or that the package improves creative quality or cost relative to another workflow.
 
-Avoid fixed idea counts, universal reviewer scores, and per-phase quotas. Retain a bounded effort allowance and concrete quality criteria. These are chosen safeguards, not evidence for an optimal iteration policy.
+## Historical evidence, kept distinct
 
-## Behavioral validation still needed
+The [original rebuild validation at the inspected base](https://github.com/Drew-Goddyn/skills/blob/2dbbaff4462a779e06e55d9dede2c8fbcd7a6bbc/dev/dream-graph/VALIDATION.md) records the earlier reconstruction from `cbd91c80ba25af3834735ba8f6a128e9a964f28a`, publication rebased onto `7780255c2f936ca4fc5dc9501ef8fe3b0f1266e4`, structural and negative checks, packaging, author scenario reasoning, preserved concurrent README work, and an unsuccessful offline CLI-discovery attempt. It explicitly reports no fresh-agent runtime trial of that rebuild.
 
-Use a fresh agent with working generation, runtime observation, and independent review on a bounded real task. A suitable trial is one selected small interaction with an existing visual target and baseline. Supply this skill, the ordinary brief, and an effort allowance without coaching it through the failure cases above.
+[PR #4](https://github.com/Drew-Goddyn/skills/pull/4), merged October 12, 2026, added Rules, foundation debt, and three-timescale motion review after that validation account. Its body reports an earlier-version unattended observation stall, a Scooper foundation-rebuild experience, and successful CLI discovery. Those author reports were read; underlying runtime evidence was not replayed or independently inspected here. They neither validate this revision nor justify claiming that no prior runtime use ever occurred.
 
-Observe whether it starts building directly, uses actual target comparisons, continues beyond the first plausible prototype, improves the important gap, preserves the baseline, and stops honestly at readiness or the effort boundary. Review the actual artifact and record tool limitations and cost. One successful trial would support that trial, not establish superiority over Dream Loop; a comparative claim needs matched tasks and budgets.
+The pinned visitor history in the skill's worked example remains evidence for the design motivation, with its original limits. The added filled brief, active record, review, graph, and READY/PAUSE transitions are expressly illustrative, not historical test results.
