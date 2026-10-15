@@ -2,117 +2,140 @@
 // no git, no Codex) through each scenario and compares a one-line summary per scenario with expected.txt.
 // Run from the repo root:  node dev/dream-loop-fast/harness.cjs
 // Print the summaries instead of comparing:  node dev/dream-loop-fast/harness.cjs --print
-// It checks the script's control flow (keep/discard gate, stall and optimize rules, budget stops, failure
-// paths, bake-off mapping, builder instructions), not the quality of real builds or judgments.
+// It checks control flow and prompt wiring (director timing, plan persistence, keep/discard gate, stall
+// and optimize rules, budget stops, failure paths), not the quality of real builds or judgments.
 const fs = require('fs')
 const path = require('path')
 const SCRIPT = path.join(__dirname, '../../skills/claude code/dream-loop-fast/scripts/dream-loop-fast.js')
 const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor
-const body = fs.readFileSync(SCRIPT, 'utf8').replace(/^export const meta/m, 'const meta')
-const wf = new AsyncFunction('agent', 'parallel', 'log', 'phase', 'budget', 'args', body)
-const parallel = (thunks) => Promise.all(thunks.map(t => t().catch(() => null)))
+const wf = new AsyncFunction('agent', 'parallel', 'log', 'phase', 'budget', 'args', fs.readFileSync(SCRIPT, 'utf8').replace(/^export const meta/m, 'const meta'))
+const parallel = thunks => Promise.all(thunks.map(t => t().catch(() => null)))
 
-const SETUP = { ok: true, reason: '', repo: '/r', width: 1280, height: 720, target: '', baselineShot: '', baselineFps: 0, gpu: 'Apple M3', fpsReliable: true, codex: true, blender: '/usr/bin/blender' }
-// A verdict whose four rubric scores sum to t.
-const verdict = (t, extra = {}) => ({ composition: t * 0.3, lighting: t * 0.3, materials: t * 0.3, details: t * 0.1, regressed: false, repeatedTopGap: false, regressions: '', gaps: [{ area: 'lighting', gap: 'g', fix: 'f' }], ...extra })
+const SETUP = { ok: true, reason: '', repo: '/r', width: 1280, height: 720, target: '', baselineShot: '', baselineFps: 0, gpu: 'Apple M3', fpsReliable: true, codex: true, blender: '/usr/bin/blender', falKey: false }
+const PLAN = { plan: 'PLAN-V1', assets: [
+  { id: 'floor-pavers', route: 'codex', description: 'd' },
+  { id: 'backdrop', route: 'codex', description: 'd' },
+  { id: 'water-wheel', route: 'blender', description: 'd' },
+  { id: 'hero', route: 'fal', description: 'd' },
+] }
+const verdict = (t, extra = {}) => ({ composition: t * 0.3, lighting: t * 0.3, materials: t * 0.3, details: t * 0.1, regressed: false, regressions: '', gaps: [{ gap: 'g1', fix: 'f1' }], ...extra })
 
 async function run(scn) {
   const calls = [], prompts = {}, logs = []
-  let judged = 0, round = 0, spent = 0
+  let judged = 0, courses = 0, spent = 0
   const total = scn.budget ?? null
   const agent = async (prompt, o) => {
     if (total && spent >= total) throw new Error('budget exhausted')
     const L = o.label
-    spent += L.startsWith('build') ? 60000 : 5000
-    calls.push(`${L}|${o.model}|${o.effort}`); prompts[L] = prompt
+    spent += L.startsWith('build') ? 60000 : 3000
+    calls.push(`${L}|${o.model}|${o.effort}|${o.phase}`); prompts[L] = prompt
+    const forced = scn.override?.(L)
+    if (forced !== undefined) return forced
     if (L === 'setup') return scn.setup ?? SETUP
     if (L === 'dream') return { ok: true, reason: '', path: '/r/.dream-loop/runs/dream/target.png', prompt: 'p', generator: 'codex gpt-6-astra' }
-    if (L.startsWith('build')) { round = +L.match(/r(\d+)/)[1]; return scn.buildFail?.(L) ? { ok: false, summary: '' } : { ok: true, summary: L } }
-    if (L.startsWith('rank')) {
-      // Prefers whichever candidate's screenshot path contains scn.prefer, wherever it is listed.
-      const shown = [...prompt.matchAll(/^([A-H]): (.+)$/gm)].map(m => ({ letter: m[1], shot: m[2] }))
-      const pref = scn.prefer ?? 'c2'
-      shown.sort((a, b) => b.shot.includes(pref) - a.shot.includes(pref))
-      return { order: shown.map(x => x.letter) }
+    if (L === 'direct plan') return scn.plan ?? PLAN
+    if (L.startsWith('direct r')) { courses++; return { diagnosis: 'dx', focus: `FOCUS-${courses}`, plan: `PLAN-V${courses + 1}`, assets: scn.courseAssets ?? [] } }
+    if (L.startsWith('assets ')) {
+      const ids = [...prompt.matchAll(/^- ([a-z0-9-]+)\.png/gm)].map(m => m[1])
+      return { items: ids.map(id => ({ id: `${id}.png`, ok: true, files: [`/r/.dream-loop/runs/dream/assets/${id}.png`], notes: 'n' })) }
     }
-    if (L.startsWith('capture')) return { ok: true, screenshot: `/r/shots/${L.split(' ')[1]}-pick.png`, fps: scn.fps ? scn.fps(round) : 60, errors: [], leftovers: false, leak: scn.leak?.(round) ?? false }
-    if (L.startsWith('judge')) {
+    if (L.startsWith('asset ')) return { id: 'ignored', ok: true, files: [`/r/assets/${L.slice(6)}.glb`], notes: 'n' }
+    if (L.startsWith('build ')) {
+      if (scn.buildFail?.(L)) return { ok: false, summary: '', assetRequests: [] }
+      return { ok: true, summary: L, assetRequests: scn.requests?.(L) ?? [] }
+    }
+    if (L === 'compare baseline') return { ok: true, compare: '/r/shots/r0-compare.png', metrics: '{"brightness":0}' }
+    if (L.startsWith('capture ')) { const n = L.slice(8); return { ok: true, screenshot: `/r/shots/${n}-final.png`, compare: `/r/shots/${n}-final-compare.png`, fps: scn.fps ? scn.fps(n) : 60, metrics: '{"brightness":1}', errors: [], leftovers: false, leak: scn.leak?.(n) ?? false } }
+    if (L.startsWith('judge ')) {
       const s = scn.judges[judged++]
       if (s === undefined) throw new Error('ran out of scripted verdicts at ' + L)
       return typeof s === 'number' ? verdict(s) : verdict(s.t, s)
     }
-    if (L === 'bake-off prep') return { ok: true }
-    if (L.startsWith('bake-off')) {
-      // Always says ours is closer and the rival is better, so a correct A/B mapping yields "all" and "none".
-      const ours = prompt.match(/Attempt A: (.+)/)[1].endsWith('/p.png')
-      return { closer: ours ? 'A' : 'B', better: ours ? 'B' : 'A', why: 'w' }
-    }
-    if (L === 'finish') return scn.finishFail ? null : { ok: true, branchCreated: true, leaks: [] }
+    if (L === 'finish') return { ok: true, branchCreated: true, leaks: [] }
     throw new Error('unknown ' + L)
   }
   const budget = { total, spent: () => spent, remaining: () => total ? Math.max(0, total - spent) : Infinity }
-  try {
-    const res = await wf(agent, parallel, m => logs.push(m), () => {}, budget, scn.args)
-    return { res, calls, prompts, logs }
-  } catch (e) { return { error: e.message, calls, prompts, logs } }
+  try { return { res: await wf(agent, parallel, m => logs.push(m), () => {}, budget, scn.args), calls, prompts, logs } }
+  catch (e) { return { error: e.message, calls, prompts, logs } }
 }
 
+const A = extra => ({ request: 'demo', ...extra })
+const R = (t) => ({ t, regressed: true })
 const SCENARIOS = {
-  climb: { args: { request: 'demo' }, judges: [4, 6, 7.5, 8.5, 9.2] },
-  tolerance: { args: { request: 'demo', maxRounds: 3 }, judges: [6, 5.7, { t: 7, regressed: true }] },
-  slide: { args: { request: 'demo', maxRounds: 3 }, judges: [8, 7.6, 7.3] },
-  stall: { args: { request: 'demo' }, judges: [5, 5.5, 5.75, { t: 5.5, regressed: true }], prefer: 'c3' },
-  boldRecovers: { args: { request: 'demo', maxRounds: 6 }, judges: [5, 5.2, 5.4, 7.0, 7.1, 7.2] },
-  optimize: { args: { request: 'demo', compareWith: '/rival.png' }, judges: [7, 9.1, 9.0], fps: r => (r < 3 ? 40 : 58) },
-  optimizeFails: { args: { request: 'demo' }, judges: [9.5, 9.6, 9.7], fps: () => 40 },
-  leak: { args: { request: 'demo', maxRounds: 3 }, judges: [6, 7], leak: r => r === 2 },
-  baselineDone: { args: { request: 'demo', target: '/t.png' }, setup: { ...SETUP, target: '/r/t.png', baselineShot: '/r/b.png', baselineFps: 60 }, judges: [9.4] },
-  baselineSlow: { args: { request: 'demo', target: '/t.png', maxRounds: 2 }, setup: { ...SETUP, target: '/r/t.png', baselineShot: '/r/b.png', baselineFps: 40 }, judges: [9.4, 9.3], fps: () => 58 },
-  budget: { args: { request: 'demo' }, judges: [5, 6, 7, 8, 9], budget: 450000 },
-  budgetBakeoff: { args: { request: 'demo', compareWith: '/rival.png' }, judges: [5, 6, 7, 8, 9], budget: 450000 },
-  buildersFailing: { args: { request: 'demo' }, judges: [6], buildFail: L => !L.includes('r1-') },
-  finishFails: { args: { request: 'demo', maxRounds: 1 }, judges: [6], finishFail: true },
-  setupRefuses: { args: { request: 'demo' }, setup: { ok: false, reason: 'working tree is dirty; commit or stash first' }, judges: [] },
+  climb: { args: A({ maxRounds: 5 }), judges: [3, 4.5, 6, 7.5, 9.1] },
+  slowCallsDirector: { args: A({ maxRounds: 5 }), judges: [4, 4.3, 4.6, 5.8, 6.9] },
+  planPersistsAfterDiscard: { args: A({ maxRounds: 4 }), judges: [4, R(3.8), 5, 6] },
+  stalls: { args: A({}), judges: [4, R(3), R(3), R(3), R(3), R(3)] },
+  firstBuildFails: { args: A({ maxRounds: 3 }), judges: [4, 5], buildFail: L => L === 'build r1' },
+  baselineExisting: { args: A({ maxRounds: 1, target: '/t.png' }), setup: { ...SETUP, target: '/r/t.png', baselineShot: '/r/.dream-loop/runs/dream/shots/r0.png', baselineFps: 60 }, judges: [3, 4] },
+  optimize: { args: A({}), judges: [7, 9.2, 9.1], fps: n => (n === 'r3' ? 58 : 40) },
+  optimizeFails: { args: A({}), judges: [9.3, 9.4], fps: () => 40 },
+  directorAssets: { args: A({ maxRounds: 2, assetRequests: 2 }), judges: [4, 5], courseAssets: [{ id: 'mist-cards', route: 'codex', description: 'd' }, { id: 'backdrop', route: 'codex', description: 'dup' }, { id: 'crane', route: 'blender', description: 'd' }], requests: L => L === 'build r1' ? [{ id: 'banner', route: 'codex', description: 'd' }] : [] },
+  falWithRelay: { args: A({ maxRounds: 1, falRelay: 'http://127.0.0.1:4791', falJobs: 1 }), plan: { ...PLAN, assets: [...PLAN.assets, { id: 'statue', route: 'fal', description: 'd' }] }, judges: [4] },
+  noBlender: { args: A({ maxRounds: 1 }), setup: { ...SETUP, blender: '' }, judges: [4] },
+  noCodexWithTarget: { args: A({ maxRounds: 1, target: '/t.png' }), setup: { ...SETUP, codex: false, target: '/r/t.png' }, judges: [4] },
+  noCodexNoTarget: { args: A({}), setup: { ...SETUP, codex: false }, judges: [] },
+  directorFails: { args: A({ maxRounds: 2 }), judges: [4, 5], override: L => (L === 'direct r1' ? null : undefined) },
+  leak: { args: A({ maxRounds: 3 }), judges: [4, 5], leak: n => n === 'r2' },
+  buildersFailing: { args: A({}), judges: [4], buildFail: L => L !== 'build r1' },
+  budget: { args: A({}), judges: [3, 4, 5, 6, 7, 8], budget: 400000 },
+  planFails: { args: A({}), judges: [], override: L => (L === 'direct plan' ? null : undefined) },
+  noDirectorAfterLastRound: { args: A({ maxRounds: 3 }), judges: [4, 4.3, 4.6] },
+  directorAfterDiscard: { args: A({ maxRounds: 4 }), judges: [4, 4.4, R(3.9), 5] },
+  baselineDoneSlow: { args: A({ maxRounds: 2, target: '/t.png' }), setup: { ...SETUP, target: '/r/t.png', baselineShot: '/r/.dream-loop/runs/dream/shots/r0.png', baselineFps: 40 }, judges: [9.4, 9.5], fps: n => (n === 'r1' ? 58 : 40) },
+  setupRefuses: { args: A({}), setup: { ok: false, reason: 'working tree is dirty; commit or stash first' }, judges: [] },
   noRequest: { args: {}, judges: [] },
-  noCodexNoTarget: { args: { request: 'demo' }, setup: { ...SETUP, codex: false }, judges: [] },
-  noCodexWithTarget: { args: { request: 'demo', target: '/t.png', maxRounds: 2 }, setup: { ...SETUP, codex: false, target: '/r/t.png', blender: '' }, judges: [6, 7] },
 }
 
 function summarize(name, r) {
   if (r.error) return { agents: r.calls.length, threw: r.error }
-  const x = r.res
+  const x = r.res, p = r.prompts
   const out = {
-    agents: r.calls.length,
-    status: x.status, score: x.score, peak: x.peak.score, rounds: x.rounds, branch: x.branch,
-    history: x.history.map(h => `${h.round}:${h.mode}:${h.built}/${h.of}:${h.pick ?? '-'}:${h.score ?? '-'}:${h.accepted === undefined ? (h.note ? 'skip' : '-') : h.accepted ? 'keep' : 'drop'}`).join(' '),
-  }
-  if (x.bakeoff) out.bakeoff = `${x.bakeoff.closer} / ${x.bakeoff.better}`
-  if (r.logs.some(l => l.startsWith('Skipping the bake-off'))) out.bakeoffSkipped = true
-  if (name === 'optimize') {
-    const solo = r.prompts['build r3-c1'], parallelBuild = r.prompts['build r2-c1'], first = r.prompts['build r1-c1']
-    out.soloFpsReliable = solo.includes('fps reading is reliable')
-    out.parallelFpsIgnored = parallelBuild.includes('ignore it')
-    out.caps = [first.includes('at most 12 new'), parallelBuild.includes('at most 3 new')].join(',')
-    out.bakeoffBlind = !Object.entries(r.prompts).some(([L, p]) => L.startsWith('bake-off ') && L !== 'bake-off prep' && p.includes('rival'))
-    out.models = [...new Set(r.calls.map(c => c.split('|').slice(1).join('|')))].sort().join(' ')
+    agents: r.calls.length, status: x.status, score: x.score, peak: x.peak.score, rounds: x.rounds, opus: x.opusCalls,
+    history: x.history.map(h => `${h.round}:${h.mode}:${h.picked ? 'kept' : h.score != null ? 'drop' : 'skip'}:${h.score ?? '-'}${h.director ? '+D' : ''}`).join(' '),
+    library: x.library.length, falUsed: x.falJobsUsed,
   }
   if (name === 'climb') {
-    const b = r.prompts['build r2-c1']
-    out.assetRoutes = [b.includes('image-to-3D through fal.ai'), b.includes('"/usr/bin/blender" --background'), b.includes('never use fal for images')].join(',')
+    const b1 = p['build r1'], b2 = p['build r2'], b3 = p['build r3']
+    out.checks = {
+      firstCameraFirst: b1.includes('start with the camera'),
+      firstCreatesScene: b1.includes('create SCENE.md') && b1.includes('PLAN-V1'),
+      firstHighEffort: r.calls.includes('build r1|claude-sonnet-5-5|high|Build'),
+      afterReviewReplacesPlan: b2.includes('replace the Plan section') && b2.includes('PLAN-V2') && b2.includes('FOCUS-1'),
+      laterReadsSceneAndKeepsPlan: b3.includes('read SCENE.md') && b3.includes('Leave the Plan section') && !b3.includes('PLAN-V2'),
+      laterMedium: r.calls.includes('build r3|claude-sonnet-5-5|medium|Build'),
+      directorOpusHigh: r.calls.includes('direct plan|claude-opus-5-5|high|Direct') && r.calls.includes('direct r1|claude-opus-5-5|high|Direct'),
+      directorReadOnly: p['direct r1'].includes('Change nothing except writing your revised plan'),
+      captureHaikuRemovesWorktree: r.calls.includes('capture r1|claude-haiku-5-5|low|Capture') && p['capture r1'].includes('worktree remove --force'),
+      judgeSonnetHigh: r.calls.includes('judge r1|claude-sonnet-5-5|high|Judge'),
+      codexBatchHaiku: r.calls.some(c => c.startsWith('assets assets-1|claude-haiku-5-5')),
+      libraryInBuilder: b1.includes('floor-pavers (codex)'),
+      gitRule: b2.includes('never run git without -C') || b2.includes('Never run git without -C'),
+    }
   }
-  if (name === 'noCodexWithTarget') {
-    const b = r.prompts['build r1-c1']
-    out.noImages = b.includes('Image generation is unavailable') && b.includes('build them in code (image-to-3D needs image cutouts')
+  if (name === 'planPersistsAfterDiscard') out.planStillPending = {
+    r3HasRevisedPlan: p['build r3'].includes('PLAN-V2') && p['build r3'].includes('FOCUS-1'),
+    r4Clean: !p['build r4'].includes('PLAN-V2') && p['build r4'].includes('Leave the Plan section'),
   }
+  if (name === 'firstBuildFails') out.r2IsFirst = p['build r2'].includes('create SCENE.md') && r.calls.includes('build r2|claude-sonnet-5-5|high|Build')
+  if (name === 'baselineExisting') out.baseline = p['build r1'].includes('improves an existing product') && r.calls.some(c => c.startsWith('judge baseline'))
+  if (name === 'directorAfterDiscard') {
+    const d = p['direct r3'] || ''
+    out.director = { gotBestVerdict: d.includes("The judge's verdict on that best product") && !d.includes('"regressed":true'), gotAttempt: d.includes("This round's attempt was discarded") && d.includes('What that builder tried: build r3') }
+    out.r4CarriesSummary = (p['build r4'] || '').includes('What that builder tried: build r3')
+  }
+  if (name === 'baselineDoneSlow') out.optimizeOnly = (p['build r1'] || '').includes('follow the optimize instruction above') && !(p['build r1'] || '').includes('start with the camera')
+  if (name === 'directorAssets') out.libraryIds = x.library.join(',')
+  if (name === 'falWithRelay') { out.libraryIds = x.library.join(','); out.relayInFalPrompt = Object.entries(p).some(([L, t]) => L.startsWith('asset ') && t.includes('http://127.0.0.1:4791')) }
   return out
 }
 
 ;(async () => {
-  const print = process.argv.includes('--print')
   const lines = []
-  for (const [name, scn] of Object.entries(SCENARIOS)) lines.push(`${name.padEnd(18)} ${JSON.stringify(summarize(name, await run(scn)))}`)
-  if (print) return console.log(lines.join('\n'))
-  const expected = fs.readFileSync(path.join(__dirname, 'expected.txt'), 'utf8').trim().split('\n')
+  for (const [name, scn] of Object.entries(SCENARIOS)) lines.push(`${name.padEnd(26)} ${JSON.stringify(summarize(name, await run(scn)))}`)
+  if (process.argv.includes('--print')) return console.log(lines.join('\n'))
+  const expectedFile = path.join(__dirname, 'expected.txt')
+  const expected = fs.readFileSync(expectedFile, 'utf8').trim().split('\n')
   let failed = 0
   lines.forEach((line, i) => { if (line !== expected[i]) { failed++; console.log(`MISMATCH\n  got:      ${line}\n  expected: ${expected[i]}`) } })
   if (expected.length !== lines.length) { failed++; console.log(`expected ${expected.length} scenarios, ran ${lines.length}`) }
